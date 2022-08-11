@@ -21,7 +21,7 @@ asm(".global _printf_float");
 
 #define CLEAR_STRING "\033[2J"
 #define MOVE_CURSOR "\033[0;0H"
-
+#define SAMPLE_NUM 10000
 void extend();
 void retract();
 void stop();
@@ -60,11 +60,19 @@ CY_ISR(RxIsr)
     } while ((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u);
 }
 
-bool button = true;
+bool button = false;
 CY_ISR(SWPin_Control)
 {
     if (InputPin_Read() == 1u)
     {
+        if (button) {
+            LED_Write(1);   
+            extend();               
+        } else {
+            LED_Write(0);   
+            retract();
+        }
+        
         button = !button;
     }
 
@@ -84,42 +92,52 @@ int main(void)
     
     PWM3_Start();
 
-    PWM3_WriteCompare1(125);// M5
+    PWM3_WriteCompare1(127);// M5
+    AMux_Select(4);
     
     ADC_DelSig_1_StartConvert();
     
-    uint32_t output = 0;
+    static uint16_t buffer[SAMPLE_NUM];
+    uint16_t output = 0;
+    uint32_t counter = 0;
+    bool measured = false;
+    
+    retract();
+    
+    printf("%s", CLEAR_STRING);
+    printf("%s", MOVE_CURSOR);
+    printf("Wee \r\n");
     
     for(;;)
     {
-        /* Place your application code here. */
-        printf("%s", CLEAR_STRING);
-        printf("%s", MOVE_CURSOR);
-        if (button) {
-            LED_Write(1);   
-            extend();               
-        } else {
-            LED_Write(0);   
-            retract();
+
+        output = ADC_DelSig_1_GetResult16();
+        if (output >= 29491 && output <= 36045 && counter<SAMPLE_NUM)// from ~2.25 to ~2.75
+        {
+            // measure into buffer
+            buffer[counter] = output;
+            counter++;
+        }        
+        
+        if (counter == SAMPLE_NUM && measured == false) 
+        {
+            measured = true;
+            printf("Stopped measuring at %d, counter : %d \r\n", output, counter);
         }
         
-        AMux_Select(4);
-        while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
-            printf("Converting MUX 4 \r\n");
-        };
-        output = ADC_DelSig_1_GetResult16();
-        printf("Current Reading Motor 5: %d \r\n", output);
+        if (output >= 57630 && measured == false)
+        {
+            measured = true;
+            for (int i=0; i<SAMPLE_NUM; i++)
+            {
+                printf("%d, %d\r\n", i, buffer[i]);
+            }
+            printf("Finished measuring at %d, counter : %d \r\n", output, counter);
+        }
         
-        
-        
-        
-        
-        CyDelay(100);
+        CyDelayUs(100);
     }
 }
-
-
-
 
 void extend() {
     M5_IN1_Write(1U);

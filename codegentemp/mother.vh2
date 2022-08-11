@@ -2,7 +2,7 @@
 --	Conversion of mother.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Thu Aug 11 17:36:31 2022
+--	Thu Aug 11 20:44:52 2022
 --
 
 USE cypress.cypress.all;
@@ -759,10 +759,10 @@ SIGNAL \PWM1:PWMUDB:MODULE_6:g2:a0:g1:z1:s0:g1:u0:c_2\ : bit;
 SIGNAL \PWM1:PWMUDB:MODULE_6:g2:a0:g1:z1:s0:g1:u0:c_1\ : bit;
 SIGNAL \PWM1:PWMUDB:MODULE_6:g2:a0:g1:z1:s0:g1:u0:c_0\ : bit;
 SIGNAL \PWM1:PWMUDB:MODULE_6:g2:a0:g1:z1:s0:g1:u0:b_0\ : bit;
-SIGNAL Net_2398 : bit;
-SIGNAL Net_2392 : bit;
+SIGNAL Net_4606 : bit;
+SIGNAL Net_4600 : bit;
 SIGNAL \PWM1:Net_55\ : bit;
-SIGNAL Net_2391 : bit;
+SIGNAL Net_4599 : bit;
 SIGNAL \PWM1:Net_113\ : bit;
 SIGNAL \PWM1:Net_107\ : bit;
 SIGNAL \PWM1:Net_114\ : bit;
@@ -1102,10 +1102,10 @@ SIGNAL \PWM2:PWMUDB:MODULE_7:g2:a0:g1:z1:s0:g1:u0:c_2\ : bit;
 SIGNAL \PWM2:PWMUDB:MODULE_7:g2:a0:g1:z1:s0:g1:u0:c_1\ : bit;
 SIGNAL \PWM2:PWMUDB:MODULE_7:g2:a0:g1:z1:s0:g1:u0:c_0\ : bit;
 SIGNAL \PWM2:PWMUDB:MODULE_7:g2:a0:g1:z1:s0:g1:u0:b_0\ : bit;
-SIGNAL Net_2409 : bit;
-SIGNAL Net_2403 : bit;
+SIGNAL Net_4617 : bit;
+SIGNAL Net_4611 : bit;
 SIGNAL \PWM2:Net_55\ : bit;
-SIGNAL Net_2402 : bit;
+SIGNAL Net_4610 : bit;
 SIGNAL \PWM2:Net_113\ : bit;
 SIGNAL \PWM2:Net_107\ : bit;
 SIGNAL \PWM2:Net_114\ : bit;
@@ -1445,10 +1445,10 @@ SIGNAL \PWM3:PWMUDB:MODULE_8:g2:a0:g1:z1:s0:g1:u0:c_2\ : bit;
 SIGNAL \PWM3:PWMUDB:MODULE_8:g2:a0:g1:z1:s0:g1:u0:c_1\ : bit;
 SIGNAL \PWM3:PWMUDB:MODULE_8:g2:a0:g1:z1:s0:g1:u0:c_0\ : bit;
 SIGNAL \PWM3:PWMUDB:MODULE_8:g2:a0:g1:z1:s0:g1:u0:b_0\ : bit;
-SIGNAL Net_2420 : bit;
-SIGNAL Net_2414 : bit;
+SIGNAL Net_4628 : bit;
+SIGNAL Net_4622 : bit;
 SIGNAL \PWM3:Net_55\ : bit;
-SIGNAL Net_2413 : bit;
+SIGNAL Net_4621 : bit;
 SIGNAL \PWM3:Net_113\ : bit;
 SIGNAL \PWM3:Net_107\ : bit;
 SIGNAL \PWM3:Net_114\ : bit;
@@ -4030,7 +4030,7 @@ AMux:cy_psoc3_amux_v1_0
 		vout=>\ADC_DelSig_1:Net_20\);
 \ADC_DelSig_1:DSM\:cy_psoc3_ds_mod_v4_0
 	GENERIC MAP(cy_registers=>"",
-		resolution=>12)
+		resolution=>16)
 	PORT MAP(aclock=>\ADC_DelSig_1:Net_488\,
 		vplus=>Net_34,
 		vminus=>\ADC_DelSig_1:Net_520\,
@@ -4162,7 +4162,7 @@ AMux:cy_psoc3_amux_v1_0
 		id=>"e5eaf153-0ed6-4feb-9ebc-ab4e58c71d8e/edd15f43-b66b-457b-be3a-5342345270c8",
 		source_clock_id=>"61737EF6-3B74-48f9-8B91-F7473A442AE7",
 		divisor=>0,
-		period=>"763358778.625954",
+		period=>"386100386.100386",
 		is_direct=>'0',
 		is_digital=>'0')
 	PORT MAP(clock_out=>\ADC_DelSig_1:Net_488\,

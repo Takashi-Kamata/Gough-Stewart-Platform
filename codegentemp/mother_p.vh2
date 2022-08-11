@@ -1,5 +1,5 @@
 -- Project:   mother
--- Generated: 08/11/2022 17:36:59
+-- Generated: 08/11/2022 20:45:33
 -- PSoC Creator  4.2
 
 ENTITY mother IS
@@ -3773,7 +3773,7 @@ BEGIN
     \ADC_DelSig_1:DSM\:dsmodcell
         GENERIC MAP(
             cy_registers => "",
-            resolution => 12)
+            resolution => 16)
         PORT MAP(
             aclock => \ClockBlock.aclk_glb_ff_0__sig\,
             modbitin_udb => open,

@@ -29,8 +29,8 @@
 Number of clocks: 14
 Clock: ADC_DelSig_1_Ext_CP_Clk               | N/A                   | Target: 24.00 MHz   | 
 Clock: ADC_DelSig_1_Ext_CP_Clk(routed)       | N/A                   | Target: 24.00 MHz   | 
-Clock: ADC_DelSig_1_theACLK                  | N/A                   | Target: 1.33 MHz    | 
-Clock: ADC_DelSig_1_theACLK(fixed-function)  | N/A                   | Target: 1.33 MHz    | 
+Clock: ADC_DelSig_1_theACLK                  | N/A                   | Target: 2.67 MHz    | 
+Clock: ADC_DelSig_1_theACLK(fixed-function)  | N/A                   | Target: 2.67 MHz    | 
 Clock: Clock_1                               | Frequency: 93.76 MHz  | Target: 0.01 MHz    | 
 Clock: Clock_2                               | Frequency: 92.19 MHz  | Target: 0.01 MHz    | 
 Clock: Clock_3                               | Frequency: 94.30 MHz  | Target: 0.01 MHz    | 
