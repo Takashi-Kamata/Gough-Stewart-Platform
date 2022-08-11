@@ -1,0 +1,3130 @@
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.syntax unified
+  20              		.global _printf_float
+  21              		.thumb
+  22              		.syntax unified
+  23              		.section	.text.RxIsr,"ax",%progbits
+  24              		.align	2
+  25              		.global	RxIsr
+  26              		.thumb
+  27              		.thumb_func
+  28              		.type	RxIsr, %function
+  29              	RxIsr:
+  30              	.LFB64:
+  31              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #if defined(__GNUC__)
+  13:main.c        **** asm(".global _printf_float");
+  14:main.c        **** #endif
+  15:main.c        **** 
+  16:main.c        **** #include "project.h"
+  17:main.c        **** #include "common.h"
+  18:main.c        **** #include <stdio.h>
+  19:main.c        **** #include <stdlib.h>
+  20:main.c        **** #include <stdbool.h>
+  21:main.c        **** 
+  22:main.c        **** #define CLEAR_STRING "\033[2J"
+  23:main.c        **** #define MOVE_CURSOR "\033[0;0H"
+  24:main.c        **** 
+  25:main.c        **** void extend();
+  26:main.c        **** void retract();
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 2
+
+
+  27:main.c        **** void stop();
+  28:main.c        **** 
+  29:main.c        **** uint8 errorStatus = 0u;
+  30:main.c        **** CY_ISR(RxIsr)
+  31:main.c        **** {
+  32              		.loc 1 31 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36              		@ link register save eliminated.
+  37              	.L4:
+  32:main.c        ****     uint8 rxStatus;
+  33:main.c        ****     uint8 rxData;
+  34:main.c        **** 
+  35:main.c        ****     do
+  36:main.c        ****     {
+  37:main.c        ****         /* Read receiver status register */
+  38:main.c        ****         rxStatus = UART_RXSTATUS_REG;
+  38              		.loc 1 38 0
+  39 0000 0A4B     		ldr	r3, .L5
+  40 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  41 0004 DBB2     		uxtb	r3, r3
+  42              	.LVL0:
+  39:main.c        **** 
+  40:main.c        ****         if ((rxStatus & (UART_RX_STS_BREAK | UART_RX_STS_PAR_ERROR |
+  43              		.loc 1 40 0
+  44 0006 13F01E0F 		tst	r3, #30
+  45 000a 05D0     		beq	.L2
+  41:main.c        ****                          UART_RX_STS_STOP_ERROR | UART_RX_STS_OVERRUN)) != 0u)
+  42:main.c        ****         {
+  43:main.c        ****             /* ERROR handling. */
+  44:main.c        ****             errorStatus |= rxStatus & (UART_RX_STS_BREAK | UART_RX_STS_PAR_ERROR |
+  46              		.loc 1 44 0
+  47 000c 0848     		ldr	r0, .L5+4
+  48 000e 03F01E02 		and	r2, r3, #30
+  49 0012 0178     		ldrb	r1, [r0]	@ zero_extendqisi2
+  50 0014 0A43     		orrs	r2, r2, r1
+  51 0016 0270     		strb	r2, [r0]
+  52              	.L2:
+  53 0018 03F02003 		and	r3, r3, #32
+  54              	.LVL1:
+  45:main.c        ****                                        UART_RX_STS_STOP_ERROR | UART_RX_STS_OVERRUN);
+  46:main.c        ****         }
+  47:main.c        **** 
+  48:main.c        ****         if ((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u)
+  55              		.loc 1 48 0
+  56 001c 03F0FF02 		and	r2, r3, #255
+  57 0020 0BB1     		cbz	r3, .L3
+  49:main.c        ****         {
+  50:main.c        ****             /* Read data from the RX data register */
+  51:main.c        ****             rxData = UART_RXDATA_REG;
+  58              		.loc 1 51 0
+  59 0022 044B     		ldr	r3, .L5+8
+  60 0024 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  61              	.LVL2:
+  62              	.L3:
+  52:main.c        ****             if (errorStatus == 0u)
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 3
+
+
+  53:main.c        ****             {
+  54:main.c        ****                 /*
+  55:main.c        ****                 UART_TXDATA_REG = rxData;
+  56:main.c        ****                 
+  57:main.c        ****                 printf("11\r\n");
+  58:main.c        ****                 */
+  59:main.c        ****             }
+  60:main.c        ****         }
+  61:main.c        ****     } while ((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u);
+  63              		.loc 1 61 0
+  64 0026 002A     		cmp	r2, #0
+  65 0028 EAD1     		bne	.L4
+  62:main.c        **** }
+  66              		.loc 1 62 0
+  67 002a 7047     		bx	lr
+  68              	.L6:
+  69              		.align	2
+  70              	.L5:
+  71 002c 67650040 		.word	1073767783
+  72 0030 00000000 		.word	.LANCHOR0
+  73 0034 4B650040 		.word	1073767755
+  74              		.cfi_endproc
+  75              	.LFE64:
+  76              		.size	RxIsr, .-RxIsr
+  77              		.section	.text.SWPin_Control,"ax",%progbits
+  78              		.align	2
+  79              		.global	SWPin_Control
+  80              		.thumb
+  81              		.thumb_func
+  82              		.type	SWPin_Control, %function
+  83              	SWPin_Control:
+  84              	.LFB65:
+  63:main.c        **** 
+  64:main.c        **** bool button = true;
+  65:main.c        **** CY_ISR(SWPin_Control)
+  66:main.c        **** {
+  85              		.loc 1 66 0
+  86              		.cfi_startproc
+  87              		@ args = 0, pretend = 0, frame = 0
+  88              		@ frame_needed = 0, uses_anonymous_args = 0
+  89 0000 08B5     		push	{r3, lr}
+  90              		.cfi_def_cfa_offset 8
+  91              		.cfi_offset 3, -8
+  92              		.cfi_offset 14, -4
+  67:main.c        ****     if (InputPin_Read() == 1u)
+  93              		.loc 1 67 0
+  94 0002 FFF7FEFF 		bl	InputPin_Read
+  95              	.LVL3:
+  96 0006 0128     		cmp	r0, #1
+  97 0008 04D1     		bne	.L8
+  68:main.c        ****     {
+  69:main.c        ****         button = !button;
+  98              		.loc 1 69 0
+  99 000a 044A     		ldr	r2, .L10
+ 100 000c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 101 000e 83F00103 		eor	r3, r3, #1
+ 102 0012 1370     		strb	r3, [r2]
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 4
+
+
+ 103              	.L8:
+  70:main.c        ****     }
+  71:main.c        **** 
+  72:main.c        ****     InputPin_ClearInterrupt();
+ 104              		.loc 1 72 0
+ 105 0014 FFF7FEFF 		bl	InputPin_ClearInterrupt
+ 106              	.LVL4:
+ 107 0018 08BD     		pop	{r3, pc}
+ 108              	.L11:
+ 109 001a 00BF     		.align	2
+ 110              	.L10:
+ 111 001c 00000000 		.word	.LANCHOR1
+ 112              		.cfi_endproc
+ 113              	.LFE65:
+ 114              		.size	SWPin_Control, .-SWPin_Control
+ 115              		.section	.text.extend,"ax",%progbits
+ 116              		.align	2
+ 117              		.global	extend
+ 118              		.thumb
+ 119              		.thumb_func
+ 120              		.type	extend, %function
+ 121              	extend:
+ 122              	.LFB67:
+  73:main.c        **** }
+  74:main.c        **** 
+  75:main.c        **** int main(void)
+  76:main.c        **** {
+  77:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  78:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  79:main.c        ****     UART_Start(); /* Start communication component */
+  80:main.c        ****     AMux_Start();
+  81:main.c        ****     ADC_DelSig_1_Start();
+  82:main.c        ****     
+  83:main.c        ****     isr_rx_StartEx(RxIsr);
+  84:main.c        ****     InputInterrupt_StartEx(SWPin_Control);
+  85:main.c        ****     
+  86:main.c        ****     
+  87:main.c        ****     PWM1_Start();
+  88:main.c        ****     PWM2_Start();
+  89:main.c        ****     PWM3_Start();
+  90:main.c        ****     
+  91:main.c        ****     PWM1_WriteCompare1(125);
+  92:main.c        ****     PWM1_WriteCompare2(125);
+  93:main.c        ****     PWM2_WriteCompare1(125);
+  94:main.c        ****     PWM2_WriteCompare2(125);
+  95:main.c        ****     PWM3_WriteCompare1(125);
+  96:main.c        ****     PWM3_WriteCompare2(125);
+  97:main.c        ****     
+  98:main.c        ****     ADC_DelSig_1_StartConvert();
+  99:main.c        ****     
+ 100:main.c        ****     uint32_t output = 0;
+ 101:main.c        ****     
+ 102:main.c        ****     for(;;)
+ 103:main.c        ****     {
+ 104:main.c        ****         /* Place your application code here. */
+ 105:main.c        ****         printf("%s", CLEAR_STRING);
+ 106:main.c        ****         printf("%s", MOVE_CURSOR);
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 5
+
+
+ 107:main.c        ****         if (button) {
+ 108:main.c        ****             LED_Write(1);   
+ 109:main.c        ****             extend();               
+ 110:main.c        ****         } else {
+ 111:main.c        ****             LED_Write(0);   
+ 112:main.c        ****             retract();
+ 113:main.c        ****         }
+ 114:main.c        ****         
+ 115:main.c        ****         AMux_Select(0);
+ 116:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 117:main.c        ****             printf("Converting MUX 0 \r\n");
+ 118:main.c        ****         };
+ 119:main.c        ****         output = ADC_DelSig_1_GetResult16();
+ 120:main.c        ****         printf("Current Reading Motor 1: %d \r\n", output);
+ 121:main.c        ****         
+ 122:main.c        ****         AMux_Select(1);
+ 123:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 124:main.c        ****             printf("Converting MUX 1 \r\n");
+ 125:main.c        ****         };
+ 126:main.c        ****         output = ADC_DelSig_1_GetResult16();
+ 127:main.c        ****         printf("Current Reading Motor 2: %d \r\n", output);
+ 128:main.c        ****         
+ 129:main.c        ****         AMux_Select(2);
+ 130:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 131:main.c        ****             printf("Converting MUX 2 \r\n");
+ 132:main.c        ****         };
+ 133:main.c        ****         output = ADC_DelSig_1_GetResult16();
+ 134:main.c        ****         printf("Current Reading Motor 3: %d \r\n", output);
+ 135:main.c        ****         
+ 136:main.c        ****         AMux_Select(3);
+ 137:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 138:main.c        ****             printf("Converting MUX 3 \r\n");
+ 139:main.c        ****         };
+ 140:main.c        ****         output = ADC_DelSig_1_GetResult16();
+ 141:main.c        ****         printf("Current Reading Motor 4: %d \r\n", output);
+ 142:main.c        ****         
+ 143:main.c        ****         AMux_Select(4);
+ 144:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 145:main.c        ****             printf("Converting MUX 4 \r\n");
+ 146:main.c        ****         };
+ 147:main.c        ****         output = ADC_DelSig_1_GetResult16();
+ 148:main.c        ****         printf("Current Reading Motor 5: %d \r\n", output);
+ 149:main.c        ****         
+ 150:main.c        ****         AMux_Select(5);
+ 151:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 152:main.c        ****             printf("Converting MUX 5 \r\n");
+ 153:main.c        ****         };
+ 154:main.c        ****         output = ADC_DelSig_1_GetResult16();
+ 155:main.c        ****         printf("Current Reading Motor 6: %d \r\n", output);
+ 156:main.c        ****         
+ 157:main.c        ****         CyDelay(100);
+ 158:main.c        ****     }
+ 159:main.c        **** }
+ 160:main.c        **** 
+ 161:main.c        **** 
+ 162:main.c        **** 
+ 163:main.c        **** 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 6
+
+
+ 164:main.c        **** void extend() {
+ 123              		.loc 1 164 0
+ 124              		.cfi_startproc
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127 0000 08B5     		push	{r3, lr}
+ 128              		.cfi_def_cfa_offset 8
+ 129              		.cfi_offset 3, -8
+ 130              		.cfi_offset 14, -4
+ 165:main.c        ****     M1_IN1_Write(1U);
+ 131              		.loc 1 165 0
+ 132 0002 0120     		movs	r0, #1
+ 133 0004 FFF7FEFF 		bl	M1_IN1_Write
+ 134              	.LVL5:
+ 166:main.c        ****     M1_IN2_Write(0U);
+ 135              		.loc 1 166 0
+ 136 0008 0020     		movs	r0, #0
+ 137 000a FFF7FEFF 		bl	M1_IN2_Write
+ 138              	.LVL6:
+ 167:main.c        ****     M2_IN1_Write(1U);
+ 139              		.loc 1 167 0
+ 140 000e 0120     		movs	r0, #1
+ 141 0010 FFF7FEFF 		bl	M2_IN1_Write
+ 142              	.LVL7:
+ 168:main.c        ****     M2_IN2_Write(0U);
+ 143              		.loc 1 168 0
+ 144 0014 0020     		movs	r0, #0
+ 145 0016 FFF7FEFF 		bl	M2_IN2_Write
+ 146              	.LVL8:
+ 169:main.c        ****     M3_IN1_Write(1U);
+ 147              		.loc 1 169 0
+ 148 001a 0120     		movs	r0, #1
+ 149 001c FFF7FEFF 		bl	M3_IN1_Write
+ 150              	.LVL9:
+ 170:main.c        ****     M3_IN2_Write(0U);
+ 151              		.loc 1 170 0
+ 152 0020 0020     		movs	r0, #0
+ 153 0022 FFF7FEFF 		bl	M3_IN2_Write
+ 154              	.LVL10:
+ 171:main.c        ****     M4_IN1_Write(1U);
+ 155              		.loc 1 171 0
+ 156 0026 0120     		movs	r0, #1
+ 157 0028 FFF7FEFF 		bl	M4_IN1_Write
+ 158              	.LVL11:
+ 172:main.c        ****     M4_IN2_Write(0U);
+ 159              		.loc 1 172 0
+ 160 002c 0020     		movs	r0, #0
+ 161 002e FFF7FEFF 		bl	M4_IN2_Write
+ 162              	.LVL12:
+ 173:main.c        ****     M5_IN1_Write(1U);
+ 163              		.loc 1 173 0
+ 164 0032 0120     		movs	r0, #1
+ 165 0034 FFF7FEFF 		bl	M5_IN1_Write
+ 166              	.LVL13:
+ 174:main.c        ****     M5_IN2_Write(0U);
+ 167              		.loc 1 174 0
+ 168 0038 0020     		movs	r0, #0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 7
+
+
+ 169 003a FFF7FEFF 		bl	M5_IN2_Write
+ 170              	.LVL14:
+ 175:main.c        ****     M6_IN1_Write(1U);
+ 171              		.loc 1 175 0
+ 172 003e 0120     		movs	r0, #1
+ 173 0040 FFF7FEFF 		bl	M6_IN1_Write
+ 174              	.LVL15:
+ 176:main.c        ****     M6_IN2_Write(0U);
+ 175              		.loc 1 176 0
+ 176 0044 0020     		movs	r0, #0
+ 177 0046 FFF7FEFF 		bl	M6_IN2_Write
+ 178              	.LVL16:
+ 179 004a 08BD     		pop	{r3, pc}
+ 180              		.cfi_endproc
+ 181              	.LFE67:
+ 182              		.size	extend, .-extend
+ 183              		.section	.text.retract,"ax",%progbits
+ 184              		.align	2
+ 185              		.global	retract
+ 186              		.thumb
+ 187              		.thumb_func
+ 188              		.type	retract, %function
+ 189              	retract:
+ 190              	.LFB68:
+ 177:main.c        **** }
+ 178:main.c        **** 
+ 179:main.c        **** void retract() {
+ 191              		.loc 1 179 0
+ 192              		.cfi_startproc
+ 193              		@ args = 0, pretend = 0, frame = 0
+ 194              		@ frame_needed = 0, uses_anonymous_args = 0
+ 195 0000 08B5     		push	{r3, lr}
+ 196              		.cfi_def_cfa_offset 8
+ 197              		.cfi_offset 3, -8
+ 198              		.cfi_offset 14, -4
+ 180:main.c        ****     M1_IN1_Write(0U);
+ 199              		.loc 1 180 0
+ 200 0002 0020     		movs	r0, #0
+ 201 0004 FFF7FEFF 		bl	M1_IN1_Write
+ 202              	.LVL17:
+ 181:main.c        ****     M1_IN2_Write(1U);
+ 203              		.loc 1 181 0
+ 204 0008 0120     		movs	r0, #1
+ 205 000a FFF7FEFF 		bl	M1_IN2_Write
+ 206              	.LVL18:
+ 182:main.c        ****     M2_IN1_Write(0U);
+ 207              		.loc 1 182 0
+ 208 000e 0020     		movs	r0, #0
+ 209 0010 FFF7FEFF 		bl	M2_IN1_Write
+ 210              	.LVL19:
+ 183:main.c        ****     M2_IN2_Write(1U);
+ 211              		.loc 1 183 0
+ 212 0014 0120     		movs	r0, #1
+ 213 0016 FFF7FEFF 		bl	M2_IN2_Write
+ 214              	.LVL20:
+ 184:main.c        ****     M3_IN1_Write(0U);
+ 215              		.loc 1 184 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 8
+
+
+ 216 001a 0020     		movs	r0, #0
+ 217 001c FFF7FEFF 		bl	M3_IN1_Write
+ 218              	.LVL21:
+ 185:main.c        ****     M3_IN2_Write(1U);
+ 219              		.loc 1 185 0
+ 220 0020 0120     		movs	r0, #1
+ 221 0022 FFF7FEFF 		bl	M3_IN2_Write
+ 222              	.LVL22:
+ 186:main.c        ****     M4_IN1_Write(0U);
+ 223              		.loc 1 186 0
+ 224 0026 0020     		movs	r0, #0
+ 225 0028 FFF7FEFF 		bl	M4_IN1_Write
+ 226              	.LVL23:
+ 187:main.c        ****     M4_IN2_Write(1U);
+ 227              		.loc 1 187 0
+ 228 002c 0120     		movs	r0, #1
+ 229 002e FFF7FEFF 		bl	M4_IN2_Write
+ 230              	.LVL24:
+ 188:main.c        ****     M5_IN1_Write(0U);
+ 231              		.loc 1 188 0
+ 232 0032 0020     		movs	r0, #0
+ 233 0034 FFF7FEFF 		bl	M5_IN1_Write
+ 234              	.LVL25:
+ 189:main.c        ****     M5_IN2_Write(1U);
+ 235              		.loc 1 189 0
+ 236 0038 0120     		movs	r0, #1
+ 237 003a FFF7FEFF 		bl	M5_IN2_Write
+ 238              	.LVL26:
+ 190:main.c        ****     M6_IN1_Write(0U);
+ 239              		.loc 1 190 0
+ 240 003e 0020     		movs	r0, #0
+ 241 0040 FFF7FEFF 		bl	M6_IN1_Write
+ 242              	.LVL27:
+ 191:main.c        ****     M6_IN2_Write(1U);
+ 243              		.loc 1 191 0
+ 244 0044 0120     		movs	r0, #1
+ 245 0046 FFF7FEFF 		bl	M6_IN2_Write
+ 246              	.LVL28:
+ 247 004a 08BD     		pop	{r3, pc}
+ 248              		.cfi_endproc
+ 249              	.LFE68:
+ 250              		.size	retract, .-retract
+ 251              		.section	.text.main,"ax",%progbits
+ 252              		.align	2
+ 253              		.global	main
+ 254              		.thumb
+ 255              		.thumb_func
+ 256              		.type	main, %function
+ 257              	main:
+ 258              	.LFB66:
+  76:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 259              		.loc 1 76 0
+ 260              		.cfi_startproc
+ 261              		@ args = 0, pretend = 0, frame = 0
+ 262              		@ frame_needed = 0, uses_anonymous_args = 0
+ 263 0000 10B5     		push	{r4, lr}
+ 264              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 9
+
+
+ 265              		.cfi_offset 4, -8
+ 266              		.cfi_offset 14, -4
+  77:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+ 267              		.loc 1 77 0
+ 268              		.syntax unified
+ 269              	@ 77 "main.c" 1
+ 270 0002 62B6     		CPSIE   i
+ 271              	@ 0 "" 2
+  79:main.c        ****     AMux_Start();
+ 272              		.loc 1 79 0
+ 273              		.thumb
+ 274              		.syntax unified
+ 275 0004 FFF7FEFF 		bl	UART_Start
+ 276              	.LVL29:
+  80:main.c        ****     ADC_DelSig_1_Start();
+ 277              		.loc 1 80 0
+ 278 0008 FFF7FEFF 		bl	AMux_Start
+ 279              	.LVL30:
+  81:main.c        ****     
+ 280              		.loc 1 81 0
+ 281 000c FFF7FEFF 		bl	ADC_DelSig_1_Start
+ 282              	.LVL31:
+  83:main.c        ****     InputInterrupt_StartEx(SWPin_Control);
+ 283              		.loc 1 83 0
+ 284 0010 5348     		ldr	r0, .L33
+ 285 0012 FFF7FEFF 		bl	isr_rx_StartEx
+ 286              	.LVL32:
+  84:main.c        ****     
+ 287              		.loc 1 84 0
+ 288 0016 5348     		ldr	r0, .L33+4
+ 289 0018 FFF7FEFF 		bl	InputInterrupt_StartEx
+ 290              	.LVL33:
+  87:main.c        ****     PWM2_Start();
+ 291              		.loc 1 87 0
+ 292 001c FFF7FEFF 		bl	PWM1_Start
+ 293              	.LVL34:
+  88:main.c        ****     PWM3_Start();
+ 294              		.loc 1 88 0
+ 295 0020 FFF7FEFF 		bl	PWM2_Start
+ 296              	.LVL35:
+  89:main.c        ****     
+ 297              		.loc 1 89 0
+ 298 0024 FFF7FEFF 		bl	PWM3_Start
+ 299              	.LVL36:
+  91:main.c        ****     PWM1_WriteCompare2(125);
+ 300              		.loc 1 91 0
+ 301 0028 7D20     		movs	r0, #125
+ 302 002a FFF7FEFF 		bl	PWM1_WriteCompare1
+ 303              	.LVL37:
+  92:main.c        ****     PWM2_WriteCompare1(125);
+ 304              		.loc 1 92 0
+ 305 002e 7D20     		movs	r0, #125
+ 306 0030 FFF7FEFF 		bl	PWM1_WriteCompare2
+ 307              	.LVL38:
+  93:main.c        ****     PWM2_WriteCompare2(125);
+ 308              		.loc 1 93 0
+ 309 0034 7D20     		movs	r0, #125
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 10
+
+
+ 310 0036 FFF7FEFF 		bl	PWM2_WriteCompare1
+ 311              	.LVL39:
+  94:main.c        ****     PWM3_WriteCompare1(125);
+ 312              		.loc 1 94 0
+ 313 003a 7D20     		movs	r0, #125
+ 314 003c FFF7FEFF 		bl	PWM2_WriteCompare2
+ 315              	.LVL40:
+  95:main.c        ****     PWM3_WriteCompare2(125);
+ 316              		.loc 1 95 0
+ 317 0040 7D20     		movs	r0, #125
+ 318 0042 FFF7FEFF 		bl	PWM3_WriteCompare1
+ 319              	.LVL41:
+  96:main.c        ****     
+ 320              		.loc 1 96 0
+ 321 0046 7D20     		movs	r0, #125
+ 322 0048 FFF7FEFF 		bl	PWM3_WriteCompare2
+ 323              	.LVL42:
+  98:main.c        ****     
+ 324              		.loc 1 98 0
+ 325 004c FFF7FEFF 		bl	ADC_DelSig_1_StartConvert
+ 326              	.LVL43:
+ 327              	.L31:
+ 105:main.c        ****         printf("%s", MOVE_CURSOR);
+ 328              		.loc 1 105 0
+ 329 0050 454C     		ldr	r4, .L33+8
+ 330 0052 4649     		ldr	r1, .L33+12
+ 331 0054 2046     		mov	r0, r4
+ 332 0056 FFF7FEFF 		bl	printf
+ 333              	.LVL44:
+ 106:main.c        ****         if (button) {
+ 334              		.loc 1 106 0
+ 335 005a 4549     		ldr	r1, .L33+16
+ 336 005c 2046     		mov	r0, r4
+ 337 005e FFF7FEFF 		bl	printf
+ 338              	.LVL45:
+ 107:main.c        ****             LED_Write(1);   
+ 339              		.loc 1 107 0
+ 340 0062 444B     		ldr	r3, .L33+20
+ 341 0064 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 342 0066 2BB1     		cbz	r3, .L17
+ 108:main.c        ****             extend();               
+ 343              		.loc 1 108 0
+ 344 0068 0120     		movs	r0, #1
+ 345 006a FFF7FEFF 		bl	LED_Write
+ 346              	.LVL46:
+ 109:main.c        ****         } else {
+ 347              		.loc 1 109 0
+ 348 006e FFF7FEFF 		bl	extend
+ 349              	.LVL47:
+ 350 0072 04E0     		b	.L18
+ 351              	.L17:
+ 111:main.c        ****             retract();
+ 352              		.loc 1 111 0
+ 353 0074 0020     		movs	r0, #0
+ 354 0076 FFF7FEFF 		bl	LED_Write
+ 355              	.LVL48:
+ 112:main.c        ****         }
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 11
+
+
+ 356              		.loc 1 112 0
+ 357 007a FFF7FEFF 		bl	retract
+ 358              	.LVL49:
+ 359              	.L18:
+ 115:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 360              		.loc 1 115 0
+ 361 007e 0020     		movs	r0, #0
+ 362 0080 FFF7FEFF 		bl	AMux_Select
+ 363              	.LVL50:
+ 116:main.c        ****             printf("Converting MUX 0 \r\n");
+ 364              		.loc 1 116 0
+ 365 0084 02E0     		b	.L19
+ 366              	.L20:
+ 117:main.c        ****         };
+ 367              		.loc 1 117 0
+ 368 0086 3C48     		ldr	r0, .L33+24
+ 369 0088 FFF7FEFF 		bl	puts
+ 370              	.LVL51:
+ 371              	.L19:
+ 116:main.c        ****             printf("Converting MUX 0 \r\n");
+ 372              		.loc 1 116 0
+ 373 008c 0120     		movs	r0, #1
+ 374 008e FFF7FEFF 		bl	ADC_DelSig_1_IsEndConversion
+ 375              	.LVL52:
+ 376 0092 0028     		cmp	r0, #0
+ 377 0094 F7D0     		beq	.L20
+ 119:main.c        ****         printf("Current Reading Motor 1: %d \r\n", output);
+ 378              		.loc 1 119 0
+ 379 0096 FFF7FEFF 		bl	ADC_DelSig_1_GetResult16
+ 380              	.LVL53:
+ 120:main.c        ****         
+ 381              		.loc 1 120 0
+ 382 009a 0146     		mov	r1, r0
+ 383 009c 3748     		ldr	r0, .L33+28
+ 384              	.LVL54:
+ 385 009e FFF7FEFF 		bl	printf
+ 386              	.LVL55:
+ 122:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 387              		.loc 1 122 0
+ 388 00a2 0120     		movs	r0, #1
+ 389 00a4 FFF7FEFF 		bl	AMux_Select
+ 390              	.LVL56:
+ 123:main.c        ****             printf("Converting MUX 1 \r\n");
+ 391              		.loc 1 123 0
+ 392 00a8 02E0     		b	.L21
+ 393              	.L22:
+ 124:main.c        ****         };
+ 394              		.loc 1 124 0
+ 395 00aa 3548     		ldr	r0, .L33+32
+ 396 00ac FFF7FEFF 		bl	puts
+ 397              	.LVL57:
+ 398              	.L21:
+ 123:main.c        ****             printf("Converting MUX 1 \r\n");
+ 399              		.loc 1 123 0
+ 400 00b0 0120     		movs	r0, #1
+ 401 00b2 FFF7FEFF 		bl	ADC_DelSig_1_IsEndConversion
+ 402              	.LVL58:
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 12
+
+
+ 403 00b6 0028     		cmp	r0, #0
+ 404 00b8 F7D0     		beq	.L22
+ 126:main.c        ****         printf("Current Reading Motor 2: %d \r\n", output);
+ 405              		.loc 1 126 0
+ 406 00ba FFF7FEFF 		bl	ADC_DelSig_1_GetResult16
+ 407              	.LVL59:
+ 127:main.c        ****         
+ 408              		.loc 1 127 0
+ 409 00be 0146     		mov	r1, r0
+ 410 00c0 3048     		ldr	r0, .L33+36
+ 411              	.LVL60:
+ 412 00c2 FFF7FEFF 		bl	printf
+ 413              	.LVL61:
+ 129:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 414              		.loc 1 129 0
+ 415 00c6 0220     		movs	r0, #2
+ 416 00c8 FFF7FEFF 		bl	AMux_Select
+ 417              	.LVL62:
+ 130:main.c        ****             printf("Converting MUX 2 \r\n");
+ 418              		.loc 1 130 0
+ 419 00cc 02E0     		b	.L23
+ 420              	.L24:
+ 131:main.c        ****         };
+ 421              		.loc 1 131 0
+ 422 00ce 2E48     		ldr	r0, .L33+40
+ 423 00d0 FFF7FEFF 		bl	puts
+ 424              	.LVL63:
+ 425              	.L23:
+ 130:main.c        ****             printf("Converting MUX 2 \r\n");
+ 426              		.loc 1 130 0
+ 427 00d4 0120     		movs	r0, #1
+ 428 00d6 FFF7FEFF 		bl	ADC_DelSig_1_IsEndConversion
+ 429              	.LVL64:
+ 430 00da 0028     		cmp	r0, #0
+ 431 00dc F7D0     		beq	.L24
+ 133:main.c        ****         printf("Current Reading Motor 3: %d \r\n", output);
+ 432              		.loc 1 133 0
+ 433 00de FFF7FEFF 		bl	ADC_DelSig_1_GetResult16
+ 434              	.LVL65:
+ 134:main.c        ****         
+ 435              		.loc 1 134 0
+ 436 00e2 0146     		mov	r1, r0
+ 437 00e4 2948     		ldr	r0, .L33+44
+ 438              	.LVL66:
+ 439 00e6 FFF7FEFF 		bl	printf
+ 440              	.LVL67:
+ 136:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 441              		.loc 1 136 0
+ 442 00ea 0320     		movs	r0, #3
+ 443 00ec FFF7FEFF 		bl	AMux_Select
+ 444              	.LVL68:
+ 137:main.c        ****             printf("Converting MUX 3 \r\n");
+ 445              		.loc 1 137 0
+ 446 00f0 02E0     		b	.L25
+ 447              	.L26:
+ 138:main.c        ****         };
+ 448              		.loc 1 138 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 13
+
+
+ 449 00f2 2748     		ldr	r0, .L33+48
+ 450 00f4 FFF7FEFF 		bl	puts
+ 451              	.LVL69:
+ 452              	.L25:
+ 137:main.c        ****             printf("Converting MUX 3 \r\n");
+ 453              		.loc 1 137 0
+ 454 00f8 0120     		movs	r0, #1
+ 455 00fa FFF7FEFF 		bl	ADC_DelSig_1_IsEndConversion
+ 456              	.LVL70:
+ 457 00fe 0028     		cmp	r0, #0
+ 458 0100 F7D0     		beq	.L26
+ 140:main.c        ****         printf("Current Reading Motor 4: %d \r\n", output);
+ 459              		.loc 1 140 0
+ 460 0102 FFF7FEFF 		bl	ADC_DelSig_1_GetResult16
+ 461              	.LVL71:
+ 141:main.c        ****         
+ 462              		.loc 1 141 0
+ 463 0106 0146     		mov	r1, r0
+ 464 0108 2248     		ldr	r0, .L33+52
+ 465              	.LVL72:
+ 466 010a FFF7FEFF 		bl	printf
+ 467              	.LVL73:
+ 143:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 468              		.loc 1 143 0
+ 469 010e 0420     		movs	r0, #4
+ 470 0110 FFF7FEFF 		bl	AMux_Select
+ 471              	.LVL74:
+ 144:main.c        ****             printf("Converting MUX 4 \r\n");
+ 472              		.loc 1 144 0
+ 473 0114 02E0     		b	.L27
+ 474              	.L28:
+ 145:main.c        ****         };
+ 475              		.loc 1 145 0
+ 476 0116 2048     		ldr	r0, .L33+56
+ 477 0118 FFF7FEFF 		bl	puts
+ 478              	.LVL75:
+ 479              	.L27:
+ 144:main.c        ****             printf("Converting MUX 4 \r\n");
+ 480              		.loc 1 144 0
+ 481 011c 0120     		movs	r0, #1
+ 482 011e FFF7FEFF 		bl	ADC_DelSig_1_IsEndConversion
+ 483              	.LVL76:
+ 484 0122 0028     		cmp	r0, #0
+ 485 0124 F7D0     		beq	.L28
+ 147:main.c        ****         printf("Current Reading Motor 5: %d \r\n", output);
+ 486              		.loc 1 147 0
+ 487 0126 FFF7FEFF 		bl	ADC_DelSig_1_GetResult16
+ 488              	.LVL77:
+ 148:main.c        ****         
+ 489              		.loc 1 148 0
+ 490 012a 0146     		mov	r1, r0
+ 491 012c 1B48     		ldr	r0, .L33+60
+ 492              	.LVL78:
+ 493 012e FFF7FEFF 		bl	printf
+ 494              	.LVL79:
+ 150:main.c        ****         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
+ 495              		.loc 1 150 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 14
+
+
+ 496 0132 0520     		movs	r0, #5
+ 497 0134 FFF7FEFF 		bl	AMux_Select
+ 498              	.LVL80:
+ 151:main.c        ****             printf("Converting MUX 5 \r\n");
+ 499              		.loc 1 151 0
+ 500 0138 02E0     		b	.L29
+ 501              	.L30:
+ 152:main.c        ****         };
+ 502              		.loc 1 152 0
+ 503 013a 1948     		ldr	r0, .L33+64
+ 504 013c FFF7FEFF 		bl	puts
+ 505              	.LVL81:
+ 506              	.L29:
+ 151:main.c        ****             printf("Converting MUX 5 \r\n");
+ 507              		.loc 1 151 0
+ 508 0140 0120     		movs	r0, #1
+ 509 0142 FFF7FEFF 		bl	ADC_DelSig_1_IsEndConversion
+ 510              	.LVL82:
+ 511 0146 0028     		cmp	r0, #0
+ 512 0148 F7D0     		beq	.L30
+ 154:main.c        ****         printf("Current Reading Motor 6: %d \r\n", output);
+ 513              		.loc 1 154 0
+ 514 014a FFF7FEFF 		bl	ADC_DelSig_1_GetResult16
+ 515              	.LVL83:
+ 155:main.c        ****         
+ 516              		.loc 1 155 0
+ 517 014e 0146     		mov	r1, r0
+ 518 0150 1448     		ldr	r0, .L33+68
+ 519              	.LVL84:
+ 520 0152 FFF7FEFF 		bl	printf
+ 521              	.LVL85:
+ 157:main.c        ****     }
+ 522              		.loc 1 157 0
+ 523 0156 6420     		movs	r0, #100
+ 524 0158 FFF7FEFF 		bl	CyDelay
+ 525              	.LVL86:
+ 158:main.c        **** }
+ 526              		.loc 1 158 0
+ 527 015c 78E7     		b	.L31
+ 528              	.L34:
+ 529 015e 00BF     		.align	2
+ 530              	.L33:
+ 531 0160 00000000 		.word	RxIsr
+ 532 0164 00000000 		.word	SWPin_Control
+ 533 0168 08000000 		.word	.LC1
+ 534 016c 00000000 		.word	.LC0
+ 535 0170 0C000000 		.word	.LC2
+ 536 0174 00000000 		.word	.LANCHOR1
+ 537 0178 14000000 		.word	.LC3
+ 538 017c 28000000 		.word	.LC4
+ 539 0180 48000000 		.word	.LC5
+ 540 0184 5C000000 		.word	.LC6
+ 541 0188 7C000000 		.word	.LC7
+ 542 018c 90000000 		.word	.LC8
+ 543 0190 B0000000 		.word	.LC9
+ 544 0194 C4000000 		.word	.LC10
+ 545 0198 E4000000 		.word	.LC11
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 15
+
+
+ 546 019c F8000000 		.word	.LC12
+ 547 01a0 18010000 		.word	.LC13
+ 548 01a4 2C010000 		.word	.LC14
+ 549              		.cfi_endproc
+ 550              	.LFE66:
+ 551              		.size	main, .-main
+ 552              		.section	.text.stop,"ax",%progbits
+ 553              		.align	2
+ 554              		.global	stop
+ 555              		.thumb
+ 556              		.thumb_func
+ 557              		.type	stop, %function
+ 558              	stop:
+ 559              	.LFB69:
+ 192:main.c        **** }
+ 193:main.c        **** 
+ 194:main.c        **** void stop() {
+ 560              		.loc 1 194 0
+ 561              		.cfi_startproc
+ 562              		@ args = 0, pretend = 0, frame = 0
+ 563              		@ frame_needed = 0, uses_anonymous_args = 0
+ 564 0000 08B5     		push	{r3, lr}
+ 565              		.cfi_def_cfa_offset 8
+ 566              		.cfi_offset 3, -8
+ 567              		.cfi_offset 14, -4
+ 195:main.c        ****     M1_IN1_Write(0U);
+ 568              		.loc 1 195 0
+ 569 0002 0020     		movs	r0, #0
+ 570 0004 FFF7FEFF 		bl	M1_IN1_Write
+ 571              	.LVL87:
+ 196:main.c        ****     M1_IN2_Write(0U);
+ 572              		.loc 1 196 0
+ 573 0008 0020     		movs	r0, #0
+ 574 000a FFF7FEFF 		bl	M1_IN2_Write
+ 575              	.LVL88:
+ 197:main.c        ****     M2_IN1_Write(0U);
+ 576              		.loc 1 197 0
+ 577 000e 0020     		movs	r0, #0
+ 578 0010 FFF7FEFF 		bl	M2_IN1_Write
+ 579              	.LVL89:
+ 198:main.c        ****     M2_IN2_Write(0U);
+ 580              		.loc 1 198 0
+ 581 0014 0020     		movs	r0, #0
+ 582 0016 FFF7FEFF 		bl	M2_IN2_Write
+ 583              	.LVL90:
+ 199:main.c        ****     M3_IN1_Write(0U);
+ 584              		.loc 1 199 0
+ 585 001a 0020     		movs	r0, #0
+ 586 001c FFF7FEFF 		bl	M3_IN1_Write
+ 587              	.LVL91:
+ 200:main.c        ****     M3_IN2_Write(0U);
+ 588              		.loc 1 200 0
+ 589 0020 0020     		movs	r0, #0
+ 590 0022 FFF7FEFF 		bl	M3_IN2_Write
+ 591              	.LVL92:
+ 201:main.c        ****     M4_IN1_Write(0U);
+ 592              		.loc 1 201 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 16
+
+
+ 593 0026 0020     		movs	r0, #0
+ 594 0028 FFF7FEFF 		bl	M4_IN1_Write
+ 595              	.LVL93:
+ 202:main.c        ****     M4_IN2_Write(0U);
+ 596              		.loc 1 202 0
+ 597 002c 0020     		movs	r0, #0
+ 598 002e FFF7FEFF 		bl	M4_IN2_Write
+ 599              	.LVL94:
+ 203:main.c        ****     M5_IN1_Write(0U);
+ 600              		.loc 1 203 0
+ 601 0032 0020     		movs	r0, #0
+ 602 0034 FFF7FEFF 		bl	M5_IN1_Write
+ 603              	.LVL95:
+ 204:main.c        ****     M5_IN2_Write(0U);
+ 604              		.loc 1 204 0
+ 605 0038 0020     		movs	r0, #0
+ 606 003a FFF7FEFF 		bl	M5_IN2_Write
+ 607              	.LVL96:
+ 205:main.c        ****     M6_IN1_Write(0U);
+ 608              		.loc 1 205 0
+ 609 003e 0020     		movs	r0, #0
+ 610 0040 FFF7FEFF 		bl	M6_IN1_Write
+ 611              	.LVL97:
+ 206:main.c        ****     M6_IN2_Write(0U);
+ 612              		.loc 1 206 0
+ 613 0044 0020     		movs	r0, #0
+ 614 0046 FFF7FEFF 		bl	M6_IN2_Write
+ 615              	.LVL98:
+ 616 004a 08BD     		pop	{r3, pc}
+ 617              		.cfi_endproc
+ 618              	.LFE69:
+ 619              		.size	stop, .-stop
+ 620              		.global	button
+ 621              		.global	errorStatus
+ 622              		.data
+ 623              		.set	.LANCHOR1,. + 0
+ 624              		.type	button, %object
+ 625              		.size	button, 1
+ 626              	button:
+ 627 0000 01       		.byte	1
+ 628              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 629              		.align	2
+ 630              	.LC0:
+ 631 0000 1B5B324A 		.ascii	"\033[2J\000"
+ 631      00
+ 632 0005 000000   		.space	3
+ 633              	.LC1:
+ 634 0008 257300   		.ascii	"%s\000"
+ 635 000b 00       		.space	1
+ 636              	.LC2:
+ 637 000c 1B5B303B 		.ascii	"\033[0;0H\000"
+ 637      304800
+ 638 0013 00       		.space	1
+ 639              	.LC3:
+ 640 0014 436F6E76 		.ascii	"Converting MUX 0 \015\000"
+ 640      65727469 
+ 640      6E67204D 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 17
+
+
+ 640      55582030 
+ 640      200D00
+ 641 0027 00       		.space	1
+ 642              	.LC4:
+ 643 0028 43757272 		.ascii	"Current Reading Motor 1: %d \015\012\000"
+ 643      656E7420 
+ 643      52656164 
+ 643      696E6720 
+ 643      4D6F746F 
+ 644 0047 00       		.space	1
+ 645              	.LC5:
+ 646 0048 436F6E76 		.ascii	"Converting MUX 1 \015\000"
+ 646      65727469 
+ 646      6E67204D 
+ 646      55582031 
+ 646      200D00
+ 647 005b 00       		.space	1
+ 648              	.LC6:
+ 649 005c 43757272 		.ascii	"Current Reading Motor 2: %d \015\012\000"
+ 649      656E7420 
+ 649      52656164 
+ 649      696E6720 
+ 649      4D6F746F 
+ 650 007b 00       		.space	1
+ 651              	.LC7:
+ 652 007c 436F6E76 		.ascii	"Converting MUX 2 \015\000"
+ 652      65727469 
+ 652      6E67204D 
+ 652      55582032 
+ 652      200D00
+ 653 008f 00       		.space	1
+ 654              	.LC8:
+ 655 0090 43757272 		.ascii	"Current Reading Motor 3: %d \015\012\000"
+ 655      656E7420 
+ 655      52656164 
+ 655      696E6720 
+ 655      4D6F746F 
+ 656 00af 00       		.space	1
+ 657              	.LC9:
+ 658 00b0 436F6E76 		.ascii	"Converting MUX 3 \015\000"
+ 658      65727469 
+ 658      6E67204D 
+ 658      55582033 
+ 658      200D00
+ 659 00c3 00       		.space	1
+ 660              	.LC10:
+ 661 00c4 43757272 		.ascii	"Current Reading Motor 4: %d \015\012\000"
+ 661      656E7420 
+ 661      52656164 
+ 661      696E6720 
+ 661      4D6F746F 
+ 662 00e3 00       		.space	1
+ 663              	.LC11:
+ 664 00e4 436F6E76 		.ascii	"Converting MUX 4 \015\000"
+ 664      65727469 
+ 664      6E67204D 
+ 664      55582034 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 18
+
+
+ 664      200D00
+ 665 00f7 00       		.space	1
+ 666              	.LC12:
+ 667 00f8 43757272 		.ascii	"Current Reading Motor 5: %d \015\012\000"
+ 667      656E7420 
+ 667      52656164 
+ 667      696E6720 
+ 667      4D6F746F 
+ 668 0117 00       		.space	1
+ 669              	.LC13:
+ 670 0118 436F6E76 		.ascii	"Converting MUX 5 \015\000"
+ 670      65727469 
+ 670      6E67204D 
+ 670      55582035 
+ 670      200D00
+ 671 012b 00       		.space	1
+ 672              	.LC14:
+ 673 012c 43757272 		.ascii	"Current Reading Motor 6: %d \015\012\000"
+ 673      656E7420 
+ 673      52656164 
+ 673      696E6720 
+ 673      4D6F746F 
+ 674              		.bss
+ 675              		.set	.LANCHOR0,. + 0
+ 676              		.type	errorStatus, %object
+ 677              		.size	errorStatus, 1
+ 678              	errorStatus:
+ 679 0000 00       		.space	1
+ 680              		.text
+ 681              	.Letext0:
+ 682              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 683              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 684              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 685              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 686              		.file 6 "Generated_Source\\PSoC5/InputPin.h"
+ 687              		.file 7 "Generated_Source\\PSoC5/M1_IN1.h"
+ 688              		.file 8 "Generated_Source\\PSoC5/M1_IN2.h"
+ 689              		.file 9 "Generated_Source\\PSoC5/M2_IN1.h"
+ 690              		.file 10 "Generated_Source\\PSoC5/M2_IN2.h"
+ 691              		.file 11 "Generated_Source\\PSoC5/M3_IN1.h"
+ 692              		.file 12 "Generated_Source\\PSoC5/M3_IN2.h"
+ 693              		.file 13 "Generated_Source\\PSoC5/M4_IN1.h"
+ 694              		.file 14 "Generated_Source\\PSoC5/M4_IN2.h"
+ 695              		.file 15 "Generated_Source\\PSoC5/M5_IN1.h"
+ 696              		.file 16 "Generated_Source\\PSoC5/M5_IN2.h"
+ 697              		.file 17 "Generated_Source\\PSoC5/M6_IN1.h"
+ 698              		.file 18 "Generated_Source\\PSoC5/M6_IN2.h"
+ 699              		.file 19 "Generated_Source\\PSoC5/UART.h"
+ 700              		.file 20 "Generated_Source\\PSoC5/AMux.h"
+ 701              		.file 21 "Generated_Source\\PSoC5/ADC_DelSig_1.h"
+ 702              		.file 22 "Generated_Source\\PSoC5/isr_rx.h"
+ 703              		.file 23 "Generated_Source\\PSoC5/InputInterrupt.h"
+ 704              		.file 24 "Generated_Source\\PSoC5/PWM1.h"
+ 705              		.file 25 "Generated_Source\\PSoC5/PWM2.h"
+ 706              		.file 26 "Generated_Source\\PSoC5/PWM3.h"
+ 707              		.file 27 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4
+ 708              		.file 28 "Generated_Source\\PSoC5/LED.h"
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 19
+
+
+ 709              		.file 29 "Generated_Source\\PSoC5/CyLib.h"
+ 710              		.file 30 "<built-in>"
+ 711              		.section	.debug_info,"",%progbits
+ 712              	.Ldebug_info0:
+ 713 0000 96090000 		.4byte	0x996
+ 714 0004 0400     		.2byte	0x4
+ 715 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 716 000a 04       		.byte	0x4
+ 717 000b 01       		.uleb128 0x1
+ 718 000c A3030000 		.4byte	.LASF66
+ 719 0010 0C       		.byte	0xc
+ 720 0011 20030000 		.4byte	.LASF67
+ 721 0015 C2020000 		.4byte	.LASF68
+ 722 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 723 001d 00000000 		.4byte	0
+ 724 0021 00000000 		.4byte	.Ldebug_line0
+ 725 0025 02       		.uleb128 0x2
+ 726 0026 01       		.byte	0x1
+ 727 0027 06       		.byte	0x6
+ 728 0028 E3010000 		.4byte	.LASF0
+ 729 002c 02       		.uleb128 0x2
+ 730 002d 01       		.byte	0x1
+ 731 002e 08       		.byte	0x8
+ 732 002f D5010000 		.4byte	.LASF1
+ 733 0033 02       		.uleb128 0x2
+ 734 0034 02       		.byte	0x2
+ 735 0035 05       		.byte	0x5
+ 736 0036 54000000 		.4byte	.LASF2
+ 737 003a 02       		.uleb128 0x2
+ 738 003b 02       		.byte	0x2
+ 739 003c 07       		.byte	0x7
+ 740 003d A9020000 		.4byte	.LASF3
+ 741 0041 03       		.uleb128 0x3
+ 742 0042 63030000 		.4byte	.LASF5
+ 743 0046 02       		.byte	0x2
+ 744 0047 3F       		.byte	0x3f
+ 745 0048 4C000000 		.4byte	0x4c
+ 746 004c 02       		.uleb128 0x2
+ 747 004d 04       		.byte	0x4
+ 748 004e 05       		.byte	0x5
+ 749 004f 5F010000 		.4byte	.LASF4
+ 750 0053 03       		.uleb128 0x3
+ 751 0054 82000000 		.4byte	.LASF6
+ 752 0058 02       		.byte	0x2
+ 753 0059 41       		.byte	0x41
+ 754 005a 5E000000 		.4byte	0x5e
+ 755 005e 02       		.uleb128 0x2
+ 756 005f 04       		.byte	0x4
+ 757 0060 07       		.byte	0x7
+ 758 0061 2C030000 		.4byte	.LASF7
+ 759 0065 02       		.uleb128 0x2
+ 760 0066 08       		.byte	0x8
+ 761 0067 05       		.byte	0x5
+ 762 0068 74000000 		.4byte	.LASF8
+ 763 006c 02       		.uleb128 0x2
+ 764 006d 08       		.byte	0x8
+ 765 006e 07       		.byte	0x7
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 20
+
+
+ 766 006f EF010000 		.4byte	.LASF9
+ 767 0073 04       		.uleb128 0x4
+ 768 0074 04       		.byte	0x4
+ 769 0075 05       		.byte	0x5
+ 770 0076 696E7400 		.ascii	"int\000"
+ 771 007a 02       		.uleb128 0x2
+ 772 007b 04       		.byte	0x4
+ 773 007c 07       		.byte	0x7
+ 774 007d 1C020000 		.4byte	.LASF10
+ 775 0081 03       		.uleb128 0x3
+ 776 0082 A1020000 		.4byte	.LASF11
+ 777 0086 03       		.byte	0x3
+ 778 0087 2C       		.byte	0x2c
+ 779 0088 41000000 		.4byte	0x41
+ 780 008c 03       		.uleb128 0x3
+ 781 008d 06020000 		.4byte	.LASF12
+ 782 0091 03       		.byte	0x3
+ 783 0092 30       		.byte	0x30
+ 784 0093 53000000 		.4byte	0x53
+ 785 0097 05       		.uleb128 0x5
+ 786 0098 D1000000 		.4byte	.LASF13
+ 787 009c 04       		.byte	0x4
+ 788 009d E701     		.2byte	0x1e7
+ 789 009f 2C000000 		.4byte	0x2c
+ 790 00a3 02       		.uleb128 0x2
+ 791 00a4 04       		.byte	0x4
+ 792 00a5 04       		.byte	0x4
+ 793 00a6 40010000 		.4byte	.LASF14
+ 794 00aa 02       		.uleb128 0x2
+ 795 00ab 08       		.byte	0x8
+ 796 00ac 04       		.byte	0x4
+ 797 00ad 8F030000 		.4byte	.LASF15
+ 798 00b1 02       		.uleb128 0x2
+ 799 00b2 01       		.byte	0x1
+ 800 00b3 08       		.byte	0x8
+ 801 00b4 7F020000 		.4byte	.LASF16
+ 802 00b8 05       		.uleb128 0x5
+ 803 00b9 27030000 		.4byte	.LASF17
+ 804 00bd 04       		.byte	0x4
+ 805 00be 9102     		.2byte	0x291
+ 806 00c0 C4000000 		.4byte	0xc4
+ 807 00c4 06       		.uleb128 0x6
+ 808 00c5 97000000 		.4byte	0x97
+ 809 00c9 02       		.uleb128 0x2
+ 810 00ca 08       		.byte	0x8
+ 811 00cb 04       		.byte	0x4
+ 812 00cc C0010000 		.4byte	.LASF18
+ 813 00d0 02       		.uleb128 0x2
+ 814 00d1 04       		.byte	0x4
+ 815 00d2 07       		.byte	0x7
+ 816 00d3 6B000000 		.4byte	.LASF19
+ 817 00d7 07       		.uleb128 0x7
+ 818 00d8 2E020000 		.4byte	.LASF20
+ 819 00dc 01       		.byte	0x1
+ 820 00dd 1E       		.byte	0x1e
+ 821 00de 00000000 		.4byte	.LFB64
+ 822 00e2 38000000 		.4byte	.LFE64-.LFB64
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 21
+
+
+ 823 00e6 01       		.uleb128 0x1
+ 824 00e7 9C       		.byte	0x9c
+ 825 00e8 07010000 		.4byte	0x107
+ 826 00ec 08       		.uleb128 0x8
+ 827 00ed CC010000 		.4byte	.LASF24
+ 828 00f1 01       		.byte	0x1
+ 829 00f2 20       		.byte	0x20
+ 830 00f3 97000000 		.4byte	0x97
+ 831 00f7 00000000 		.4byte	.LLST0
+ 832 00fb 09       		.uleb128 0x9
+ 833 00fc 74030000 		.4byte	.LASF69
+ 834 0100 01       		.byte	0x1
+ 835 0101 21       		.byte	0x21
+ 836 0102 97000000 		.4byte	0x97
+ 837 0106 00       		.byte	0
+ 838 0107 07       		.uleb128 0x7
+ 839 0108 76010000 		.4byte	.LASF21
+ 840 010c 01       		.byte	0x1
+ 841 010d 41       		.byte	0x41
+ 842 010e 00000000 		.4byte	.LFB65
+ 843 0112 20000000 		.4byte	.LFE65-.LFB65
+ 844 0116 01       		.uleb128 0x1
+ 845 0117 9C       		.byte	0x9c
+ 846 0118 2F010000 		.4byte	0x12f
+ 847 011c 0A       		.uleb128 0xa
+ 848 011d 06000000 		.4byte	.LVL3
+ 849 0121 09080000 		.4byte	0x809
+ 850 0125 0A       		.uleb128 0xa
+ 851 0126 18000000 		.4byte	.LVL4
+ 852 012a 14080000 		.4byte	0x814
+ 853 012e 00       		.byte	0
+ 854 012f 0B       		.uleb128 0xb
+ 855 0130 6D030000 		.4byte	.LASF22
+ 856 0134 01       		.byte	0x1
+ 857 0135 A4       		.byte	0xa4
+ 858 0136 00000000 		.4byte	.LFB67
+ 859 013a 4C000000 		.4byte	.LFE67-.LFB67
+ 860 013e 01       		.uleb128 0x1
+ 861 013f 9C       		.byte	0x9c
+ 862 0140 25020000 		.4byte	0x225
+ 863 0144 0C       		.uleb128 0xc
+ 864 0145 08000000 		.4byte	.LVL5
+ 865 0149 1F080000 		.4byte	0x81f
+ 866 014d 57010000 		.4byte	0x157
+ 867 0151 0D       		.uleb128 0xd
+ 868 0152 01       		.uleb128 0x1
+ 869 0153 50       		.byte	0x50
+ 870 0154 01       		.uleb128 0x1
+ 871 0155 31       		.byte	0x31
+ 872 0156 00       		.byte	0
+ 873 0157 0C       		.uleb128 0xc
+ 874 0158 0E000000 		.4byte	.LVL6
+ 875 015c 2A080000 		.4byte	0x82a
+ 876 0160 6A010000 		.4byte	0x16a
+ 877 0164 0D       		.uleb128 0xd
+ 878 0165 01       		.uleb128 0x1
+ 879 0166 50       		.byte	0x50
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 22
+
+
+ 880 0167 01       		.uleb128 0x1
+ 881 0168 30       		.byte	0x30
+ 882 0169 00       		.byte	0
+ 883 016a 0C       		.uleb128 0xc
+ 884 016b 14000000 		.4byte	.LVL7
+ 885 016f 35080000 		.4byte	0x835
+ 886 0173 7D010000 		.4byte	0x17d
+ 887 0177 0D       		.uleb128 0xd
+ 888 0178 01       		.uleb128 0x1
+ 889 0179 50       		.byte	0x50
+ 890 017a 01       		.uleb128 0x1
+ 891 017b 31       		.byte	0x31
+ 892 017c 00       		.byte	0
+ 893 017d 0C       		.uleb128 0xc
+ 894 017e 1A000000 		.4byte	.LVL8
+ 895 0182 40080000 		.4byte	0x840
+ 896 0186 90010000 		.4byte	0x190
+ 897 018a 0D       		.uleb128 0xd
+ 898 018b 01       		.uleb128 0x1
+ 899 018c 50       		.byte	0x50
+ 900 018d 01       		.uleb128 0x1
+ 901 018e 30       		.byte	0x30
+ 902 018f 00       		.byte	0
+ 903 0190 0C       		.uleb128 0xc
+ 904 0191 20000000 		.4byte	.LVL9
+ 905 0195 4B080000 		.4byte	0x84b
+ 906 0199 A3010000 		.4byte	0x1a3
+ 907 019d 0D       		.uleb128 0xd
+ 908 019e 01       		.uleb128 0x1
+ 909 019f 50       		.byte	0x50
+ 910 01a0 01       		.uleb128 0x1
+ 911 01a1 31       		.byte	0x31
+ 912 01a2 00       		.byte	0
+ 913 01a3 0C       		.uleb128 0xc
+ 914 01a4 26000000 		.4byte	.LVL10
+ 915 01a8 56080000 		.4byte	0x856
+ 916 01ac B6010000 		.4byte	0x1b6
+ 917 01b0 0D       		.uleb128 0xd
+ 918 01b1 01       		.uleb128 0x1
+ 919 01b2 50       		.byte	0x50
+ 920 01b3 01       		.uleb128 0x1
+ 921 01b4 30       		.byte	0x30
+ 922 01b5 00       		.byte	0
+ 923 01b6 0C       		.uleb128 0xc
+ 924 01b7 2C000000 		.4byte	.LVL11
+ 925 01bb 61080000 		.4byte	0x861
+ 926 01bf C9010000 		.4byte	0x1c9
+ 927 01c3 0D       		.uleb128 0xd
+ 928 01c4 01       		.uleb128 0x1
+ 929 01c5 50       		.byte	0x50
+ 930 01c6 01       		.uleb128 0x1
+ 931 01c7 31       		.byte	0x31
+ 932 01c8 00       		.byte	0
+ 933 01c9 0C       		.uleb128 0xc
+ 934 01ca 32000000 		.4byte	.LVL12
+ 935 01ce 6C080000 		.4byte	0x86c
+ 936 01d2 DC010000 		.4byte	0x1dc
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 23
+
+
+ 937 01d6 0D       		.uleb128 0xd
+ 938 01d7 01       		.uleb128 0x1
+ 939 01d8 50       		.byte	0x50
+ 940 01d9 01       		.uleb128 0x1
+ 941 01da 30       		.byte	0x30
+ 942 01db 00       		.byte	0
+ 943 01dc 0C       		.uleb128 0xc
+ 944 01dd 38000000 		.4byte	.LVL13
+ 945 01e1 77080000 		.4byte	0x877
+ 946 01e5 EF010000 		.4byte	0x1ef
+ 947 01e9 0D       		.uleb128 0xd
+ 948 01ea 01       		.uleb128 0x1
+ 949 01eb 50       		.byte	0x50
+ 950 01ec 01       		.uleb128 0x1
+ 951 01ed 31       		.byte	0x31
+ 952 01ee 00       		.byte	0
+ 953 01ef 0C       		.uleb128 0xc
+ 954 01f0 3E000000 		.4byte	.LVL14
+ 955 01f4 82080000 		.4byte	0x882
+ 956 01f8 02020000 		.4byte	0x202
+ 957 01fc 0D       		.uleb128 0xd
+ 958 01fd 01       		.uleb128 0x1
+ 959 01fe 50       		.byte	0x50
+ 960 01ff 01       		.uleb128 0x1
+ 961 0200 30       		.byte	0x30
+ 962 0201 00       		.byte	0
+ 963 0202 0C       		.uleb128 0xc
+ 964 0203 44000000 		.4byte	.LVL15
+ 965 0207 8D080000 		.4byte	0x88d
+ 966 020b 15020000 		.4byte	0x215
+ 967 020f 0D       		.uleb128 0xd
+ 968 0210 01       		.uleb128 0x1
+ 969 0211 50       		.byte	0x50
+ 970 0212 01       		.uleb128 0x1
+ 971 0213 31       		.byte	0x31
+ 972 0214 00       		.byte	0
+ 973 0215 0E       		.uleb128 0xe
+ 974 0216 4A000000 		.4byte	.LVL16
+ 975 021a 98080000 		.4byte	0x898
+ 976 021e 0D       		.uleb128 0xd
+ 977 021f 01       		.uleb128 0x1
+ 978 0220 50       		.byte	0x50
+ 979 0221 01       		.uleb128 0x1
+ 980 0222 30       		.byte	0x30
+ 981 0223 00       		.byte	0
+ 982 0224 00       		.byte	0
+ 983 0225 0B       		.uleb128 0xb
+ 984 0226 42000000 		.4byte	.LASF23
+ 985 022a 01       		.byte	0x1
+ 986 022b B3       		.byte	0xb3
+ 987 022c 00000000 		.4byte	.LFB68
+ 988 0230 4C000000 		.4byte	.LFE68-.LFB68
+ 989 0234 01       		.uleb128 0x1
+ 990 0235 9C       		.byte	0x9c
+ 991 0236 1B030000 		.4byte	0x31b
+ 992 023a 0C       		.uleb128 0xc
+ 993 023b 08000000 		.4byte	.LVL17
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 24
+
+
+ 994 023f 1F080000 		.4byte	0x81f
+ 995 0243 4D020000 		.4byte	0x24d
+ 996 0247 0D       		.uleb128 0xd
+ 997 0248 01       		.uleb128 0x1
+ 998 0249 50       		.byte	0x50
+ 999 024a 01       		.uleb128 0x1
+ 1000 024b 30       		.byte	0x30
+ 1001 024c 00       		.byte	0
+ 1002 024d 0C       		.uleb128 0xc
+ 1003 024e 0E000000 		.4byte	.LVL18
+ 1004 0252 2A080000 		.4byte	0x82a
+ 1005 0256 60020000 		.4byte	0x260
+ 1006 025a 0D       		.uleb128 0xd
+ 1007 025b 01       		.uleb128 0x1
+ 1008 025c 50       		.byte	0x50
+ 1009 025d 01       		.uleb128 0x1
+ 1010 025e 31       		.byte	0x31
+ 1011 025f 00       		.byte	0
+ 1012 0260 0C       		.uleb128 0xc
+ 1013 0261 14000000 		.4byte	.LVL19
+ 1014 0265 35080000 		.4byte	0x835
+ 1015 0269 73020000 		.4byte	0x273
+ 1016 026d 0D       		.uleb128 0xd
+ 1017 026e 01       		.uleb128 0x1
+ 1018 026f 50       		.byte	0x50
+ 1019 0270 01       		.uleb128 0x1
+ 1020 0271 30       		.byte	0x30
+ 1021 0272 00       		.byte	0
+ 1022 0273 0C       		.uleb128 0xc
+ 1023 0274 1A000000 		.4byte	.LVL20
+ 1024 0278 40080000 		.4byte	0x840
+ 1025 027c 86020000 		.4byte	0x286
+ 1026 0280 0D       		.uleb128 0xd
+ 1027 0281 01       		.uleb128 0x1
+ 1028 0282 50       		.byte	0x50
+ 1029 0283 01       		.uleb128 0x1
+ 1030 0284 31       		.byte	0x31
+ 1031 0285 00       		.byte	0
+ 1032 0286 0C       		.uleb128 0xc
+ 1033 0287 20000000 		.4byte	.LVL21
+ 1034 028b 4B080000 		.4byte	0x84b
+ 1035 028f 99020000 		.4byte	0x299
+ 1036 0293 0D       		.uleb128 0xd
+ 1037 0294 01       		.uleb128 0x1
+ 1038 0295 50       		.byte	0x50
+ 1039 0296 01       		.uleb128 0x1
+ 1040 0297 30       		.byte	0x30
+ 1041 0298 00       		.byte	0
+ 1042 0299 0C       		.uleb128 0xc
+ 1043 029a 26000000 		.4byte	.LVL22
+ 1044 029e 56080000 		.4byte	0x856
+ 1045 02a2 AC020000 		.4byte	0x2ac
+ 1046 02a6 0D       		.uleb128 0xd
+ 1047 02a7 01       		.uleb128 0x1
+ 1048 02a8 50       		.byte	0x50
+ 1049 02a9 01       		.uleb128 0x1
+ 1050 02aa 31       		.byte	0x31
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 25
+
+
+ 1051 02ab 00       		.byte	0
+ 1052 02ac 0C       		.uleb128 0xc
+ 1053 02ad 2C000000 		.4byte	.LVL23
+ 1054 02b1 61080000 		.4byte	0x861
+ 1055 02b5 BF020000 		.4byte	0x2bf
+ 1056 02b9 0D       		.uleb128 0xd
+ 1057 02ba 01       		.uleb128 0x1
+ 1058 02bb 50       		.byte	0x50
+ 1059 02bc 01       		.uleb128 0x1
+ 1060 02bd 30       		.byte	0x30
+ 1061 02be 00       		.byte	0
+ 1062 02bf 0C       		.uleb128 0xc
+ 1063 02c0 32000000 		.4byte	.LVL24
+ 1064 02c4 6C080000 		.4byte	0x86c
+ 1065 02c8 D2020000 		.4byte	0x2d2
+ 1066 02cc 0D       		.uleb128 0xd
+ 1067 02cd 01       		.uleb128 0x1
+ 1068 02ce 50       		.byte	0x50
+ 1069 02cf 01       		.uleb128 0x1
+ 1070 02d0 31       		.byte	0x31
+ 1071 02d1 00       		.byte	0
+ 1072 02d2 0C       		.uleb128 0xc
+ 1073 02d3 38000000 		.4byte	.LVL25
+ 1074 02d7 77080000 		.4byte	0x877
+ 1075 02db E5020000 		.4byte	0x2e5
+ 1076 02df 0D       		.uleb128 0xd
+ 1077 02e0 01       		.uleb128 0x1
+ 1078 02e1 50       		.byte	0x50
+ 1079 02e2 01       		.uleb128 0x1
+ 1080 02e3 30       		.byte	0x30
+ 1081 02e4 00       		.byte	0
+ 1082 02e5 0C       		.uleb128 0xc
+ 1083 02e6 3E000000 		.4byte	.LVL26
+ 1084 02ea 82080000 		.4byte	0x882
+ 1085 02ee F8020000 		.4byte	0x2f8
+ 1086 02f2 0D       		.uleb128 0xd
+ 1087 02f3 01       		.uleb128 0x1
+ 1088 02f4 50       		.byte	0x50
+ 1089 02f5 01       		.uleb128 0x1
+ 1090 02f6 31       		.byte	0x31
+ 1091 02f7 00       		.byte	0
+ 1092 02f8 0C       		.uleb128 0xc
+ 1093 02f9 44000000 		.4byte	.LVL27
+ 1094 02fd 8D080000 		.4byte	0x88d
+ 1095 0301 0B030000 		.4byte	0x30b
+ 1096 0305 0D       		.uleb128 0xd
+ 1097 0306 01       		.uleb128 0x1
+ 1098 0307 50       		.byte	0x50
+ 1099 0308 01       		.uleb128 0x1
+ 1100 0309 30       		.byte	0x30
+ 1101 030a 00       		.byte	0
+ 1102 030b 0E       		.uleb128 0xe
+ 1103 030c 4A000000 		.4byte	.LVL28
+ 1104 0310 98080000 		.4byte	0x898
+ 1105 0314 0D       		.uleb128 0xd
+ 1106 0315 01       		.uleb128 0x1
+ 1107 0316 50       		.byte	0x50
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 26
+
+
+ 1108 0317 01       		.uleb128 0x1
+ 1109 0318 31       		.byte	0x31
+ 1110 0319 00       		.byte	0
+ 1111 031a 00       		.byte	0
+ 1112 031b 0F       		.uleb128 0xf
+ 1113 031c 91020000 		.4byte	.LASF70
+ 1114 0320 01       		.byte	0x1
+ 1115 0321 4B       		.byte	0x4b
+ 1116 0322 73000000 		.4byte	0x73
+ 1117 0326 00000000 		.4byte	.LFB66
+ 1118 032a A8010000 		.4byte	.LFE66-.LFB66
+ 1119 032e 01       		.uleb128 0x1
+ 1120 032f 9C       		.byte	0x9c
+ 1121 0330 D9060000 		.4byte	0x6d9
+ 1122 0334 08       		.uleb128 0x8
+ 1123 0335 7B030000 		.4byte	.LASF25
+ 1124 0339 01       		.byte	0x1
+ 1125 033a 64       		.byte	0x64
+ 1126 033b 8C000000 		.4byte	0x8c
+ 1127 033f 13000000 		.4byte	.LLST1
+ 1128 0343 0A       		.uleb128 0xa
+ 1129 0344 08000000 		.4byte	.LVL29
+ 1130 0348 A3080000 		.4byte	0x8a3
+ 1131 034c 0A       		.uleb128 0xa
+ 1132 034d 0C000000 		.4byte	.LVL30
+ 1133 0351 AE080000 		.4byte	0x8ae
+ 1134 0355 0A       		.uleb128 0xa
+ 1135 0356 10000000 		.4byte	.LVL31
+ 1136 035a B9080000 		.4byte	0x8b9
+ 1137 035e 0C       		.uleb128 0xc
+ 1138 035f 16000000 		.4byte	.LVL32
+ 1139 0363 C4080000 		.4byte	0x8c4
+ 1140 0367 75030000 		.4byte	0x375
+ 1141 036b 0D       		.uleb128 0xd
+ 1142 036c 01       		.uleb128 0x1
+ 1143 036d 50       		.byte	0x50
+ 1144 036e 05       		.uleb128 0x5
+ 1145 036f 03       		.byte	0x3
+ 1146 0370 00000000 		.4byte	RxIsr
+ 1147 0374 00       		.byte	0
+ 1148 0375 0C       		.uleb128 0xc
+ 1149 0376 1C000000 		.4byte	.LVL33
+ 1150 037a CF080000 		.4byte	0x8cf
+ 1151 037e 8C030000 		.4byte	0x38c
+ 1152 0382 0D       		.uleb128 0xd
+ 1153 0383 01       		.uleb128 0x1
+ 1154 0384 50       		.byte	0x50
+ 1155 0385 05       		.uleb128 0x5
+ 1156 0386 03       		.byte	0x3
+ 1157 0387 00000000 		.4byte	SWPin_Control
+ 1158 038b 00       		.byte	0
+ 1159 038c 0A       		.uleb128 0xa
+ 1160 038d 20000000 		.4byte	.LVL34
+ 1161 0391 DA080000 		.4byte	0x8da
+ 1162 0395 0A       		.uleb128 0xa
+ 1163 0396 24000000 		.4byte	.LVL35
+ 1164 039a E5080000 		.4byte	0x8e5
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 27
+
+
+ 1165 039e 0A       		.uleb128 0xa
+ 1166 039f 28000000 		.4byte	.LVL36
+ 1167 03a3 F0080000 		.4byte	0x8f0
+ 1168 03a7 0C       		.uleb128 0xc
+ 1169 03a8 2E000000 		.4byte	.LVL37
+ 1170 03ac FB080000 		.4byte	0x8fb
+ 1171 03b0 BB030000 		.4byte	0x3bb
+ 1172 03b4 0D       		.uleb128 0xd
+ 1173 03b5 01       		.uleb128 0x1
+ 1174 03b6 50       		.byte	0x50
+ 1175 03b7 02       		.uleb128 0x2
+ 1176 03b8 08       		.byte	0x8
+ 1177 03b9 7D       		.byte	0x7d
+ 1178 03ba 00       		.byte	0
+ 1179 03bb 0C       		.uleb128 0xc
+ 1180 03bc 34000000 		.4byte	.LVL38
+ 1181 03c0 06090000 		.4byte	0x906
+ 1182 03c4 CF030000 		.4byte	0x3cf
+ 1183 03c8 0D       		.uleb128 0xd
+ 1184 03c9 01       		.uleb128 0x1
+ 1185 03ca 50       		.byte	0x50
+ 1186 03cb 02       		.uleb128 0x2
+ 1187 03cc 08       		.byte	0x8
+ 1188 03cd 7D       		.byte	0x7d
+ 1189 03ce 00       		.byte	0
+ 1190 03cf 0C       		.uleb128 0xc
+ 1191 03d0 3A000000 		.4byte	.LVL39
+ 1192 03d4 11090000 		.4byte	0x911
+ 1193 03d8 E3030000 		.4byte	0x3e3
+ 1194 03dc 0D       		.uleb128 0xd
+ 1195 03dd 01       		.uleb128 0x1
+ 1196 03de 50       		.byte	0x50
+ 1197 03df 02       		.uleb128 0x2
+ 1198 03e0 08       		.byte	0x8
+ 1199 03e1 7D       		.byte	0x7d
+ 1200 03e2 00       		.byte	0
+ 1201 03e3 0C       		.uleb128 0xc
+ 1202 03e4 40000000 		.4byte	.LVL40
+ 1203 03e8 1C090000 		.4byte	0x91c
+ 1204 03ec F7030000 		.4byte	0x3f7
+ 1205 03f0 0D       		.uleb128 0xd
+ 1206 03f1 01       		.uleb128 0x1
+ 1207 03f2 50       		.byte	0x50
+ 1208 03f3 02       		.uleb128 0x2
+ 1209 03f4 08       		.byte	0x8
+ 1210 03f5 7D       		.byte	0x7d
+ 1211 03f6 00       		.byte	0
+ 1212 03f7 0C       		.uleb128 0xc
+ 1213 03f8 46000000 		.4byte	.LVL41
+ 1214 03fc 27090000 		.4byte	0x927
+ 1215 0400 0B040000 		.4byte	0x40b
+ 1216 0404 0D       		.uleb128 0xd
+ 1217 0405 01       		.uleb128 0x1
+ 1218 0406 50       		.byte	0x50
+ 1219 0407 02       		.uleb128 0x2
+ 1220 0408 08       		.byte	0x8
+ 1221 0409 7D       		.byte	0x7d
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 28
+
+
+ 1222 040a 00       		.byte	0
+ 1223 040b 0C       		.uleb128 0xc
+ 1224 040c 4C000000 		.4byte	.LVL42
+ 1225 0410 32090000 		.4byte	0x932
+ 1226 0414 1F040000 		.4byte	0x41f
+ 1227 0418 0D       		.uleb128 0xd
+ 1228 0419 01       		.uleb128 0x1
+ 1229 041a 50       		.byte	0x50
+ 1230 041b 02       		.uleb128 0x2
+ 1231 041c 08       		.byte	0x8
+ 1232 041d 7D       		.byte	0x7d
+ 1233 041e 00       		.byte	0
+ 1234 041f 0A       		.uleb128 0xa
+ 1235 0420 50000000 		.4byte	.LVL43
+ 1236 0424 3D090000 		.4byte	0x93d
+ 1237 0428 0C       		.uleb128 0xc
+ 1238 0429 5A000000 		.4byte	.LVL44
+ 1239 042d 48090000 		.4byte	0x948
+ 1240 0431 45040000 		.4byte	0x445
+ 1241 0435 0D       		.uleb128 0xd
+ 1242 0436 01       		.uleb128 0x1
+ 1243 0437 50       		.byte	0x50
+ 1244 0438 02       		.uleb128 0x2
+ 1245 0439 74       		.byte	0x74
+ 1246 043a 00       		.sleb128 0
+ 1247 043b 0D       		.uleb128 0xd
+ 1248 043c 01       		.uleb128 0x1
+ 1249 043d 51       		.byte	0x51
+ 1250 043e 05       		.uleb128 0x5
+ 1251 043f 03       		.byte	0x3
+ 1252 0440 00000000 		.4byte	.LC0
+ 1253 0444 00       		.byte	0
+ 1254 0445 0C       		.uleb128 0xc
+ 1255 0446 62000000 		.4byte	.LVL45
+ 1256 044a 48090000 		.4byte	0x948
+ 1257 044e 62040000 		.4byte	0x462
+ 1258 0452 0D       		.uleb128 0xd
+ 1259 0453 01       		.uleb128 0x1
+ 1260 0454 50       		.byte	0x50
+ 1261 0455 02       		.uleb128 0x2
+ 1262 0456 74       		.byte	0x74
+ 1263 0457 00       		.sleb128 0
+ 1264 0458 0D       		.uleb128 0xd
+ 1265 0459 01       		.uleb128 0x1
+ 1266 045a 51       		.byte	0x51
+ 1267 045b 05       		.uleb128 0x5
+ 1268 045c 03       		.byte	0x3
+ 1269 045d 0C000000 		.4byte	.LC2
+ 1270 0461 00       		.byte	0
+ 1271 0462 0C       		.uleb128 0xc
+ 1272 0463 6E000000 		.4byte	.LVL46
+ 1273 0467 53090000 		.4byte	0x953
+ 1274 046b 75040000 		.4byte	0x475
+ 1275 046f 0D       		.uleb128 0xd
+ 1276 0470 01       		.uleb128 0x1
+ 1277 0471 50       		.byte	0x50
+ 1278 0472 01       		.uleb128 0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 29
+
+
+ 1279 0473 31       		.byte	0x31
+ 1280 0474 00       		.byte	0
+ 1281 0475 0A       		.uleb128 0xa
+ 1282 0476 72000000 		.4byte	.LVL47
+ 1283 047a 2F010000 		.4byte	0x12f
+ 1284 047e 0C       		.uleb128 0xc
+ 1285 047f 7A000000 		.4byte	.LVL48
+ 1286 0483 53090000 		.4byte	0x953
+ 1287 0487 91040000 		.4byte	0x491
+ 1288 048b 0D       		.uleb128 0xd
+ 1289 048c 01       		.uleb128 0x1
+ 1290 048d 50       		.byte	0x50
+ 1291 048e 01       		.uleb128 0x1
+ 1292 048f 30       		.byte	0x30
+ 1293 0490 00       		.byte	0
+ 1294 0491 0A       		.uleb128 0xa
+ 1295 0492 7E000000 		.4byte	.LVL49
+ 1296 0496 25020000 		.4byte	0x225
+ 1297 049a 0C       		.uleb128 0xc
+ 1298 049b 84000000 		.4byte	.LVL50
+ 1299 049f 5E090000 		.4byte	0x95e
+ 1300 04a3 AD040000 		.4byte	0x4ad
+ 1301 04a7 0D       		.uleb128 0xd
+ 1302 04a8 01       		.uleb128 0x1
+ 1303 04a9 50       		.byte	0x50
+ 1304 04aa 01       		.uleb128 0x1
+ 1305 04ab 30       		.byte	0x30
+ 1306 04ac 00       		.byte	0
+ 1307 04ad 0C       		.uleb128 0xc
+ 1308 04ae 8C000000 		.4byte	.LVL51
+ 1309 04b2 69090000 		.4byte	0x969
+ 1310 04b6 C4040000 		.4byte	0x4c4
+ 1311 04ba 0D       		.uleb128 0xd
+ 1312 04bb 01       		.uleb128 0x1
+ 1313 04bc 50       		.byte	0x50
+ 1314 04bd 05       		.uleb128 0x5
+ 1315 04be 03       		.byte	0x3
+ 1316 04bf 14000000 		.4byte	.LC3
+ 1317 04c3 00       		.byte	0
+ 1318 04c4 0C       		.uleb128 0xc
+ 1319 04c5 92000000 		.4byte	.LVL52
+ 1320 04c9 78090000 		.4byte	0x978
+ 1321 04cd D7040000 		.4byte	0x4d7
+ 1322 04d1 0D       		.uleb128 0xd
+ 1323 04d2 01       		.uleb128 0x1
+ 1324 04d3 50       		.byte	0x50
+ 1325 04d4 01       		.uleb128 0x1
+ 1326 04d5 31       		.byte	0x31
+ 1327 04d6 00       		.byte	0
+ 1328 04d7 0A       		.uleb128 0xa
+ 1329 04d8 9A000000 		.4byte	.LVL53
+ 1330 04dc 83090000 		.4byte	0x983
+ 1331 04e0 0C       		.uleb128 0xc
+ 1332 04e1 A2000000 		.4byte	.LVL55
+ 1333 04e5 48090000 		.4byte	0x948
+ 1334 04e9 F7040000 		.4byte	0x4f7
+ 1335 04ed 0D       		.uleb128 0xd
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 30
+
+
+ 1336 04ee 01       		.uleb128 0x1
+ 1337 04ef 50       		.byte	0x50
+ 1338 04f0 05       		.uleb128 0x5
+ 1339 04f1 03       		.byte	0x3
+ 1340 04f2 28000000 		.4byte	.LC4
+ 1341 04f6 00       		.byte	0
+ 1342 04f7 0C       		.uleb128 0xc
+ 1343 04f8 A8000000 		.4byte	.LVL56
+ 1344 04fc 5E090000 		.4byte	0x95e
+ 1345 0500 0A050000 		.4byte	0x50a
+ 1346 0504 0D       		.uleb128 0xd
+ 1347 0505 01       		.uleb128 0x1
+ 1348 0506 50       		.byte	0x50
+ 1349 0507 01       		.uleb128 0x1
+ 1350 0508 31       		.byte	0x31
+ 1351 0509 00       		.byte	0
+ 1352 050a 0C       		.uleb128 0xc
+ 1353 050b B0000000 		.4byte	.LVL57
+ 1354 050f 69090000 		.4byte	0x969
+ 1355 0513 21050000 		.4byte	0x521
+ 1356 0517 0D       		.uleb128 0xd
+ 1357 0518 01       		.uleb128 0x1
+ 1358 0519 50       		.byte	0x50
+ 1359 051a 05       		.uleb128 0x5
+ 1360 051b 03       		.byte	0x3
+ 1361 051c 48000000 		.4byte	.LC5
+ 1362 0520 00       		.byte	0
+ 1363 0521 0C       		.uleb128 0xc
+ 1364 0522 B6000000 		.4byte	.LVL58
+ 1365 0526 78090000 		.4byte	0x978
+ 1366 052a 34050000 		.4byte	0x534
+ 1367 052e 0D       		.uleb128 0xd
+ 1368 052f 01       		.uleb128 0x1
+ 1369 0530 50       		.byte	0x50
+ 1370 0531 01       		.uleb128 0x1
+ 1371 0532 31       		.byte	0x31
+ 1372 0533 00       		.byte	0
+ 1373 0534 0A       		.uleb128 0xa
+ 1374 0535 BE000000 		.4byte	.LVL59
+ 1375 0539 83090000 		.4byte	0x983
+ 1376 053d 0C       		.uleb128 0xc
+ 1377 053e C6000000 		.4byte	.LVL61
+ 1378 0542 48090000 		.4byte	0x948
+ 1379 0546 54050000 		.4byte	0x554
+ 1380 054a 0D       		.uleb128 0xd
+ 1381 054b 01       		.uleb128 0x1
+ 1382 054c 50       		.byte	0x50
+ 1383 054d 05       		.uleb128 0x5
+ 1384 054e 03       		.byte	0x3
+ 1385 054f 5C000000 		.4byte	.LC6
+ 1386 0553 00       		.byte	0
+ 1387 0554 0C       		.uleb128 0xc
+ 1388 0555 CC000000 		.4byte	.LVL62
+ 1389 0559 5E090000 		.4byte	0x95e
+ 1390 055d 67050000 		.4byte	0x567
+ 1391 0561 0D       		.uleb128 0xd
+ 1392 0562 01       		.uleb128 0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 31
+
+
+ 1393 0563 50       		.byte	0x50
+ 1394 0564 01       		.uleb128 0x1
+ 1395 0565 32       		.byte	0x32
+ 1396 0566 00       		.byte	0
+ 1397 0567 0C       		.uleb128 0xc
+ 1398 0568 D4000000 		.4byte	.LVL63
+ 1399 056c 69090000 		.4byte	0x969
+ 1400 0570 7E050000 		.4byte	0x57e
+ 1401 0574 0D       		.uleb128 0xd
+ 1402 0575 01       		.uleb128 0x1
+ 1403 0576 50       		.byte	0x50
+ 1404 0577 05       		.uleb128 0x5
+ 1405 0578 03       		.byte	0x3
+ 1406 0579 7C000000 		.4byte	.LC7
+ 1407 057d 00       		.byte	0
+ 1408 057e 0C       		.uleb128 0xc
+ 1409 057f DA000000 		.4byte	.LVL64
+ 1410 0583 78090000 		.4byte	0x978
+ 1411 0587 91050000 		.4byte	0x591
+ 1412 058b 0D       		.uleb128 0xd
+ 1413 058c 01       		.uleb128 0x1
+ 1414 058d 50       		.byte	0x50
+ 1415 058e 01       		.uleb128 0x1
+ 1416 058f 31       		.byte	0x31
+ 1417 0590 00       		.byte	0
+ 1418 0591 0A       		.uleb128 0xa
+ 1419 0592 E2000000 		.4byte	.LVL65
+ 1420 0596 83090000 		.4byte	0x983
+ 1421 059a 0C       		.uleb128 0xc
+ 1422 059b EA000000 		.4byte	.LVL67
+ 1423 059f 48090000 		.4byte	0x948
+ 1424 05a3 B1050000 		.4byte	0x5b1
+ 1425 05a7 0D       		.uleb128 0xd
+ 1426 05a8 01       		.uleb128 0x1
+ 1427 05a9 50       		.byte	0x50
+ 1428 05aa 05       		.uleb128 0x5
+ 1429 05ab 03       		.byte	0x3
+ 1430 05ac 90000000 		.4byte	.LC8
+ 1431 05b0 00       		.byte	0
+ 1432 05b1 0C       		.uleb128 0xc
+ 1433 05b2 F0000000 		.4byte	.LVL68
+ 1434 05b6 5E090000 		.4byte	0x95e
+ 1435 05ba C4050000 		.4byte	0x5c4
+ 1436 05be 0D       		.uleb128 0xd
+ 1437 05bf 01       		.uleb128 0x1
+ 1438 05c0 50       		.byte	0x50
+ 1439 05c1 01       		.uleb128 0x1
+ 1440 05c2 33       		.byte	0x33
+ 1441 05c3 00       		.byte	0
+ 1442 05c4 0C       		.uleb128 0xc
+ 1443 05c5 F8000000 		.4byte	.LVL69
+ 1444 05c9 69090000 		.4byte	0x969
+ 1445 05cd DB050000 		.4byte	0x5db
+ 1446 05d1 0D       		.uleb128 0xd
+ 1447 05d2 01       		.uleb128 0x1
+ 1448 05d3 50       		.byte	0x50
+ 1449 05d4 05       		.uleb128 0x5
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 32
+
+
+ 1450 05d5 03       		.byte	0x3
+ 1451 05d6 B0000000 		.4byte	.LC9
+ 1452 05da 00       		.byte	0
+ 1453 05db 0C       		.uleb128 0xc
+ 1454 05dc FE000000 		.4byte	.LVL70
+ 1455 05e0 78090000 		.4byte	0x978
+ 1456 05e4 EE050000 		.4byte	0x5ee
+ 1457 05e8 0D       		.uleb128 0xd
+ 1458 05e9 01       		.uleb128 0x1
+ 1459 05ea 50       		.byte	0x50
+ 1460 05eb 01       		.uleb128 0x1
+ 1461 05ec 31       		.byte	0x31
+ 1462 05ed 00       		.byte	0
+ 1463 05ee 0A       		.uleb128 0xa
+ 1464 05ef 06010000 		.4byte	.LVL71
+ 1465 05f3 83090000 		.4byte	0x983
+ 1466 05f7 0C       		.uleb128 0xc
+ 1467 05f8 0E010000 		.4byte	.LVL73
+ 1468 05fc 48090000 		.4byte	0x948
+ 1469 0600 0E060000 		.4byte	0x60e
+ 1470 0604 0D       		.uleb128 0xd
+ 1471 0605 01       		.uleb128 0x1
+ 1472 0606 50       		.byte	0x50
+ 1473 0607 05       		.uleb128 0x5
+ 1474 0608 03       		.byte	0x3
+ 1475 0609 C4000000 		.4byte	.LC10
+ 1476 060d 00       		.byte	0
+ 1477 060e 0C       		.uleb128 0xc
+ 1478 060f 14010000 		.4byte	.LVL74
+ 1479 0613 5E090000 		.4byte	0x95e
+ 1480 0617 21060000 		.4byte	0x621
+ 1481 061b 0D       		.uleb128 0xd
+ 1482 061c 01       		.uleb128 0x1
+ 1483 061d 50       		.byte	0x50
+ 1484 061e 01       		.uleb128 0x1
+ 1485 061f 34       		.byte	0x34
+ 1486 0620 00       		.byte	0
+ 1487 0621 0C       		.uleb128 0xc
+ 1488 0622 1C010000 		.4byte	.LVL75
+ 1489 0626 69090000 		.4byte	0x969
+ 1490 062a 38060000 		.4byte	0x638
+ 1491 062e 0D       		.uleb128 0xd
+ 1492 062f 01       		.uleb128 0x1
+ 1493 0630 50       		.byte	0x50
+ 1494 0631 05       		.uleb128 0x5
+ 1495 0632 03       		.byte	0x3
+ 1496 0633 E4000000 		.4byte	.LC11
+ 1497 0637 00       		.byte	0
+ 1498 0638 0C       		.uleb128 0xc
+ 1499 0639 22010000 		.4byte	.LVL76
+ 1500 063d 78090000 		.4byte	0x978
+ 1501 0641 4B060000 		.4byte	0x64b
+ 1502 0645 0D       		.uleb128 0xd
+ 1503 0646 01       		.uleb128 0x1
+ 1504 0647 50       		.byte	0x50
+ 1505 0648 01       		.uleb128 0x1
+ 1506 0649 31       		.byte	0x31
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 33
+
+
+ 1507 064a 00       		.byte	0
+ 1508 064b 0A       		.uleb128 0xa
+ 1509 064c 2A010000 		.4byte	.LVL77
+ 1510 0650 83090000 		.4byte	0x983
+ 1511 0654 0C       		.uleb128 0xc
+ 1512 0655 32010000 		.4byte	.LVL79
+ 1513 0659 48090000 		.4byte	0x948
+ 1514 065d 6B060000 		.4byte	0x66b
+ 1515 0661 0D       		.uleb128 0xd
+ 1516 0662 01       		.uleb128 0x1
+ 1517 0663 50       		.byte	0x50
+ 1518 0664 05       		.uleb128 0x5
+ 1519 0665 03       		.byte	0x3
+ 1520 0666 F8000000 		.4byte	.LC12
+ 1521 066a 00       		.byte	0
+ 1522 066b 0C       		.uleb128 0xc
+ 1523 066c 38010000 		.4byte	.LVL80
+ 1524 0670 5E090000 		.4byte	0x95e
+ 1525 0674 7E060000 		.4byte	0x67e
+ 1526 0678 0D       		.uleb128 0xd
+ 1527 0679 01       		.uleb128 0x1
+ 1528 067a 50       		.byte	0x50
+ 1529 067b 01       		.uleb128 0x1
+ 1530 067c 35       		.byte	0x35
+ 1531 067d 00       		.byte	0
+ 1532 067e 0C       		.uleb128 0xc
+ 1533 067f 40010000 		.4byte	.LVL81
+ 1534 0683 69090000 		.4byte	0x969
+ 1535 0687 95060000 		.4byte	0x695
+ 1536 068b 0D       		.uleb128 0xd
+ 1537 068c 01       		.uleb128 0x1
+ 1538 068d 50       		.byte	0x50
+ 1539 068e 05       		.uleb128 0x5
+ 1540 068f 03       		.byte	0x3
+ 1541 0690 18010000 		.4byte	.LC13
+ 1542 0694 00       		.byte	0
+ 1543 0695 0C       		.uleb128 0xc
+ 1544 0696 46010000 		.4byte	.LVL82
+ 1545 069a 78090000 		.4byte	0x978
+ 1546 069e A8060000 		.4byte	0x6a8
+ 1547 06a2 0D       		.uleb128 0xd
+ 1548 06a3 01       		.uleb128 0x1
+ 1549 06a4 50       		.byte	0x50
+ 1550 06a5 01       		.uleb128 0x1
+ 1551 06a6 31       		.byte	0x31
+ 1552 06a7 00       		.byte	0
+ 1553 06a8 0A       		.uleb128 0xa
+ 1554 06a9 4E010000 		.4byte	.LVL83
+ 1555 06ad 83090000 		.4byte	0x983
+ 1556 06b1 0C       		.uleb128 0xc
+ 1557 06b2 56010000 		.4byte	.LVL85
+ 1558 06b6 48090000 		.4byte	0x948
+ 1559 06ba C8060000 		.4byte	0x6c8
+ 1560 06be 0D       		.uleb128 0xd
+ 1561 06bf 01       		.uleb128 0x1
+ 1562 06c0 50       		.byte	0x50
+ 1563 06c1 05       		.uleb128 0x5
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 34
+
+
+ 1564 06c2 03       		.byte	0x3
+ 1565 06c3 2C010000 		.4byte	.LC14
+ 1566 06c7 00       		.byte	0
+ 1567 06c8 0E       		.uleb128 0xe
+ 1568 06c9 5C010000 		.4byte	.LVL86
+ 1569 06cd 8E090000 		.4byte	0x98e
+ 1570 06d1 0D       		.uleb128 0xd
+ 1571 06d2 01       		.uleb128 0x1
+ 1572 06d3 50       		.byte	0x50
+ 1573 06d4 02       		.uleb128 0x2
+ 1574 06d5 08       		.byte	0x8
+ 1575 06d6 64       		.byte	0x64
+ 1576 06d7 00       		.byte	0
+ 1577 06d8 00       		.byte	0
+ 1578 06d9 0B       		.uleb128 0xb
+ 1579 06da 7A020000 		.4byte	.LASF26
+ 1580 06de 01       		.byte	0x1
+ 1581 06df C2       		.byte	0xc2
+ 1582 06e0 00000000 		.4byte	.LFB69
+ 1583 06e4 4C000000 		.4byte	.LFE69-.LFB69
+ 1584 06e8 01       		.uleb128 0x1
+ 1585 06e9 9C       		.byte	0x9c
+ 1586 06ea CF070000 		.4byte	0x7cf
+ 1587 06ee 0C       		.uleb128 0xc
+ 1588 06ef 08000000 		.4byte	.LVL87
+ 1589 06f3 1F080000 		.4byte	0x81f
+ 1590 06f7 01070000 		.4byte	0x701
+ 1591 06fb 0D       		.uleb128 0xd
+ 1592 06fc 01       		.uleb128 0x1
+ 1593 06fd 50       		.byte	0x50
+ 1594 06fe 01       		.uleb128 0x1
+ 1595 06ff 30       		.byte	0x30
+ 1596 0700 00       		.byte	0
+ 1597 0701 0C       		.uleb128 0xc
+ 1598 0702 0E000000 		.4byte	.LVL88
+ 1599 0706 2A080000 		.4byte	0x82a
+ 1600 070a 14070000 		.4byte	0x714
+ 1601 070e 0D       		.uleb128 0xd
+ 1602 070f 01       		.uleb128 0x1
+ 1603 0710 50       		.byte	0x50
+ 1604 0711 01       		.uleb128 0x1
+ 1605 0712 30       		.byte	0x30
+ 1606 0713 00       		.byte	0
+ 1607 0714 0C       		.uleb128 0xc
+ 1608 0715 14000000 		.4byte	.LVL89
+ 1609 0719 35080000 		.4byte	0x835
+ 1610 071d 27070000 		.4byte	0x727
+ 1611 0721 0D       		.uleb128 0xd
+ 1612 0722 01       		.uleb128 0x1
+ 1613 0723 50       		.byte	0x50
+ 1614 0724 01       		.uleb128 0x1
+ 1615 0725 30       		.byte	0x30
+ 1616 0726 00       		.byte	0
+ 1617 0727 0C       		.uleb128 0xc
+ 1618 0728 1A000000 		.4byte	.LVL90
+ 1619 072c 40080000 		.4byte	0x840
+ 1620 0730 3A070000 		.4byte	0x73a
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 35
+
+
+ 1621 0734 0D       		.uleb128 0xd
+ 1622 0735 01       		.uleb128 0x1
+ 1623 0736 50       		.byte	0x50
+ 1624 0737 01       		.uleb128 0x1
+ 1625 0738 30       		.byte	0x30
+ 1626 0739 00       		.byte	0
+ 1627 073a 0C       		.uleb128 0xc
+ 1628 073b 20000000 		.4byte	.LVL91
+ 1629 073f 4B080000 		.4byte	0x84b
+ 1630 0743 4D070000 		.4byte	0x74d
+ 1631 0747 0D       		.uleb128 0xd
+ 1632 0748 01       		.uleb128 0x1
+ 1633 0749 50       		.byte	0x50
+ 1634 074a 01       		.uleb128 0x1
+ 1635 074b 30       		.byte	0x30
+ 1636 074c 00       		.byte	0
+ 1637 074d 0C       		.uleb128 0xc
+ 1638 074e 26000000 		.4byte	.LVL92
+ 1639 0752 56080000 		.4byte	0x856
+ 1640 0756 60070000 		.4byte	0x760
+ 1641 075a 0D       		.uleb128 0xd
+ 1642 075b 01       		.uleb128 0x1
+ 1643 075c 50       		.byte	0x50
+ 1644 075d 01       		.uleb128 0x1
+ 1645 075e 30       		.byte	0x30
+ 1646 075f 00       		.byte	0
+ 1647 0760 0C       		.uleb128 0xc
+ 1648 0761 2C000000 		.4byte	.LVL93
+ 1649 0765 61080000 		.4byte	0x861
+ 1650 0769 73070000 		.4byte	0x773
+ 1651 076d 0D       		.uleb128 0xd
+ 1652 076e 01       		.uleb128 0x1
+ 1653 076f 50       		.byte	0x50
+ 1654 0770 01       		.uleb128 0x1
+ 1655 0771 30       		.byte	0x30
+ 1656 0772 00       		.byte	0
+ 1657 0773 0C       		.uleb128 0xc
+ 1658 0774 32000000 		.4byte	.LVL94
+ 1659 0778 6C080000 		.4byte	0x86c
+ 1660 077c 86070000 		.4byte	0x786
+ 1661 0780 0D       		.uleb128 0xd
+ 1662 0781 01       		.uleb128 0x1
+ 1663 0782 50       		.byte	0x50
+ 1664 0783 01       		.uleb128 0x1
+ 1665 0784 30       		.byte	0x30
+ 1666 0785 00       		.byte	0
+ 1667 0786 0C       		.uleb128 0xc
+ 1668 0787 38000000 		.4byte	.LVL95
+ 1669 078b 77080000 		.4byte	0x877
+ 1670 078f 99070000 		.4byte	0x799
+ 1671 0793 0D       		.uleb128 0xd
+ 1672 0794 01       		.uleb128 0x1
+ 1673 0795 50       		.byte	0x50
+ 1674 0796 01       		.uleb128 0x1
+ 1675 0797 30       		.byte	0x30
+ 1676 0798 00       		.byte	0
+ 1677 0799 0C       		.uleb128 0xc
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 36
+
+
+ 1678 079a 3E000000 		.4byte	.LVL96
+ 1679 079e 82080000 		.4byte	0x882
+ 1680 07a2 AC070000 		.4byte	0x7ac
+ 1681 07a6 0D       		.uleb128 0xd
+ 1682 07a7 01       		.uleb128 0x1
+ 1683 07a8 50       		.byte	0x50
+ 1684 07a9 01       		.uleb128 0x1
+ 1685 07aa 30       		.byte	0x30
+ 1686 07ab 00       		.byte	0
+ 1687 07ac 0C       		.uleb128 0xc
+ 1688 07ad 44000000 		.4byte	.LVL97
+ 1689 07b1 8D080000 		.4byte	0x88d
+ 1690 07b5 BF070000 		.4byte	0x7bf
+ 1691 07b9 0D       		.uleb128 0xd
+ 1692 07ba 01       		.uleb128 0x1
+ 1693 07bb 50       		.byte	0x50
+ 1694 07bc 01       		.uleb128 0x1
+ 1695 07bd 30       		.byte	0x30
+ 1696 07be 00       		.byte	0
+ 1697 07bf 0E       		.uleb128 0xe
+ 1698 07c0 4A000000 		.4byte	.LVL98
+ 1699 07c4 98080000 		.4byte	0x898
+ 1700 07c8 0D       		.uleb128 0xd
+ 1701 07c9 01       		.uleb128 0x1
+ 1702 07ca 50       		.byte	0x50
+ 1703 07cb 01       		.uleb128 0x1
+ 1704 07cc 30       		.byte	0x30
+ 1705 07cd 00       		.byte	0
+ 1706 07ce 00       		.byte	0
+ 1707 07cf 10       		.uleb128 0x10
+ 1708 07d0 96030000 		.4byte	.LASF27
+ 1709 07d4 05       		.byte	0x5
+ 1710 07d5 1207     		.2byte	0x712
+ 1711 07d7 DB070000 		.4byte	0x7db
+ 1712 07db 06       		.uleb128 0x6
+ 1713 07dc 81000000 		.4byte	0x81
+ 1714 07e0 11       		.uleb128 0x11
+ 1715 07e1 16010000 		.4byte	.LASF28
+ 1716 07e5 01       		.byte	0x1
+ 1717 07e6 1D       		.byte	0x1d
+ 1718 07e7 97000000 		.4byte	0x97
+ 1719 07eb 05       		.uleb128 0x5
+ 1720 07ec 03       		.byte	0x3
+ 1721 07ed 00000000 		.4byte	errorStatus
+ 1722 07f1 11       		.uleb128 0x11
+ 1723 07f2 6F010000 		.4byte	.LASF29
+ 1724 07f6 01       		.byte	0x1
+ 1725 07f7 40       		.byte	0x40
+ 1726 07f8 02080000 		.4byte	0x802
+ 1727 07fc 05       		.uleb128 0x5
+ 1728 07fd 03       		.byte	0x3
+ 1729 07fe 00000000 		.4byte	button
+ 1730 0802 02       		.uleb128 0x2
+ 1731 0803 01       		.byte	0x1
+ 1732 0804 02       		.byte	0x2
+ 1733 0805 BC020000 		.4byte	.LASF30
+ 1734 0809 12       		.uleb128 0x12
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 37
+
+
+ 1735 080a 34020000 		.4byte	.LASF31
+ 1736 080e 34020000 		.4byte	.LASF31
+ 1737 0812 06       		.byte	0x6
+ 1738 0813 29       		.byte	0x29
+ 1739 0814 12       		.uleb128 0x12
+ 1740 0815 91010000 		.4byte	.LASF32
+ 1741 0819 91010000 		.4byte	.LASF32
+ 1742 081d 06       		.byte	0x6
+ 1743 081e 2B       		.byte	0x2b
+ 1744 081f 12       		.uleb128 0x12
+ 1745 0820 39040000 		.4byte	.LASF33
+ 1746 0824 39040000 		.4byte	.LASF33
+ 1747 0828 07       		.byte	0x7
+ 1748 0829 26       		.byte	0x26
+ 1749 082a 12       		.uleb128 0x12
+ 1750 082b 49030000 		.4byte	.LASF34
+ 1751 082f 49030000 		.4byte	.LASF34
+ 1752 0833 08       		.byte	0x8
+ 1753 0834 26       		.byte	0x26
+ 1754 0835 12       		.uleb128 0x12
+ 1755 0836 82030000 		.4byte	.LASF35
+ 1756 083a 82030000 		.4byte	.LASF35
+ 1757 083e 09       		.byte	0x9
+ 1758 083f 26       		.byte	0x26
+ 1759 0840 12       		.uleb128 0x12
+ 1760 0841 84010000 		.4byte	.LASF36
+ 1761 0845 84010000 		.4byte	.LASF36
+ 1762 0849 0A       		.byte	0xa
+ 1763 084a 26       		.byte	0x26
+ 1764 084b 12       		.uleb128 0x12
+ 1765 084c 56030000 		.4byte	.LASF37
+ 1766 0850 56030000 		.4byte	.LASF37
+ 1767 0854 0B       		.byte	0xb
+ 1768 0855 26       		.byte	0x26
+ 1769 0856 12       		.uleb128 0x12
+ 1770 0857 52010000 		.4byte	.LASF38
+ 1771 085b 52010000 		.4byte	.LASF38
+ 1772 085f 0C       		.byte	0xc
+ 1773 0860 26       		.byte	0x26
+ 1774 0861 12       		.uleb128 0x12
+ 1775 0862 8D000000 		.4byte	.LASF39
+ 1776 0866 8D000000 		.4byte	.LASF39
+ 1777 086a 0D       		.byte	0xd
+ 1778 086b 26       		.byte	0x26
+ 1779 086c 12       		.uleb128 0x12
+ 1780 086d 13030000 		.4byte	.LASF40
+ 1781 0871 13030000 		.4byte	.LASF40
+ 1782 0875 0E       		.byte	0xe
+ 1783 0876 26       		.byte	0x26
+ 1784 0877 12       		.uleb128 0x12
+ 1785 0878 5E000000 		.4byte	.LASF41
+ 1786 087c 5E000000 		.4byte	.LASF41
+ 1787 0880 0F       		.byte	0xf
+ 1788 0881 26       		.byte	0x26
+ 1789 0882 12       		.uleb128 0x12
+ 1790 0883 84020000 		.4byte	.LASF42
+ 1791 0887 84020000 		.4byte	.LASF42
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 38
+
+
+ 1792 088b 10       		.byte	0x10
+ 1793 088c 26       		.byte	0x26
+ 1794 088d 12       		.uleb128 0x12
+ 1795 088e 00000000 		.4byte	.LASF43
+ 1796 0892 00000000 		.4byte	.LASF43
+ 1797 0896 11       		.byte	0x11
+ 1798 0897 26       		.byte	0x26
+ 1799 0898 12       		.uleb128 0x12
+ 1800 0899 0F020000 		.4byte	.LASF44
+ 1801 089d 0F020000 		.4byte	.LASF44
+ 1802 08a1 12       		.byte	0x12
+ 1803 08a2 26       		.byte	0x26
+ 1804 08a3 12       		.uleb128 0x12
+ 1805 08a4 96020000 		.4byte	.LASF45
+ 1806 08a8 96020000 		.4byte	.LASF45
+ 1807 08ac 13       		.byte	0x13
+ 1808 08ad 54       		.byte	0x54
+ 1809 08ae 12       		.uleb128 0x12
+ 1810 08af 5C020000 		.4byte	.LASF46
+ 1811 08b3 5C020000 		.4byte	.LASF46
+ 1812 08b7 14       		.byte	0x14
+ 1813 08b8 25       		.byte	0x25
+ 1814 08b9 12       		.uleb128 0x12
+ 1815 08ba 67020000 		.4byte	.LASF47
+ 1816 08be 67020000 		.4byte	.LASF47
+ 1817 08c2 15       		.byte	0x15
+ 1818 08c3 3A       		.byte	0x3a
+ 1819 08c4 12       		.uleb128 0x12
+ 1820 08c5 9A000000 		.4byte	.LASF48
+ 1821 08c9 9A000000 		.4byte	.LASF48
+ 1822 08cd 16       		.byte	0x16
+ 1823 08ce 18       		.byte	0x18
+ 1824 08cf 12       		.uleb128 0x12
+ 1825 08d0 A9010000 		.4byte	.LASF49
+ 1826 08d4 A9010000 		.4byte	.LASF49
+ 1827 08d8 17       		.byte	0x17
+ 1828 08d9 18       		.byte	0x18
+ 1829 08da 12       		.uleb128 0x12
+ 1830 08db A9000000 		.4byte	.LASF50
+ 1831 08df A9000000 		.4byte	.LASF50
+ 1832 08e3 18       		.byte	0x18
+ 1833 08e4 92       		.byte	0x92
+ 1834 08e5 12       		.uleb128 0x12
+ 1835 08e6 3E030000 		.4byte	.LASF51
+ 1836 08ea 3E030000 		.4byte	.LASF51
+ 1837 08ee 19       		.byte	0x19
+ 1838 08ef 92       		.byte	0x92
+ 1839 08f0 12       		.uleb128 0x12
+ 1840 08f1 35010000 		.4byte	.LASF52
+ 1841 08f5 35010000 		.4byte	.LASF52
+ 1842 08f9 1A       		.byte	0x1a
+ 1843 08fa 92       		.byte	0x92
+ 1844 08fb 12       		.uleb128 0x12
+ 1845 08fc D7000000 		.4byte	.LASF53
+ 1846 0900 D7000000 		.4byte	.LASF53
+ 1847 0904 18       		.byte	0x18
+ 1848 0905 C7       		.byte	0xc7
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 39
+
+
+ 1849 0906 12       		.uleb128 0x12
+ 1850 0907 EA000000 		.4byte	.LASF54
+ 1851 090b EA000000 		.4byte	.LASF54
+ 1852 090f 18       		.byte	0x18
+ 1853 0910 CA       		.byte	0xca
+ 1854 0911 12       		.uleb128 0x12
+ 1855 0912 1C000000 		.4byte	.LASF55
+ 1856 0916 1C000000 		.4byte	.LASF55
+ 1857 091a 19       		.byte	0x19
+ 1858 091b C7       		.byte	0xc7
+ 1859 091c 12       		.uleb128 0x12
+ 1860 091d 2F000000 		.4byte	.LASF56
+ 1861 0921 2F000000 		.4byte	.LASF56
+ 1862 0925 19       		.byte	0x19
+ 1863 0926 CA       		.byte	0xca
+ 1864 0927 12       		.uleb128 0x12
+ 1865 0928 46040000 		.4byte	.LASF57
+ 1866 092c 46040000 		.4byte	.LASF57
+ 1867 0930 1A       		.byte	0x1a
+ 1868 0931 C7       		.byte	0xc7
+ 1869 0932 12       		.uleb128 0x12
+ 1870 0933 22010000 		.4byte	.LASF58
+ 1871 0937 22010000 		.4byte	.LASF58
+ 1872 093b 1A       		.byte	0x1a
+ 1873 093c CA       		.byte	0xca
+ 1874 093d 12       		.uleb128 0x12
+ 1875 093e 42020000 		.4byte	.LASF59
+ 1876 0942 42020000 		.4byte	.LASF59
+ 1877 0946 15       		.byte	0x15
+ 1878 0947 3D       		.byte	0x3d
+ 1879 0948 12       		.uleb128 0x12
+ 1880 0949 68010000 		.4byte	.LASF60
+ 1881 094d 68010000 		.4byte	.LASF60
+ 1882 0951 1B       		.byte	0x1b
+ 1883 0952 BB       		.byte	0xbb
+ 1884 0953 12       		.uleb128 0x12
+ 1885 0954 4A000000 		.4byte	.LASF61
+ 1886 0958 4A000000 		.4byte	.LASF61
+ 1887 095c 1C       		.byte	0x1c
+ 1888 095d 26       		.byte	0x26
+ 1889 095e 12       		.uleb128 0x12
+ 1890 095f 46010000 		.4byte	.LASF62
+ 1891 0963 46010000 		.4byte	.LASF62
+ 1892 0967 14       		.byte	0x14
+ 1893 0968 57       		.byte	0x57
+ 1894 0969 13       		.uleb128 0x13
+ 1895 096a 29020000 		.4byte	.LASF71
+ 1896 096e 0D000000 		.4byte	.LASF72
+ 1897 0972 1E       		.byte	0x1e
+ 1898 0973 00       		.byte	0
+ 1899 0974 29020000 		.4byte	.LASF71
+ 1900 0978 12       		.uleb128 0x12
+ 1901 0979 B4000000 		.4byte	.LASF63
+ 1902 097d B4000000 		.4byte	.LASF63
+ 1903 0981 15       		.byte	0x15
+ 1904 0982 3F       		.byte	0x3f
+ 1905 0983 12       		.uleb128 0x12
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 40
+
+
+ 1906 0984 FD000000 		.4byte	.LASF64
+ 1907 0988 FD000000 		.4byte	.LASF64
+ 1908 098c 15       		.byte	0x15
+ 1909 098d 41       		.byte	0x41
+ 1910 098e 12       		.uleb128 0x12
+ 1911 098f 31040000 		.4byte	.LASF65
+ 1912 0993 31040000 		.4byte	.LASF65
+ 1913 0997 1D       		.byte	0x1d
+ 1914 0998 76       		.byte	0x76
+ 1915 0999 00       		.byte	0
+ 1916              		.section	.debug_abbrev,"",%progbits
+ 1917              	.Ldebug_abbrev0:
+ 1918 0000 01       		.uleb128 0x1
+ 1919 0001 11       		.uleb128 0x11
+ 1920 0002 01       		.byte	0x1
+ 1921 0003 25       		.uleb128 0x25
+ 1922 0004 0E       		.uleb128 0xe
+ 1923 0005 13       		.uleb128 0x13
+ 1924 0006 0B       		.uleb128 0xb
+ 1925 0007 03       		.uleb128 0x3
+ 1926 0008 0E       		.uleb128 0xe
+ 1927 0009 1B       		.uleb128 0x1b
+ 1928 000a 0E       		.uleb128 0xe
+ 1929 000b 55       		.uleb128 0x55
+ 1930 000c 17       		.uleb128 0x17
+ 1931 000d 11       		.uleb128 0x11
+ 1932 000e 01       		.uleb128 0x1
+ 1933 000f 10       		.uleb128 0x10
+ 1934 0010 17       		.uleb128 0x17
+ 1935 0011 00       		.byte	0
+ 1936 0012 00       		.byte	0
+ 1937 0013 02       		.uleb128 0x2
+ 1938 0014 24       		.uleb128 0x24
+ 1939 0015 00       		.byte	0
+ 1940 0016 0B       		.uleb128 0xb
+ 1941 0017 0B       		.uleb128 0xb
+ 1942 0018 3E       		.uleb128 0x3e
+ 1943 0019 0B       		.uleb128 0xb
+ 1944 001a 03       		.uleb128 0x3
+ 1945 001b 0E       		.uleb128 0xe
+ 1946 001c 00       		.byte	0
+ 1947 001d 00       		.byte	0
+ 1948 001e 03       		.uleb128 0x3
+ 1949 001f 16       		.uleb128 0x16
+ 1950 0020 00       		.byte	0
+ 1951 0021 03       		.uleb128 0x3
+ 1952 0022 0E       		.uleb128 0xe
+ 1953 0023 3A       		.uleb128 0x3a
+ 1954 0024 0B       		.uleb128 0xb
+ 1955 0025 3B       		.uleb128 0x3b
+ 1956 0026 0B       		.uleb128 0xb
+ 1957 0027 49       		.uleb128 0x49
+ 1958 0028 13       		.uleb128 0x13
+ 1959 0029 00       		.byte	0
+ 1960 002a 00       		.byte	0
+ 1961 002b 04       		.uleb128 0x4
+ 1962 002c 24       		.uleb128 0x24
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 41
+
+
+ 1963 002d 00       		.byte	0
+ 1964 002e 0B       		.uleb128 0xb
+ 1965 002f 0B       		.uleb128 0xb
+ 1966 0030 3E       		.uleb128 0x3e
+ 1967 0031 0B       		.uleb128 0xb
+ 1968 0032 03       		.uleb128 0x3
+ 1969 0033 08       		.uleb128 0x8
+ 1970 0034 00       		.byte	0
+ 1971 0035 00       		.byte	0
+ 1972 0036 05       		.uleb128 0x5
+ 1973 0037 16       		.uleb128 0x16
+ 1974 0038 00       		.byte	0
+ 1975 0039 03       		.uleb128 0x3
+ 1976 003a 0E       		.uleb128 0xe
+ 1977 003b 3A       		.uleb128 0x3a
+ 1978 003c 0B       		.uleb128 0xb
+ 1979 003d 3B       		.uleb128 0x3b
+ 1980 003e 05       		.uleb128 0x5
+ 1981 003f 49       		.uleb128 0x49
+ 1982 0040 13       		.uleb128 0x13
+ 1983 0041 00       		.byte	0
+ 1984 0042 00       		.byte	0
+ 1985 0043 06       		.uleb128 0x6
+ 1986 0044 35       		.uleb128 0x35
+ 1987 0045 00       		.byte	0
+ 1988 0046 49       		.uleb128 0x49
+ 1989 0047 13       		.uleb128 0x13
+ 1990 0048 00       		.byte	0
+ 1991 0049 00       		.byte	0
+ 1992 004a 07       		.uleb128 0x7
+ 1993 004b 2E       		.uleb128 0x2e
+ 1994 004c 01       		.byte	0x1
+ 1995 004d 3F       		.uleb128 0x3f
+ 1996 004e 19       		.uleb128 0x19
+ 1997 004f 03       		.uleb128 0x3
+ 1998 0050 0E       		.uleb128 0xe
+ 1999 0051 3A       		.uleb128 0x3a
+ 2000 0052 0B       		.uleb128 0xb
+ 2001 0053 3B       		.uleb128 0x3b
+ 2002 0054 0B       		.uleb128 0xb
+ 2003 0055 27       		.uleb128 0x27
+ 2004 0056 19       		.uleb128 0x19
+ 2005 0057 11       		.uleb128 0x11
+ 2006 0058 01       		.uleb128 0x1
+ 2007 0059 12       		.uleb128 0x12
+ 2008 005a 06       		.uleb128 0x6
+ 2009 005b 40       		.uleb128 0x40
+ 2010 005c 18       		.uleb128 0x18
+ 2011 005d 9742     		.uleb128 0x2117
+ 2012 005f 19       		.uleb128 0x19
+ 2013 0060 01       		.uleb128 0x1
+ 2014 0061 13       		.uleb128 0x13
+ 2015 0062 00       		.byte	0
+ 2016 0063 00       		.byte	0
+ 2017 0064 08       		.uleb128 0x8
+ 2018 0065 34       		.uleb128 0x34
+ 2019 0066 00       		.byte	0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 42
+
+
+ 2020 0067 03       		.uleb128 0x3
+ 2021 0068 0E       		.uleb128 0xe
+ 2022 0069 3A       		.uleb128 0x3a
+ 2023 006a 0B       		.uleb128 0xb
+ 2024 006b 3B       		.uleb128 0x3b
+ 2025 006c 0B       		.uleb128 0xb
+ 2026 006d 49       		.uleb128 0x49
+ 2027 006e 13       		.uleb128 0x13
+ 2028 006f 02       		.uleb128 0x2
+ 2029 0070 17       		.uleb128 0x17
+ 2030 0071 00       		.byte	0
+ 2031 0072 00       		.byte	0
+ 2032 0073 09       		.uleb128 0x9
+ 2033 0074 34       		.uleb128 0x34
+ 2034 0075 00       		.byte	0
+ 2035 0076 03       		.uleb128 0x3
+ 2036 0077 0E       		.uleb128 0xe
+ 2037 0078 3A       		.uleb128 0x3a
+ 2038 0079 0B       		.uleb128 0xb
+ 2039 007a 3B       		.uleb128 0x3b
+ 2040 007b 0B       		.uleb128 0xb
+ 2041 007c 49       		.uleb128 0x49
+ 2042 007d 13       		.uleb128 0x13
+ 2043 007e 00       		.byte	0
+ 2044 007f 00       		.byte	0
+ 2045 0080 0A       		.uleb128 0xa
+ 2046 0081 898201   		.uleb128 0x4109
+ 2047 0084 00       		.byte	0
+ 2048 0085 11       		.uleb128 0x11
+ 2049 0086 01       		.uleb128 0x1
+ 2050 0087 31       		.uleb128 0x31
+ 2051 0088 13       		.uleb128 0x13
+ 2052 0089 00       		.byte	0
+ 2053 008a 00       		.byte	0
+ 2054 008b 0B       		.uleb128 0xb
+ 2055 008c 2E       		.uleb128 0x2e
+ 2056 008d 01       		.byte	0x1
+ 2057 008e 3F       		.uleb128 0x3f
+ 2058 008f 19       		.uleb128 0x19
+ 2059 0090 03       		.uleb128 0x3
+ 2060 0091 0E       		.uleb128 0xe
+ 2061 0092 3A       		.uleb128 0x3a
+ 2062 0093 0B       		.uleb128 0xb
+ 2063 0094 3B       		.uleb128 0x3b
+ 2064 0095 0B       		.uleb128 0xb
+ 2065 0096 11       		.uleb128 0x11
+ 2066 0097 01       		.uleb128 0x1
+ 2067 0098 12       		.uleb128 0x12
+ 2068 0099 06       		.uleb128 0x6
+ 2069 009a 40       		.uleb128 0x40
+ 2070 009b 18       		.uleb128 0x18
+ 2071 009c 9742     		.uleb128 0x2117
+ 2072 009e 19       		.uleb128 0x19
+ 2073 009f 01       		.uleb128 0x1
+ 2074 00a0 13       		.uleb128 0x13
+ 2075 00a1 00       		.byte	0
+ 2076 00a2 00       		.byte	0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 43
+
+
+ 2077 00a3 0C       		.uleb128 0xc
+ 2078 00a4 898201   		.uleb128 0x4109
+ 2079 00a7 01       		.byte	0x1
+ 2080 00a8 11       		.uleb128 0x11
+ 2081 00a9 01       		.uleb128 0x1
+ 2082 00aa 31       		.uleb128 0x31
+ 2083 00ab 13       		.uleb128 0x13
+ 2084 00ac 01       		.uleb128 0x1
+ 2085 00ad 13       		.uleb128 0x13
+ 2086 00ae 00       		.byte	0
+ 2087 00af 00       		.byte	0
+ 2088 00b0 0D       		.uleb128 0xd
+ 2089 00b1 8A8201   		.uleb128 0x410a
+ 2090 00b4 00       		.byte	0
+ 2091 00b5 02       		.uleb128 0x2
+ 2092 00b6 18       		.uleb128 0x18
+ 2093 00b7 9142     		.uleb128 0x2111
+ 2094 00b9 18       		.uleb128 0x18
+ 2095 00ba 00       		.byte	0
+ 2096 00bb 00       		.byte	0
+ 2097 00bc 0E       		.uleb128 0xe
+ 2098 00bd 898201   		.uleb128 0x4109
+ 2099 00c0 01       		.byte	0x1
+ 2100 00c1 11       		.uleb128 0x11
+ 2101 00c2 01       		.uleb128 0x1
+ 2102 00c3 31       		.uleb128 0x31
+ 2103 00c4 13       		.uleb128 0x13
+ 2104 00c5 00       		.byte	0
+ 2105 00c6 00       		.byte	0
+ 2106 00c7 0F       		.uleb128 0xf
+ 2107 00c8 2E       		.uleb128 0x2e
+ 2108 00c9 01       		.byte	0x1
+ 2109 00ca 3F       		.uleb128 0x3f
+ 2110 00cb 19       		.uleb128 0x19
+ 2111 00cc 03       		.uleb128 0x3
+ 2112 00cd 0E       		.uleb128 0xe
+ 2113 00ce 3A       		.uleb128 0x3a
+ 2114 00cf 0B       		.uleb128 0xb
+ 2115 00d0 3B       		.uleb128 0x3b
+ 2116 00d1 0B       		.uleb128 0xb
+ 2117 00d2 27       		.uleb128 0x27
+ 2118 00d3 19       		.uleb128 0x19
+ 2119 00d4 49       		.uleb128 0x49
+ 2120 00d5 13       		.uleb128 0x13
+ 2121 00d6 8701     		.uleb128 0x87
+ 2122 00d8 19       		.uleb128 0x19
+ 2123 00d9 11       		.uleb128 0x11
+ 2124 00da 01       		.uleb128 0x1
+ 2125 00db 12       		.uleb128 0x12
+ 2126 00dc 06       		.uleb128 0x6
+ 2127 00dd 40       		.uleb128 0x40
+ 2128 00de 18       		.uleb128 0x18
+ 2129 00df 9742     		.uleb128 0x2117
+ 2130 00e1 19       		.uleb128 0x19
+ 2131 00e2 01       		.uleb128 0x1
+ 2132 00e3 13       		.uleb128 0x13
+ 2133 00e4 00       		.byte	0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 44
+
+
+ 2134 00e5 00       		.byte	0
+ 2135 00e6 10       		.uleb128 0x10
+ 2136 00e7 34       		.uleb128 0x34
+ 2137 00e8 00       		.byte	0
+ 2138 00e9 03       		.uleb128 0x3
+ 2139 00ea 0E       		.uleb128 0xe
+ 2140 00eb 3A       		.uleb128 0x3a
+ 2141 00ec 0B       		.uleb128 0xb
+ 2142 00ed 3B       		.uleb128 0x3b
+ 2143 00ee 05       		.uleb128 0x5
+ 2144 00ef 49       		.uleb128 0x49
+ 2145 00f0 13       		.uleb128 0x13
+ 2146 00f1 3F       		.uleb128 0x3f
+ 2147 00f2 19       		.uleb128 0x19
+ 2148 00f3 3C       		.uleb128 0x3c
+ 2149 00f4 19       		.uleb128 0x19
+ 2150 00f5 00       		.byte	0
+ 2151 00f6 00       		.byte	0
+ 2152 00f7 11       		.uleb128 0x11
+ 2153 00f8 34       		.uleb128 0x34
+ 2154 00f9 00       		.byte	0
+ 2155 00fa 03       		.uleb128 0x3
+ 2156 00fb 0E       		.uleb128 0xe
+ 2157 00fc 3A       		.uleb128 0x3a
+ 2158 00fd 0B       		.uleb128 0xb
+ 2159 00fe 3B       		.uleb128 0x3b
+ 2160 00ff 0B       		.uleb128 0xb
+ 2161 0100 49       		.uleb128 0x49
+ 2162 0101 13       		.uleb128 0x13
+ 2163 0102 3F       		.uleb128 0x3f
+ 2164 0103 19       		.uleb128 0x19
+ 2165 0104 02       		.uleb128 0x2
+ 2166 0105 18       		.uleb128 0x18
+ 2167 0106 00       		.byte	0
+ 2168 0107 00       		.byte	0
+ 2169 0108 12       		.uleb128 0x12
+ 2170 0109 2E       		.uleb128 0x2e
+ 2171 010a 00       		.byte	0
+ 2172 010b 3F       		.uleb128 0x3f
+ 2173 010c 19       		.uleb128 0x19
+ 2174 010d 3C       		.uleb128 0x3c
+ 2175 010e 19       		.uleb128 0x19
+ 2176 010f 6E       		.uleb128 0x6e
+ 2177 0110 0E       		.uleb128 0xe
+ 2178 0111 03       		.uleb128 0x3
+ 2179 0112 0E       		.uleb128 0xe
+ 2180 0113 3A       		.uleb128 0x3a
+ 2181 0114 0B       		.uleb128 0xb
+ 2182 0115 3B       		.uleb128 0x3b
+ 2183 0116 0B       		.uleb128 0xb
+ 2184 0117 00       		.byte	0
+ 2185 0118 00       		.byte	0
+ 2186 0119 13       		.uleb128 0x13
+ 2187 011a 2E       		.uleb128 0x2e
+ 2188 011b 00       		.byte	0
+ 2189 011c 3F       		.uleb128 0x3f
+ 2190 011d 19       		.uleb128 0x19
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 45
+
+
+ 2191 011e 3C       		.uleb128 0x3c
+ 2192 011f 19       		.uleb128 0x19
+ 2193 0120 6E       		.uleb128 0x6e
+ 2194 0121 0E       		.uleb128 0xe
+ 2195 0122 03       		.uleb128 0x3
+ 2196 0123 0E       		.uleb128 0xe
+ 2197 0124 3A       		.uleb128 0x3a
+ 2198 0125 0B       		.uleb128 0xb
+ 2199 0126 3B       		.uleb128 0x3b
+ 2200 0127 0B       		.uleb128 0xb
+ 2201 0128 6E       		.uleb128 0x6e
+ 2202 0129 0E       		.uleb128 0xe
+ 2203 012a 00       		.byte	0
+ 2204 012b 00       		.byte	0
+ 2205 012c 00       		.byte	0
+ 2206              		.section	.debug_loc,"",%progbits
+ 2207              	.Ldebug_loc0:
+ 2208              	.LLST0:
+ 2209 0000 06000000 		.4byte	.LVL0
+ 2210 0004 1C000000 		.4byte	.LVL1
+ 2211 0008 0100     		.2byte	0x1
+ 2212 000a 53       		.byte	0x53
+ 2213 000b 00000000 		.4byte	0
+ 2214 000f 00000000 		.4byte	0
+ 2215              	.LLST1:
+ 2216 0013 9A000000 		.4byte	.LVL53
+ 2217 0017 9E000000 		.4byte	.LVL54
+ 2218 001b 0100     		.2byte	0x1
+ 2219 001d 50       		.byte	0x50
+ 2220 001e 9E000000 		.4byte	.LVL54
+ 2221 0022 A1000000 		.4byte	.LVL55-1
+ 2222 0026 0100     		.2byte	0x1
+ 2223 0028 51       		.byte	0x51
+ 2224 0029 BE000000 		.4byte	.LVL59
+ 2225 002d C2000000 		.4byte	.LVL60
+ 2226 0031 0100     		.2byte	0x1
+ 2227 0033 50       		.byte	0x50
+ 2228 0034 C2000000 		.4byte	.LVL60
+ 2229 0038 C5000000 		.4byte	.LVL61-1
+ 2230 003c 0100     		.2byte	0x1
+ 2231 003e 51       		.byte	0x51
+ 2232 003f E2000000 		.4byte	.LVL65
+ 2233 0043 E6000000 		.4byte	.LVL66
+ 2234 0047 0100     		.2byte	0x1
+ 2235 0049 50       		.byte	0x50
+ 2236 004a E6000000 		.4byte	.LVL66
+ 2237 004e E9000000 		.4byte	.LVL67-1
+ 2238 0052 0100     		.2byte	0x1
+ 2239 0054 51       		.byte	0x51
+ 2240 0055 06010000 		.4byte	.LVL71
+ 2241 0059 0A010000 		.4byte	.LVL72
+ 2242 005d 0100     		.2byte	0x1
+ 2243 005f 50       		.byte	0x50
+ 2244 0060 0A010000 		.4byte	.LVL72
+ 2245 0064 0D010000 		.4byte	.LVL73-1
+ 2246 0068 0100     		.2byte	0x1
+ 2247 006a 51       		.byte	0x51
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 46
+
+
+ 2248 006b 2A010000 		.4byte	.LVL77
+ 2249 006f 2E010000 		.4byte	.LVL78
+ 2250 0073 0100     		.2byte	0x1
+ 2251 0075 50       		.byte	0x50
+ 2252 0076 2E010000 		.4byte	.LVL78
+ 2253 007a 31010000 		.4byte	.LVL79-1
+ 2254 007e 0100     		.2byte	0x1
+ 2255 0080 51       		.byte	0x51
+ 2256 0081 4E010000 		.4byte	.LVL83
+ 2257 0085 52010000 		.4byte	.LVL84
+ 2258 0089 0100     		.2byte	0x1
+ 2259 008b 50       		.byte	0x50
+ 2260 008c 52010000 		.4byte	.LVL84
+ 2261 0090 55010000 		.4byte	.LVL85-1
+ 2262 0094 0100     		.2byte	0x1
+ 2263 0096 51       		.byte	0x51
+ 2264 0097 00000000 		.4byte	0
+ 2265 009b 00000000 		.4byte	0
+ 2266              		.section	.debug_aranges,"",%progbits
+ 2267 0000 44000000 		.4byte	0x44
+ 2268 0004 0200     		.2byte	0x2
+ 2269 0006 00000000 		.4byte	.Ldebug_info0
+ 2270 000a 04       		.byte	0x4
+ 2271 000b 00       		.byte	0
+ 2272 000c 0000     		.2byte	0
+ 2273 000e 0000     		.2byte	0
+ 2274 0010 00000000 		.4byte	.LFB64
+ 2275 0014 38000000 		.4byte	.LFE64-.LFB64
+ 2276 0018 00000000 		.4byte	.LFB65
+ 2277 001c 20000000 		.4byte	.LFE65-.LFB65
+ 2278 0020 00000000 		.4byte	.LFB67
+ 2279 0024 4C000000 		.4byte	.LFE67-.LFB67
+ 2280 0028 00000000 		.4byte	.LFB68
+ 2281 002c 4C000000 		.4byte	.LFE68-.LFB68
+ 2282 0030 00000000 		.4byte	.LFB66
+ 2283 0034 A8010000 		.4byte	.LFE66-.LFB66
+ 2284 0038 00000000 		.4byte	.LFB69
+ 2285 003c 4C000000 		.4byte	.LFE69-.LFB69
+ 2286 0040 00000000 		.4byte	0
+ 2287 0044 00000000 		.4byte	0
+ 2288              		.section	.debug_ranges,"",%progbits
+ 2289              	.Ldebug_ranges0:
+ 2290 0000 00000000 		.4byte	.LFB64
+ 2291 0004 38000000 		.4byte	.LFE64
+ 2292 0008 00000000 		.4byte	.LFB65
+ 2293 000c 20000000 		.4byte	.LFE65
+ 2294 0010 00000000 		.4byte	.LFB67
+ 2295 0014 4C000000 		.4byte	.LFE67
+ 2296 0018 00000000 		.4byte	.LFB68
+ 2297 001c 4C000000 		.4byte	.LFE68
+ 2298 0020 00000000 		.4byte	.LFB66
+ 2299 0024 A8010000 		.4byte	.LFE66
+ 2300 0028 00000000 		.4byte	.LFB69
+ 2301 002c 4C000000 		.4byte	.LFE69
+ 2302 0030 00000000 		.4byte	0
+ 2303 0034 00000000 		.4byte	0
+ 2304              		.section	.debug_line,"",%progbits
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 47
+
+
+ 2305              	.Ldebug_line0:
+ 2306 0000 B5030000 		.section	.debug_str,"MS",%progbits,1
+ 2306      0200E302 
+ 2306      00000201 
+ 2306      FB0E0D00 
+ 2306      01010101 
+ 2307              	.LASF43:
+ 2308 0000 4D365F49 		.ascii	"M6_IN1_Write\000"
+ 2308      4E315F57 
+ 2308      72697465 
+ 2308      00
+ 2309              	.LASF72:
+ 2310 000d 5F5F6275 		.ascii	"__builtin_puts\000"
+ 2310      696C7469 
+ 2310      6E5F7075 
+ 2310      747300
+ 2311              	.LASF55:
+ 2312 001c 50574D32 		.ascii	"PWM2_WriteCompare1\000"
+ 2312      5F577269 
+ 2312      7465436F 
+ 2312      6D706172 
+ 2312      653100
+ 2313              	.LASF56:
+ 2314 002f 50574D32 		.ascii	"PWM2_WriteCompare2\000"
+ 2314      5F577269 
+ 2314      7465436F 
+ 2314      6D706172 
+ 2314      653200
+ 2315              	.LASF23:
+ 2316 0042 72657472 		.ascii	"retract\000"
+ 2316      61637400 
+ 2317              	.LASF61:
+ 2318 004a 4C45445F 		.ascii	"LED_Write\000"
+ 2318      57726974 
+ 2318      6500
+ 2319              	.LASF2:
+ 2320 0054 73686F72 		.ascii	"short int\000"
+ 2320      7420696E 
+ 2320      7400
+ 2321              	.LASF41:
+ 2322 005e 4D355F49 		.ascii	"M5_IN1_Write\000"
+ 2322      4E315F57 
+ 2322      72697465 
+ 2322      00
+ 2323              	.LASF19:
+ 2324 006b 73697A65 		.ascii	"sizetype\000"
+ 2324      74797065 
+ 2324      00
+ 2325              	.LASF8:
+ 2326 0074 6C6F6E67 		.ascii	"long long int\000"
+ 2326      206C6F6E 
+ 2326      6720696E 
+ 2326      7400
+ 2327              	.LASF6:
+ 2328 0082 5F5F7569 		.ascii	"__uint32_t\000"
+ 2328      6E743332 
+ 2328      5F7400
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 48
+
+
+ 2329              	.LASF39:
+ 2330 008d 4D345F49 		.ascii	"M4_IN1_Write\000"
+ 2330      4E315F57 
+ 2330      72697465 
+ 2330      00
+ 2331              	.LASF48:
+ 2332 009a 6973725F 		.ascii	"isr_rx_StartEx\000"
+ 2332      72785F53 
+ 2332      74617274 
+ 2332      457800
+ 2333              	.LASF50:
+ 2334 00a9 50574D31 		.ascii	"PWM1_Start\000"
+ 2334      5F537461 
+ 2334      727400
+ 2335              	.LASF63:
+ 2336 00b4 4144435F 		.ascii	"ADC_DelSig_1_IsEndConversion\000"
+ 2336      44656C53 
+ 2336      69675F31 
+ 2336      5F497345 
+ 2336      6E64436F 
+ 2337              	.LASF13:
+ 2338 00d1 75696E74 		.ascii	"uint8\000"
+ 2338      3800
+ 2339              	.LASF53:
+ 2340 00d7 50574D31 		.ascii	"PWM1_WriteCompare1\000"
+ 2340      5F577269 
+ 2340      7465436F 
+ 2340      6D706172 
+ 2340      653100
+ 2341              	.LASF54:
+ 2342 00ea 50574D31 		.ascii	"PWM1_WriteCompare2\000"
+ 2342      5F577269 
+ 2342      7465436F 
+ 2342      6D706172 
+ 2342      653200
+ 2343              	.LASF64:
+ 2344 00fd 4144435F 		.ascii	"ADC_DelSig_1_GetResult16\000"
+ 2344      44656C53 
+ 2344      69675F31 
+ 2344      5F476574 
+ 2344      52657375 
+ 2345              	.LASF28:
+ 2346 0116 6572726F 		.ascii	"errorStatus\000"
+ 2346      72537461 
+ 2346      74757300 
+ 2347              	.LASF58:
+ 2348 0122 50574D33 		.ascii	"PWM3_WriteCompare2\000"
+ 2348      5F577269 
+ 2348      7465436F 
+ 2348      6D706172 
+ 2348      653200
+ 2349              	.LASF52:
+ 2350 0135 50574D33 		.ascii	"PWM3_Start\000"
+ 2350      5F537461 
+ 2350      727400
+ 2351              	.LASF14:
+ 2352 0140 666C6F61 		.ascii	"float\000"
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 49
+
+
+ 2352      7400
+ 2353              	.LASF62:
+ 2354 0146 414D7578 		.ascii	"AMux_Select\000"
+ 2354      5F53656C 
+ 2354      65637400 
+ 2355              	.LASF38:
+ 2356 0152 4D335F49 		.ascii	"M3_IN2_Write\000"
+ 2356      4E325F57 
+ 2356      72697465 
+ 2356      00
+ 2357              	.LASF4:
+ 2358 015f 6C6F6E67 		.ascii	"long int\000"
+ 2358      20696E74 
+ 2358      00
+ 2359              	.LASF60:
+ 2360 0168 7072696E 		.ascii	"printf\000"
+ 2360      746600
+ 2361              	.LASF29:
+ 2362 016f 62757474 		.ascii	"button\000"
+ 2362      6F6E00
+ 2363              	.LASF21:
+ 2364 0176 53575069 		.ascii	"SWPin_Control\000"
+ 2364      6E5F436F 
+ 2364      6E74726F 
+ 2364      6C00
+ 2365              	.LASF36:
+ 2366 0184 4D325F49 		.ascii	"M2_IN2_Write\000"
+ 2366      4E325F57 
+ 2366      72697465 
+ 2366      00
+ 2367              	.LASF32:
+ 2368 0191 496E7075 		.ascii	"InputPin_ClearInterrupt\000"
+ 2368      7450696E 
+ 2368      5F436C65 
+ 2368      6172496E 
+ 2368      74657272 
+ 2369              	.LASF49:
+ 2370 01a9 496E7075 		.ascii	"InputInterrupt_StartEx\000"
+ 2370      74496E74 
+ 2370      65727275 
+ 2370      70745F53 
+ 2370      74617274 
+ 2371              	.LASF18:
+ 2372 01c0 6C6F6E67 		.ascii	"long double\000"
+ 2372      20646F75 
+ 2372      626C6500 
+ 2373              	.LASF24:
+ 2374 01cc 72785374 		.ascii	"rxStatus\000"
+ 2374      61747573 
+ 2374      00
+ 2375              	.LASF1:
+ 2376 01d5 756E7369 		.ascii	"unsigned char\000"
+ 2376      676E6564 
+ 2376      20636861 
+ 2376      7200
+ 2377              	.LASF0:
+ 2378 01e3 7369676E 		.ascii	"signed char\000"
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 50
+
+
+ 2378      65642063 
+ 2378      68617200 
+ 2379              	.LASF9:
+ 2380 01ef 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2380      206C6F6E 
+ 2380      6720756E 
+ 2380      7369676E 
+ 2380      65642069 
+ 2381              	.LASF12:
+ 2382 0206 75696E74 		.ascii	"uint32_t\000"
+ 2382      33325F74 
+ 2382      00
+ 2383              	.LASF44:
+ 2384 020f 4D365F49 		.ascii	"M6_IN2_Write\000"
+ 2384      4E325F57 
+ 2384      72697465 
+ 2384      00
+ 2385              	.LASF10:
+ 2386 021c 756E7369 		.ascii	"unsigned int\000"
+ 2386      676E6564 
+ 2386      20696E74 
+ 2386      00
+ 2387              	.LASF71:
+ 2388 0229 70757473 		.ascii	"puts\000"
+ 2388      00
+ 2389              	.LASF20:
+ 2390 022e 52784973 		.ascii	"RxIsr\000"
+ 2390      7200
+ 2391              	.LASF31:
+ 2392 0234 496E7075 		.ascii	"InputPin_Read\000"
+ 2392      7450696E 
+ 2392      5F526561 
+ 2392      6400
+ 2393              	.LASF59:
+ 2394 0242 4144435F 		.ascii	"ADC_DelSig_1_StartConvert\000"
+ 2394      44656C53 
+ 2394      69675F31 
+ 2394      5F537461 
+ 2394      7274436F 
+ 2395              	.LASF46:
+ 2396 025c 414D7578 		.ascii	"AMux_Start\000"
+ 2396      5F537461 
+ 2396      727400
+ 2397              	.LASF47:
+ 2398 0267 4144435F 		.ascii	"ADC_DelSig_1_Start\000"
+ 2398      44656C53 
+ 2398      69675F31 
+ 2398      5F537461 
+ 2398      727400
+ 2399              	.LASF26:
+ 2400 027a 73746F70 		.ascii	"stop\000"
+ 2400      00
+ 2401              	.LASF16:
+ 2402 027f 63686172 		.ascii	"char\000"
+ 2402      00
+ 2403              	.LASF42:
+ 2404 0284 4D355F49 		.ascii	"M5_IN2_Write\000"
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 51
+
+
+ 2404      4E325F57 
+ 2404      72697465 
+ 2404      00
+ 2405              	.LASF70:
+ 2406 0291 6D61696E 		.ascii	"main\000"
+ 2406      00
+ 2407              	.LASF45:
+ 2408 0296 55415254 		.ascii	"UART_Start\000"
+ 2408      5F537461 
+ 2408      727400
+ 2409              	.LASF11:
+ 2410 02a1 696E7433 		.ascii	"int32_t\000"
+ 2410      325F7400 
+ 2411              	.LASF3:
+ 2412 02a9 73686F72 		.ascii	"short unsigned int\000"
+ 2412      7420756E 
+ 2412      7369676E 
+ 2412      65642069 
+ 2412      6E7400
+ 2413              	.LASF30:
+ 2414 02bc 5F426F6F 		.ascii	"_Bool\000"
+ 2414      6C00
+ 2415              	.LASF68:
+ 2416 02c2 5C5C6669 		.ascii	"\\\\files.auckland.ac.nz\\myhome\\Documents\\PSoC C"
+ 2416      6C65732E 
+ 2416      6175636B 
+ 2416      6C616E64 
+ 2416      2E61632E 
+ 2417 02f0 72656174 		.ascii	"reator\\Digital_Pins01\\mother.cydsn\000"
+ 2417      6F725C44 
+ 2417      69676974 
+ 2417      616C5F50 
+ 2417      696E7330 
+ 2418              	.LASF40:
+ 2419 0313 4D345F49 		.ascii	"M4_IN2_Write\000"
+ 2419      4E325F57 
+ 2419      72697465 
+ 2419      00
+ 2420              	.LASF67:
+ 2421 0320 6D61696E 		.ascii	"main.c\000"
+ 2421      2E6300
+ 2422              	.LASF17:
+ 2423 0327 72656738 		.ascii	"reg8\000"
+ 2423      00
+ 2424              	.LASF7:
+ 2425 032c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2425      20756E73 
+ 2425      69676E65 
+ 2425      6420696E 
+ 2425      7400
+ 2426              	.LASF51:
+ 2427 033e 50574D32 		.ascii	"PWM2_Start\000"
+ 2427      5F537461 
+ 2427      727400
+ 2428              	.LASF34:
+ 2429 0349 4D315F49 		.ascii	"M1_IN2_Write\000"
+ 2429      4E325F57 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 52
+
+
+ 2429      72697465 
+ 2429      00
+ 2430              	.LASF37:
+ 2431 0356 4D335F49 		.ascii	"M3_IN1_Write\000"
+ 2431      4E315F57 
+ 2431      72697465 
+ 2431      00
+ 2432              	.LASF5:
+ 2433 0363 5F5F696E 		.ascii	"__int32_t\000"
+ 2433      7433325F 
+ 2433      7400
+ 2434              	.LASF22:
+ 2435 036d 65787465 		.ascii	"extend\000"
+ 2435      6E6400
+ 2436              	.LASF69:
+ 2437 0374 72784461 		.ascii	"rxData\000"
+ 2437      746100
+ 2438              	.LASF25:
+ 2439 037b 6F757470 		.ascii	"output\000"
+ 2439      757400
+ 2440              	.LASF35:
+ 2441 0382 4D325F49 		.ascii	"M2_IN1_Write\000"
+ 2441      4E315F57 
+ 2441      72697465 
+ 2441      00
+ 2442              	.LASF15:
+ 2443 038f 646F7562 		.ascii	"double\000"
+ 2443      6C6500
+ 2444              	.LASF27:
+ 2445 0396 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2445      52784275 
+ 2445      66666572 
+ 2445      00
+ 2446              	.LASF66:
+ 2447 03a3 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2447      43313120 
+ 2447      352E342E 
+ 2447      31203230 
+ 2447      31363036 
+ 2448 03d6 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 2448      20726576 
+ 2448      6973696F 
+ 2448      6E203233 
+ 2448      37373135 
+ 2449 0409 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2449      66756E63 
+ 2449      74696F6E 
+ 2449      2D736563 
+ 2449      74696F6E 
+ 2450              	.LASF65:
+ 2451 0431 43794465 		.ascii	"CyDelay\000"
+ 2451      6C617900 
+ 2452              	.LASF33:
+ 2453 0439 4D315F49 		.ascii	"M1_IN1_Write\000"
+ 2453      4E315F57 
+ 2453      72697465 
+ 2453      00
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccrwux7m.s 			page 53
+
+
+ 2454              	.LASF57:
+ 2455 0446 50574D33 		.ascii	"PWM3_WriteCompare1\000"
+ 2455      5F577269 
+ 2455      7465436F 
+ 2455      6D706172 
+ 2455      653100
+ 2456              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
