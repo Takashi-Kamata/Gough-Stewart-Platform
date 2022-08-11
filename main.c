@@ -82,17 +82,9 @@ int main(void)
     isr_rx_StartEx(RxIsr);
     InputInterrupt_StartEx(SWPin_Control);
     
-    
-    PWM1_Start();
-    PWM2_Start();
     PWM3_Start();
-    
-    PWM1_WriteCompare1(125);
-    PWM1_WriteCompare2(125);
-    PWM2_WriteCompare1(125);
-    PWM2_WriteCompare2(125);
-    PWM3_WriteCompare1(125);
-    PWM3_WriteCompare2(125);
+
+    PWM3_WriteCompare1(125);// M5
     
     ADC_DelSig_1_StartConvert();
     
@@ -111,34 +103,6 @@ int main(void)
             retract();
         }
         
-        AMux_Select(0);
-        while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
-            printf("Converting MUX 0 \r\n");
-        };
-        output = ADC_DelSig_1_GetResult16();
-        printf("Current Reading Motor 1: %d \r\n", output);
-        
-        AMux_Select(1);
-        while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
-            printf("Converting MUX 1 \r\n");
-        };
-        output = ADC_DelSig_1_GetResult16();
-        printf("Current Reading Motor 2: %d \r\n", output);
-        
-        AMux_Select(2);
-        while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
-            printf("Converting MUX 2 \r\n");
-        };
-        output = ADC_DelSig_1_GetResult16();
-        printf("Current Reading Motor 3: %d \r\n", output);
-        
-        AMux_Select(3);
-        while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
-            printf("Converting MUX 3 \r\n");
-        };
-        output = ADC_DelSig_1_GetResult16();
-        printf("Current Reading Motor 4: %d \r\n", output);
-        
         AMux_Select(4);
         while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
             printf("Converting MUX 4 \r\n");
@@ -146,12 +110,9 @@ int main(void)
         output = ADC_DelSig_1_GetResult16();
         printf("Current Reading Motor 5: %d \r\n", output);
         
-        AMux_Select(5);
-        while(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS) == 0){
-            printf("Converting MUX 5 \r\n");
-        };
-        output = ADC_DelSig_1_GetResult16();
-        printf("Current Reading Motor 6: %d \r\n", output);
+        
+        
+        
         
         CyDelay(100);
     }
@@ -161,48 +122,18 @@ int main(void)
 
 
 void extend() {
-    M1_IN1_Write(1U);
-    M1_IN2_Write(0U);
-    M2_IN1_Write(1U);
-    M2_IN2_Write(0U);
-    M3_IN1_Write(1U);
-    M3_IN2_Write(0U);
-    M4_IN1_Write(1U);
-    M4_IN2_Write(0U);
     M5_IN1_Write(1U);
     M5_IN2_Write(0U);
-    M6_IN1_Write(1U);
-    M6_IN2_Write(0U);
 }
 
 void retract() {
-    M1_IN1_Write(0U);
-    M1_IN2_Write(1U);
-    M2_IN1_Write(0U);
-    M2_IN2_Write(1U);
-    M3_IN1_Write(0U);
-    M3_IN2_Write(1U);
-    M4_IN1_Write(0U);
-    M4_IN2_Write(1U);
     M5_IN1_Write(0U);
     M5_IN2_Write(1U);
-    M6_IN1_Write(0U);
-    M6_IN2_Write(1U);
 }
 
 void stop() {
-    M1_IN1_Write(0U);
-    M1_IN2_Write(0U);
-    M2_IN1_Write(0U);
-    M2_IN2_Write(0U);
-    M3_IN1_Write(0U);
-    M3_IN2_Write(0U);
-    M4_IN1_Write(0U);
-    M4_IN2_Write(0U);
     M5_IN1_Write(0U);
     M5_IN2_Write(0U);
-    M6_IN1_Write(0U);
-    M6_IN2_Write(0U);
 }
 
 /* [] END OF FILE */
