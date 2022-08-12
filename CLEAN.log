@@ -1,4 +1,4 @@
---------------- Clean Started: 08/12/2022 16:53:17 Project: mother, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+--------------- Clean Started: 08/12/2022 22:12:37 Project: mother, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
 Deleting file ".\CortexM3\ARM_GCC_541\Debug\main.o"
 Deleting file ".\CortexM3\ARM_GCC_541\Debug\debug.o"
 Deleting file ".\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o"
@@ -72,4 +72,4 @@ Deleting file ".\mother.rpt"
 Deleting file ".\mother_timing.html"
 Deleting file ".\CortexM3\ARM_GCC_541\Debug\.deps\SOURCE_C__ARM_GCC_GENERIC.P"
 Deleting file ".\CortexM3\ARM_GCC_541\Debug\.deps\SOURCE_ASM__ARM_GCC_GENERIC.P"
---------------- Clean Succeeded: 08/12/2022 16:53:18 ---------------
+--------------- Clean Succeeded: 08/12/2022 22:12:38 ---------------

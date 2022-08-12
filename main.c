@@ -25,15 +25,19 @@ asm(".global _printf_float");
 #define MAX_ADC 57500
 #define MIN_ADC 7000
 #define MAX_ADC_DIFF 50500
-#define ERROR_MULTIPLIER 100
+#define ERROR_MULTIPLIER 1000
 #define MAX_SPEED 0
 #define MIN_SPEED 230
+#define N_PNTS 10
 
 void set_speed(uint8_t M, uint8_t speed);
 void extend(uint8_t M);
 void retract(uint8_t M);
 void stop(uint8_t M);
-int16_t PID(int16_t[3], int16_t, int16_t[3], uint8_t);
+void make_points();
+int32_t PID(int32_t[3], int32_t*, int32_t[3], uint8_t);
+int32_t target[6] = {MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2};
+int32_t points[6][N_PNTS];
 
 uint8 errorStatus = 0u;
 CY_ISR(RxIsr)
@@ -75,9 +79,15 @@ CY_ISR(SWPin_Control)
     if (InputPin_Read() == 1u)
     {
         if (button) {
-            LED_Write(1);        
+            LED_Write(1);   
+            for (int i = 0; i<6; i++) {
+                target[i] = MIN_ADC + (MAX_ADC - MIN_ADC)/6*i;   
+            }
         } else {
             LED_Write(0);   
+            for (int i = 0; i<6; i++) {
+                target[i] = MAX_ADC;
+            }
         }
         
         button = !button;
@@ -101,12 +111,6 @@ int main(void)
     PWM2_Start();
     PWM3_Start();
 
-    PWM1_WriteCompare1(0);// M5 speed
-    PWM1_WriteCompare2(0);// M6 speed
-    PWM2_WriteCompare1(0);// M5 speed
-    PWM2_WriteCompare2(0);// M6 speed
-    PWM3_WriteCompare1(0);// M5 speed
-    PWM3_WriteCompare2(0);// M6 speed
     /*
     extend(0);
     retract(1);
@@ -117,43 +121,33 @@ int main(void)
     while(1);
     */
     ADC_DelSig_1_StartConvert();
+    CyDelay(1000);
     
     // Initialise ADC register
     for (int i = 0; i<6; i++)
     {
         AMux_Select(i);
+        CyDelay(2);
         uint32_t temp = ADC_DelSig_1_GetResult32();
     }
     CyDelay(1000);
     
-    int32_t target[6] = {MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2};
+    make_points();
+    
     int32_t output = 0;
     
-    int16_t PID_output[6] ={0};
-    int16_t integral[6] = {0};
-    int16_t errors[6][3] = {0};
-    int16_t params[3] = {2, 500, 1};
+    int32_t PID_output[6] ={0};
+    int32_t integral[6] = {0};
+    int32_t errors[6][3] = {0};
+    int32_t params[3] = {2, 500, 1};
     
     uint8_t counter = 0;
-    uint8_t speed = 0;
     
     printf("%s", CLEAR_STRING);
     printf("%s", MOVE_CURSOR);
     printf("\r");
     
     printf("Retracting...\r\n");
-    
-    for (int i =0; i<6; i++)
-    {
-        if (i%2) {
-            extend(i);
-        } else {
-            retract(i);
-        }
-    }
-    
-    // For M5
-    
     /*
     for(int i = 0; i < 3; i++)
     {
@@ -162,7 +156,7 @@ int main(void)
             AMux_FastSelect(j);
             CyDelay(2);// Important! minimum 1ms required for amux to catchup
             output = ADC_DelSig_1_GetResult32();
-            errors[j][i] = (int16_t) ((target[j] - output) * ERROR_MULTIPLIER / MAX_ADC_DIFF);
+            errors[j][i] = (int32_t) ((target[j] - output) * ERROR_MULTIPLIER / MAX_ADC_DIFF);
             printf("%d %d \r\n", j, output);
             PID_output[j] = PID(errors[j], integral[j], params, i);
         }
@@ -177,45 +171,39 @@ int main(void)
         }
     }
     */
-    while(button);
-    
+    int32_t next_target[6] = {0};
+
     for(;;)
-    {
+    {       
+        /* pid */ 
         for (int i = 0; i<6; i++) {
             AMux_Select(i);
             CyDelay(2);
             output = ADC_DelSig_1_GetResult32();
             
             // rio's code
-            errors[i][counter] = (int16_t) (((target[i] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF);
-            
-            /*
-            printf("%s", CLEAR_STRING);
-            printf("%s", MOVE_CURSOR);
-            printf("output %li \r\n", output);
-            printf("Error %d \r\n", errors[i][counter]);
-            printf("PID %d \r\n", PID_output[i]);
-            printf("speed %d \r\n", MAX_SPEED);
-            */
-            integral[i] += errors[i][counter];
-            PID_output[i] = PID(errors[i], integral[i], params, counter);
-            
+            //errors[i][counter] = ((target[i] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF;
+            errors[i][counter] = ((points[i][next_target[i]] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF;
+
+            PID_output[i] = PID(errors[i], &integral[i], params, counter);
             
             if (abs(PID_output[i]) > ERROR_MULTIPLIER) {
                 set_speed(i, MAX_SPEED);
             } else {
-                set_speed(i, (uint8_t) ((MIN_SPEED * (ERROR_MULTIPLIER - abs(PID_output[i]))) / ERROR_MULTIPLIER));
+                set_speed(i, (uint8_t) (MAX_SPEED + ((MIN_SPEED - MAX_SPEED) * (ERROR_MULTIPLIER - abs(PID_output[i]))) / ERROR_MULTIPLIER));
             }
             
-            if (((int32_t) errors[i][counter]) * 5000 > ERROR_MULTIPLIER) {
+            if ((errors[i][counter]) * 200 > ERROR_MULTIPLIER) {
                 extend(i);
-            } else if (((int32_t) errors[i][counter]) * 5000 < -ERROR_MULTIPLIER) {
+            } else if ((errors[i][counter]) * 200 < -ERROR_MULTIPLIER) {
                 retract(i);
             } else {
                 stop(i);
+                
+                next_target[i]++;
             }
+            CyDelay(2);
         }
-        CyDelay(2);
         
         //printf("%d %d %d \r\n", errors[0][counter], PID_output[0], MIN_SPEED * (ERROR_MULTIPLIER - abs(PID_output[0])) / ERROR_MULTIPLIER);
         counter = (counter + 1) % 3;
@@ -340,11 +328,26 @@ void stop(uint8_t M) {
     }
 }
 
-int16_t PID(int16_t errors[3], int16_t integral, int16_t params[3], uint8_t counter) {
+int32_t PID(int32_t errors[3], int32_t *integral, int32_t params[3], uint8_t counter) {
     // P = errors[counter] * params[0]
     // I = integral + errors[counter] * params[1]
     // D = (errors[counter] - errors[(counter + 1) % 3]) / 2 * params[2]
-    return errors[counter] / params[0] + integral / params[1] + (errors[counter] - errors[(counter + 1) % 3]) / 2 / params[2];
+    *integral += errors[counter] / params[1];
+    
+    return errors[counter] / params[0] + 0* (*integral) + 0*(errors[counter] - errors[(counter + 1) % 3]) / 2 / params[2];
+}
+
+void make_points() {
+    int32_t temp;
+    for (int i=0; i < 6; i++) {
+        AMux_Select(i);
+        CyDelay(2);
+        temp = ADC_DelSig_1_GetResult32();
+        for (int j=0; j < N_PNTS; j++) {
+            points[i][j] = temp + (target[i] - temp) / N_PNTS * (j+1);
+            printf("%d %d %d \r\n", i, j, points[i][j]);
+        }
+    }
 }
 
 /* [] END OF FILE */
