@@ -1,6 +1,6 @@
 // ======================================================================
 // mother.v generated from TopDesign.cysch
-// 08/11/2022 at 20:44
+// 08/12/2022 at 20:17
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -2178,7 +2178,7 @@ module top ;
 		#(.id("e5eb06af-8535-4884-a5bc-3bf1fdae1830"),
 		  .source_clock_id("61737EF6-3B74-48f9-8B91-F7473A442AE7"),
 		  .divisor(0),
-		  .period("100000000000"),
+		  .period("66666666666.6667"),
 		  .is_direct(0),
 		  .is_digital(1))
 		Clock_1
@@ -2360,7 +2360,7 @@ module top ;
 		#(.id("7934ff6f-8a2f-4d94-9f1e-9a022f83d6ba"),
 		  .source_clock_id("61737EF6-3B74-48f9-8B91-F7473A442AE7"),
 		  .divisor(0),
-		  .period("100000000000"),
+		  .period("66666666666.6667"),
 		  .is_direct(0),
 		  .is_digital(1))
 		Clock_2
@@ -2542,7 +2542,7 @@ module top ;
 		#(.id("86c14f18-28df-4810-b8bc-3d31a16b0422"),
 		  .source_clock_id("61737EF6-3B74-48f9-8B91-F7473A442AE7"),
 		  .divisor(0),
-		  .period("100000000000"),
+		  .period("66666666666.6667"),
 		  .is_direct(0),
 		  .is_digital(1))
 		Clock_3

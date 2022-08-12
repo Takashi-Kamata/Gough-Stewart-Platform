@@ -2,7 +2,7 @@
 --	Conversion of mother.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Thu Aug 11 20:44:52 2022
+--	Fri Aug 12 20:17:58 2022
 --
 
 USE cypress.cypress.all;
@@ -3252,7 +3252,7 @@ Clock_1:cy_clock_v1_0
 		id=>"e5eb06af-8535-4884-a5bc-3bf1fdae1830",
 		source_clock_id=>"61737EF6-3B74-48f9-8B91-F7473A442AE7",
 		divisor=>0,
-		period=>"100000000000",
+		period=>"66666666666.6667",
 		is_direct=>'0',
 		is_digital=>'1')
 	PORT MAP(clock_out=>Net_2056,
@@ -3512,7 +3512,7 @@ Clock_2:cy_clock_v1_0
 		id=>"7934ff6f-8a2f-4d94-9f1e-9a022f83d6ba",
 		source_clock_id=>"61737EF6-3B74-48f9-8B91-F7473A442AE7",
 		divisor=>0,
-		period=>"100000000000",
+		period=>"66666666666.6667",
 		is_direct=>'0',
 		is_digital=>'1')
 	PORT MAP(clock_out=>Net_2209,
@@ -3772,7 +3772,7 @@ Clock_3:cy_clock_v1_0
 		id=>"86c14f18-28df-4810-b8bc-3d31a16b0422",
 		source_clock_id=>"61737EF6-3B74-48f9-8B91-F7473A442AE7",
 		divisor=>0,
-		period=>"100000000000",
+		period=>"66666666666.6667",
 		is_direct=>'0',
 		is_digital=>'1')
 	PORT MAP(clock_out=>Net_93,
