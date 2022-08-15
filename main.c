@@ -27,7 +27,7 @@ asm(".global _printf_float");
 #define MAX_ADC_DIFF 50500
 #define ERROR_MULTIPLIER 1000
 #define MAX_SPEED 0
-#define MIN_SPEED 200
+#define MIN_SPEED 180
 #define N_PNTS 10
 
 void set_speed(uint8_t M, uint8_t speed);
@@ -35,6 +35,7 @@ void extend(uint8_t M);
 void retract(uint8_t M);
 void stop(uint8_t M);
 void make_points();
+void reset();
 int32_t PID(int32_t[3], int32_t*, int32_t[3], uint8_t);
 int32_t target[6] = {MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2};
 int32_t points[6][N_PNTS];
@@ -84,19 +85,34 @@ CY_ISR(SWPin_Control)
                 target[i] = MIN_ADC + (MAX_ADC - MIN_ADC)/6*i;   
             }
             make_points();
-            
+            reset();
         } else { // Initial Run.... when button = false;
             LED_Write(0);   
             for (int i = 0; i<6; i++) {
-                target[i] = MAX_ADC;
+                target[i] = MIN_ADC;
             }
             make_points();
+            reset();
         }
         button = !button;
     }
 
     InputPin_ClearInterrupt();
 }
+
+int32_t output = 0;
+    
+int32_t PID_output[6] ={0};
+int32_t integral[6] = {0};
+int32_t errors[6][3] = {0};
+int32_t params[3] = {1, 500, 1};
+
+uint8_t counter = 0;
+
+
+int32_t next_target[6] = {0};
+int32_t next_target_flag[6] = {0};
+int32_t next_point = 0;
 
 int main(void)
 {
@@ -126,14 +142,7 @@ int main(void)
     CyDelay(1000);
     
     
-    int32_t output = 0;
     
-    int32_t PID_output[6] ={0};
-    int32_t integral[6] = {0};
-    int32_t errors[6][3] = {0};
-    int32_t params[3] = {1, 500, 1};
-    
-    uint8_t counter = 0;
     
     printf("%s", CLEAR_STRING);
     printf("%s", MOVE_CURSOR);
@@ -163,10 +172,8 @@ int main(void)
         }
     }
     */
-    while(!button);
     
-    int32_t next_target[6] = {0};
-    int32_t next_target_flag[6] = {0};
+    
 
     for(;;)
     {       
@@ -176,9 +183,8 @@ int main(void)
             CyDelay(2);
             output = ADC_DelSig_1_GetResult32();
             
-            // rio's code
             //errors[i][counter] = ((target[i] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF;
-            errors[i][counter] = ((points[i][next_target[i]] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF;
+            errors[i][counter] = ((points[i][next_point] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF;
 
             PID_output[i] = PID(errors[i], &integral[i], params, counter);
             
@@ -188,25 +194,43 @@ int main(void)
                 set_speed(i, (uint8_t) (MAX_SPEED + ((MIN_SPEED - MAX_SPEED) * (ERROR_MULTIPLIER - abs(PID_output[i]))) / ERROR_MULTIPLIER));
             }
             
-            if ((errors[i][counter]) * 200 > ERROR_MULTIPLIER) {
+            if ((errors[i][counter]) * 20 > ERROR_MULTIPLIER) {
                 extend(i);
-            } else if ((errors[i][counter]) * 200 < -ERROR_MULTIPLIER) {
+            } else if ((errors[i][counter]) * 20 < -ERROR_MULTIPLIER) {
                 retract(i);
             } else {
-                stop(i);
-                if (next_target[i] < N_PNTS - 1) 
+                stop(i); // Stop the motor
+                next_target_flag[i] = 1;
+                /*
+                if (next_target[i] < N_PNTS - 1) // check if the current target is less than 9 (final)
                 {
                     next_target[i]++;
                 } else if (next_target_flag[i] == 0){
                     next_target_flag[i] = 1;
-                    printf("M%d is at final dest. Point : %d \r\n", i, next_target[i]);
+                    printf("M%d is at the final dest. Point : %d \r\n", i, next_target[i]);
+                } else {
+                }
+                */
+                bool all_check = true;
+                for (int j = 0; j < 6; j++)
+                {
+                    if (next_target_flag[j] != 1)
+                    {
+                        all_check = false;
+                        break;
+                    }
+                }
+                if (all_check && next_point < N_PNTS - 1) 
+                {   
+                    next_point++;
+                    memset(next_target_flag, 0, sizeof next_target_flag); 
+                    printf("All motors reached point, next point is %d \r\n", next_point);
                 }
             }
-            CyDelay(2);
         }
-        
         //printf("%d %d %d \r\n", errors[0][counter], PID_output[0], MIN_SPEED * (ERROR_MULTIPLIER - abs(PID_output[0])) / ERROR_MULTIPLIER);
         counter = (counter + 1) % 3;
+        CyDelay(10);
     }
 }
 
@@ -333,8 +357,8 @@ int32_t PID(int32_t errors[3], int32_t *integral, int32_t params[3], uint8_t cou
     // I = integral + errors[counter] * params[1]
     // D = (errors[counter] - errors[(counter + 1) % 3]) / 2 * params[2]
     *integral += errors[counter] / params[1];
-    
-    return errors[counter] / params[0] + 0 * (*integral) + 0 *(errors[counter] - errors[(counter + 1) % 3]) / 2 / params[2];
+    //printf("%d\r\n", *integral);
+    return errors[counter] / params[0] + 0*(*integral) + (errors[counter] - errors[(counter + 1) % 3]) / 2 / params[2];
 }
 
 void make_points() {
@@ -349,6 +373,17 @@ void make_points() {
             // printf("%d %d %d \r\n", i, j, points[i][j]);
         }
     }
+}
+
+void reset() {
+    memset(PID_output, 0, sizeof PID_output); 
+    memset(integral, 0, sizeof integral); 
+    memset(errors, 0, sizeof errors); 
+    memset(params, 0, sizeof params); 
+    counter = 0;
+    memset(next_target, 0, sizeof next_target); 
+    next_point = 0;
+    memset(next_target_flag, 0, sizeof next_target_flag); 
 }
 
 /* [] END OF FILE */
