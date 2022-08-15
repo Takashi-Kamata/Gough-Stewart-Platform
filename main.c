@@ -27,7 +27,7 @@ asm(".global _printf_float");
 #define MAX_ADC_DIFF 50500
 #define ERROR_MULTIPLIER 1000
 #define MAX_SPEED 0
-#define MIN_SPEED 230
+#define MIN_SPEED 200
 #define N_PNTS 10
 
 void set_speed(uint8_t M, uint8_t speed);
@@ -83,13 +83,15 @@ CY_ISR(SWPin_Control)
             for (int i = 0; i<6; i++) {
                 target[i] = MIN_ADC + (MAX_ADC - MIN_ADC)/6*i;   
             }
-        } else {
+            make_points();
+            
+        } else { // Initial Run.... when button = false;
             LED_Write(0);   
             for (int i = 0; i<6; i++) {
                 target[i] = MAX_ADC;
             }
+            make_points();
         }
-        
         button = !button;
     }
 
@@ -111,35 +113,25 @@ int main(void)
     PWM2_Start();
     PWM3_Start();
 
-    /*
-    extend(0);
-    retract(1);
-    extend(2);
-    retract(3);
-    extend(4);
-    retract(5);
-    while(1);
-    */
     ADC_DelSig_1_StartConvert();
     CyDelay(1000);
     
-    // Initialise ADC register
+    // Initialise ADC register, first read is always bad
     for (int i = 0; i<6; i++)
     {
         AMux_Select(i);
-        CyDelay(2);
+        CyDelay(2);// ~1 ms is the min time required for amux to swtich, using 2 ms for safety
         uint32_t temp = ADC_DelSig_1_GetResult32();
     }
     CyDelay(1000);
     
-    make_points();
     
     int32_t output = 0;
     
     int32_t PID_output[6] ={0};
     int32_t integral[6] = {0};
     int32_t errors[6][3] = {0};
-    int32_t params[3] = {2, 500, 1};
+    int32_t params[3] = {1, 500, 1};
     
     uint8_t counter = 0;
     
@@ -171,7 +163,10 @@ int main(void)
         }
     }
     */
+    while(!button);
+    
     int32_t next_target[6] = {0};
+    int32_t next_target_flag[6] = {0};
 
     for(;;)
     {       
@@ -199,8 +194,13 @@ int main(void)
                 retract(i);
             } else {
                 stop(i);
-                
-                next_target[i]++;
+                if (next_target[i] < N_PNTS - 1) 
+                {
+                    next_target[i]++;
+                } else if (next_target_flag[i] == 0){
+                    next_target_flag[i] = 1;
+                    printf("M%d is at final dest. Point : %d \r\n", i, next_target[i]);
+                }
             }
             CyDelay(2);
         }
@@ -334,18 +334,19 @@ int32_t PID(int32_t errors[3], int32_t *integral, int32_t params[3], uint8_t cou
     // D = (errors[counter] - errors[(counter + 1) % 3]) / 2 * params[2]
     *integral += errors[counter] / params[1];
     
-    return errors[counter] / params[0] + 0* (*integral) + 0*(errors[counter] - errors[(counter + 1) % 3]) / 2 / params[2];
+    return errors[counter] / params[0] + 0 * (*integral) + 0 *(errors[counter] - errors[(counter + 1) % 3]) / 2 / params[2];
 }
 
 void make_points() {
+    printf("Make Points\r\n");
     int32_t temp;
     for (int i=0; i < 6; i++) {
         AMux_Select(i);
         CyDelay(2);
         temp = ADC_DelSig_1_GetResult32();
-        for (int j=0; j < N_PNTS; j++) {
+        for (int j = 0; j < N_PNTS; j++) {
             points[i][j] = temp + (target[i] - temp) / N_PNTS * (j+1);
-            printf("%d %d %d \r\n", i, j, points[i][j]);
+            // printf("%d %d %d \r\n", i, j, points[i][j]);
         }
     }
 }
