@@ -358,7 +358,7 @@ int32_t PID(int32_t errors[3], int32_t *integral, int32_t params[3], uint8_t cou
     // D = (errors[counter] - errors[(counter + 1) % 3]) / 2 * params[2]
     *integral += errors[counter] / params[1];
     //printf("%d\r\n", *integral);
-    return errors[counter] / params[0] + 0*(*integral) + (errors[counter] - errors[(counter + 1) % 3]) / 2 / params[2];
+    return errors[counter] / params[0] + (*integral) + (errors[counter] - errors[(counter + 1) % 3]) / 2 / params[2];
 }
 
 void make_points() {
