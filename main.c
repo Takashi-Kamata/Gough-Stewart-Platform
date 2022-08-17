@@ -135,7 +135,7 @@ int main(void)
     CyDelay(1000);
     
     // Initialise ADC register, first read is always bad
-    for (int i = 0; i<MOTOR_NUM; i++)
+    for (uint8_t i = 0; i<MOTOR_NUM; i++)
     {
         AMux_Select(i);
         CyDelay(2);// ~1 ms is the min time required for amux to swtich, using 2 ms for safety
