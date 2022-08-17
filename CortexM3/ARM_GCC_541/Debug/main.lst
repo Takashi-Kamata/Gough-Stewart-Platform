@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
   24:main.c        **** #define SAMPLE_NUM 10000
   25:main.c        **** #define MAX_ADC 57500
   26:main.c        **** #define MIN_ADC 7000
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 2
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 2
 
 
   27:main.c        **** #define MAX_ADC_DIFF 50500
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
   58:main.c        ****                                        UART_RX_STS_STOP_ERROR | UART_RX_STS_OVERRUN);
   59:main.c        ****         }
   60:main.c        **** 
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 3
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 3
 
 
   61:main.c        ****         if ((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u)
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
   85:main.c        ****                 target[i] = MIN_ADC + (MAX_ADC - MIN_ADC)/6*i;   
   86:main.c        ****             }
   87:main.c        ****             make_points();
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 4
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 4
 
 
   88:main.c        ****             reset();
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  142:main.c        ****     CyDelay(1000);
  143:main.c        ****     
  144:main.c        ****     
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 5
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 5
 
 
  145:main.c        ****     
@@ -283,61 +283,65 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  184:main.c        ****             output = ADC_DelSig_1_GetResult32();
  185:main.c        ****             
  186:main.c        ****             //errors[i][counter] = ((target[i] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF;
- 187:main.c        ****             errors[i][counter] = ((points[i][next_point] - output) * ERROR_MULTIPLIER) / MAX_ADC_DI
- 188:main.c        **** 
- 189:main.c        ****             PID_output[i] = PID(errors[i], &integral[i], params, counter);
- 190:main.c        ****             
- 191:main.c        ****             if (abs(PID_output[i]) > ERROR_MULTIPLIER) {
- 192:main.c        ****                 set_speed(i, MAX_SPEED);
- 193:main.c        ****             } else {
- 194:main.c        ****                 set_speed(i, (uint8_t) (MAX_SPEED + ((MIN_SPEED - MAX_SPEED) * (ERROR_MULTIPLIER - 
- 195:main.c        ****             }
- 196:main.c        ****             
- 197:main.c        ****             if ((errors[i][counter]) * 20 > ERROR_MULTIPLIER) {
- 198:main.c        ****                 extend(i);
- 199:main.c        ****             } else if ((errors[i][counter]) * 20 < -ERROR_MULTIPLIER) {
- 200:main.c        ****                 retract(i);
- 201:main.c        ****             } else {
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 6
+ 187:main.c        ****             //errors[i][counter] = ((points[i][next_target[i]] - output) * ERROR_MULTIPLIER) / MAX_
+ 188:main.c        ****             errors[i][counter] = ((points[i][next_point] - output) * ERROR_MULTIPLIER) / MAX_ADC_DI
+ 189:main.c        **** 
+ 190:main.c        ****             PID_output[i] = PID(errors[i], &integral[i], params, counter);
+ 191:main.c        ****             
+ 192:main.c        ****             if (abs(PID_output[i]) > ERROR_MULTIPLIER) {
+ 193:main.c        ****                 set_speed(i, MAX_SPEED);
+ 194:main.c        ****             } else {
+ 195:main.c        ****                 set_speed(i, (uint8_t) (MAX_SPEED + ((MIN_SPEED - MAX_SPEED) * (ERROR_MULTIPLIER - 
+ 196:main.c        ****             }
+ 197:main.c        ****             
+ 198:main.c        ****             if ((errors[i][counter]) * 20 > ERROR_MULTIPLIER) {
+ 199:main.c        ****                 extend(i);
+ 200:main.c        ****             } else if ((errors[i][counter]) * 20 < -ERROR_MULTIPLIER) {
+ 201:main.c        ****                 retract(i);
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 6
 
 
- 202:main.c        ****                 stop(i); // Stop the motor
- 203:main.c        ****                 next_target_flag[i] = 1;
- 204:main.c        ****                 /*
- 205:main.c        ****                 if (next_target[i] < N_PNTS - 1) // check if the current target is less than 9 (fin
- 206:main.c        ****                 {
- 207:main.c        ****                     next_target[i]++;
- 208:main.c        ****                 } else if (next_target_flag[i] == 0){
- 209:main.c        ****                     next_target_flag[i] = 1;
- 210:main.c        ****                     printf("M%d is at the final dest. Point : %d \r\n", i, next_target[i]);
- 211:main.c        ****                 } else {
- 212:main.c        ****                 }
- 213:main.c        ****                 */
- 214:main.c        ****                 bool all_check = true;
- 215:main.c        ****                 for (int j = 0; j < 6; j++)
- 216:main.c        ****                 {
- 217:main.c        ****                     if (next_target_flag[j] != 1)
- 218:main.c        ****                     {
- 219:main.c        ****                         all_check = false;
- 220:main.c        ****                         break;
- 221:main.c        ****                     }
- 222:main.c        ****                 }
- 223:main.c        ****                 if (all_check && next_point < N_PNTS - 1) 
- 224:main.c        ****                 {   
- 225:main.c        ****                     next_point++;
- 226:main.c        ****                     memset(next_target_flag, 0, sizeof next_target_flag); 
- 227:main.c        ****                     printf("All motors reached point, next point is %d \r\n", next_point);
- 228:main.c        ****                 }
- 229:main.c        ****             }
- 230:main.c        ****         }
- 231:main.c        ****         //printf("%d %d %d \r\n", errors[0][counter], PID_output[0], MIN_SPEED * (ERROR_MULTIPLIER 
- 232:main.c        ****         counter = (counter + 1) % 3;
- 233:main.c        ****         CyDelay(10);
- 234:main.c        ****     }
- 235:main.c        **** }
- 236:main.c        **** 
- 237:main.c        **** void set_speed(uint8_t M, uint8_t speed) {
-  85              		.loc 1 237 0
+ 202:main.c        ****             } else {
+ 203:main.c        ****                 stop(i); // Stop the motor
+ 204:main.c        ****                 next_target_flag[i] = 1;
+ 205:main.c        ****                 /* 
+ 206:main.c        ****                 // Arrive differently
+ 207:main.c        ****                 if (next_target[i] < N_PNTS - 1) // check if the current target is less than 9 (fin
+ 208:main.c        ****                 {
+ 209:main.c        ****                     next_target[i]++;
+ 210:main.c        ****                 } else if (next_target_flag[i] == 0){
+ 211:main.c        ****                     next_target_flag[i] = 1;
+ 212:main.c        ****                     printf("M%d is at the final dest. Point : %d \r\n", i, next_target[i]);
+ 213:main.c        ****                 } else {
+ 214:main.c        ****                 }
+ 215:main.c        ****                 */
+ 216:main.c        ****                 
+ 217:main.c        ****                 // Arrive at the same time
+ 218:main.c        ****                 bool all_check = true;
+ 219:main.c        ****                 for (int j = 0; j < 6; j++)
+ 220:main.c        ****                 {
+ 221:main.c        ****                     if (next_target_flag[j] != 1)
+ 222:main.c        ****                     {
+ 223:main.c        ****                         all_check = false;
+ 224:main.c        ****                         break;
+ 225:main.c        ****                     }
+ 226:main.c        ****                 }
+ 227:main.c        ****                 if (all_check && next_point < N_PNTS - 1) 
+ 228:main.c        ****                 {   
+ 229:main.c        ****                     next_point++;
+ 230:main.c        ****                     memset(next_target_flag, 0, sizeof next_target_flag); 
+ 231:main.c        ****                     printf("All motors reached point, next point is %d \r\n", next_point);
+ 232:main.c        ****                 }
+ 233:main.c        ****             }
+ 234:main.c        ****         }
+ 235:main.c        ****         //printf("%d %d %d \r\n", errors[0][counter], PID_output[0], MIN_SPEED * (ERROR_MULTIPLIER 
+ 236:main.c        ****         counter = (counter + 1) % 3;
+ 237:main.c        ****         CyDelay(10);
+ 238:main.c        ****     }
+ 239:main.c        **** }
+ 240:main.c        **** 
+ 241:main.c        **** void set_speed(uint8_t M, uint8_t speed) {
+  85              		.loc 1 241 0
   86              		.cfi_startproc
   87              		@ args = 0, pretend = 0, frame = 0
   88              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -346,89 +350,89 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
   91              		.cfi_def_cfa_offset 8
   92              		.cfi_offset 3, -8
   93              		.cfi_offset 14, -4
- 238:main.c        ****     switch(M) {
-  94              		.loc 1 238 0
+ 242:main.c        ****     switch(M) {
+  94              		.loc 1 242 0
   95 0002 0528     		cmp	r0, #5
   96 0004 1BD8     		bhi	.L7
   97 0006 DFE800F0 		tbb	[pc, r0]
   98              	.L10:
   99 000a 03       		.byte	(.L9-.L10)/2
  100 000b 07       		.byte	(.L11-.L10)/2
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 7
+
+
  101 000c 0B       		.byte	(.L12-.L10)/2
  102 000d 0F       		.byte	(.L13-.L10)/2
  103 000e 13       		.byte	(.L14-.L10)/2
  104 000f 17       		.byte	(.L15-.L10)/2
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 7
-
-
  105              		.p2align 1
  106              	.L9:
- 239:main.c        ****        case 0:
- 240:main.c        ****         PWM1_WriteCompare1(speed);
- 107              		.loc 1 240 0
+ 243:main.c        ****        case 0:
+ 244:main.c        ****         PWM1_WriteCompare1(speed);
+ 107              		.loc 1 244 0
  108 0010 0846     		mov	r0, r1
  109              	.LVL4:
  110 0012 FFF7FEFF 		bl	PWM1_WriteCompare1
  111              	.LVL5:
- 241:main.c        ****         break;
- 112              		.loc 1 241 0
+ 245:main.c        ****         break;
+ 112              		.loc 1 245 0
  113 0016 08BD     		pop	{r3, pc}
  114              	.LVL6:
  115              	.L11:
- 242:main.c        ****        case 1:
- 243:main.c        ****         PWM1_WriteCompare2(speed);
- 116              		.loc 1 243 0
+ 246:main.c        ****        case 1:
+ 247:main.c        ****         PWM1_WriteCompare2(speed);
+ 116              		.loc 1 247 0
  117 0018 0846     		mov	r0, r1
  118              	.LVL7:
  119 001a FFF7FEFF 		bl	PWM1_WriteCompare2
  120              	.LVL8:
- 244:main.c        ****         break;
- 121              		.loc 1 244 0
+ 248:main.c        ****         break;
+ 121              		.loc 1 248 0
  122 001e 08BD     		pop	{r3, pc}
  123              	.LVL9:
  124              	.L12:
- 245:main.c        ****        case 2:
- 246:main.c        ****         PWM2_WriteCompare1(speed);
- 125              		.loc 1 246 0
+ 249:main.c        ****        case 2:
+ 250:main.c        ****         PWM2_WriteCompare1(speed);
+ 125              		.loc 1 250 0
  126 0020 0846     		mov	r0, r1
  127              	.LVL10:
  128 0022 FFF7FEFF 		bl	PWM2_WriteCompare1
  129              	.LVL11:
- 247:main.c        ****         break;
- 130              		.loc 1 247 0
+ 251:main.c        ****         break;
+ 130              		.loc 1 251 0
  131 0026 08BD     		pop	{r3, pc}
  132              	.LVL12:
  133              	.L13:
- 248:main.c        ****        case 3:
- 249:main.c        ****         PWM2_WriteCompare2(speed);
- 134              		.loc 1 249 0
+ 252:main.c        ****        case 3:
+ 253:main.c        ****         PWM2_WriteCompare2(speed);
+ 134              		.loc 1 253 0
  135 0028 0846     		mov	r0, r1
  136              	.LVL13:
  137 002a FFF7FEFF 		bl	PWM2_WriteCompare2
  138              	.LVL14:
- 250:main.c        ****         break;
- 139              		.loc 1 250 0
+ 254:main.c        ****         break;
+ 139              		.loc 1 254 0
  140 002e 08BD     		pop	{r3, pc}
  141              	.LVL15:
  142              	.L14:
- 251:main.c        ****        case 4:
- 252:main.c        ****         PWM3_WriteCompare1(speed);
- 143              		.loc 1 252 0
+ 255:main.c        ****        case 4:
+ 256:main.c        ****         PWM3_WriteCompare1(speed);
+ 143              		.loc 1 256 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 8
+
+
  144 0030 0846     		mov	r0, r1
  145              	.LVL16:
  146 0032 FFF7FEFF 		bl	PWM3_WriteCompare1
  147              	.LVL17:
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 8
-
-
- 253:main.c        ****         break;
- 148              		.loc 1 253 0
+ 257:main.c        ****         break;
+ 148              		.loc 1 257 0
  149 0036 08BD     		pop	{r3, pc}
  150              	.LVL18:
  151              	.L15:
- 254:main.c        ****        case 5:
- 255:main.c        ****         PWM3_WriteCompare2(speed);
- 152              		.loc 1 255 0
+ 258:main.c        ****        case 5:
+ 259:main.c        ****         PWM3_WriteCompare2(speed);
+ 152              		.loc 1 259 0
  153 0038 0846     		mov	r0, r1
  154              	.LVL19:
  155 003a FFF7FEFF 		bl	PWM3_WriteCompare2
@@ -446,14 +450,14 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  167              		.type	extend, %function
  168              	extend:
  169              	.LFB68:
- 256:main.c        ****         break;
- 257:main.c        ****        default :
- 258:main.c        ****         break;
- 259:main.c        ****     }
- 260:main.c        **** }
- 261:main.c        **** 
- 262:main.c        **** void extend(uint8_t M) {
- 170              		.loc 1 262 0
+ 260:main.c        ****         break;
+ 261:main.c        ****        default :
+ 262:main.c        ****         break;
+ 263:main.c        ****     }
+ 264:main.c        **** }
+ 265:main.c        **** 
+ 266:main.c        **** void extend(uint8_t M) {
+ 170              		.loc 1 266 0
  171              		.cfi_startproc
  172              		@ args = 0, pretend = 0, frame = 0
  173              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -462,8 +466,8 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  176              		.cfi_def_cfa_offset 8
  177              		.cfi_offset 3, -8
  178              		.cfi_offset 14, -4
- 263:main.c        ****     switch(M) {
- 179              		.loc 1 263 0
+ 267:main.c        ****     switch(M) {
+ 179              		.loc 1 267 0
  180 0002 0528     		cmp	r0, #5
  181 0004 2DD8     		bhi	.L17
  182 0006 DFE800F0 		tbb	[pc, r0]
@@ -474,108 +478,108 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  187 000d 18       		.byte	(.L23-.L20)/2
  188 000e 1F       		.byte	(.L24-.L20)/2
  189 000f 26       		.byte	(.L25-.L20)/2
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 9
+
+
  190              		.p2align 1
  191              	.L19:
- 264:main.c        ****        case 0:
- 265:main.c        ****         M1_IN1_Write(1U);
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 9
-
-
- 192              		.loc 1 265 0
+ 268:main.c        ****        case 0:
+ 269:main.c        ****         M1_IN1_Write(1U);
+ 192              		.loc 1 269 0
  193 0010 0120     		movs	r0, #1
  194              	.LVL22:
  195 0012 FFF7FEFF 		bl	M1_IN1_Write
  196              	.LVL23:
- 266:main.c        ****         M1_IN2_Write(0U);
- 197              		.loc 1 266 0
+ 270:main.c        ****         M1_IN2_Write(0U);
+ 197              		.loc 1 270 0
  198 0016 0020     		movs	r0, #0
  199 0018 FFF7FEFF 		bl	M1_IN2_Write
  200              	.LVL24:
- 267:main.c        ****         break;
- 201              		.loc 1 267 0
+ 271:main.c        ****         break;
+ 201              		.loc 1 271 0
  202 001c 08BD     		pop	{r3, pc}
  203              	.LVL25:
  204              	.L21:
- 268:main.c        ****        case 1:
- 269:main.c        ****         M2_IN1_Write(1U);
- 205              		.loc 1 269 0
+ 272:main.c        ****        case 1:
+ 273:main.c        ****         M2_IN1_Write(1U);
+ 205              		.loc 1 273 0
  206 001e 0120     		movs	r0, #1
  207              	.LVL26:
  208 0020 FFF7FEFF 		bl	M2_IN1_Write
  209              	.LVL27:
- 270:main.c        ****         M2_IN2_Write(0U);
- 210              		.loc 1 270 0
+ 274:main.c        ****         M2_IN2_Write(0U);
+ 210              		.loc 1 274 0
  211 0024 0020     		movs	r0, #0
  212 0026 FFF7FEFF 		bl	M2_IN2_Write
  213              	.LVL28:
- 271:main.c        ****         break;
- 214              		.loc 1 271 0
+ 275:main.c        ****         break;
+ 214              		.loc 1 275 0
  215 002a 08BD     		pop	{r3, pc}
  216              	.LVL29:
  217              	.L22:
- 272:main.c        ****        case 2:
- 273:main.c        ****         M3_IN1_Write(1U);
- 218              		.loc 1 273 0
+ 276:main.c        ****        case 2:
+ 277:main.c        ****         M3_IN1_Write(1U);
+ 218              		.loc 1 277 0
  219 002c 0120     		movs	r0, #1
  220              	.LVL30:
  221 002e FFF7FEFF 		bl	M3_IN1_Write
  222              	.LVL31:
- 274:main.c        ****         M3_IN2_Write(0U);
- 223              		.loc 1 274 0
+ 278:main.c        ****         M3_IN2_Write(0U);
+ 223              		.loc 1 278 0
  224 0032 0020     		movs	r0, #0
  225 0034 FFF7FEFF 		bl	M3_IN2_Write
  226              	.LVL32:
- 275:main.c        ****         break;
- 227              		.loc 1 275 0
+ 279:main.c        ****         break;
+ 227              		.loc 1 279 0
  228 0038 08BD     		pop	{r3, pc}
  229              	.LVL33:
  230              	.L23:
- 276:main.c        ****        case 3:
- 277:main.c        ****         M4_IN1_Write(1U);
- 231              		.loc 1 277 0
+ 280:main.c        ****        case 3:
+ 281:main.c        ****         M4_IN1_Write(1U);
+ 231              		.loc 1 281 0
  232 003a 0120     		movs	r0, #1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 10
+
+
  233              	.LVL34:
  234 003c FFF7FEFF 		bl	M4_IN1_Write
  235              	.LVL35:
- 278:main.c        ****         M4_IN2_Write(0U);
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 10
-
-
- 236              		.loc 1 278 0
+ 282:main.c        ****         M4_IN2_Write(0U);
+ 236              		.loc 1 282 0
  237 0040 0020     		movs	r0, #0
  238 0042 FFF7FEFF 		bl	M4_IN2_Write
  239              	.LVL36:
- 279:main.c        ****         break;
- 240              		.loc 1 279 0
+ 283:main.c        ****         break;
+ 240              		.loc 1 283 0
  241 0046 08BD     		pop	{r3, pc}
  242              	.LVL37:
  243              	.L24:
- 280:main.c        ****        case 4:
- 281:main.c        ****         M5_IN1_Write(1U);
- 244              		.loc 1 281 0
+ 284:main.c        ****        case 4:
+ 285:main.c        ****         M5_IN1_Write(1U);
+ 244              		.loc 1 285 0
  245 0048 0120     		movs	r0, #1
  246              	.LVL38:
  247 004a FFF7FEFF 		bl	M5_IN1_Write
  248              	.LVL39:
- 282:main.c        ****         M5_IN2_Write(0U);
- 249              		.loc 1 282 0
+ 286:main.c        ****         M5_IN2_Write(0U);
+ 249              		.loc 1 286 0
  250 004e 0020     		movs	r0, #0
  251 0050 FFF7FEFF 		bl	M5_IN2_Write
  252              	.LVL40:
- 283:main.c        ****         break;
- 253              		.loc 1 283 0
+ 287:main.c        ****         break;
+ 253              		.loc 1 287 0
  254 0054 08BD     		pop	{r3, pc}
  255              	.LVL41:
  256              	.L25:
- 284:main.c        ****        case 5:
- 285:main.c        ****         M6_IN1_Write(1U);
- 257              		.loc 1 285 0
+ 288:main.c        ****        case 5:
+ 289:main.c        ****         M6_IN1_Write(1U);
+ 257              		.loc 1 289 0
  258 0056 0120     		movs	r0, #1
  259              	.LVL42:
  260 0058 FFF7FEFF 		bl	M6_IN1_Write
  261              	.LVL43:
- 286:main.c        ****         M6_IN2_Write(0U);
- 262              		.loc 1 286 0
+ 290:main.c        ****         M6_IN2_Write(0U);
+ 262              		.loc 1 290 0
  263 005c 0020     		movs	r0, #0
  264 005e FFF7FEFF 		bl	M6_IN2_Write
  265              	.LVL44:
@@ -592,17 +596,17 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  276              		.type	retract, %function
  277              	retract:
  278              	.LFB69:
- 287:main.c        ****         break;
- 288:main.c        ****        default :
- 289:main.c        ****         break;
- 290:main.c        ****     }
- 291:main.c        **** }
- 292:main.c        **** 
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 11
+ 291:main.c        ****         break;
+ 292:main.c        ****        default :
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 11
 
 
- 293:main.c        **** void retract(uint8_t M) {
- 279              		.loc 1 293 0
+ 293:main.c        ****         break;
+ 294:main.c        ****     }
+ 295:main.c        **** }
+ 296:main.c        **** 
+ 297:main.c        **** void retract(uint8_t M) {
+ 279              		.loc 1 297 0
  280              		.cfi_startproc
  281              		@ args = 0, pretend = 0, frame = 0
  282              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -611,8 +615,8 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  285              		.cfi_def_cfa_offset 8
  286              		.cfi_offset 3, -8
  287              		.cfi_offset 14, -4
- 294:main.c        ****     switch(M) {
- 288              		.loc 1 294 0
+ 298:main.c        ****     switch(M) {
+ 288              		.loc 1 298 0
  289 0002 0528     		cmp	r0, #5
  290 0004 2DD8     		bhi	.L27
  291 0006 DFE800F0 		tbb	[pc, r0]
@@ -625,106 +629,106 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  298 000f 26       		.byte	(.L35-.L30)/2
  299              		.p2align 1
  300              	.L29:
- 295:main.c        ****        case 0:
- 296:main.c        ****         M1_IN1_Write(0U);
- 301              		.loc 1 296 0
+ 299:main.c        ****        case 0:
+ 300:main.c        ****         M1_IN1_Write(0U);
+ 301              		.loc 1 300 0
  302 0010 0020     		movs	r0, #0
  303              	.LVL46:
  304 0012 FFF7FEFF 		bl	M1_IN1_Write
  305              	.LVL47:
- 297:main.c        ****         M1_IN2_Write(1U);
- 306              		.loc 1 297 0
+ 301:main.c        ****         M1_IN2_Write(1U);
+ 306              		.loc 1 301 0
  307 0016 0120     		movs	r0, #1
  308 0018 FFF7FEFF 		bl	M1_IN2_Write
  309              	.LVL48:
- 298:main.c        ****         break;
- 310              		.loc 1 298 0
+ 302:main.c        ****         break;
+ 310              		.loc 1 302 0
  311 001c 08BD     		pop	{r3, pc}
  312              	.LVL49:
  313              	.L31:
- 299:main.c        ****        case 1:
- 300:main.c        ****         M2_IN1_Write(0U);
- 314              		.loc 1 300 0
+ 303:main.c        ****        case 1:
+ 304:main.c        ****         M2_IN1_Write(0U);
+ 314              		.loc 1 304 0
  315 001e 0020     		movs	r0, #0
  316              	.LVL50:
  317 0020 FFF7FEFF 		bl	M2_IN1_Write
  318              	.LVL51:
- 301:main.c        ****         M2_IN2_Write(1U);
- 319              		.loc 1 301 0
+ 305:main.c        ****         M2_IN2_Write(1U);
+ 319              		.loc 1 305 0
  320 0024 0120     		movs	r0, #1
  321 0026 FFF7FEFF 		bl	M2_IN2_Write
  322              	.LVL52:
- 302:main.c        ****         break;
- 323              		.loc 1 302 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 12
+
+
+ 306:main.c        ****         break;
+ 323              		.loc 1 306 0
  324 002a 08BD     		pop	{r3, pc}
  325              	.LVL53:
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 12
-
-
  326              	.L32:
- 303:main.c        ****        case 2:
- 304:main.c        ****         M3_IN1_Write(0U);
- 327              		.loc 1 304 0
+ 307:main.c        ****        case 2:
+ 308:main.c        ****         M3_IN1_Write(0U);
+ 327              		.loc 1 308 0
  328 002c 0020     		movs	r0, #0
  329              	.LVL54:
  330 002e FFF7FEFF 		bl	M3_IN1_Write
  331              	.LVL55:
- 305:main.c        ****         M3_IN2_Write(1U);
- 332              		.loc 1 305 0
+ 309:main.c        ****         M3_IN2_Write(1U);
+ 332              		.loc 1 309 0
  333 0032 0120     		movs	r0, #1
  334 0034 FFF7FEFF 		bl	M3_IN2_Write
  335              	.LVL56:
- 306:main.c        ****         break;
- 336              		.loc 1 306 0
+ 310:main.c        ****         break;
+ 336              		.loc 1 310 0
  337 0038 08BD     		pop	{r3, pc}
  338              	.LVL57:
  339              	.L33:
- 307:main.c        ****        case 3:
- 308:main.c        ****         M4_IN1_Write(0U);
- 340              		.loc 1 308 0
+ 311:main.c        ****        case 3:
+ 312:main.c        ****         M4_IN1_Write(0U);
+ 340              		.loc 1 312 0
  341 003a 0020     		movs	r0, #0
  342              	.LVL58:
  343 003c FFF7FEFF 		bl	M4_IN1_Write
  344              	.LVL59:
- 309:main.c        ****         M4_IN2_Write(1U);
- 345              		.loc 1 309 0
+ 313:main.c        ****         M4_IN2_Write(1U);
+ 345              		.loc 1 313 0
  346 0040 0120     		movs	r0, #1
  347 0042 FFF7FEFF 		bl	M4_IN2_Write
  348              	.LVL60:
- 310:main.c        ****         break;
- 349              		.loc 1 310 0
+ 314:main.c        ****         break;
+ 349              		.loc 1 314 0
  350 0046 08BD     		pop	{r3, pc}
  351              	.LVL61:
  352              	.L34:
- 311:main.c        ****        case 4:
- 312:main.c        ****         M5_IN1_Write(0U);
- 353              		.loc 1 312 0
+ 315:main.c        ****        case 4:
+ 316:main.c        ****         M5_IN1_Write(0U);
+ 353              		.loc 1 316 0
  354 0048 0020     		movs	r0, #0
  355              	.LVL62:
  356 004a FFF7FEFF 		bl	M5_IN1_Write
  357              	.LVL63:
- 313:main.c        ****         M5_IN2_Write(1U);
- 358              		.loc 1 313 0
+ 317:main.c        ****         M5_IN2_Write(1U);
+ 358              		.loc 1 317 0
  359 004e 0120     		movs	r0, #1
  360 0050 FFF7FEFF 		bl	M5_IN2_Write
  361              	.LVL64:
- 314:main.c        ****         break;
- 362              		.loc 1 314 0
+ 318:main.c        ****         break;
+ 362              		.loc 1 318 0
  363 0054 08BD     		pop	{r3, pc}
  364              	.LVL65:
  365              	.L35:
- 315:main.c        ****        case 5:
- 316:main.c        ****         M6_IN1_Write(0U);
- 366              		.loc 1 316 0
+ 319:main.c        ****        case 5:
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 13
+
+
+ 320:main.c        ****         M6_IN1_Write(0U);
+ 366              		.loc 1 320 0
  367 0056 0020     		movs	r0, #0
  368              	.LVL66:
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 13
-
-
  369 0058 FFF7FEFF 		bl	M6_IN1_Write
  370              	.LVL67:
- 317:main.c        ****         M6_IN2_Write(1U);
- 371              		.loc 1 317 0
+ 321:main.c        ****         M6_IN2_Write(1U);
+ 371              		.loc 1 321 0
  372 005c 0120     		movs	r0, #1
  373 005e FFF7FEFF 		bl	M6_IN2_Write
  374              	.LVL68:
@@ -741,14 +745,14 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  385              		.type	stop, %function
  386              	stop:
  387              	.LFB70:
- 318:main.c        ****         break;
- 319:main.c        ****        default :
- 320:main.c        ****         break;
- 321:main.c        ****     }
- 322:main.c        **** }
- 323:main.c        **** 
- 324:main.c        **** void stop(uint8_t M) {
- 388              		.loc 1 324 0
+ 322:main.c        ****         break;
+ 323:main.c        ****        default :
+ 324:main.c        ****         break;
+ 325:main.c        ****     }
+ 326:main.c        **** }
+ 327:main.c        **** 
+ 328:main.c        **** void stop(uint8_t M) {
+ 388              		.loc 1 328 0
  389              		.cfi_startproc
  390              		@ args = 0, pretend = 0, frame = 0
  391              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -757,8 +761,8 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  394              		.cfi_def_cfa_offset 8
  395              		.cfi_offset 3, -8
  396              		.cfi_offset 14, -4
- 325:main.c        ****     switch(M) {
- 397              		.loc 1 325 0
+ 329:main.c        ****     switch(M) {
+ 397              		.loc 1 329 0
  398 0002 0528     		cmp	r0, #5
  399 0004 2DD8     		bhi	.L37
  400 0006 DFE800F0 		tbb	[pc, r0]
@@ -771,106 +775,106 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  407 000f 26       		.byte	(.L45-.L40)/2
  408              		.p2align 1
  409              	.L39:
- 326:main.c        ****        case 0:
- 327:main.c        ****         M1_IN1_Write(0U);
- 410              		.loc 1 327 0
+ 330:main.c        ****        case 0:
+ 331:main.c        ****         M1_IN1_Write(0U);
+ 410              		.loc 1 331 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 14
+
+
  411 0010 0020     		movs	r0, #0
  412              	.LVL70:
  413 0012 FFF7FEFF 		bl	M1_IN1_Write
  414              	.LVL71:
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 14
-
-
- 328:main.c        ****         M1_IN2_Write(0U);
- 415              		.loc 1 328 0
+ 332:main.c        ****         M1_IN2_Write(0U);
+ 415              		.loc 1 332 0
  416 0016 0020     		movs	r0, #0
  417 0018 FFF7FEFF 		bl	M1_IN2_Write
  418              	.LVL72:
- 329:main.c        ****         break;
- 419              		.loc 1 329 0
+ 333:main.c        ****         break;
+ 419              		.loc 1 333 0
  420 001c 08BD     		pop	{r3, pc}
  421              	.LVL73:
  422              	.L41:
- 330:main.c        ****        case 1:
- 331:main.c        ****         M2_IN1_Write(0U);
- 423              		.loc 1 331 0
+ 334:main.c        ****        case 1:
+ 335:main.c        ****         M2_IN1_Write(0U);
+ 423              		.loc 1 335 0
  424 001e 0020     		movs	r0, #0
  425              	.LVL74:
  426 0020 FFF7FEFF 		bl	M2_IN1_Write
  427              	.LVL75:
- 332:main.c        ****         M2_IN2_Write(0U);
- 428              		.loc 1 332 0
+ 336:main.c        ****         M2_IN2_Write(0U);
+ 428              		.loc 1 336 0
  429 0024 0020     		movs	r0, #0
  430 0026 FFF7FEFF 		bl	M2_IN2_Write
  431              	.LVL76:
- 333:main.c        ****         break;
- 432              		.loc 1 333 0
+ 337:main.c        ****         break;
+ 432              		.loc 1 337 0
  433 002a 08BD     		pop	{r3, pc}
  434              	.LVL77:
  435              	.L42:
- 334:main.c        ****        case 2:
- 335:main.c        ****         M3_IN1_Write(0U);
- 436              		.loc 1 335 0
+ 338:main.c        ****        case 2:
+ 339:main.c        ****         M3_IN1_Write(0U);
+ 436              		.loc 1 339 0
  437 002c 0020     		movs	r0, #0
  438              	.LVL78:
  439 002e FFF7FEFF 		bl	M3_IN1_Write
  440              	.LVL79:
- 336:main.c        ****         M3_IN2_Write(0U);
- 441              		.loc 1 336 0
+ 340:main.c        ****         M3_IN2_Write(0U);
+ 441              		.loc 1 340 0
  442 0032 0020     		movs	r0, #0
  443 0034 FFF7FEFF 		bl	M3_IN2_Write
  444              	.LVL80:
- 337:main.c        ****         break;
- 445              		.loc 1 337 0
+ 341:main.c        ****         break;
+ 445              		.loc 1 341 0
  446 0038 08BD     		pop	{r3, pc}
  447              	.LVL81:
  448              	.L43:
- 338:main.c        ****        case 3:
- 339:main.c        ****         M4_IN1_Write(0U);
- 449              		.loc 1 339 0
+ 342:main.c        ****        case 3:
+ 343:main.c        ****         M4_IN1_Write(0U);
+ 449              		.loc 1 343 0
  450 003a 0020     		movs	r0, #0
  451              	.LVL82:
  452 003c FFF7FEFF 		bl	M4_IN1_Write
  453              	.LVL83:
- 340:main.c        ****         M4_IN2_Write(0U);
- 454              		.loc 1 340 0
+ 344:main.c        ****         M4_IN2_Write(0U);
+ 454              		.loc 1 344 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 15
+
+
  455 0040 0020     		movs	r0, #0
  456 0042 FFF7FEFF 		bl	M4_IN2_Write
  457              	.LVL84:
- 341:main.c        ****         break;
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 15
-
-
- 458              		.loc 1 341 0
+ 345:main.c        ****         break;
+ 458              		.loc 1 345 0
  459 0046 08BD     		pop	{r3, pc}
  460              	.LVL85:
  461              	.L44:
- 342:main.c        ****        case 4:
- 343:main.c        ****         M5_IN1_Write(0U);
- 462              		.loc 1 343 0
+ 346:main.c        ****        case 4:
+ 347:main.c        ****         M5_IN1_Write(0U);
+ 462              		.loc 1 347 0
  463 0048 0020     		movs	r0, #0
  464              	.LVL86:
  465 004a FFF7FEFF 		bl	M5_IN1_Write
  466              	.LVL87:
- 344:main.c        ****         M5_IN2_Write(0U);
- 467              		.loc 1 344 0
+ 348:main.c        ****         M5_IN2_Write(0U);
+ 467              		.loc 1 348 0
  468 004e 0020     		movs	r0, #0
  469 0050 FFF7FEFF 		bl	M5_IN2_Write
  470              	.LVL88:
- 345:main.c        ****         break;
- 471              		.loc 1 345 0
+ 349:main.c        ****         break;
+ 471              		.loc 1 349 0
  472 0054 08BD     		pop	{r3, pc}
  473              	.LVL89:
  474              	.L45:
- 346:main.c        ****        case 5:
- 347:main.c        ****         M6_IN1_Write(0U);
- 475              		.loc 1 347 0
+ 350:main.c        ****        case 5:
+ 351:main.c        ****         M6_IN1_Write(0U);
+ 475              		.loc 1 351 0
  476 0056 0020     		movs	r0, #0
  477              	.LVL90:
  478 0058 FFF7FEFF 		bl	M6_IN1_Write
  479              	.LVL91:
- 348:main.c        ****         M6_IN2_Write(0U);
- 480              		.loc 1 348 0
+ 352:main.c        ****         M6_IN2_Write(0U);
+ 480              		.loc 1 352 0
  481 005c 0020     		movs	r0, #0
  482 005e FFF7FEFF 		bl	M6_IN2_Write
  483              	.LVL92:
@@ -887,40 +891,40 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  494              		.type	PID, %function
  495              	PID:
  496              	.LFB71:
- 349:main.c        ****         break;
- 350:main.c        ****        default :
- 351:main.c        ****         break;
- 352:main.c        ****     }
- 353:main.c        **** }
- 354:main.c        **** 
- 355:main.c        **** int32_t PID(int32_t errors[3], int32_t *integral, int32_t params[3], uint8_t counter) {
- 497              		.loc 1 355 0
+ 353:main.c        ****         break;
+ 354:main.c        ****        default :
+ 355:main.c        ****         break;
+ 356:main.c        ****     }
+ 357:main.c        **** }
+ 358:main.c        **** 
+ 359:main.c        **** int32_t PID(int32_t errors[3], int32_t *integral, int32_t params[3], uint8_t counter) {
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 16
+
+
+ 497              		.loc 1 359 0
  498              		.cfi_startproc
  499              		@ args = 0, pretend = 0, frame = 0
  500              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 16
-
-
  501              	.LVL93:
  502 0000 30B5     		push	{r4, r5, lr}
  503              		.cfi_def_cfa_offset 12
  504              		.cfi_offset 4, -12
  505              		.cfi_offset 5, -8
  506              		.cfi_offset 14, -4
- 356:main.c        ****     // P = errors[counter] * params[0]
- 357:main.c        ****     // I = integral + errors[counter] * params[1]
- 358:main.c        ****     // D = (errors[counter] - errors[(counter + 1) % 3]) / 2 * params[2]
- 359:main.c        ****     *integral += errors[counter] / params[1];
- 507              		.loc 1 359 0
+ 360:main.c        ****     // P = errors[counter] * params[0]
+ 361:main.c        ****     // I = integral + errors[counter] * params[1]
+ 362:main.c        ****     // D = (errors[counter] - errors[(counter + 1) % 3]) / 2 * params[2]
+ 363:main.c        ****     *integral += errors[counter] / params[1];
+ 507              		.loc 1 363 0
  508 0002 50F82340 		ldr	r4, [r0, r3, lsl #2]
  509 0006 5568     		ldr	r5, [r2, #4]
  510 0008 94FBF5F5 		sdiv	r5, r4, r5
  511 000c 0C68     		ldr	r4, [r1]
  512 000e 2C44     		add	r4, r4, r5
  513 0010 0C60     		str	r4, [r1]
- 360:main.c        ****     //printf("%d\r\n", *integral);
- 361:main.c        ****     return errors[counter] / params[0] + (*integral) + (errors[counter] - errors[(counter + 1) % 3]
- 514              		.loc 1 361 0
+ 364:main.c        ****     //printf("%d\r\n", *integral);
+ 365:main.c        ****     return errors[counter] / params[0] + (*integral) + (errors[counter] - errors[(counter + 1) % 3]
+ 514              		.loc 1 365 0
  515 0012 50F82310 		ldr	r1, [r0, r3, lsl #2]
  516              	.LVL94:
  517 0016 1568     		ldr	r5, [r2]
@@ -940,8 +944,8 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  531 003c 9068     		ldr	r0, [r2, #8]
  532              	.LVL96:
  533 003e 93FBF0F0 		sdiv	r0, r3, r0
- 362:main.c        **** }
- 534              		.loc 1 362 0
+ 366:main.c        **** }
+ 534              		.loc 1 366 0
  535 0042 2844     		add	r0, r0, r5
  536 0044 30BD     		pop	{r4, r5, pc}
  537              	.L50:
@@ -954,13 +958,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  544              		.section	.text.main,"ax",%progbits
  545              		.align	2
  546              		.global	main
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 17
+
+
  547              		.thumb
  548              		.thumb_func
  549              		.type	main, %function
  550              	main:
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 17
-
-
  551              	.LFB66:
  118:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
  552              		.loc 1 118 0
@@ -1014,13 +1018,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  592 0020 FFF7FEFF 		bl	PWM2_Start
  593              	.LVL103:
  130:main.c        **** 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 18
+
+
  594              		.loc 1 130 0
  595 0024 FFF7FEFF 		bl	PWM3_Start
  596              	.LVL104:
  132:main.c        ****     CyDelay(1000);
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 18
-
-
  597              		.loc 1 132 0
  598 0028 FFF7FEFF 		bl	ADC_DelSig_1_StartConvert
  599              	.LVL105:
@@ -1074,13 +1078,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  638 0058 5E49     		ldr	r1, .L67+12
  639 005a 2046     		mov	r0, r4
  640 005c FFF7FEFF 		bl	printf
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 19
+
+
  641              	.LVL114:
  148:main.c        ****     printf("\r");
  642              		.loc 1 148 0
  643 0060 5D49     		ldr	r1, .L67+16
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 19
-
-
  644 0062 2046     		mov	r0, r4
  645 0064 FFF7FEFF 		bl	printf
  646              	.LVL115:
@@ -1119,8 +1123,8 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  673              	.LVL121:
  674 008a 554D     		ldr	r5, .L67+24
  675 008c 6860     		str	r0, [r5, #4]
- 187:main.c        **** 
- 676              		.loc 1 187 0
+ 188:main.c        **** 
+ 676              		.loc 1 188 0
  677 008e 2B7A     		ldrb	r3, [r5, #8]	@ zero_extendqisi2
  678 0090 A600     		lsls	r6, r4, #2
  679 0092 3219     		adds	r2, r6, r4
@@ -1134,17 +1138,17 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  687 00a6 02FB00F0 		mul	r0, r2, r0
  688 00aa 4F4A     		ldr	r2, .L67+32
  689 00ac 82FB0012 		smull	r1, r2, r2, r0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 20
+
+
  690 00b0 C017     		asrs	r0, r0, #31
  691 00b2 C0EBA232 		rsb	r2, r0, r2, asr #14
  692 00b6 04EB4400 		add	r0, r4, r4, lsl #1
  693 00ba C118     		adds	r1, r0, r3
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 20
-
-
  694 00bc 05EB8101 		add	r1, r5, r1, lsl #2
  695 00c0 0A61     		str	r2, [r1, #16]
- 189:main.c        ****             
- 696              		.loc 1 189 0
+ 190:main.c        ****             
+ 696              		.loc 1 190 0
  697 00c2 05F1100E 		add	lr, r5, #16
  698 00c6 05F15801 		add	r1, r5, #88
  699 00ca 484A     		ldr	r2, .L67+36
@@ -1154,23 +1158,23 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  703              	.LVL122:
  704 00d6 3544     		add	r5, r5, r6
  705 00d8 2867     		str	r0, [r5, #112]
- 191:main.c        ****                 set_speed(i, MAX_SPEED);
- 706              		.loc 1 191 0
+ 192:main.c        ****                 set_speed(i, MAX_SPEED);
+ 706              		.loc 1 192 0
  707 00da 0028     		cmp	r0, #0
  708 00dc B8BF     		it	lt
  709 00de 4042     		rsblt	r0, r0, #0
  710 00e0 B0F57A7F 		cmp	r0, #1000
  711 00e4 04DD     		ble	.L55
- 192:main.c        ****             } else {
- 712              		.loc 1 192 0
+ 193:main.c        ****             } else {
+ 712              		.loc 1 193 0
  713 00e6 0021     		movs	r1, #0
  714 00e8 3846     		mov	r0, r7
  715 00ea FFF7FEFF 		bl	set_speed
  716              	.LVL123:
  717 00ee 0EE0     		b	.L56
  718              	.L55:
- 194:main.c        ****             }
- 719              		.loc 1 194 0
+ 195:main.c        ****             }
+ 719              		.loc 1 195 0
  720 00f0 C0F57A70 		rsb	r0, r0, #1000
  721 00f4 B421     		movs	r1, #180
  722 00f6 01FB00F0 		mul	r0, r1, r0
@@ -1183,8 +1187,8 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  729 010a FFF7FEFF 		bl	set_speed
  730              	.LVL124:
  731              	.L56:
- 197:main.c        ****                 extend(i);
- 732              		.loc 1 197 0
+ 198:main.c        ****                 extend(i);
+ 732              		.loc 1 198 0
  733 010e 344B     		ldr	r3, .L67+24
  734 0110 1A7A     		ldrb	r2, [r3, #8]	@ zero_extendqisi2
  735 0112 04EB4401 		add	r1, r4, r4, lsl #1
@@ -1194,99 +1198,99 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  739 011e 03EB8303 		add	r3, r3, r3, lsl #2
  740 0122 9A00     		lsls	r2, r3, #2
  741 0124 B2F57A7F 		cmp	r2, #1000
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 21
+
+
  742 0128 03DD     		ble	.L57
- 198:main.c        ****             } else if ((errors[i][counter]) * 20 < -ERROR_MULTIPLIER) {
- 743              		.loc 1 198 0
+ 199:main.c        ****             } else if ((errors[i][counter]) * 20 < -ERROR_MULTIPLIER) {
+ 743              		.loc 1 199 0
  744 012a 3846     		mov	r0, r7
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 21
-
-
  745 012c FFF7FEFF 		bl	extend
  746              	.LVL125:
  747 0130 36E0     		b	.L58
  748              	.L57:
- 199:main.c        ****                 retract(i);
- 749              		.loc 1 199 0
+ 200:main.c        ****                 retract(i);
+ 749              		.loc 1 200 0
  750 0132 12F57A7F 		cmn	r2, #1000
  751 0136 03DA     		bge	.L59
- 200:main.c        ****             } else {
- 752              		.loc 1 200 0
+ 201:main.c        ****             } else {
+ 752              		.loc 1 201 0
  753 0138 3846     		mov	r0, r7
  754 013a FFF7FEFF 		bl	retract
  755              	.LVL126:
  756 013e 2FE0     		b	.L58
  757              	.L59:
  758              	.LBB5:
- 202:main.c        ****                 next_target_flag[i] = 1;
- 759              		.loc 1 202 0
+ 203:main.c        ****                 next_target_flag[i] = 1;
+ 759              		.loc 1 203 0
  760 0140 3846     		mov	r0, r7
  761 0142 FFF7FEFF 		bl	stop
  762              	.LVL127:
- 203:main.c        ****                 /*
- 763              		.loc 1 203 0
+ 204:main.c        ****                 /* 
+ 763              		.loc 1 204 0
  764 0146 264B     		ldr	r3, .L67+24
  765 0148 03EB8403 		add	r3, r3, r4, lsl #2
  766 014c 0122     		movs	r2, #1
  767 014e C3F88820 		str	r2, [r3, #136]
  768              	.LVL128:
  769              	.LBB6:
- 215:main.c        ****                 {
- 770              		.loc 1 215 0
+ 219:main.c        ****                 {
+ 770              		.loc 1 219 0
  771 0152 0023     		movs	r3, #0
  772 0154 07E0     		b	.L60
  773              	.LVL129:
  774              	.L62:
- 217:main.c        ****                     {
- 775              		.loc 1 217 0
+ 221:main.c        ****                     {
+ 775              		.loc 1 221 0
  776 0156 224A     		ldr	r2, .L67+24
  777 0158 02EB8302 		add	r2, r2, r3, lsl #2
  778 015c D2F88820 		ldr	r2, [r2, #136]
  779 0160 012A     		cmp	r2, #1
  780 0162 04D1     		bne	.L65
- 215:main.c        ****                 {
- 781              		.loc 1 215 0 discriminator 2
+ 219:main.c        ****                 {
+ 781              		.loc 1 219 0 discriminator 2
  782 0164 0133     		adds	r3, r3, #1
  783              	.LVL130:
  784              	.L60:
- 215:main.c        ****                 {
- 785              		.loc 1 215 0 is_stmt 0 discriminator 1
+ 219:main.c        ****                 {
+ 785              		.loc 1 219 0 is_stmt 0 discriminator 1
  786 0166 052B     		cmp	r3, #5
  787 0168 F5DD     		ble	.L62
  788              	.LBE6:
- 214:main.c        ****                 for (int j = 0; j < 6; j++)
- 789              		.loc 1 214 0 is_stmt 1
+ 218:main.c        ****                 for (int j = 0; j < 6; j++)
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 22
+
+
+ 789              		.loc 1 218 0 is_stmt 1
  790 016a 0123     		movs	r3, #1
  791              	.LVL131:
  792              	.LBB7:
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 22
-
-
  793 016c 00E0     		b	.L61
  794              	.LVL132:
  795              	.L65:
- 219:main.c        ****                         break;
- 796              		.loc 1 219 0
+ 223:main.c        ****                         break;
+ 796              		.loc 1 223 0
  797 016e 0023     		movs	r3, #0
  798              	.LVL133:
  799              	.L61:
  800              	.LBE7:
- 223:main.c        ****                 {   
- 801              		.loc 1 223 0
+ 227:main.c        ****                 {   
+ 801              		.loc 1 227 0
  802 0170 B3B1     		cbz	r3, .L58
- 223:main.c        ****                 {   
- 803              		.loc 1 223 0 is_stmt 0 discriminator 1
+ 227:main.c        ****                 {   
+ 803              		.loc 1 227 0 is_stmt 0 discriminator 1
  804 0172 1B4B     		ldr	r3, .L67+24
  805              	.LVL134:
  806 0174 D968     		ldr	r1, [r3, #12]
  807 0176 0829     		cmp	r1, #8
  808 0178 12DC     		bgt	.L58
- 225:main.c        ****                     memset(next_target_flag, 0, sizeof next_target_flag); 
- 809              		.loc 1 225 0 is_stmt 1
+ 229:main.c        ****                     memset(next_target_flag, 0, sizeof next_target_flag); 
+ 809              		.loc 1 229 0 is_stmt 1
  810 017a 0131     		adds	r1, r1, #1
  811 017c 1846     		mov	r0, r3
  812 017e D960     		str	r1, [r3, #12]
- 226:main.c        ****                     printf("All motors reached point, next point is %d \r\n", next_point);
- 813              		.loc 1 226 0
+ 230:main.c        ****                     printf("All motors reached point, next point is %d \r\n", next_point);
+ 813              		.loc 1 230 0
  814 0180 0023     		movs	r3, #0
  815 0182 C0F88830 		str	r3, [r0, #136]
  816 0186 C0F88C30 		str	r3, [r0, #140]
@@ -1294,8 +1298,8 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  818 018e C0F89430 		str	r3, [r0, #148]
  819 0192 C0F89830 		str	r3, [r0, #152]
  820 0196 C0F89C30 		str	r3, [r0, #156]
- 227:main.c        ****                 }
- 821              		.loc 1 227 0
+ 231:main.c        ****                 }
+ 821              		.loc 1 231 0
  822 019a 1648     		ldr	r0, .L67+44
  823 019c FFF7FEFF 		bl	printf
  824              	.LVL135:
@@ -1311,27 +1315,27 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  832 01a2 052C     		cmp	r4, #5
  833 01a4 7FF768AF 		ble	.L63
  834              	.LBE4:
- 232:main.c        ****         CyDelay(10);
- 835              		.loc 1 232 0 is_stmt 1
+ 236:main.c        ****         CyDelay(10);
+ 835              		.loc 1 236 0 is_stmt 1
  836 01a8 0D49     		ldr	r1, .L67+24
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 23
+
+
  837 01aa 0A7A     		ldrb	r2, [r1, #8]	@ zero_extendqisi2
  838 01ac 0132     		adds	r2, r2, #1
  839 01ae 124B     		ldr	r3, .L67+48
  840 01b0 83FB0203 		smull	r0, r3, r3, r2
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 23
-
-
  841 01b4 A3EBE273 		sub	r3, r3, r2, asr #31
  842 01b8 03EB4303 		add	r3, r3, r3, lsl #1
  843 01bc D31A     		subs	r3, r2, r3
  844 01be 0B72     		strb	r3, [r1, #8]
- 233:main.c        ****     }
- 845              		.loc 1 233 0
+ 237:main.c        ****     }
+ 845              		.loc 1 237 0
  846 01c0 0A20     		movs	r0, #10
  847 01c2 FFF7FEFF 		bl	CyDelay
  848              	.LVL137:
- 234:main.c        **** }
- 849              		.loc 1 234 0
+ 238:main.c        **** }
+ 849              		.loc 1 238 0
  850 01c6 55E7     		b	.L64
  851              	.L68:
  852              		.align	2
@@ -1360,9 +1364,9 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  875              		.type	make_points, %function
  876              	make_points:
  877              	.LFB72:
- 363:main.c        **** 
- 364:main.c        **** void make_points() {
- 878              		.loc 1 364 0
+ 367:main.c        **** 
+ 368:main.c        **** void make_points() {
+ 878              		.loc 1 368 0
  879              		.cfi_startproc
  880              		@ args = 0, pretend = 0, frame = 0
  881              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1372,45 +1376,45 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  885              		.cfi_offset 5, -12
  886              		.cfi_offset 6, -8
  887              		.cfi_offset 14, -4
- 365:main.c        ****     printf("Make Points\r\n");
- 888              		.loc 1 365 0
+ 369:main.c        ****     printf("Make Points\r\n");
+ 888              		.loc 1 369 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 24
+
+
  889 0002 1548     		ldr	r0, .L75
  890 0004 FFF7FEFF 		bl	puts
  891              	.LVL138:
  892              	.LBB8:
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 24
-
-
- 366:main.c        ****     int32_t temp;
- 367:main.c        ****     for (int i=0; i < 6; i++) {
- 893              		.loc 1 367 0
+ 370:main.c        ****     int32_t temp;
+ 371:main.c        ****     for (int i=0; i < 6; i++) {
+ 893              		.loc 1 371 0
  894 0008 0024     		movs	r4, #0
  895 000a 21E0     		b	.L70
  896              	.LVL139:
  897              	.L73:
- 368:main.c        ****         AMux_Select(i);
- 898              		.loc 1 368 0
+ 372:main.c        ****         AMux_Select(i);
+ 898              		.loc 1 372 0
  899 000c E0B2     		uxtb	r0, r4
  900 000e FFF7FEFF 		bl	AMux_Select
  901              	.LVL140:
- 369:main.c        ****         CyDelay(2);
- 902              		.loc 1 369 0
+ 373:main.c        ****         CyDelay(2);
+ 902              		.loc 1 373 0
  903 0012 0220     		movs	r0, #2
  904 0014 FFF7FEFF 		bl	CyDelay
  905              	.LVL141:
- 370:main.c        ****         temp = ADC_DelSig_1_GetResult32();
- 906              		.loc 1 370 0
+ 374:main.c        ****         temp = ADC_DelSig_1_GetResult32();
+ 906              		.loc 1 374 0
  907 0018 FFF7FEFF 		bl	ADC_DelSig_1_GetResult32
  908              	.LVL142:
  909              	.LBB9:
- 371:main.c        ****         for (int j = 0; j < N_PNTS; j++) {
- 910              		.loc 1 371 0
+ 375:main.c        ****         for (int j = 0; j < N_PNTS; j++) {
+ 910              		.loc 1 375 0
  911 001c 0025     		movs	r5, #0
  912 001e 14E0     		b	.L71
  913              	.LVL143:
  914              	.L72:
- 372:main.c        ****             points[i][j] = temp + (target[i] - temp) / N_PNTS * (j+1);
- 915              		.loc 1 372 0 discriminator 3
+ 376:main.c        ****             points[i][j] = temp + (target[i] - temp) / N_PNTS * (j+1);
+ 915              		.loc 1 376 0 discriminator 3
  916 0020 A200     		lsls	r2, r4, #2
  917 0022 0E4B     		ldr	r3, .L75+4
  918 0024 1344     		add	r3, r3, r2
@@ -1428,34 +1432,34 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  930 0042 084A     		ldr	r2, .L75+12
  931 0044 42F82130 		str	r3, [r2, r1, lsl #2]
  932              	.LVL144:
- 371:main.c        ****         for (int j = 0; j < N_PNTS; j++) {
- 933              		.loc 1 371 0 discriminator 3
+ 375:main.c        ****         for (int j = 0; j < N_PNTS; j++) {
+ 933              		.loc 1 375 0 discriminator 3
  934 0048 3546     		mov	r5, r6
  935              	.LVL145:
  936              	.L71:
- 371:main.c        ****         for (int j = 0; j < N_PNTS; j++) {
- 937              		.loc 1 371 0 is_stmt 0 discriminator 1
+ 375:main.c        ****         for (int j = 0; j < N_PNTS; j++) {
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 25
+
+
+ 937              		.loc 1 375 0 is_stmt 0 discriminator 1
  938 004a 092D     		cmp	r5, #9
  939 004c E8DD     		ble	.L72
  940              	.LBE9:
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 25
-
-
- 367:main.c        ****         AMux_Select(i);
- 941              		.loc 1 367 0 is_stmt 1 discriminator 2
+ 371:main.c        ****         AMux_Select(i);
+ 941              		.loc 1 371 0 is_stmt 1 discriminator 2
  942 004e 0134     		adds	r4, r4, #1
  943              	.LVL146:
  944              	.L70:
- 367:main.c        ****         AMux_Select(i);
- 945              		.loc 1 367 0 is_stmt 0 discriminator 1
+ 371:main.c        ****         AMux_Select(i);
+ 945              		.loc 1 371 0 is_stmt 0 discriminator 1
  946 0050 052C     		cmp	r4, #5
  947 0052 DBDD     		ble	.L73
  948              	.LBE8:
- 373:main.c        ****             // printf("%d %d %d \r\n", i, j, points[i][j]);
- 374:main.c        ****         }
- 375:main.c        ****     }
- 376:main.c        **** }
- 949              		.loc 1 376 0 is_stmt 1
+ 377:main.c        ****             // printf("%d %d %d \r\n", i, j, points[i][j]);
+ 378:main.c        ****         }
+ 379:main.c        ****     }
+ 380:main.c        **** }
+ 949              		.loc 1 380 0 is_stmt 1
  950 0054 70BD     		pop	{r4, r5, r6, pc}
  951              	.LVL147:
  952              	.L76:
@@ -1476,9 +1480,9 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  967              		.type	reset, %function
  968              	reset:
  969              	.LFB73:
- 377:main.c        **** 
- 378:main.c        **** void reset() {
- 970              		.loc 1 378 0
+ 381:main.c        **** 
+ 382:main.c        **** void reset() {
+ 970              		.loc 1 382 0
  971              		.cfi_startproc
  972              		@ args = 0, pretend = 0, frame = 0
  973              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1488,56 +1492,56 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  977              		.cfi_offset 4, -12
  978              		.cfi_offset 5, -8
  979              		.cfi_offset 14, -4
- 379:main.c        ****     memset(PID_output, 0, sizeof PID_output); 
- 980              		.loc 1 379 0
+ 383:main.c        ****     memset(PID_output, 0, sizeof PID_output); 
+ 980              		.loc 1 383 0
  981 0002 1A4D     		ldr	r5, .L79
  982 0004 0024     		movs	r4, #0
  983 0006 2C67     		str	r4, [r5, #112]
  984 0008 6C67     		str	r4, [r5, #116]
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 26
+
+
  985 000a AC67     		str	r4, [r5, #120]
  986 000c EC67     		str	r4, [r5, #124]
  987 000e C5F88040 		str	r4, [r5, #128]
  988 0012 C5F88440 		str	r4, [r5, #132]
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 26
-
-
- 380:main.c        ****     memset(integral, 0, sizeof integral); 
- 989              		.loc 1 380 0
+ 384:main.c        ****     memset(integral, 0, sizeof integral); 
+ 989              		.loc 1 384 0
  990 0016 AC65     		str	r4, [r5, #88]
  991 0018 EC65     		str	r4, [r5, #92]
  992 001a 2C66     		str	r4, [r5, #96]
  993 001c 6C66     		str	r4, [r5, #100]
  994 001e AC66     		str	r4, [r5, #104]
  995 0020 EC66     		str	r4, [r5, #108]
- 381:main.c        ****     memset(errors, 0, sizeof errors); 
- 996              		.loc 1 381 0
+ 385:main.c        ****     memset(errors, 0, sizeof errors); 
+ 996              		.loc 1 385 0
  997 0022 4822     		movs	r2, #72
  998 0024 2146     		mov	r1, r4
  999 0026 05F11000 		add	r0, r5, #16
  1000 002a FFF7FEFF 		bl	memset
  1001              	.LVL148:
- 382:main.c        ****     memset(params, 0, sizeof params); 
- 1002              		.loc 1 382 0
+ 386:main.c        ****     memset(params, 0, sizeof params); 
+ 1002              		.loc 1 386 0
  1003 002e 104B     		ldr	r3, .L79+4
  1004 0030 1C60     		str	r4, [r3]
  1005 0032 5C60     		str	r4, [r3, #4]
  1006 0034 9C60     		str	r4, [r3, #8]
- 383:main.c        ****     counter = 0;
- 1007              		.loc 1 383 0
+ 387:main.c        ****     counter = 0;
+ 1007              		.loc 1 387 0
  1008 0036 2C72     		strb	r4, [r5, #8]
- 384:main.c        ****     memset(next_target, 0, sizeof next_target); 
- 1009              		.loc 1 384 0
+ 388:main.c        ****     memset(next_target, 0, sizeof next_target); 
+ 1009              		.loc 1 388 0
  1010 0038 C5F8A040 		str	r4, [r5, #160]
  1011 003c C5F8A440 		str	r4, [r5, #164]
  1012 0040 C5F8A840 		str	r4, [r5, #168]
  1013 0044 C5F8AC40 		str	r4, [r5, #172]
  1014 0048 C5F8B040 		str	r4, [r5, #176]
  1015 004c C5F8B440 		str	r4, [r5, #180]
- 385:main.c        ****     next_point = 0;
- 1016              		.loc 1 385 0
+ 389:main.c        ****     next_point = 0;
+ 1016              		.loc 1 389 0
  1017 0050 EC60     		str	r4, [r5, #12]
- 386:main.c        ****     memset(next_target_flag, 0, sizeof next_target_flag); 
- 1018              		.loc 1 386 0
+ 390:main.c        ****     memset(next_target_flag, 0, sizeof next_target_flag); 
+ 1018              		.loc 1 390 0
  1019 0052 C5F88840 		str	r4, [r5, #136]
  1020 0056 C5F88C40 		str	r4, [r5, #140]
  1021 005a C5F89040 		str	r4, [r5, #144]
@@ -1554,13 +1558,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1032              	.LFE73:
  1033              		.size	reset, .-reset
  1034              		.section	.text.SWPin_Control,"ax",%progbits
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 27
+
+
  1035              		.align	2
  1036              		.global	SWPin_Control
  1037              		.thumb
  1038              		.thumb_func
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 27
-
-
  1039              		.type	SWPin_Control, %function
  1040              	SWPin_Control:
  1041              	.LFB65:
@@ -1614,13 +1618,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1081 0032 F2DD     		ble	.L85
  1082              	.LBE10:
   87:main.c        ****             reset();
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 28
+
+
  1083              		.loc 1 87 0 is_stmt 1
  1084 0034 FFF7FEFF 		bl	make_points
  1085              	.LVL153:
   88:main.c        ****         } else { // Initial Run.... when button = false;
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 28
-
-
  1086              		.loc 1 88 0
  1087 0038 FFF7FEFF 		bl	reset
  1088              	.LVL154:
@@ -1674,13 +1678,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1127              		.loc 1 100 0
  1128 0070 FFF7FEFF 		bl	InputPin_ClearInterrupt
  1129              	.LVL160:
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 29
+
+
  1130 0074 08BD     		pop	{r3, pc}
  1131              	.L91:
  1132 0076 00BF     		.align	2
  1133              	.L90:
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 29
-
-
  1134 0078 00000000 		.word	.LANCHOR0
  1135 007c 00000000 		.word	.LANCHOR1
  1136              		.cfi_endproc
@@ -1734,13 +1738,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1182 0014 52657472 		.ascii	"Retracting...\015\000"
  1182      61637469 
  1182      6E672E2E 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 30
+
+
  1182      2E0D00
  1183 0023 00       		.space	1
  1184              	.LC4:
  1185 0024 416C6C20 		.ascii	"All motors reached point, next point is %d \015\012"
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 30
-
-
  1185      6D6F746F 
  1185      72732072 
  1185      65616368 
@@ -1794,13 +1798,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1221              	PID_output:
  1222 0070 00000000 		.space	24
  1222      00000000 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 31
+
+
  1222      00000000 
  1222      00000000 
  1222      00000000 
  1223              		.type	next_target_flag, %object
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 31
-
-
  1224              		.size	next_target_flag, 24
  1225              	next_target_flag:
  1226 0088 00000000 		.space	24
@@ -1854,13 +1858,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1266              		.section	.debug_info,"",%progbits
  1267              	.Ldebug_info0:
  1268 0000 F00B0000 		.4byte	0xbf0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 32
+
+
  1269 0004 0400     		.2byte	0x4
  1270 0006 00000000 		.4byte	.Ldebug_abbrev0
  1271 000a 04       		.byte	0x4
  1272 000b 01       		.uleb128 0x1
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 32
-
-
  1273 000c 3F040000 		.4byte	.LASF88
  1274 0010 0C       		.byte	0xc
  1275 0011 A0030000 		.4byte	.LASF89
@@ -1914,13 +1918,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1323 0077 02       		.uleb128 0x2
  1324 0078 08       		.byte	0x8
  1325 0079 07       		.byte	0x7
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 33
+
+
  1326 007a 3F020000 		.4byte	.LASF10
  1327 007e 04       		.uleb128 0x4
  1328 007f 04       		.byte	0x4
  1329 0080 05       		.byte	0x5
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 33
-
-
  1330 0081 696E7400 		.ascii	"int\000"
  1331 0085 02       		.uleb128 0x2
  1332 0086 04       		.byte	0x4
@@ -1974,13 +1978,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1380 00e8 07       		.byte	0x7
  1381 00e9 97000000 		.4byte	.LASF21
  1382 00ed 07       		.uleb128 0x7
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 34
+
+
  1383 00ee 9C020000 		.4byte	.LASF22
  1384 00f2 01       		.byte	0x1
  1385 00f3 2C       		.byte	0x2c
  1386 00f4 00000000 		.4byte	.LFB64
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 34
-
-
  1387 00f8 38000000 		.4byte	.LFE64-.LFB64
  1388 00fc 01       		.uleb128 0x1
  1389 00fd 9C       		.byte	0x9c
@@ -2000,7 +2004,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1403 011d 07       		.uleb128 0x7
  1404 011e C9030000 		.4byte	.LASF23
  1405 0122 01       		.byte	0x1
- 1406 0123 ED       		.byte	0xed
+ 1406 0123 F1       		.byte	0xf1
  1407 0124 00000000 		.4byte	.LFB67
  1408 0128 40000000 		.4byte	.LFE67-.LFB67
  1409 012c 01       		.uleb128 0x1
@@ -2009,13 +2013,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1412 0132 0A       		.uleb128 0xa
  1413 0133 4D00     		.ascii	"M\000"
  1414 0135 01       		.byte	0x1
- 1415 0136 ED       		.byte	0xed
+ 1415 0136 F1       		.byte	0xf1
  1416 0137 8C000000 		.4byte	0x8c
  1417 013b 13000000 		.4byte	.LLST1
  1418 013f 0B       		.uleb128 0xb
  1419 0140 91020000 		.4byte	.LASF24
  1420 0144 01       		.byte	0x1
- 1421 0145 ED       		.byte	0xed
+ 1421 0145 F1       		.byte	0xf1
  1422 0146 8C000000 		.4byte	0x8c
  1423 014a B1000000 		.4byte	.LLST2
  1424 014e 0C       		.uleb128 0xc
@@ -2034,16 +2038,16 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1437 0173 36000000 		.4byte	.LVL17
  1438 0177 820A0000 		.4byte	0xa82
  1439 017b 0C       		.uleb128 0xc
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 35
+
+
  1440 017c 3E000000 		.4byte	.LVL20
  1441 0180 8D0A0000 		.4byte	0xa8d
  1442 0184 00       		.byte	0
  1443 0185 0D       		.uleb128 0xd
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 35
-
-
  1444 0186 09040000 		.4byte	.LASF25
  1445 018a 01       		.byte	0x1
- 1446 018b 0601     		.2byte	0x106
+ 1446 018b 0A01     		.2byte	0x10a
  1447 018d 00000000 		.4byte	.LFB68
  1448 0191 64000000 		.4byte	.LFE68-.LFB68
  1449 0195 01       		.uleb128 0x1
@@ -2052,7 +2056,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1452 019b 0E       		.uleb128 0xe
  1453 019c 4D00     		.ascii	"M\000"
  1454 019e 01       		.byte	0x1
- 1455 019f 0601     		.2byte	0x106
+ 1455 019f 0A01     		.2byte	0x10a
  1456 01a1 8C000000 		.4byte	0x8c
  1457 01a5 4F010000 		.4byte	.LLST3
  1458 01a9 0F       		.uleb128 0xf
@@ -2094,13 +2098,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1494 01f1 50       		.byte	0x50
  1495 01f2 01       		.uleb128 0x1
  1496 01f3 30       		.byte	0x30
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 36
+
+
  1497 01f4 00       		.byte	0
  1498 01f5 0F       		.uleb128 0xf
  1499 01f6 32000000 		.4byte	.LVL31
  1500 01fa C40A0000 		.4byte	0xac4
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 36
-
-
  1501 01fe 08020000 		.4byte	0x208
  1502 0202 10       		.uleb128 0x10
  1503 0203 01       		.uleb128 0x1
@@ -2154,13 +2158,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1551 025d 67020000 		.4byte	0x267
  1552 0261 10       		.uleb128 0x10
  1553 0262 01       		.uleb128 0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 37
+
+
  1554 0263 50       		.byte	0x50
  1555 0264 01       		.uleb128 0x1
  1556 0265 30       		.byte	0x30
  1557 0266 00       		.byte	0
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 37
-
-
  1558 0267 0F       		.uleb128 0xf
  1559 0268 5C000000 		.4byte	.LVL43
  1560 026c 060B0000 		.4byte	0xb06
@@ -2184,7 +2188,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1578 028a 0D       		.uleb128 0xd
  1579 028b 4F000000 		.4byte	.LASF26
  1580 028f 01       		.byte	0x1
- 1581 0290 2501     		.2byte	0x125
+ 1581 0290 2901     		.2byte	0x129
  1582 0292 00000000 		.4byte	.LFB69
  1583 0296 64000000 		.4byte	.LFE69-.LFB69
  1584 029a 01       		.uleb128 0x1
@@ -2193,7 +2197,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1587 02a0 0E       		.uleb128 0xe
  1588 02a1 4D00     		.ascii	"M\000"
  1589 02a3 01       		.byte	0x1
- 1590 02a4 2501     		.2byte	0x125
+ 1590 02a4 2901     		.2byte	0x129
  1591 02a6 8C000000 		.4byte	0x8c
  1592 02aa ED010000 		.4byte	.LLST4
  1593 02ae 0F       		.uleb128 0xf
@@ -2214,13 +2218,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1608 02cf 01       		.uleb128 0x1
  1609 02d0 50       		.byte	0x50
  1610 02d1 01       		.uleb128 0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 38
+
+
  1611 02d2 31       		.byte	0x31
  1612 02d3 00       		.byte	0
  1613 02d4 0F       		.uleb128 0xf
  1614 02d5 24000000 		.4byte	.LVL51
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 38
-
-
  1615 02d9 AE0A0000 		.4byte	0xaae
  1616 02dd E7020000 		.4byte	0x2e7
  1617 02e1 10       		.uleb128 0x10
@@ -2274,13 +2278,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1665 0338 E50A0000 		.4byte	0xae5
  1666 033c 46030000 		.4byte	0x346
  1667 0340 10       		.uleb128 0x10
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 39
+
+
  1668 0341 01       		.uleb128 0x1
  1669 0342 50       		.byte	0x50
  1670 0343 01       		.uleb128 0x1
  1671 0344 31       		.byte	0x31
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 39
-
-
  1672 0345 00       		.byte	0
  1673 0346 0F       		.uleb128 0xf
  1674 0347 4E000000 		.4byte	.LVL63
@@ -2325,7 +2329,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1713 038f 0D       		.uleb128 0xd
  1714 0390 E8020000 		.4byte	.LASF27
  1715 0394 01       		.byte	0x1
- 1716 0395 4401     		.2byte	0x144
+ 1716 0395 4801     		.2byte	0x148
  1717 0397 00000000 		.4byte	.LFB70
  1718 039b 64000000 		.4byte	.LFE70-.LFB70
  1719 039f 01       		.uleb128 0x1
@@ -2334,13 +2338,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1722 03a5 0E       		.uleb128 0xe
  1723 03a6 4D00     		.ascii	"M\000"
  1724 03a8 01       		.byte	0x1
- 1725 03a9 4401     		.2byte	0x144
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 40
+
+
+ 1725 03a9 4801     		.2byte	0x148
  1726 03ab 8C000000 		.4byte	0x8c
  1727 03af 8B020000 		.4byte	.LLST5
  1728 03b3 0F       		.uleb128 0xf
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 40
-
-
  1729 03b4 16000000 		.4byte	.LVL71
  1730 03b8 980A0000 		.4byte	0xa98
  1731 03bc C6030000 		.4byte	0x3c6
@@ -2394,13 +2398,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1779 0413 38000000 		.4byte	.LVL80
  1780 0417 CF0A0000 		.4byte	0xacf
  1781 041b 25040000 		.4byte	0x425
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 41
+
+
  1782 041f 10       		.uleb128 0x10
  1783 0420 01       		.uleb128 0x1
  1784 0421 50       		.byte	0x50
  1785 0422 01       		.uleb128 0x1
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 41
-
-
  1786 0423 30       		.byte	0x30
  1787 0424 00       		.byte	0
  1788 0425 0F       		.uleb128 0xf
@@ -2454,13 +2458,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1836 0482 30       		.byte	0x30
  1837 0483 00       		.byte	0
  1838 0484 11       		.uleb128 0x11
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 42
+
+
  1839 0485 62000000 		.4byte	.LVL92
  1840 0489 110B0000 		.4byte	0xb11
  1841 048d 10       		.uleb128 0x10
  1842 048e 01       		.uleb128 0x1
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 42
-
-
  1843 048f 50       		.byte	0x50
  1844 0490 01       		.uleb128 0x1
  1845 0491 30       		.byte	0x30
@@ -2469,7 +2473,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1848 0494 12       		.uleb128 0x12
  1849 0495 50494400 		.ascii	"PID\000"
  1850 0499 01       		.byte	0x1
- 1851 049a 6301     		.2byte	0x163
+ 1851 049a 6701     		.2byte	0x167
  1852 049c 97000000 		.4byte	0x97
  1853 04a0 00000000 		.4byte	.LFB71
  1854 04a4 4C000000 		.4byte	.LFE71-.LFB71
@@ -2479,26 +2483,26 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1858 04ae 13       		.uleb128 0x13
  1859 04af C1000000 		.4byte	.LASF28
  1860 04b3 01       		.byte	0x1
- 1861 04b4 6301     		.2byte	0x163
+ 1861 04b4 6701     		.2byte	0x167
  1862 04b6 ED040000 		.4byte	0x4ed
  1863 04ba 29030000 		.4byte	.LLST6
  1864 04be 13       		.uleb128 0x13
  1865 04bf B2010000 		.4byte	.LASF29
  1866 04c3 01       		.byte	0x1
- 1867 04c4 6301     		.2byte	0x163
+ 1867 04c4 6701     		.2byte	0x167
  1868 04c6 ED040000 		.4byte	0x4ed
  1869 04ca 4A030000 		.4byte	.LLST7
  1870 04ce 14       		.uleb128 0x14
  1871 04cf EA010000 		.4byte	.LASF30
  1872 04d3 01       		.byte	0x1
- 1873 04d4 6301     		.2byte	0x163
+ 1873 04d4 6701     		.2byte	0x167
  1874 04d6 ED040000 		.4byte	0x4ed
  1875 04da 01       		.uleb128 0x1
  1876 04db 52       		.byte	0x52
  1877 04dc 13       		.uleb128 0x13
  1878 04dd 2B020000 		.4byte	.LASF31
  1879 04e1 01       		.byte	0x1
- 1880 04e2 6301     		.2byte	0x163
+ 1880 04e2 6701     		.2byte	0x167
  1881 04e4 8C000000 		.4byte	0x8c
  1882 04e8 6B030000 		.4byte	.LLST8
  1883 04ec 00       		.byte	0
@@ -2514,13 +2518,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1893 0502 FC010000 		.4byte	.LFE66-.LFB66
  1894 0506 01       		.uleb128 0x1
  1895 0507 9C       		.byte	0x9c
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 43
+
+
  1896 0508 A2070000 		.4byte	0x7a2
  1897 050c 17       		.uleb128 0x17
  1898 050d 34000000 		.4byte	.LBB2
  1899 0511 1A000000 		.4byte	.LBE2-.LBB2
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 43
-
-
  1900 0515 6C050000 		.4byte	0x56c
  1901 0519 18       		.uleb128 0x18
  1902 051a 6900     		.ascii	"i\000"
@@ -2574,15 +2578,15 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1950 0582 AB030000 		.4byte	.LLST10
  1951 0586 17       		.uleb128 0x17
  1952 0587 40010000 		.4byte	.LBB5
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 44
+
+
  1953 058b 60000000 		.4byte	.LBE5-.LBB5
  1954 058f E1050000 		.4byte	0x5e1
  1955 0593 08       		.uleb128 0x8
  1956 0594 D3010000 		.4byte	.LASF35
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 44
-
-
  1957 0598 01       		.byte	0x1
- 1958 0599 D6       		.byte	0xd6
+ 1958 0599 DA       		.byte	0xda
  1959 059a A2070000 		.4byte	0x7a2
  1960 059e CA030000 		.4byte	.LLST11
  1961 05a2 1A       		.uleb128 0x1a
@@ -2591,7 +2595,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  1964 05ab 18       		.uleb128 0x18
  1965 05ac 6A00     		.ascii	"j\000"
  1966 05ae 01       		.byte	0x1
- 1967 05af D7       		.byte	0xd7
+ 1967 05af DB       		.byte	0xdb
  1968 05b0 7E000000 		.4byte	0x7e
  1969 05b4 E9030000 		.4byte	.LLST12
  1970 05b8 00       		.byte	0
@@ -2634,13 +2638,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2007 05fe 08060000 		.4byte	0x608
  2008 0602 10       		.uleb128 0x10
  2009 0603 01       		.uleb128 0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 45
+
+
  2010 0604 50       		.byte	0x50
  2011 0605 01       		.uleb128 0x1
  2012 0606 32       		.byte	0x32
  2013 0607 00       		.byte	0
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 45
-
-
  2014 0608 0C       		.uleb128 0xc
  2015 0609 8A000000 		.4byte	.LVL121
  2016 060d 320B0000 		.4byte	0xb32
@@ -2694,13 +2698,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2064 0655 02       		.uleb128 0x2
  2065 0656 77       		.byte	0x77
  2066 0657 00       		.sleb128 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 46
+
+
  2067 0658 10       		.uleb128 0x10
  2068 0659 01       		.uleb128 0x1
  2069 065a 51       		.byte	0x51
  2070 065b 01       		.uleb128 0x1
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 46
-
-
  2071 065c 30       		.byte	0x30
  2072 065d 00       		.byte	0
  2073 065e 0F       		.uleb128 0xf
@@ -2754,13 +2758,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2121 06c1 50       		.byte	0x50
  2122 06c2 05       		.uleb128 0x5
  2123 06c3 03       		.byte	0x3
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 47
+
+
  2124 06c4 00000000 		.4byte	RxIsr
  2125 06c8 00       		.byte	0
  2126 06c9 0F       		.uleb128 0xf
  2127 06ca 1C000000 		.4byte	.LVL101
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 47
-
-
  2128 06ce 740B0000 		.4byte	0xb74
  2129 06d2 E0060000 		.4byte	0x6e0
  2130 06d6 10       		.uleb128 0x10
@@ -2814,13 +2818,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2178 073e 02       		.uleb128 0x2
  2179 073f 74       		.byte	0x74
  2180 0740 00       		.sleb128 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 48
+
+
  2181 0741 10       		.uleb128 0x10
  2182 0742 01       		.uleb128 0x1
  2183 0743 51       		.byte	0x51
  2184 0744 05       		.uleb128 0x5
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 48
-
-
  2185 0745 03       		.byte	0x3
  2186 0746 00000000 		.4byte	.LC0
  2187 074a 00       		.byte	0
@@ -2874,15 +2878,15 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2235 07a1 00       		.byte	0
  2236 07a2 02       		.uleb128 0x2
  2237 07a3 01       		.byte	0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 49
+
+
  2238 07a4 02       		.byte	0x2
  2239 07a5 2A030000 		.4byte	.LASF36
  2240 07a9 1B       		.uleb128 0x1b
  2241 07aa F7000000 		.4byte	.LASF37
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 49
-
-
  2242 07ae 01       		.byte	0x1
- 2243 07af 6C01     		.2byte	0x16c
+ 2243 07af 7001     		.2byte	0x170
  2244 07b1 00000000 		.4byte	.LFB72
  2245 07b5 68000000 		.4byte	.LFE72-.LFB72
  2246 07b9 01       		.uleb128 0x1
@@ -2891,7 +2895,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2249 07bf 1C       		.uleb128 0x1c
  2250 07c0 74000000 		.4byte	.LASF34
  2251 07c4 01       		.byte	0x1
- 2252 07c5 6E01     		.2byte	0x16e
+ 2252 07c5 7201     		.2byte	0x172
  2253 07c7 97000000 		.4byte	0x97
  2254 07cb 13040000 		.4byte	.LLST13
  2255 07cf 17       		.uleb128 0x17
@@ -2901,7 +2905,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2259 07dc 1D       		.uleb128 0x1d
  2260 07dd 6900     		.ascii	"i\000"
  2261 07df 01       		.byte	0x1
- 2262 07e0 6F01     		.2byte	0x16f
+ 2262 07e0 7301     		.2byte	0x173
  2263 07e2 7E000000 		.4byte	0x7e
  2264 07e6 26040000 		.4byte	.LLST14
  2265 07ea 17       		.uleb128 0x17
@@ -2911,7 +2915,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2269 07f7 1D       		.uleb128 0x1d
  2270 07f8 6A00     		.ascii	"j\000"
  2271 07fa 01       		.byte	0x1
- 2272 07fb 7301     		.2byte	0x173
+ 2272 07fb 7701     		.2byte	0x177
  2273 07fd 7E000000 		.4byte	0x7e
  2274 0801 45040000 		.4byte	.LLST15
  2275 0805 00       		.byte	0
@@ -2934,13 +2938,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2292 0828 01       		.uleb128 0x1
  2293 0829 50       		.byte	0x50
  2294 082a 01       		.uleb128 0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 50
+
+
  2295 082b 32       		.byte	0x32
  2296 082c 00       		.byte	0
  2297 082d 0C       		.uleb128 0xc
  2298 082e 1C000000 		.4byte	.LVL142
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 50
-
-
  2299 0832 320B0000 		.4byte	0xb32
  2300 0836 00       		.byte	0
  2301 0837 11       		.uleb128 0x11
@@ -2957,7 +2961,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2312 084b 1B       		.uleb128 0x1b
  2313 084c F9030000 		.4byte	.LASF38
  2314 0850 01       		.byte	0x1
- 2315 0851 7A01     		.2byte	0x17a
+ 2315 0851 7E01     		.2byte	0x17e
  2316 0853 00000000 		.4byte	.LFB73
  2317 0857 74000000 		.4byte	.LFE73-.LFB73
  2318 085b 01       		.uleb128 0x1
@@ -2994,13 +2998,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2349 0889 80000000 		.4byte	.LFE65-.LFB65
  2350 088d 01       		.uleb128 0x1
  2351 088e 9C       		.byte	0x9c
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 51
+
+
  2352 088f 1C090000 		.4byte	0x91c
  2353 0893 17       		.uleb128 0x17
  2354 0894 16000000 		.4byte	.LBB10
  2355 0898 1E000000 		.4byte	.LBE10-.LBB10
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 51
-
-
  2356 089c AE080000 		.4byte	0x8ae
  2357 08a0 18       		.uleb128 0x18
  2358 08a1 6900     		.ascii	"i\000"
@@ -3054,13 +3058,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2406 091b 00       		.byte	0
  2407 091c 1E       		.uleb128 0x1e
  2408 091d 32040000 		.4byte	.LASF40
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 52
+
+
  2409 0921 05       		.byte	0x5
  2410 0922 1207     		.2byte	0x712
  2411 0924 28090000 		.4byte	0x928
  2412 0928 06       		.uleb128 0x6
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 52
-
-
  2413 0929 97000000 		.4byte	0x97
  2414 092d 1F       		.uleb128 0x1f
  2415 092e 97000000 		.4byte	0x97
@@ -3114,13 +3118,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2463 0997 21       		.uleb128 0x21
  2464 0998 17040000 		.4byte	.LASF45
  2465 099c 01       		.byte	0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 53
+
+
  2466 099d 67       		.byte	0x67
  2467 099e 97000000 		.4byte	0x97
  2468 09a2 05       		.uleb128 0x5
  2469 09a3 03       		.byte	0x3
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 53
-
-
  2470 09a4 00000000 		.4byte	output
  2471 09a8 21       		.uleb128 0x21
  2472 09a9 D5040000 		.4byte	.LASF46
@@ -3174,13 +3178,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2520 0a12 21       		.uleb128 0x21
  2521 0a13 2B020000 		.4byte	.LASF31
  2522 0a17 01       		.byte	0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 54
+
+
  2523 0a18 6E       		.byte	0x6e
  2524 0a19 8C000000 		.4byte	0x8c
  2525 0a1d 05       		.uleb128 0x5
  2526 0a1e 03       		.byte	0x3
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 54
-
-
  2527 0a1f 00000000 		.4byte	counter
  2528 0a23 21       		.uleb128 0x21
  2529 0a24 61000000 		.4byte	.LASF47
@@ -3234,13 +3238,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2577 0a8d 22       		.uleb128 0x22
  2578 0a8e 46010000 		.4byte	.LASF55
  2579 0a92 46010000 		.4byte	.LASF55
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 55
+
+
  2580 0a96 08       		.byte	0x8
  2581 0a97 CA       		.byte	0xca
  2582 0a98 22       		.uleb128 0x22
  2583 0a99 E0040000 		.4byte	.LASF56
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 55
-
-
  2584 0a9d E0040000 		.4byte	.LASF56
  2585 0aa1 09       		.byte	0x9
  2586 0aa2 26       		.byte	0x26
@@ -3294,13 +3298,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2634 0b0b 00000000 		.4byte	.LASF66
  2635 0b0f 13       		.byte	0x13
  2636 0b10 26       		.byte	0x26
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 56
+
+
  2637 0b11 22       		.uleb128 0x22
  2638 0b12 5F020000 		.4byte	.LASF67
  2639 0b16 5F020000 		.4byte	.LASF67
  2640 0b1a 14       		.byte	0x14
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 56
-
-
  2641 0b1b 26       		.byte	0x26
  2642 0b1c 22       		.uleb128 0x22
  2643 0b1d 7B010000 		.4byte	.LASF68
@@ -3354,13 +3358,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2691 0b89 92       		.byte	0x92
  2692 0b8a 22       		.uleb128 0x22
  2693 0b8b BE030000 		.4byte	.LASF78
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 57
+
+
  2694 0b8f BE030000 		.4byte	.LASF78
  2695 0b93 07       		.byte	0x7
  2696 0b94 92       		.byte	0x92
  2697 0b95 22       		.uleb128 0x22
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 57
-
-
  2698 0b96 6A010000 		.4byte	.LASF79
  2699 0b9a 6A010000 		.4byte	.LASF79
  2700 0b9e 08       		.byte	0x8
@@ -3414,13 +3418,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2748 0008 0E       		.uleb128 0xe
  2749 0009 1B       		.uleb128 0x1b
  2750 000a 0E       		.uleb128 0xe
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 58
+
+
  2751 000b 55       		.uleb128 0x55
  2752 000c 17       		.uleb128 0x17
  2753 000d 11       		.uleb128 0x11
  2754 000e 01       		.uleb128 0x1
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 58
-
-
  2755 000f 10       		.uleb128 0x10
  2756 0010 17       		.uleb128 0x17
  2757 0011 00       		.byte	0
@@ -3474,13 +3478,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2805 0041 00       		.byte	0
  2806 0042 00       		.byte	0
  2807 0043 06       		.uleb128 0x6
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 59
+
+
  2808 0044 35       		.uleb128 0x35
  2809 0045 00       		.byte	0
  2810 0046 49       		.uleb128 0x49
  2811 0047 13       		.uleb128 0x13
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 59
-
-
  2812 0048 00       		.byte	0
  2813 0049 00       		.byte	0
  2814 004a 07       		.uleb128 0x7
@@ -3534,13 +3538,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2862 007b 0B       		.uleb128 0xb
  2863 007c 49       		.uleb128 0x49
  2864 007d 13       		.uleb128 0x13
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 60
+
+
  2865 007e 00       		.byte	0
  2866 007f 00       		.byte	0
  2867 0080 0A       		.uleb128 0xa
  2868 0081 05       		.uleb128 0x5
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 60
-
-
  2869 0082 00       		.byte	0
  2870 0083 03       		.uleb128 0x3
  2871 0084 08       		.uleb128 0x8
@@ -3594,13 +3598,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2919 00b6 11       		.uleb128 0x11
  2920 00b7 01       		.uleb128 0x1
  2921 00b8 12       		.uleb128 0x12
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 61
+
+
  2922 00b9 06       		.uleb128 0x6
  2923 00ba 40       		.uleb128 0x40
  2924 00bb 18       		.uleb128 0x18
  2925 00bc 9742     		.uleb128 0x2117
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 61
-
-
  2926 00be 19       		.uleb128 0x19
  2927 00bf 01       		.uleb128 0x1
  2928 00c0 13       		.uleb128 0x13
@@ -3654,13 +3658,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  2976 00f7 2E       		.uleb128 0x2e
  2977 00f8 01       		.byte	0x1
  2978 00f9 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 62
+
+
  2979 00fa 19       		.uleb128 0x19
  2980 00fb 03       		.uleb128 0x3
  2981 00fc 08       		.uleb128 0x8
  2982 00fd 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 62
-
-
  2983 00fe 0B       		.uleb128 0xb
  2984 00ff 3B       		.uleb128 0x3b
  2985 0100 05       		.uleb128 0x5
@@ -3714,13 +3718,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3033 0131 0F       		.uleb128 0xf
  3034 0132 00       		.byte	0
  3035 0133 0B       		.uleb128 0xb
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 63
+
+
  3036 0134 0B       		.uleb128 0xb
  3037 0135 49       		.uleb128 0x49
  3038 0136 13       		.uleb128 0x13
  3039 0137 00       		.byte	0
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 63
-
-
  3040 0138 00       		.byte	0
  3041 0139 16       		.uleb128 0x16
  3042 013a 2E       		.uleb128 0x2e
@@ -3774,13 +3778,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3090 016c 49       		.uleb128 0x49
  3091 016d 13       		.uleb128 0x13
  3092 016e 02       		.uleb128 0x2
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 64
+
+
  3093 016f 17       		.uleb128 0x17
  3094 0170 00       		.byte	0
  3095 0171 00       		.byte	0
  3096 0172 19       		.uleb128 0x19
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 64
-
-
  3097 0173 0B       		.uleb128 0xb
  3098 0174 01       		.byte	0x1
  3099 0175 11       		.uleb128 0x11
@@ -3834,13 +3838,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3147 01a6 13       		.uleb128 0x13
  3148 01a7 02       		.uleb128 0x2
  3149 01a8 17       		.uleb128 0x17
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 65
+
+
  3150 01a9 00       		.byte	0
  3151 01aa 00       		.byte	0
  3152 01ab 1D       		.uleb128 0x1d
  3153 01ac 34       		.uleb128 0x34
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 65
-
-
  3154 01ad 00       		.byte	0
  3155 01ae 03       		.uleb128 0x3
  3156 01af 08       		.uleb128 0x8
@@ -3894,13 +3898,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3204 01df 00       		.byte	0
  3205 01e0 03       		.uleb128 0x3
  3206 01e1 0E       		.uleb128 0xe
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 66
+
+
  3207 01e2 3A       		.uleb128 0x3a
  3208 01e3 0B       		.uleb128 0xb
  3209 01e4 3B       		.uleb128 0x3b
  3210 01e5 0B       		.uleb128 0xb
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 66
-
-
  3211 01e6 49       		.uleb128 0x49
  3212 01e7 13       		.uleb128 0x13
  3213 01e8 3F       		.uleb128 0x3f
@@ -3954,13 +3958,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3261 0218 19       		.uleb128 0x19
  3262 0219 6E       		.uleb128 0x6e
  3263 021a 0E       		.uleb128 0xe
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 67
+
+
  3264 021b 03       		.uleb128 0x3
  3265 021c 0E       		.uleb128 0xe
  3266 021d 00       		.byte	0
  3267 021e 00       		.byte	0
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 67
-
-
  3268 021f 00       		.byte	0
  3269              		.section	.debug_loc,"",%progbits
  3270              	.Ldebug_loc0:
@@ -4014,13 +4018,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3318 0071 0400     		.2byte	0x4
  3319 0073 F3       		.byte	0xf3
  3320 0074 01       		.uleb128 0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 68
+
+
  3321 0075 50       		.byte	0x50
  3322 0076 9F       		.byte	0x9f
  3323 0077 30000000 		.4byte	.LVL15
  3324 007b 32000000 		.4byte	.LVL16
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 68
-
-
  3325 007f 0100     		.2byte	0x1
  3326 0081 50       		.byte	0x50
  3327 0082 32000000 		.4byte	.LVL16
@@ -4074,13 +4078,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3375 00f2 28000000 		.4byte	.LVL12
  3376 00f6 0400     		.2byte	0x4
  3377 00f8 F3       		.byte	0xf3
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 69
+
+
  3378 00f9 01       		.uleb128 0x1
  3379 00fa 51       		.byte	0x51
  3380 00fb 9F       		.byte	0x9f
  3381 00fc 28000000 		.4byte	.LVL12
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 69
-
-
  3382 0100 2D000000 		.4byte	.LVL14-1
  3383 0104 0100     		.2byte	0x1
  3384 0106 51       		.byte	0x51
@@ -4134,13 +4138,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3432 0173 20000000 		.4byte	.LVL26
  3433 0177 2C000000 		.4byte	.LVL29
  3434 017b 0400     		.2byte	0x4
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 70
+
+
  3435 017d F3       		.byte	0xf3
  3436 017e 01       		.uleb128 0x1
  3437 017f 50       		.byte	0x50
  3438 0180 9F       		.byte	0x9f
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 70
-
-
  3439 0181 2C000000 		.4byte	.LVL29
  3440 0185 2E000000 		.4byte	.LVL30
  3441 0189 0100     		.2byte	0x1
@@ -4194,13 +4198,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3489 01f7 50       		.byte	0x50
  3490 01f8 12000000 		.4byte	.LVL46
  3491 01fc 1E000000 		.4byte	.LVL49
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 71
+
+
  3492 0200 0400     		.2byte	0x4
  3493 0202 F3       		.byte	0xf3
  3494 0203 01       		.uleb128 0x1
  3495 0204 50       		.byte	0x50
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 71
-
-
  3496 0205 9F       		.byte	0x9f
  3497 0206 1E000000 		.4byte	.LVL49
  3498 020a 20000000 		.4byte	.LVL50
@@ -4254,13 +4258,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3546 0279 64000000 		.4byte	.LFE69
  3547 027d 0400     		.2byte	0x4
  3548 027f F3       		.byte	0xf3
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 72
+
+
  3549 0280 01       		.uleb128 0x1
  3550 0281 50       		.byte	0x50
  3551 0282 9F       		.byte	0x9f
  3552 0283 00000000 		.4byte	0
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 72
-
-
  3553 0287 00000000 		.4byte	0
  3554              	.LLST5:
  3555 028b 00000000 		.4byte	.LVL69
@@ -4314,13 +4318,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3603 02fa 4A000000 		.4byte	.LVL86
  3604 02fe 56000000 		.4byte	.LVL89
  3605 0302 0400     		.2byte	0x4
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 73
+
+
  3606 0304 F3       		.byte	0xf3
  3607 0305 01       		.uleb128 0x1
  3608 0306 50       		.byte	0x50
  3609 0307 9F       		.byte	0x9f
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 73
-
-
  3610 0308 56000000 		.4byte	.LVL89
  3611 030c 58000000 		.4byte	.LVL90
  3612 0310 0100     		.2byte	0x1
@@ -4374,13 +4378,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3660 0381 01       		.uleb128 0x1
  3661 0382 53       		.byte	0x53
  3662 0383 9F       		.byte	0x9f
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 74
+
+
  3663 0384 00000000 		.4byte	0
  3664 0388 00000000 		.4byte	0
  3665              	.LLST9:
  3666 038c 34000000 		.4byte	.LVL106
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 74
-
-
  3667 0390 38000000 		.4byte	.LVL107
  3668 0394 0200     		.2byte	0x2
  3669 0396 30       		.byte	0x30
@@ -4434,13 +4438,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3717              	.LLST13:
  3718 0413 1C000000 		.4byte	.LVL142
  3719 0417 50000000 		.4byte	.LVL146
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 75
+
+
  3720 041b 0100     		.2byte	0x1
  3721 041d 50       		.byte	0x50
  3722 041e 00000000 		.4byte	0
  3723 0422 00000000 		.4byte	0
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 75
-
-
  3724              	.LLST14:
  3725 0426 08000000 		.4byte	.LVL138
  3726 042a 0C000000 		.4byte	.LVL139
@@ -4494,13 +4498,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3774 04a5 48000000 		.4byte	.LVL156
  3775 04a9 5D000000 		.4byte	.LVL158-1
  3776 04ad 0100     		.2byte	0x1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 76
+
+
  3777 04af 53       		.byte	0x53
  3778 04b0 00000000 		.4byte	0
  3779 04b4 00000000 		.4byte	0
  3780              		.section	.debug_aranges,"",%progbits
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 76
-
-
  3781 0000 64000000 		.4byte	0x64
  3782 0004 0200     		.2byte	0x2
  3783 0006 00000000 		.4byte	.Ldebug_info0
@@ -4554,13 +4558,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3831 004c FC010000 		.4byte	.LFE66
  3832 0050 00000000 		.4byte	.LFB72
  3833 0054 68000000 		.4byte	.LFE72
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 77
+
+
  3834 0058 00000000 		.4byte	.LFB73
  3835 005c 74000000 		.4byte	.LFE73
  3836 0060 00000000 		.4byte	.LFB65
  3837 0064 80000000 		.4byte	.LFE65
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 77
-
-
  3838 0068 00000000 		.4byte	0
  3839 006c 00000000 		.4byte	0
  3840              		.section	.debug_line,"",%progbits
@@ -4614,13 +4618,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3861              	.LASF34:
  3862 0074 74656D70 		.ascii	"temp\000"
  3862      00
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 78
+
+
  3863              	.LASF2:
  3864 0079 73686F72 		.ascii	"short int\000"
  3864      7420696E 
  3864      7400
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 78
-
-
  3865              	.LASF64:
  3866 0083 4D355F49 		.ascii	"M5_IN1_Write\000"
  3866      4E315F57 
@@ -4674,13 +4678,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3890      3800
  3891              	.LASF50:
  3892 0109 50574D31 		.ascii	"PWM1_WriteCompare1\000"
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 79
+
+
  3892      5F577269 
  3892      7465436F 
  3892      6D706172 
  3892      653100
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 79
-
-
  3893              	.LASF51:
  3894 011c 50574D31 		.ascii	"PWM1_WriteCompare2\000"
  3894      5F577269 
@@ -4734,13 +4738,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3916 01a4 7072696E 		.ascii	"printf\000"
  3916      746600
  3917              	.LASF44:
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 80
+
+
  3918 01ab 62757474 		.ascii	"button\000"
  3918      6F6E00
  3919              	.LASF29:
  3920 01b2 696E7465 		.ascii	"integral\000"
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 80
-
-
  3920      6772616C 
  3920      00
  3921              	.LASF4:
@@ -4794,13 +4798,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3944 023f 6C6F6E67 		.ascii	"long long unsigned int\000"
  3944      206C6F6E 
  3944      6720756E 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 81
+
+
  3944      7369676E 
  3944      65642069 
  3945              	.LASF14:
  3946 0256 75696E74 		.ascii	"uint32_t\000"
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 81
-
-
  3946      33325F74 
  3946      00
  3947              	.LASF67:
@@ -4854,13 +4858,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3968      00
  3969              	.LASF18:
  3970 02ed 63686172 		.ascii	"char\000"
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 82
+
+
  3970      00
  3971              	.LASF65:
  3972 02f2 4D355F49 		.ascii	"M5_IN2_Write\000"
  3972      4E325F57 
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 82
-
-
  3972      72697465 
  3972      00
  3973              	.LASF91:
@@ -4914,13 +4918,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  3995 03ac 6C6F6E67 		.ascii	"long unsigned int\000"
  3995      20756E73 
  3995      69676E65 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 83
+
+
  3995      6420696E 
  3995      7400
  3996              	.LASF78:
  3997 03be 50574D32 		.ascii	"PWM2_Start\000"
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 83
-
-
  3997      5F537461 
  3997      727400
  3998              	.LASF23:
@@ -4974,13 +4978,13 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 1
  4021      31203230 
  4021      31363036 
  4022 0472 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccyS8lgp.s 			page 84
+
+
  4022      20726576 
  4022      6973696F 
  4022      6E203233 
  4022      37373135 
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc9XJoNq.s 			page 84
-
-
  4023 04a5 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
  4023      66756E63 
  4023      74696F6E 

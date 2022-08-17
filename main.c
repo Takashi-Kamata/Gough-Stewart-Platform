@@ -21,13 +21,14 @@ asm(".global _printf_float");
 
 #define CLEAR_STRING "\033[2J"
 #define MOVE_CURSOR "\033[0;0H"
-#define SAMPLE_NUM 10000
-#define MAX_ADC 57500
-#define MIN_ADC 7000
+#define SAMPLE_NUM 10000U
+#define MOTOR_NUM 6U
+#define MAX_ADC 57500U
+#define MIN_ADC 7000U
 #define MAX_ADC_DIFF 50500
 #define ERROR_MULTIPLIER 1000
-#define MAX_SPEED 0
-#define MIN_SPEED 180
+#define MAX_SPEED 0U
+#define MIN_SPEED 180U
 #define N_PNTS 10
 
 void set_speed(uint8_t M, uint8_t speed);
@@ -35,10 +36,11 @@ void extend(uint8_t M);
 void retract(uint8_t M);
 void stop(uint8_t M);
 void make_points();
-void reset();
+void reset_pid(uint8_t num);
+void reset_all();
 int32_t PID(int32_t[3], int32_t*, int32_t[3], uint8_t);
-int32_t target[6] = {MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2};
-int32_t points[6][N_PNTS];
+int32_t target[MOTOR_NUM] = {MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2, MAX_ADC / 2};
+int32_t points[MOTOR_NUM][N_PNTS];
 
 uint8 errorStatus = 0u;
 CY_ISR(RxIsr)
@@ -81,18 +83,18 @@ CY_ISR(SWPin_Control)
     {
         if (button) {
             LED_Write(1);   
-            for (int i = 0; i<6; i++) {
-                target[i] = MIN_ADC + (MAX_ADC - MIN_ADC)/6*i;   
+            for (uint8_t i = 0; i<MOTOR_NUM; i++) {
+                target[i] = MIN_ADC + (MAX_ADC - MIN_ADC)/MOTOR_NUM*i;   
             }
             make_points();
-            reset();
+            reset_all();
         } else { // Initial Run.... when button = false;
             LED_Write(0);   
-            for (int i = 0; i<6; i++) {
+            for (uint8_t i = 0; i<MOTOR_NUM; i++) {
                 target[i] = MIN_ADC;
             }
             make_points();
-            reset();
+            reset_all();
         }
         button = !button;
     }
@@ -102,16 +104,16 @@ CY_ISR(SWPin_Control)
 
 int32_t output = 0;
     
-int32_t PID_output[6] ={0};
-int32_t integral[6] = {0};
-int32_t errors[6][3] = {0};
+int32_t PID_output[MOTOR_NUM] ={0};
+int32_t integral[MOTOR_NUM] = {0};
+int32_t errors[MOTOR_NUM][3] = {0};
 int32_t params[3] = {1, 500, 1};
 
 uint8_t counter = 0;
 
 
-int32_t next_target[6] = {0};
-int32_t next_target_flag[6] = {0};
+int32_t next_target[MOTOR_NUM] = {0};
+int32_t next_target_flag[MOTOR_NUM] = {0};
 int32_t next_point = 0;
 
 int main(void)
@@ -133,16 +135,13 @@ int main(void)
     CyDelay(1000);
     
     // Initialise ADC register, first read is always bad
-    for (int i = 0; i<6; i++)
+    for (int i = 0; i<MOTOR_NUM; i++)
     {
         AMux_Select(i);
         CyDelay(2);// ~1 ms is the min time required for amux to swtich, using 2 ms for safety
         uint32_t temp = ADC_DelSig_1_GetResult32();
     }
     CyDelay(1000);
-    
-    
-    
     
     printf("%s", CLEAR_STRING);
     printf("%s", MOVE_CURSOR);
@@ -178,13 +177,14 @@ int main(void)
     for(;;)
     {       
         /* pid */ 
-        for (int i = 0; i<6; i++) {
+        for (uint8_t i = 0; i<MOTOR_NUM; i++) {
             AMux_Select(i);
             CyDelay(2);
             output = ADC_DelSig_1_GetResult32();
             
             //errors[i][counter] = ((target[i] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF;
-            errors[i][counter] = ((points[i][next_point] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF;
+            //errors[i][counter] = ((points[i][next_target[i]] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF; // Arrive differently
+            errors[i][counter] = ((points[i][next_point] - output) * ERROR_MULTIPLIER) / MAX_ADC_DIFF; // Arrive at the same time
 
             PID_output[i] = PID(errors[i], &integral[i], params, counter);
             
@@ -201,7 +201,8 @@ int main(void)
             } else {
                 stop(i); // Stop the motor
                 next_target_flag[i] = 1;
-                /*
+                /* 
+                // Arrive differently
                 if (next_target[i] < N_PNTS - 1) // check if the current target is less than 9 (final)
                 {
                     next_target[i]++;
@@ -211,8 +212,10 @@ int main(void)
                 } else {
                 }
                 */
+                
+                // Arrive at the same time
                 bool all_check = true;
-                for (int j = 0; j < 6; j++)
+                for (uint8_t j = 0; j < MOTOR_NUM; j++)
                 {
                     if (next_target_flag[j] != 1)
                     {
@@ -364,18 +367,28 @@ int32_t PID(int32_t errors[3], int32_t *integral, int32_t params[3], uint8_t cou
 void make_points() {
     printf("Make Points\r\n");
     int32_t temp;
-    for (int i=0; i < 6; i++) {
+    for (uint8_t i=0; i < MOTOR_NUM; i++) {
         AMux_Select(i);
         CyDelay(2);
         temp = ADC_DelSig_1_GetResult32();
-        for (int j = 0; j < N_PNTS; j++) {
+        for (uint32_t j = 0; j < N_PNTS; j++) {
             points[i][j] = temp + (target[i] - temp) / N_PNTS * (j+1);
             // printf("%d %d %d \r\n", i, j, points[i][j]);
         }
     }
 }
 
-void reset() {
+void reset_pid(uint8_t num) {
+    PID_output[num] = 0; 
+    integral[num] = 0; 
+    for (uint8_t i=0;i<3;i++)
+    {
+        errors[num][i] = 0;
+    }
+    counter = 0;
+}
+
+void reset_all() {
     memset(PID_output, 0, sizeof PID_output); 
     memset(integral, 0, sizeof integral); 
     memset(errors, 0, sizeof errors); 
