@@ -38,8 +38,12 @@
         <Files Root="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn">
           <File BuildType="BUILD" Toolchain="">main.c</File>
           <File BuildType="BUILD" Toolchain="">debug.c</File>
+          <File BuildType="BUILD" Toolchain="">PID.c</File>
+          <File BuildType="BUILD" Toolchain="">Tick.c</File>
           <File BuildType="BUILD" Toolchain="">cyapicallbacks.h</File>
           <File BuildType="BUILD" Toolchain="">common.h</File>
+          <File BuildType="BUILD" Toolchain="">PID.h</File>
+          <File BuildType="BUILD" Toolchain="">Tick.h</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\Generated_Source\PSoC5">

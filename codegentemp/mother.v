@@ -1,6 +1,6 @@
 // ======================================================================
 // mother.v generated from TopDesign.cysch
-// 08/11/2022 at 17:36
+// 08/17/2022 at 13:32
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -625,7 +625,7 @@ endmodule
 `include "C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\or_v1_0\or_v1_0.v"
 `endif
 
-// ADC_DelSig_v3_30(ADC_Alignment=0, ADC_Alignment_Config2=0, ADC_Alignment_Config3=0, ADC_Alignment_Config4=0, ADC_Charge_Pump_Clock=true, ADC_Clock=1, ADC_CLOCK_FREQUENCY=1310000, ADC_Input_Mode=1, ADC_Input_Range=2, ADC_Input_Range_Config2=0, ADC_Input_Range_Config3=0, ADC_Input_Range_Config4=0, ADC_Power=1, ADC_Reference=7, ADC_Reference_Config2=0, ADC_Reference_Config3=0, ADC_Reference_Config4=0, ADC_Resolution=12, ADC_Resolution_Config2=16, ADC_Resolution_Config3=16, ADC_Resolution_Config4=16, Clock_Frequency=64000, Comment_Config1=Default Config, Comment_Config2=Second Config, Comment_Config3=Third Config, Comment_Config4=Fourth Config, Config1_Name=CFG1, Config2_Name=CFG2, Config3_Name=CFG3, Config4_Name=CFG4, Configs=4, Conversion_Mode=1, Conversion_Mode_Config2=2, Conversion_Mode_Config3=2, Conversion_Mode_Config4=2, Enable_Vref_Vss=false, EnableModulatorInput=false, Input_Buffer_Gain=1, Input_Buffer_Gain_Config2=1, Input_Buffer_Gain_Config3=1, Input_Buffer_Gain_Config4=1, Input_Buffer_Mode=0, Input_Buffer_Mode_Config2=1, Input_Buffer_Mode_Config3=1, Input_Buffer_Mode_Config4=1, Ref_Voltage=1.25, Ref_Voltage_Config2=1.024, Ref_Voltage_Config3=1.024, Ref_Voltage_Config4=1.024, rm_int=false, Sample_Rate=10000, Sample_Rate_Config2=10000, Sample_Rate_Config3=10000, Sample_Rate_Config4=10000, Start_of_Conversion=0, Vdda_Value=5, CY_API_CALLBACK_HEADER_INCLUDE=#include "cyapicallbacks.h", CY_COMMENT=, CY_COMPONENT_NAME=ADC_DelSig_v3_30, CY_CONFIG_TITLE=ADC_DelSig_1, CY_CONST_CONFIG=true, CY_CONTROL_FILE=<:default:>, CY_DATASHEET_FILE=<:default:>, CY_FITTER_NAME=ADC_DelSig_1, CY_INSTANCE_SHORT_NAME=ADC_DelSig_1, CY_MAJOR_VERSION=3, CY_MINOR_VERSION=30, CY_PDL_DRIVER_NAME=, CY_PDL_DRIVER_REQ_VERSION=, CY_PDL_DRIVER_SUBGROUP=, CY_PDL_DRIVER_VARIANT=, CY_REMOVE=false, CY_SUPPRESS_API_GEN=false, CY_VERSION=PSoC Creator  4.2, INSTANCE_NAME=ADC_DelSig_1, )
+// ADC_DelSig_v3_30(ADC_Alignment=0, ADC_Alignment_Config2=0, ADC_Alignment_Config3=0, ADC_Alignment_Config4=0, ADC_Charge_Pump_Clock=true, ADC_Clock=1, ADC_CLOCK_FREQUENCY=2590000, ADC_Input_Mode=1, ADC_Input_Range=2, ADC_Input_Range_Config2=0, ADC_Input_Range_Config3=0, ADC_Input_Range_Config4=0, ADC_Power=1, ADC_Reference=7, ADC_Reference_Config2=0, ADC_Reference_Config3=0, ADC_Reference_Config4=0, ADC_Resolution=16, ADC_Resolution_Config2=16, ADC_Resolution_Config3=16, ADC_Resolution_Config4=16, Clock_Frequency=64000, Comment_Config1=Default Config, Comment_Config2=Second Config, Comment_Config3=Third Config, Comment_Config4=Fourth Config, Config1_Name=CFG1, Config2_Name=CFG2, Config3_Name=CFG3, Config4_Name=CFG4, Configs=4, Conversion_Mode=1, Conversion_Mode_Config2=2, Conversion_Mode_Config3=2, Conversion_Mode_Config4=2, Enable_Vref_Vss=false, EnableModulatorInput=false, Input_Buffer_Gain=1, Input_Buffer_Gain_Config2=1, Input_Buffer_Gain_Config3=1, Input_Buffer_Gain_Config4=1, Input_Buffer_Mode=1, Input_Buffer_Mode_Config2=1, Input_Buffer_Mode_Config3=1, Input_Buffer_Mode_Config4=1, Ref_Voltage=1.25, Ref_Voltage_Config2=1.024, Ref_Voltage_Config3=1.024, Ref_Voltage_Config4=1.024, rm_int=false, Sample_Rate=10000, Sample_Rate_Config2=10000, Sample_Rate_Config3=10000, Sample_Rate_Config4=10000, Start_of_Conversion=0, Vdda_Value=5, CY_API_CALLBACK_HEADER_INCLUDE=#include "cyapicallbacks.h", CY_COMMENT=, CY_COMPONENT_NAME=ADC_DelSig_v3_30, CY_CONFIG_TITLE=ADC_DelSig_1, CY_CONST_CONFIG=true, CY_CONTROL_FILE=<:default:>, CY_DATASHEET_FILE=<:default:>, CY_FITTER_NAME=ADC_DelSig_1, CY_INSTANCE_SHORT_NAME=ADC_DelSig_1, CY_MAJOR_VERSION=3, CY_MINOR_VERSION=30, CY_PDL_DRIVER_NAME=, CY_PDL_DRIVER_REQ_VERSION=, CY_PDL_DRIVER_SUBGROUP=, CY_PDL_DRIVER_VARIANT=, CY_REMOVE=false, CY_SUPPRESS_API_GEN=false, CY_VERSION=PSoC Creator  4.2, INSTANCE_NAME=ADC_DelSig_1, )
 module ADC_DelSig_v3_30_4 (
     vplus,
     vminus,
@@ -732,7 +732,7 @@ module ADC_DelSig_v3_30_4 (
         .ext_pin_2(Net_41),
         .ext_vssa(Net_109),
         .qtz_ref(Net_677));
-    defparam DSM.resolution = 12;
+    defparam DSM.resolution = 16;
 
     cy_analog_noconnect_v1_0 cy_analog_noconnect_5 (
         .noconnect(Net_352));
@@ -862,7 +862,7 @@ module ADC_DelSig_v3_30_4 (
 		#(.id("e5eaf153-0ed6-4feb-9ebc-ab4e58c71d8e/edd15f43-b66b-457b-be3a-5342345270c8"),
 		  .source_clock_id("61737EF6-3B74-48f9-8B91-F7473A442AE7"),
 		  .divisor(0),
-		  .period("763358778.625954"),
+		  .period("386100386.100386"),
 		  .is_direct(0),
 		  .is_digital(0))
 		theACLK
@@ -913,40 +913,40 @@ module top ;
     electrical  Net_325;
     electrical  Net_606;
           wire  Net_788;
-          wire  Net_2422;
-          wire  Net_2421;
-          wire  Net_2420;
-          wire  Net_2419;
-          wire  Net_2418;
-          wire  Net_2417;
-          wire  Net_2416;
-          wire  Net_2415;
-          wire  Net_2414;
-          wire  Net_2413;
+          wire  Net_4630;
+          wire  Net_4629;
+          wire  Net_4628;
+          wire  Net_4627;
+          wire  Net_4626;
+          wire  Net_4625;
+          wire  Net_4624;
+          wire  Net_4623;
+          wire  Net_4622;
+          wire  Net_4621;
           wire  Net_1818;
-          wire  Net_2412;
-          wire  Net_2411;
-          wire  Net_2410;
-          wire  Net_2409;
-          wire  Net_2408;
-          wire  Net_2407;
-          wire  Net_2406;
-          wire  Net_2405;
-          wire  Net_2404;
-          wire  Net_2403;
-          wire  Net_2402;
+          wire  Net_4620;
+          wire  Net_4619;
+          wire  Net_4618;
+          wire  Net_4617;
+          wire  Net_4616;
+          wire  Net_4615;
+          wire  Net_4614;
+          wire  Net_4613;
+          wire  Net_4612;
+          wire  Net_4611;
+          wire  Net_4610;
           wire  Net_1805;
-          wire  Net_2401;
-          wire  Net_2400;
-          wire  Net_2399;
-          wire  Net_2398;
-          wire  Net_2397;
-          wire  Net_2396;
-          wire  Net_2395;
-          wire  Net_2394;
-          wire  Net_2393;
-          wire  Net_2392;
-          wire  Net_2391;
+          wire  Net_4609;
+          wire  Net_4608;
+          wire  Net_4607;
+          wire  Net_4606;
+          wire  Net_4605;
+          wire  Net_4604;
+          wire  Net_4603;
+          wire  Net_4602;
+          wire  Net_4601;
+          wire  Net_4600;
+          wire  Net_4599;
           wire  Net_1791;
     electrical  Net_28;
     electrical  Net_27;
@@ -2084,18 +2084,18 @@ module top ;
     PWM_v3_30_1 PWM1 (
         .reset(Net_1791),
         .clock(Net_2056),
-        .tc(Net_2391),
+        .tc(Net_4599),
         .pwm1(Net_129),
         .pwm2(Net_31),
-        .interrupt(Net_2392),
+        .interrupt(Net_4600),
         .capture(1'b0),
         .kill(1'b1),
         .enable(1'b1),
         .trigger(1'b0),
         .cmp_sel(1'b0),
-        .pwm(Net_2398),
-        .ph1(Net_2399),
-        .ph2(Net_2400));
+        .pwm(Net_4606),
+        .ph1(Net_4607),
+        .ph2(Net_4608));
     defparam PWM1.Resolution = 8;
 
 	wire [0:0] tmpOE__M1_PWM_net;
@@ -2178,7 +2178,7 @@ module top ;
 		#(.id("e5eb06af-8535-4884-a5bc-3bf1fdae1830"),
 		  .source_clock_id("61737EF6-3B74-48f9-8B91-F7473A442AE7"),
 		  .divisor(0),
-		  .period("100000000000"),
+		  .period("66666666666.6667"),
 		  .is_direct(0),
 		  .is_digital(1))
 		Clock_1
@@ -2266,18 +2266,18 @@ module top ;
     PWM_v3_30_2 PWM2 (
         .reset(Net_1805),
         .clock(Net_2209),
-        .tc(Net_2402),
+        .tc(Net_4610),
         .pwm1(Net_57),
         .pwm2(Net_58),
-        .interrupt(Net_2403),
+        .interrupt(Net_4611),
         .capture(1'b0),
         .kill(1'b1),
         .enable(1'b1),
         .trigger(1'b0),
         .cmp_sel(1'b0),
-        .pwm(Net_2409),
-        .ph1(Net_2410),
-        .ph2(Net_2411));
+        .pwm(Net_4617),
+        .ph1(Net_4618),
+        .ph2(Net_4619));
     defparam PWM2.Resolution = 8;
 
 	wire [0:0] tmpOE__M3_PWM_net;
@@ -2360,7 +2360,7 @@ module top ;
 		#(.id("7934ff6f-8a2f-4d94-9f1e-9a022f83d6ba"),
 		  .source_clock_id("61737EF6-3B74-48f9-8B91-F7473A442AE7"),
 		  .divisor(0),
-		  .period("100000000000"),
+		  .period("66666666666.6667"),
 		  .is_direct(0),
 		  .is_digital(1))
 		Clock_2
@@ -2448,18 +2448,18 @@ module top ;
     PWM_v3_30_3 PWM3 (
         .reset(Net_1818),
         .clock(Net_93),
-        .tc(Net_2413),
+        .tc(Net_4621),
         .pwm1(Net_95),
         .pwm2(Net_96),
-        .interrupt(Net_2414),
+        .interrupt(Net_4622),
         .capture(1'b0),
         .kill(1'b1),
         .enable(1'b1),
         .trigger(1'b0),
         .cmp_sel(1'b0),
-        .pwm(Net_2420),
-        .ph1(Net_2421),
-        .ph2(Net_2422));
+        .pwm(Net_4628),
+        .ph1(Net_4629),
+        .ph2(Net_4630));
     defparam PWM3.Resolution = 8;
 
 	wire [0:0] tmpOE__M5_PWM_net;
@@ -2542,7 +2542,7 @@ module top ;
 		#(.id("86c14f18-28df-4810-b8bc-3d31a16b0422"),
 		  .source_clock_id("61737EF6-3B74-48f9-8B91-F7473A442AE7"),
 		  .divisor(0),
-		  .period("100000000000"),
+		  .period("66666666666.6667"),
 		  .is_direct(0),
 		  .is_digital(1))
 		Clock_3

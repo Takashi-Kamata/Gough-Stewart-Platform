@@ -1,0 +1,351 @@
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccaMk0Tv.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Tick.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.tick_get,"ax",%progbits
+  20              		.align	2
+  21              		.global	tick_get
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	tick_get, %function
+  25              	tick_get:
+  26              	.LFB0:
+  27              		.file 1 "Tick.c"
+   1:Tick.c        **** /* ========================================
+   2:Tick.c        ****  *
+   3:Tick.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:Tick.c        ****  * All Rights Reserved
+   5:Tick.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:Tick.c        ****  *
+   7:Tick.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:Tick.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:Tick.c        ****  *
+  10:Tick.c        ****  * ========================================
+  11:Tick.c        **** */
+  12:Tick.c        **** #include "PID.h"
+  13:Tick.c        **** 
+  14:Tick.c        **** uint32_t tick_get() {
+  28              		.loc 1 14 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  15:Tick.c        ****     
+  16:Tick.c        ****     return 0;
+  17:Tick.c        **** }
+  33              		.loc 1 17 0
+  34 0000 0020     		movs	r0, #0
+  35 0002 7047     		bx	lr
+  36              		.cfi_endproc
+  37              	.LFE0:
+  38              		.size	tick_get, .-tick_get
+  39              		.text
+  40              	.Letext0:
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccaMk0Tv.s 			page 2
+
+
+  41              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+  42              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+  43              		.section	.debug_info,"",%progbits
+  44              	.Ldebug_info0:
+  45 0000 9A000000 		.4byte	0x9a
+  46 0004 0400     		.2byte	0x4
+  47 0006 00000000 		.4byte	.Ldebug_abbrev0
+  48 000a 04       		.byte	0x4
+  49 000b 01       		.uleb128 0x1
+  50 000c 65000000 		.4byte	.LASF12
+  51 0010 0C       		.byte	0xc
+  52 0011 2C010000 		.4byte	.LASF13
+  53 0015 00000000 		.4byte	.LASF14
+  54 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  55 001d 00000000 		.4byte	0
+  56 0021 00000000 		.4byte	.Ldebug_line0
+  57 0025 02       		.uleb128 0x2
+  58 0026 01       		.byte	0x1
+  59 0027 06       		.byte	0x6
+  60 0028 81010000 		.4byte	.LASF0
+  61 002c 02       		.uleb128 0x2
+  62 002d 01       		.byte	0x1
+  63 002e 08       		.byte	0x8
+  64 002f 57000000 		.4byte	.LASF1
+  65 0033 02       		.uleb128 0x2
+  66 0034 02       		.byte	0x2
+  67 0035 05       		.byte	0x5
+  68 0036 65010000 		.4byte	.LASF2
+  69 003a 02       		.uleb128 0x2
+  70 003b 02       		.byte	0x2
+  71 003c 07       		.byte	0x7
+  72 003d 0E010000 		.4byte	.LASF3
+  73 0041 02       		.uleb128 0x2
+  74 0042 04       		.byte	0x4
+  75 0043 05       		.byte	0x5
+  76 0044 78010000 		.4byte	.LASF4
+  77 0048 03       		.uleb128 0x3
+  78 0049 21010000 		.4byte	.LASF9
+  79 004d 02       		.byte	0x2
+  80 004e 41       		.byte	0x41
+  81 004f 53000000 		.4byte	0x53
+  82 0053 02       		.uleb128 0x2
+  83 0054 04       		.byte	0x4
+  84 0055 07       		.byte	0x7
+  85 0056 FC000000 		.4byte	.LASF5
+  86 005a 02       		.uleb128 0x2
+  87 005b 08       		.byte	0x8
+  88 005c 05       		.byte	0x5
+  89 005d 57010000 		.4byte	.LASF6
+  90 0061 02       		.uleb128 0x2
+  91 0062 08       		.byte	0x8
+  92 0063 07       		.byte	0x7
+  93 0064 40010000 		.4byte	.LASF7
+  94 0068 04       		.uleb128 0x4
+  95 0069 04       		.byte	0x4
+  96 006a 05       		.byte	0x5
+  97 006b 696E7400 		.ascii	"int\000"
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccaMk0Tv.s 			page 3
+
+
+  98 006f 02       		.uleb128 0x2
+  99 0070 04       		.byte	0x4
+ 100 0071 07       		.byte	0x7
+ 101 0072 33010000 		.4byte	.LASF8
+ 102 0076 03       		.uleb128 0x3
+ 103 0077 6F010000 		.4byte	.LASF10
+ 104 007b 03       		.byte	0x3
+ 105 007c 30       		.byte	0x30
+ 106 007d 48000000 		.4byte	0x48
+ 107 0081 02       		.uleb128 0x2
+ 108 0082 04       		.byte	0x4
+ 109 0083 04       		.byte	0x4
+ 110 0084 51000000 		.4byte	.LASF11
+ 111 0088 05       		.uleb128 0x5
+ 112 0089 F3000000 		.4byte	.LASF15
+ 113 008d 01       		.byte	0x1
+ 114 008e 0E       		.byte	0xe
+ 115 008f 76000000 		.4byte	0x76
+ 116 0093 00000000 		.4byte	.LFB0
+ 117 0097 04000000 		.4byte	.LFE0-.LFB0
+ 118 009b 01       		.uleb128 0x1
+ 119 009c 9C       		.byte	0x9c
+ 120 009d 00       		.byte	0
+ 121              		.section	.debug_abbrev,"",%progbits
+ 122              	.Ldebug_abbrev0:
+ 123 0000 01       		.uleb128 0x1
+ 124 0001 11       		.uleb128 0x11
+ 125 0002 01       		.byte	0x1
+ 126 0003 25       		.uleb128 0x25
+ 127 0004 0E       		.uleb128 0xe
+ 128 0005 13       		.uleb128 0x13
+ 129 0006 0B       		.uleb128 0xb
+ 130 0007 03       		.uleb128 0x3
+ 131 0008 0E       		.uleb128 0xe
+ 132 0009 1B       		.uleb128 0x1b
+ 133 000a 0E       		.uleb128 0xe
+ 134 000b 55       		.uleb128 0x55
+ 135 000c 17       		.uleb128 0x17
+ 136 000d 11       		.uleb128 0x11
+ 137 000e 01       		.uleb128 0x1
+ 138 000f 10       		.uleb128 0x10
+ 139 0010 17       		.uleb128 0x17
+ 140 0011 00       		.byte	0
+ 141 0012 00       		.byte	0
+ 142 0013 02       		.uleb128 0x2
+ 143 0014 24       		.uleb128 0x24
+ 144 0015 00       		.byte	0
+ 145 0016 0B       		.uleb128 0xb
+ 146 0017 0B       		.uleb128 0xb
+ 147 0018 3E       		.uleb128 0x3e
+ 148 0019 0B       		.uleb128 0xb
+ 149 001a 03       		.uleb128 0x3
+ 150 001b 0E       		.uleb128 0xe
+ 151 001c 00       		.byte	0
+ 152 001d 00       		.byte	0
+ 153 001e 03       		.uleb128 0x3
+ 154 001f 16       		.uleb128 0x16
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccaMk0Tv.s 			page 4
+
+
+ 155 0020 00       		.byte	0
+ 156 0021 03       		.uleb128 0x3
+ 157 0022 0E       		.uleb128 0xe
+ 158 0023 3A       		.uleb128 0x3a
+ 159 0024 0B       		.uleb128 0xb
+ 160 0025 3B       		.uleb128 0x3b
+ 161 0026 0B       		.uleb128 0xb
+ 162 0027 49       		.uleb128 0x49
+ 163 0028 13       		.uleb128 0x13
+ 164 0029 00       		.byte	0
+ 165 002a 00       		.byte	0
+ 166 002b 04       		.uleb128 0x4
+ 167 002c 24       		.uleb128 0x24
+ 168 002d 00       		.byte	0
+ 169 002e 0B       		.uleb128 0xb
+ 170 002f 0B       		.uleb128 0xb
+ 171 0030 3E       		.uleb128 0x3e
+ 172 0031 0B       		.uleb128 0xb
+ 173 0032 03       		.uleb128 0x3
+ 174 0033 08       		.uleb128 0x8
+ 175 0034 00       		.byte	0
+ 176 0035 00       		.byte	0
+ 177 0036 05       		.uleb128 0x5
+ 178 0037 2E       		.uleb128 0x2e
+ 179 0038 00       		.byte	0
+ 180 0039 3F       		.uleb128 0x3f
+ 181 003a 19       		.uleb128 0x19
+ 182 003b 03       		.uleb128 0x3
+ 183 003c 0E       		.uleb128 0xe
+ 184 003d 3A       		.uleb128 0x3a
+ 185 003e 0B       		.uleb128 0xb
+ 186 003f 3B       		.uleb128 0x3b
+ 187 0040 0B       		.uleb128 0xb
+ 188 0041 49       		.uleb128 0x49
+ 189 0042 13       		.uleb128 0x13
+ 190 0043 11       		.uleb128 0x11
+ 191 0044 01       		.uleb128 0x1
+ 192 0045 12       		.uleb128 0x12
+ 193 0046 06       		.uleb128 0x6
+ 194 0047 40       		.uleb128 0x40
+ 195 0048 18       		.uleb128 0x18
+ 196 0049 9742     		.uleb128 0x2117
+ 197 004b 19       		.uleb128 0x19
+ 198 004c 00       		.byte	0
+ 199 004d 00       		.byte	0
+ 200 004e 00       		.byte	0
+ 201              		.section	.debug_aranges,"",%progbits
+ 202 0000 1C000000 		.4byte	0x1c
+ 203 0004 0200     		.2byte	0x2
+ 204 0006 00000000 		.4byte	.Ldebug_info0
+ 205 000a 04       		.byte	0x4
+ 206 000b 00       		.byte	0
+ 207 000c 0000     		.2byte	0
+ 208 000e 0000     		.2byte	0
+ 209 0010 00000000 		.4byte	.LFB0
+ 210 0014 04000000 		.4byte	.LFE0-.LFB0
+ 211 0018 00000000 		.4byte	0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccaMk0Tv.s 			page 5
+
+
+ 212 001c 00000000 		.4byte	0
+ 213              		.section	.debug_ranges,"",%progbits
+ 214              	.Ldebug_ranges0:
+ 215 0000 00000000 		.4byte	.LFB0
+ 216 0004 04000000 		.4byte	.LFE0
+ 217 0008 00000000 		.4byte	0
+ 218 000c 00000000 		.4byte	0
+ 219              		.section	.debug_line,"",%progbits
+ 220              	.Ldebug_line0:
+ 221 0000 30010000 		.section	.debug_str,"MS",%progbits,1
+ 221      02001A01 
+ 221      00000201 
+ 221      FB0E0D00 
+ 221      01010101 
+ 222              	.LASF14:
+ 223 0000 5C5C6669 		.ascii	"\\\\files.auckland.ac.nz\\myhome\\Documents\\PSoC C"
+ 223      6C65732E 
+ 223      6175636B 
+ 223      6C616E64 
+ 223      2E61632E 
+ 224 002e 72656174 		.ascii	"reator\\Digital_Pins01\\mother.cydsn\000"
+ 224      6F725C44 
+ 224      69676974 
+ 224      616C5F50 
+ 224      696E7330 
+ 225              	.LASF11:
+ 226 0051 666C6F61 		.ascii	"float\000"
+ 226      7400
+ 227              	.LASF1:
+ 228 0057 756E7369 		.ascii	"unsigned char\000"
+ 228      676E6564 
+ 228      20636861 
+ 228      7200
+ 229              	.LASF12:
+ 230 0065 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 230      43313120 
+ 230      352E342E 
+ 230      31203230 
+ 230      31363036 
+ 231 0098 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 231      20726576 
+ 231      6973696F 
+ 231      6E203233 
+ 231      37373135 
+ 232 00cb 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 232      66756E63 
+ 232      74696F6E 
+ 232      2D736563 
+ 232      74696F6E 
+ 233              	.LASF15:
+ 234 00f3 7469636B 		.ascii	"tick_get\000"
+ 234      5F676574 
+ 234      00
+ 235              	.LASF5:
+ 236 00fc 6C6F6E67 		.ascii	"long unsigned int\000"
+ 236      20756E73 
+ 236      69676E65 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccaMk0Tv.s 			page 6
+
+
+ 236      6420696E 
+ 236      7400
+ 237              	.LASF3:
+ 238 010e 73686F72 		.ascii	"short unsigned int\000"
+ 238      7420756E 
+ 238      7369676E 
+ 238      65642069 
+ 238      6E7400
+ 239              	.LASF9:
+ 240 0121 5F5F7569 		.ascii	"__uint32_t\000"
+ 240      6E743332 
+ 240      5F7400
+ 241              	.LASF13:
+ 242 012c 5469636B 		.ascii	"Tick.c\000"
+ 242      2E6300
+ 243              	.LASF8:
+ 244 0133 756E7369 		.ascii	"unsigned int\000"
+ 244      676E6564 
+ 244      20696E74 
+ 244      00
+ 245              	.LASF7:
+ 246 0140 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 246      206C6F6E 
+ 246      6720756E 
+ 246      7369676E 
+ 246      65642069 
+ 247              	.LASF6:
+ 248 0157 6C6F6E67 		.ascii	"long long int\000"
+ 248      206C6F6E 
+ 248      6720696E 
+ 248      7400
+ 249              	.LASF2:
+ 250 0165 73686F72 		.ascii	"short int\000"
+ 250      7420696E 
+ 250      7400
+ 251              	.LASF10:
+ 252 016f 75696E74 		.ascii	"uint32_t\000"
+ 252      33325F74 
+ 252      00
+ 253              	.LASF4:
+ 254 0178 6C6F6E67 		.ascii	"long int\000"
+ 254      20696E74 
+ 254      00
+ 255              	.LASF0:
+ 256 0181 7369676E 		.ascii	"signed char\000"
+ 256      65642063 
+ 256      68617200 
+ 257              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
