@@ -38,6 +38,15 @@ bool extend(uint8_t M);
 bool retract(uint8_t M);
 bool stop(uint8_t M);
 
+/*** Private Variables ***/
+struct pid_controller ctrldata;
+pids_t pid;
+
+float input = 0, output = 0;
+float setpoint = 20000.0;
+
+float kp = 1.2, ki = 1.5, kd = 1.5;
+
 /**
  * UART ISR
  */
@@ -86,10 +95,12 @@ CY_ISR(SWPin_Control)
         if (button)
         {
             LED_Write(1);
+            extend(0);
         }
         else
         { // Initial Run.... when button = false;
             LED_Write(0);
+            retract(0);
         }
         button = !button;
     }
@@ -155,13 +166,26 @@ int main(void)
      * Initialise Tick
      */
     tick_init();
+    
     /**
      * Clear UART Console & Start...
      */
     printf("%s", CLEAR_STRING);
     printf("%s", MOVE_CURSOR);
     printf("Starting...\r\n");
+    
+    /**
+     * Initialise PID
+     */
 
+    
+    pid = pid_create(&ctrldata, &input, &output, &setpoint, kp, ki, kd);
+	// Set controler output limits from 0 to 200
+	pid_limits(pid, 0, 255);
+	// Allow PID to compute and change output
+	pid_auto(pid);
+    
+    retract(0); // Start retracted
     /**
      * Loop
      */
@@ -172,7 +196,26 @@ int main(void)
         uint32_t sec = tick_get() / 100;
         printf("Run Time (s) : %d\r\n", sec);
         printf("Current Tick (s) : %d\r\n", tick_get());
-        CyDelay(10); // rest
+        
+        AMux_Select(0);
+        CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
+        uint32_t M1_ADC = ADC_DelSig_1_GetResult32();
+        //printf("M1 ADC %d \r\n", M1_ADC);
+        
+        // Check if need to compute PID
+		if (pid_need_compute(pid)) {
+			// Read process feedback
+            // Read ADC
+			input = M1_ADC;
+			// Compute new PID output value
+			pid_compute(pid);
+            
+			//Change actuator value
+            // Set PWM
+			//set_speed(0, output);
+		}
+        printf("Output %i \r\n", (int)output);
+        CyDelay(100); // rest
     }
 }
 
@@ -181,7 +224,7 @@ int main(void)
 /**
  * @brief Set motor speed by changing PWM value
  *
- * @param uint8_t Motor number
+ * @param uint8_t Motor number 0-5
  * @param uint8_t Speed between MAX_SPEED & MIN_SPEED
  *
  * @return bool True if successful
@@ -218,7 +261,7 @@ bool set_speed(uint8_t M, uint8_t speed)
 /**
  * @brief Extend actuator by configuring direction pins
  *
- * @param uint8_t Motor number
+ * @param uint8_t Motor number 0-5
  *
  * @return bool True if successful
  */
@@ -260,7 +303,7 @@ bool extend(uint8_t M)
 /**
  * @brief Retract actuator by configuring direction pins
  *
- * @param uint8_t Motor number
+ * @param uint8_t Motor number 0-5
  *
  * @return bool True if successful
  */
@@ -302,7 +345,7 @@ bool retract(uint8_t M)
 /**
  * @brief Stop actuator by configuring direction pins
  *
- * @param uint8_t Motor number
+ * @param uint8_t Motor number 0-5
  *
  * @return bool True if successful
  */

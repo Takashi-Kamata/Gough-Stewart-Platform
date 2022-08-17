@@ -19,12 +19,6 @@
 <file name=".\PID.c" />
 <file name=".\PID.h" />
 <file name=".\Tick.h" />
-<file name=".\CortexM3\ARM_GCC_541\Debug\Tick.o">
-<dep name=".\PID.h" />
-<dep name=".\Tick.c" />
-<dep name=".\Tick.h" />
-</file>
-<file name=".\Tick.c" />
 <file name=".\CortexM3\ARM_GCC_541\Debug\main.o">
 <dep name=".\Generated_Source\PSoC5\ADC_DelSig_1.h" />
 <dep name=".\Generated_Source\PSoC5\ADC_DelSig_1_AMux.h" />
@@ -211,6 +205,12 @@
 <file name=".\Generated_Source\PSoC5\project.h" />
 <file name=".\common.h" />
 <file name=".\main.c" />
+<file name=".\CortexM3\ARM_GCC_541\Debug\Tick.o">
+<dep name=".\PID.h" />
+<dep name=".\Tick.c" />
+<dep name=".\Tick.h" />
+</file>
+<file name=".\Tick.c" />
 <file name=".\CortexM3\ARM_GCC_541\Debug\ADC_DelSig_1.o">
 <dep name=".\Generated_Source\PSoC5\ADC_DelSig_1.c" />
 <dep name=".\Generated_Source\PSoC5\ADC_DelSig_1.h" />
@@ -1628,7 +1628,7 @@
 <dataGuid v="769d31ea-68b1-4f0c-b90a-7c10a43ee563">
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
 <link_deps_times>
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" v="133051853741152501" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" v="133051867889480528" />
 </link_deps_times>
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>
 </dataGuid>

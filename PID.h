@@ -99,7 +99,7 @@ extern "C" {
 	 * @brief Check if PID loop needs to run
 	 *
 	 * Determines if the PID control algorithm should compute a new output value,
-	 * if this returs true, the user should read process feedback (sensors) and
+	 * if this returns true, the user should read process feedback (sensors) and
 	 * place the reading in the input variable, then call the pid_compute() function.
 	 *
 	 * @return return Return true if PID control algorithm is required to run
