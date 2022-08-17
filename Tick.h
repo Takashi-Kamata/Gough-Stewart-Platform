@@ -8,29 +8,48 @@
  * WHICH IS THE PROPERTY OF your company.
  *
  * ========================================
-*/
+ */
 #ifndef TICK_H
 #define TICK_H
 
 #include <stdbool.h>
 #include <stdint.h>
     
-#define TICK_SECOND 1
+#define TICK_SECOND 100
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
+    
+    /**
+	 * @brief Increment tick
+     * 
+	 * @return bool True if successful
+	 */
+    void tick_init();
+    
+    /**
+	 * @brief Increment tick
+     * 
+	 * @return bool True if successful
+	 */
+    bool tick_inc();
+    
+    /**
+	 * @brief Set tick
+     * 
+     * @param uint32_t tick
+     *
+	 * @return bool True if successful
+	 */
+    bool tick_set(uint32_t tick);
 
     /**
-	 * @brief Enables automatic control using PID
-	 *
-	 * Enables the PID control loop. If manual output adjustment is needed you can
-	 * disable the PID control loop using pid_manual(). This function enables PID
-	 * automatic control at program start or after calling pid_manual()
-	 *
-	 * @param pid The PID controller instance to enable
+	 * @brief Get current tick
+     *
+	 * @return uint32_t tick
 	 */
-	uint32_t get_tick();
+	uint32_t tick_get();
 
 #ifdef	__cplusplus
 }

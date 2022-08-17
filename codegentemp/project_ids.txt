@@ -5,7 +5,7 @@ C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomp
 C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|6bfb86c0-4a73-4fef-9a55-a45dc251e001
 C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|59bb6953-a1b1-4696-84b2-42108bf5c0df
 \\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\Position.cydsn\Position.cyprj|c3c28ba7-f909-47ba-8a38-2593880e13b1
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\mother.cyprj|050f8cf4-de26-4e0c-8be7-b547feddf1a3
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\mother.cyprj|60e3af7e-ede9-4bfa-900e-c58a7fa07393
 \\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\ADC_SingleEndedMode01.cydsn\ADC_SingleEndedMode01.cyprj|b782a493-b069-4743-855f-a33fd57a49a1
 C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|0fbd0864-1bd7-48c3-93ac-04d749c281a9
 \\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\HelloWorld_Blinky01.cydsn\HelloWorld_Blinky01.cyprj|31753859-040e-413e-aa8c-5705623b1884

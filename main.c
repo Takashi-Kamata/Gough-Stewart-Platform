@@ -29,7 +29,7 @@ asm(".global _printf_float");
 #define MIN_ADC 7000U // 0.5V when fully retracted
 #define MAX_SPEED 0U
 #define MIN_SPEED 180U
-#define SYSTICK_RELOAD (BCLK__BUS_CLK__HZ / 10)// when 0.1s is target, reload val is 2400000, since 0.1s / (1s/24MHz) 
+#define SYSTICK_RELOAD 240000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
 
 /*** Private Prototypes ***/
 
@@ -100,16 +100,15 @@ CY_ISR(SWPin_Control)
 /**
  * SysTick ISR
  */
-uint32_t systick = 0;
 CY_ISR(isr_systick)
 {
-    systick++;
+    tick_inc();
 }
 
 int main(void)
 {
     CyGlobalIntEnable; /* Enable global interrupts. */
-    
+
     /**
      * UART, AMUX & ADC Start
      */
@@ -126,16 +125,19 @@ int main(void)
     /**
      * SysTick Setting, ISR & Start
      */
+    CySysTickEnable();
     CySysTickStart();                     /* Start the systick */
+    CySysTickSetReload(SYSTICK_RELOAD);   /* Make sure start() is called */
     CySysTickSetCallback(0, isr_systick); /* Add the Systick callback */
-    
+    CySysTickClear();
+
     /**
      * PWM Modules Start
      */
     PWM1_Start();
     PWM2_Start();
     PWM3_Start();
-    
+
     /**
      * ADC Initialisation
      */
@@ -150,12 +152,16 @@ int main(void)
     CyDelay(500); // rest
     
     /**
+     * Initialise Tick
+     */
+    tick_init();
+    /**
      * Clear UART Console & Start...
      */
     printf("%s", CLEAR_STRING);
     printf("%s", MOVE_CURSOR);
     printf("Starting...\r\n");
-    
+
     /**
      * Loop
      */
@@ -163,8 +169,10 @@ int main(void)
     {
         printf("%s", CLEAR_STRING);
         printf("%s", MOVE_CURSOR);
-        printf("Systick %d", systick);
-        CyDelay(100); // wait
+        uint32_t sec = tick_get() / 100;
+        printf("Run Time (s) : %d\r\n", sec);
+        printf("Current Tick (s) : %d\r\n", tick_get());
+        CyDelay(10); // rest
     }
 }
 
@@ -176,7 +184,7 @@ int main(void)
  * @param uint8_t Motor number
  * @param uint8_t Speed between MAX_SPEED & MIN_SPEED
  *
- * @return bool True if success
+ * @return bool True if successful
  */
 bool set_speed(uint8_t M, uint8_t speed)
 {
@@ -212,7 +220,7 @@ bool set_speed(uint8_t M, uint8_t speed)
  *
  * @param uint8_t Motor number
  *
- * @return bool True if success
+ * @return bool True if successful
  */
 bool extend(uint8_t M)
 {
@@ -254,7 +262,7 @@ bool extend(uint8_t M)
  *
  * @param uint8_t Motor number
  *
- * @return bool True if success
+ * @return bool True if successful
  */
 bool retract(uint8_t M)
 {
@@ -296,7 +304,7 @@ bool retract(uint8_t M)
  *
  * @param uint8_t Motor number
  *
- * @return bool True if success
+ * @return bool True if successful
  */
 bool stop(uint8_t M)
 {
