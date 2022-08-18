@@ -40,13 +40,16 @@ bool retract(uint8_t M);
 bool stop(uint8_t M);
 
 /*** Private Variables ***/
+
+// PID
 struct pid_controller ctrldata;
 pids_t pid;
-
 float input = 0, output = 0;
 float setpoint = 30000.0;
-
 float kp = 0.01, ki =  0.0, kd =  0.0005;
+
+// For Keyboard Lock
+bool manual = false;
 
 /**
  * UART ISR
@@ -75,11 +78,28 @@ CY_ISR(RxIsr)
             rxData = UART_RXDATA_REG;
             if (errorStatus == 0u)
             {
-                /*
-                UART_TXDATA_REG = rxData;
-
-                printf("11\r\n");
-                */
+                
+                //UART_TXDATA_REG = rxData; // echo back by directly changing TX register
+                //printf("%d\r\n",rxData);
+                if (rxData == 65) {// UP
+                    for (uint8_t i = 0; i< MOTOR_NUM; i++)
+                    {
+                        set_speed(i, 0);
+                        extend(i);
+                    }
+                    manual = true;
+                } else if (rxData == 66) {// DOWN
+                    for (uint8_t i = 0; i< MOTOR_NUM; i++)
+                    {
+                        set_speed(i, 0);
+                        retract(i);
+                    }
+                    manual = true;
+                } else if (rxData == 67) {// RIGHT
+                } else if (rxData == 68) {// LEFT
+                } else if (rxData == 13) {// ENTER
+                    manual = false;   
+                }
             }
         }
     } while ((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u);
@@ -189,53 +209,54 @@ int main(void)
     // Reverse Direction
     //pid_direction(pid, E_PID_REVERSE);
     
-    retract(0); // Start retracted
     /**
      * Loop
      */
     uint32_t counter = 0;
     for (;;)
     {
+        uint32_t sec = tick_get() / 1000;
         printf("%s", CLEAR_STRING);
         printf("%s", MOVE_CURSOR);
-        uint32_t sec = tick_get() / 1000;
         printf("Run Time (s) : %d\r\n", sec);
         printf("Current Tick (ms) : %d\r\n", tick_get());
+        printf("\r\n");
         
-        AMux_Select(1);
-        CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
-        uint32_t M1_ADC = ADC_DelSig_1_GetResult32();
-        //printf("M1 ADC %d \r\n", M1_ADC);
+        printf("Mode is : %s\r\n", (manual == 0) ? "Auto" : "Manual" );
+        printf("Press Enter to leave Manual mode...\r\n");
+        printf("\r\n");
         
-        // Check if need to compute PID
-		if (pid_need_compute(pid)) {
-			// Read process feedback
-            // Read ADC
-			input = M1_ADC;
-			// Compute new PID output value
-			pid_compute(pid);
+        if (!manual) {
+            printf("Auto mode output...\r\n");
+            AMux_Select(1);
+            CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
+            uint32_t M1_ADC = ADC_DelSig_1_GetResult32();
+            //printf("M1 ADC %d \r\n", M1_ADC);
             
-			//Change actuator value
-            // Set PWM
-			//set_speed(0, output);
-		} else {
-            printf("Sampling Too Fast!! Change PID setting.\r\n");  
-        }
-        
-        printf("Output %i \r\n", (int)output);
-        if (button) {
-            uint8_t new_speed = 255 - abs((int)output);
-            
-            if (((int)output + TOLERANCE) > 0)
-            {
-                extend(1);
-            } else if (((int)output - TOLERANCE) < 0) {
-                retract(1);
-            } else {
-                stop(1);
-                new_speed = MIN_SPEED;
+            // Check if need to compute PID
+    		if (pid_need_compute(pid)) {
+                // Read ADC
+    			input = M1_ADC;
+    			// Compute new PID output value
+    			pid_compute(pid);
+    		} else {
+                printf("Sampling Too Fast!! Change PID setting.\r\n");  
             }
-            set_speed(1, new_speed);
+            
+            if (button) {
+                uint8_t new_speed = 255 - abs((int)output);
+                
+                if (((int)output + TOLERANCE) > 0)
+                {
+                    extend(1);
+                } else if (((int)output - TOLERANCE) < 0) {
+                    retract(1);
+                } else {
+                    stop(1);
+                    new_speed = MIN_SPEED;
+                }
+                set_speed(1, new_speed);
+            }
         }
         CyDelay(100); // rest
     }
