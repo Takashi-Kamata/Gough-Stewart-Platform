@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
   36 0004 23B9     		cbnz	r3, .L1
   20:Tick.c        ****         mInit = true;
   37              		.loc 1 20 0
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 2
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 2
 
 
   38 0006 034B     		ldr	r3, .L3
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
   81 0010 00000000 		.word	.LANCHOR0
   82              		.cfi_endproc
   83              	.LFE1:
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 3
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 3
 
 
   84              		.size	tick_inc, .-tick_inc
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
  128              		@ args = 0, pretend = 0, frame = 0
  129              		@ frame_needed = 0, uses_anonymous_args = 0
  130              		@ link register save eliminated.
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 4
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 4
 
 
   42:Tick.c        ****     if (!mInit) {
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
  179 001d 00000000 		.4byte	0
  180 0021 00000000 		.4byte	.Ldebug_line0
  181 0025 02       		.uleb128 0x2
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 5
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 5
 
 
  182 0026 01       		.byte	0x1
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
  236 0089 6B010000 		.4byte	.LASF20
  237 008d 01       		.byte	0x1
  238 008e 12       		.byte	0x12
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 6
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 6
 
 
  239 008f 00000000 		.4byte	.LFB0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
  293 010a 10       		.byte	0x10
  294 010b 76000000 		.4byte	0x76
  295 010f 05       		.uleb128 0x5
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 7
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 7
 
 
  296 0110 03       		.byte	0x3
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
  350 0031 0B       		.uleb128 0xb
  351 0032 03       		.uleb128 0x3
  352 0033 08       		.uleb128 0x8
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 8
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 8
 
 
  353 0034 00       		.byte	0
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
  407 006c 0B       		.uleb128 0xb
  408 006d 3B       		.uleb128 0x3b
  409 006e 0B       		.uleb128 0xb
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 9
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 9
 
 
  410 006f 27       		.uleb128 0x27
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
  464 000b 0C000000 		.4byte	.LVL1
  465 000f 14000000 		.4byte	.LFE2
  466 0013 0400     		.2byte	0x4
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 10
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 10
 
 
  467 0015 F3       		.byte	0xf3
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
  509              	.LASF21:
  510 0051 7469636B 		.ascii	"tick_set\000"
  510      5F736574 
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 11
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 11
 
 
  510      00
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 1
  533              	.LASF8:
  534 0147 756E7369 		.ascii	"unsigned int\000"
  534      676E6564 
-ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccC1q5Oq.s 			page 12
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\ccOLNrDz.s 			page 12
 
 
  534      20696E74 
