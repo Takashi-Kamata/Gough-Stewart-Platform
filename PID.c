@@ -19,6 +19,7 @@
  */
 #include "PID.h"
 
+#define DEBUG_MODE 1U
 pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float ki, float kd)
 {
 	pid->input = in;
@@ -53,21 +54,17 @@ void pid_compute(pids_t pid)
 		return false;
 	*/
 	float in = *(pid->input);
-    printf("in %i \r\n", (int)in);
 	// Compute error
 	float error = (*(pid->setpoint)) - in;
-    printf("error %i \r\n", (int)error);
 	// Compute integral
 	pid->iterm += (pid->Ki * error);
 	if (pid->iterm > pid->omax)
 		pid->iterm = pid->omax;
 	else if (pid->iterm < pid->omin)
 		pid->iterm = pid->omin;
-    printf("iterm %i \r\n", (int)pid->iterm);
 	// Compute differential on input
-	//float dinput = in - pid->lastin;
-    float dinput = error - pid->lasterror;
-    printf("dinput %i \r\n", (int)dinput);
+	float dinput = in - pid->lastin;
+    //float dinput = error - pid->lasterror;
 	// Compute PID output
 	float out = pid->Kp * error + pid->iterm - pid->Kd * dinput;
 	// Apply limit to output value
@@ -75,14 +72,21 @@ void pid_compute(pids_t pid)
 		out = pid->omax;
 	else if (out < pid->omin)
 		out = pid->omin;
-    printf("out %i \r\n", (int)out);
 	// Output to pointed variable
 	(*pid->output) = out;
 	// Keep track of some variables for next execution
 	pid->lastin = in;
 	pid->lasttime = tick_get();
-    pid->lasterror = error;
-    printf("lasttime %d \r\n", pid->lasttime);
+    if (DEBUG_MODE)
+    {
+        printf("Input %i \r\n", (int)in);
+        printf("Error %i \r\n", (int)error);
+        printf("Iterm %i \r\n", (int)pid->iterm);
+        printf("Dinput %i \r\n", (int)dinput);
+        printf("Out %i \r\n", (int)out);
+        printf("Lastin %d \r\n", (int)pid->lastin);
+        printf("Lasttime %d \r\n", pid->lasttime);
+    }
 }
 
 void pid_tune(pids_t pid, float kp, float ki, float kd)

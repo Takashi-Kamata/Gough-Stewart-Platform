@@ -14,8 +14,9 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-    
-#define TICK_SECOND 100
+
+#define TICKS_PER_SECOND 1000U
+#define TICK_SECOND	((unsigned long long)TICKS_PER_SECOND)
 
 #ifdef	__cplusplus
 extern "C" {

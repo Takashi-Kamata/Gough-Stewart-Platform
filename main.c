@@ -29,7 +29,8 @@ asm(".global _printf_float");
 #define MIN_ADC 7000U // 0.5V when fully retracted
 #define MAX_SPEED 0U
 #define MIN_SPEED 180U
-#define SYSTICK_RELOAD 240000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
+#define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
+#define TOLERANCE 10 // ADC Tolerance
 
 /*** Private Prototypes ***/
 
@@ -43,9 +44,9 @@ struct pid_controller ctrldata;
 pids_t pid;
 
 float input = 0, output = 0;
-float setpoint = 40000.0;
+float setpoint = 30000.0;
 
-float kp = 1.2, ki = 1.5, kd = 1.5;
+float kp = 0.01, ki =  0.0, kd =  0.0005;
 
 /**
  * UART ISR
@@ -95,13 +96,14 @@ CY_ISR(SWPin_Control)
         if (button)
         {
             LED_Write(1);
-            extend(1);
+            retract(1);
         }
         else
         { // Initial Run.... when button = false;
             LED_Write(0);
-            retract(1);
+            extend(1);
         }
+        set_speed(1, 0);
         button = !button;
     }
 
@@ -117,7 +119,7 @@ CY_ISR(isr_systick)
 }
 
 int main(void)
-{
+{ 
     CyGlobalIntEnable; /* Enable global interrupts. */
 
     /**
@@ -181,21 +183,24 @@ int main(void)
     
     pid = pid_create(&ctrldata, &input, &output, &setpoint, kp, ki, kd);
 	// Set controler output limits from 0 to 200
-	pid_limits(pid, 0, 255);
+	pid_limits(pid, -255, 255);
 	// Allow PID to compute and change output
 	pid_auto(pid);
+    // Reverse Direction
+    //pid_direction(pid, E_PID_REVERSE);
     
     retract(0); // Start retracted
     /**
      * Loop
      */
+    uint32_t counter = 0;
     for (;;)
     {
         printf("%s", CLEAR_STRING);
         printf("%s", MOVE_CURSOR);
-        uint32_t sec = tick_get() / 100;
+        uint32_t sec = tick_get() / 1000;
         printf("Run Time (s) : %d\r\n", sec);
-        printf("Current Tick (s) : %d\r\n", tick_get());
+        printf("Current Tick (ms) : %d\r\n", tick_get());
         
         AMux_Select(1);
         CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
@@ -213,9 +218,26 @@ int main(void)
 			//Change actuator value
             // Set PWM
 			//set_speed(0, output);
-		}
+		} else {
+            printf("Sampling Too Fast!! Change PID setting.\r\n");  
+        }
+        
         printf("Output %i \r\n", (int)output);
-        CyDelay(10); // rest
+        if (button) {
+            uint8_t new_speed = 255 - abs((int)output);
+            
+            if (((int)output + TOLERANCE) > 0)
+            {
+                extend(1);
+            } else if (((int)output - TOLERANCE) < 0) {
+                retract(1);
+            } else {
+                stop(1);
+                new_speed = MIN_SPEED;
+            }
+            set_speed(1, new_speed);
+        }
+        CyDelay(100); // rest
     }
 }
 

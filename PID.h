@@ -25,6 +25,7 @@
 #include "Tick.h"
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 
 /*-------------------------------------------------------------*/
 /*		Macros and definitions				*/
@@ -61,7 +62,6 @@ struct pid_controller {
 	// Variables for PID algorithm
 	float iterm; //!< Accumulator for integral term
 	float lastin; //!< Last input value for differential term
-    float lasterror;
 	// Time related
 	uint32_t lasttime; //!< Stores the time when the control loop ran last time
 	uint32_t sampletime; //!< Defines the PID sample time
