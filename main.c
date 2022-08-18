@@ -215,7 +215,7 @@ int main(void)
 			//set_speed(0, output);
 		}
         printf("Output %i \r\n", (int)output);
-        CyDelay(100); // rest
+        CyDelay(10); // rest
     }
 }
 
