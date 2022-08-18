@@ -15,10 +15,10 @@ asm(".global _printf_float");
 
 #include "project.h"
 #include "common.h"
-#include "PID.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "PID.h"
 
 /*** Private Definitions ***/
 
@@ -43,7 +43,7 @@ struct pid_controller ctrldata;
 pids_t pid;
 
 float input = 0, output = 0;
-float setpoint = 20000.0;
+float setpoint = 40000.0;
 
 float kp = 1.2, ki = 1.5, kd = 1.5;
 
@@ -95,12 +95,12 @@ CY_ISR(SWPin_Control)
         if (button)
         {
             LED_Write(1);
-            extend(0);
+            extend(1);
         }
         else
         { // Initial Run.... when button = false;
             LED_Write(0);
-            retract(0);
+            retract(1);
         }
         button = !button;
     }
@@ -197,7 +197,7 @@ int main(void)
         printf("Run Time (s) : %d\r\n", sec);
         printf("Current Tick (s) : %d\r\n", tick_get());
         
-        AMux_Select(0);
+        AMux_Select(1);
         CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
         uint32_t M1_ADC = ADC_DelSig_1_GetResult32();
         //printf("M1 ADC %d \r\n", M1_ADC);

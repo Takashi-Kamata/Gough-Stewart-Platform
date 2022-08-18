@@ -26,7 +26,7 @@ pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float
 	pid->setpoint = set;
 	pid->automode = false;
 
-	pid_limits(pid, 0, 255);
+	pid_limits(pid, 0.0, 255.0);
 
 	// Set default sample time to 100 ms
 	pid->sampletime = 100 * (TICK_SECOND / 1000);
@@ -65,7 +65,8 @@ void pid_compute(pids_t pid)
 		pid->iterm = pid->omin;
     printf("iterm %i \r\n", (int)pid->iterm);
 	// Compute differential on input
-	float dinput = in - pid->lastin;
+	//float dinput = in - pid->lastin;
+    float dinput = error - pid->lasterror;
     printf("dinput %i \r\n", (int)dinput);
 	// Compute PID output
 	float out = pid->Kp * error + pid->iterm - pid->Kd * dinput;
@@ -79,7 +80,8 @@ void pid_compute(pids_t pid)
 	(*pid->output) = out;
 	// Keep track of some variables for next execution
 	pid->lastin = in;
-	pid->lasttime = tick_get();;
+	pid->lasttime = tick_get();
+    pid->lasterror = error;
     printf("lasttime %d \r\n", pid->lasttime);
 }
 
