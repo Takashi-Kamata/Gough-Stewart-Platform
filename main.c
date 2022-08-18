@@ -25,10 +25,8 @@ asm(".global _printf_float");
 #define CLEAR_STRING "\033[2J"
 #define MOVE_CURSOR "\033[0;0H"
 #define MOTOR_NUM 6U
-#define MAX_ADC 57500U
-#define MIN_ADC 7000U // 0.5V when fully retracted
-#define MAX_SPEED 0U
-#define MIN_SPEED 180U
+#define MAX_SPEED 0
+#define MIN_SPEED 255
 #define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
 #define TOLERANCE 10 // ADC Tolerance
 
@@ -199,20 +197,15 @@ int main(void)
     /**
      * Initialise PID
      */
-
-    
     pid = pid_create(&ctrldata, &input, &output, &setpoint, kp, ki, kd);
 	// Set controler output limits from 0 to 200
-	pid_limits(pid, -255, 255);
+	pid_limits(pid, -MIN_SPEED, MIN_SPEED);
 	// Allow PID to compute and change output
 	pid_auto(pid);
-    // Reverse Direction
-    //pid_direction(pid, E_PID_REVERSE);
     
     /**
      * Loop
      */
-    uint32_t counter = 0;
     for (;;)
     {
         uint32_t sec = tick_get() / 1000;
