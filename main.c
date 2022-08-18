@@ -47,7 +47,7 @@ float output[MOTOR_NUM] = {0.0};
 float setpoint[MOTOR_NUM] = {10000.0, 20000.0, 30000.0, 40000.0, 50000.0, 60000.0};
 
 float kp[MOTOR_NUM] = {0.01, 0.01, 0.01, 0.01, 0.01, 0.01};
-float ki[MOTOR_NUM] =  {0.0};
+float ki[MOTOR_NUM] = {0.0};
 float kd[MOTOR_NUM] = {0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005};
 
 // For Keyboard Lock
@@ -209,7 +209,6 @@ int main(void)
     	// Allow PID to compute and change output
     	pid_auto(pid[i]);
     }
-
     
     /**
      * Loop
@@ -223,7 +222,7 @@ int main(void)
         printf("Current Tick (ms) : %d\r\n", tick_get());
         printf("\r\n");
         
-        printf("Mode is : %s\r\n", (manual == 0) ? "Auto" : "Manual" );
+        printf("Mode is : %s\r\n", (manual == 0) ? "Auto" : "Manual");
         printf("Press Enter to leave Manual mode...\r\n");
         printf("\r\n");
         
@@ -242,7 +241,7 @@ int main(void)
         			// Compute new PID output value
         			pid_compute(pid[i]);
         		} else {
-                    printf("Sampling Too Fast!! Change PID setting.\r\n");  
+                    printf("Sampling Too Fast!! Adjust delay.\r\n");  
                 }  
                 if (button) {
                     uint8_t new_speed = 255 - abs((int)output[i]);
@@ -258,10 +257,8 @@ int main(void)
                     }
                     set_speed(i, new_speed);
                 }
+               // printf("OUTPUT %d %d \r\n", i, (int)output[i]);
             }
-    		
-            
-            
         }
         CyDelay(100); // rest
     }
