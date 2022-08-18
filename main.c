@@ -40,11 +40,15 @@ bool stop(uint8_t M);
 /*** Private Variables ***/
 
 // PID
-struct pid_controller ctrldata;
-pids_t pid;
-float input = 0, output = 0;
-float setpoint = 30000.0;
-float kp = 0.01, ki =  0.0, kd =  0.0005;
+struct pid_controller ctrldata[MOTOR_NUM];
+pids_t pid[MOTOR_NUM];
+float input[MOTOR_NUM] = {0.0};
+float output[MOTOR_NUM] = {0.0};
+float setpoint[MOTOR_NUM] = {10000.0, 20000.0, 30000.0, 40000.0, 50000.0, 60000.0};
+
+float kp[MOTOR_NUM] = {0.01, 0.01, 0.01, 0.01, 0.01, 0.01};
+float ki[MOTOR_NUM] =  {0.0};
+float kd[MOTOR_NUM] = {0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005};
 
 // For Keyboard Lock
 bool manual = false;
@@ -197,11 +201,15 @@ int main(void)
     /**
      * Initialise PID
      */
-    pid = pid_create(&ctrldata, &input, &output, &setpoint, kp, ki, kd);
-	// Set controler output limits from 0 to 200
-	pid_limits(pid, -MIN_SPEED, MIN_SPEED);
-	// Allow PID to compute and change output
-	pid_auto(pid);
+    for (uint8_t i = 0; i<MOTOR_NUM; i++)
+    {
+        pid[i] = pid_create(&ctrldata[i], &input[i], &output[i], &setpoint[i], kp[i], ki[i], kd[i]);
+        // Set controler output limits from 0 to 200
+    	pid_limits(pid[i], -MIN_SPEED, MIN_SPEED);
+    	// Allow PID to compute and change output
+    	pid_auto(pid[i]);
+    }
+
     
     /**
      * Loop
@@ -221,35 +229,39 @@ int main(void)
         
         if (!manual) {
             printf("Auto mode output...\r\n");
-            AMux_Select(1);
-            CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
-            uint32_t M1_ADC = ADC_DelSig_1_GetResult32();
-            //printf("M1 ADC %d \r\n", M1_ADC);
-            
+
             // Check if need to compute PID
-    		if (pid_need_compute(pid)) {
-                // Read ADC
-    			input = M1_ADC;
-    			// Compute new PID output value
-    			pid_compute(pid);
-    		} else {
-                printf("Sampling Too Fast!! Change PID setting.\r\n");  
-            }
-            
-            if (button) {
-                uint8_t new_speed = 255 - abs((int)output);
-                
-                if (((int)output + TOLERANCE) > 0)
-                {
-                    extend(1);
-                } else if (((int)output - TOLERANCE) < 0) {
-                    retract(1);
-                } else {
-                    stop(1);
-                    new_speed = MIN_SPEED;
+            for (uint8_t i = 0; i < MOTOR_NUM; i++)
+            {
+                AMux_Select(i);
+                CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
+                uint32_t temp_adc = ADC_DelSig_1_GetResult32();
+                if (pid_need_compute(pid[i])) {
+                    // Read ADC
+        			input[i] = temp_adc;
+        			// Compute new PID output value
+        			pid_compute(pid[i]);
+        		} else {
+                    printf("Sampling Too Fast!! Change PID setting.\r\n");  
+                }  
+                if (button) {
+                    uint8_t new_speed = 255 - abs((int)output[i]);
+                    
+                    if (((int)output[i] + TOLERANCE) > 0)
+                    {
+                        extend(i);
+                    } else if (((int)output[i] - TOLERANCE) < 0) {
+                        retract(i);
+                    } else {
+                        stop(i);
+                        new_speed = MIN_SPEED;
+                    }
+                    set_speed(i, new_speed);
                 }
-                set_speed(1, new_speed);
             }
+    		
+            
+            
         }
         CyDelay(100); // rest
     }
