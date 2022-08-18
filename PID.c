@@ -19,6 +19,7 @@
  */
 #include "PID.h"
 
+#define DEBUG_MODE 0U
 pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float ki, float kd)
 {
 	pid->input = in;
@@ -26,7 +27,7 @@ pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float
 	pid->setpoint = set;
 	pid->automode = false;
 
-	pid_limits(pid, 0, 255);
+	pid_limits(pid, 0.0, 255.0);
 
 	// Set default sample time to 100 ms
 	pid->sampletime = 100 * (TICK_SECOND / 1000);
@@ -63,6 +64,7 @@ void pid_compute(pids_t pid)
 		pid->iterm = pid->omin;
 	// Compute differential on input
 	float dinput = in - pid->lastin;
+    //float dinput = error - pid->lasterror;
 	// Compute PID output
 	float out = pid->Kp * error + pid->iterm - pid->Kd * dinput;
 	// Apply limit to output value
@@ -74,7 +76,17 @@ void pid_compute(pids_t pid)
 	(*pid->output) = out;
 	// Keep track of some variables for next execution
 	pid->lastin = in;
-	pid->lasttime = tick_get();;
+	pid->lasttime = tick_get();
+    if (DEBUG_MODE)
+    {
+        printf("Input %i \r\n", (int)in);
+        printf("Error %i \r\n", (int)error);
+        printf("Iterm %i \r\n", (int)pid->iterm);
+        printf("Dinput %i \r\n", (int)dinput);
+        printf("Out %i \r\n", (int)out);
+        printf("Lastin %d \r\n", (int)pid->lastin);
+        printf("Lasttime %d \r\n", pid->lasttime);
+    }
 }
 
 void pid_tune(pids_t pid, float kp, float ki, float kd)
