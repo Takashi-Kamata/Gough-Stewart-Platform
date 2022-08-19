@@ -182,6 +182,13 @@ extern "C" {
 	 * @param direction The new direction of the PID controller
 	 */
 	void pid_direction(pids_t pid, enum pid_control_directions dir);
+    
+    /**
+	 * @brief Reset PID params
+	 *
+	 * @param pid The PID controller instance to modify
+	 */
+	void pid_reset(pids_t pid);
 
 #ifdef	__cplusplus
 }

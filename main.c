@@ -29,6 +29,7 @@ asm(".global _printf_float");
 #define MIN_SPEED 255
 #define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
 #define TOLERANCE 10 // ADC Tolerance
+#define POINTS 5 // Number of Points
 
 /*** Private Prototypes ***/
 
@@ -36,6 +37,7 @@ bool set_speed(uint8_t M, uint8_t speed);
 bool extend(uint8_t M);
 bool retract(uint8_t M);
 bool stop(uint8_t M);
+void make_1d_points(float* points, float setpoint, uint32_t adc);
 
 /*** Private Variables ***/
 
@@ -45,13 +47,17 @@ pids_t pid[MOTOR_NUM];
 float input[MOTOR_NUM] = {0.0};
 float output[MOTOR_NUM] = {0.0};
 float setpoint[MOTOR_NUM] = {10000.0, 20000.0, 30000.0, 40000.0, 50000.0, 60000.0};
+float points[MOTOR_NUM][POINTS] = {{0.00}};
 
 float kp[MOTOR_NUM] = {0.01, 0.01, 0.01, 0.01, 0.01, 0.01};
-float ki[MOTOR_NUM] = {0.0};
+float ki[MOTOR_NUM] = {0.01, 0.01, 0.001, 0.01, 0.01, 0.01};
 float kd[MOTOR_NUM] = {0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005};
 
 // For Keyboard Lock
 bool manual = false;
+bool all;
+uint8_t counter = 1;
+uint8_t at_point[MOTOR_NUM] = {0};
 
 /**
  * UART ISR
@@ -101,6 +107,14 @@ CY_ISR(RxIsr)
                 } else if (rxData == 68) {// LEFT
                 } else if (rxData == 13) {// ENTER
                     manual = false;   
+                    counter = 0;
+                    for (uint8_t i = 0; i<MOTOR_NUM; i++)
+                    {
+                        setpoint[i] = points[i][counter]; 
+                        pid_reset(pid[i]);
+                        at_point[i] = 0;
+                    }
+                    counter++;
                 }
             }
         }
@@ -118,14 +132,11 @@ CY_ISR(SWPin_Control)
         if (button)
         {
             LED_Write(1);
-            retract(1);
         }
         else
         { // Initial Run.... when button = false;
             LED_Write(0);
-            extend(1);
         }
-        set_speed(1, 0);
         button = !button;
     }
 
@@ -211,11 +222,31 @@ int main(void)
     }
     
     /**
+     * Initialise Points
+     */
+    all = false;
+    counter = 1;
+    for (uint8_t i = 0; i<MOTOR_NUM; i++)
+    {
+        at_point[i] = 0;
+    }
+    
+    for (uint8_t i = 0; i<MOTOR_NUM; i++)
+    {
+        AMux_Select(i);
+        CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
+        uint32_t temp = ADC_DelSig_1_GetResult32();
+        (void)make_1d_points(points[i], setpoint[i], temp);  
+        setpoint[i] = points[i][0];// first point
+    }
+    
+    /**
      * Loop
      */
     for (;;)
     {
         uint32_t sec = tick_get() / 1000;
+        
         printf("%s", CLEAR_STRING);
         printf("%s", MOVE_CURSOR);
         printf("Run Time (s) : %d\r\n", sec);
@@ -227,13 +258,13 @@ int main(void)
         printf("\r\n");
         
         if (!manual) {
-            printf("Auto mode output...\r\n");
-
+            //printf("Auto mode output...\r\n");
+            
             // Check if need to compute PID
             for (uint8_t i = 0; i < MOTOR_NUM; i++)
             {
                 AMux_Select(i);
-                CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
+                CyDelay(2); // ~1 ms is the min time required for amux to switch, using 2 ms for safety
                 uint32_t temp_adc = ADC_DelSig_1_GetResult32();
                 if (pid_need_compute(pid[i])) {
                     // Read ADC
@@ -245,19 +276,40 @@ int main(void)
                 }  
                 if (button) {
                     uint8_t new_speed = 255 - abs((int)output[i]);
-                    
-                    if (((int)output[i] + TOLERANCE) > 0)
+                    //printf("Output %d\r\n", (int)output[i]);
+                    if ((int)output[i] > TOLERANCE)
                     {
                         extend(i);
-                    } else if (((int)output[i] - TOLERANCE) < 0) {
+                        set_speed(i, new_speed);
+                    } else if ((int)output[i] < -TOLERANCE) {
                         retract(i);
-                    } else {
+                        set_speed(i, new_speed);
+                    } else {  
                         stop(i);
                         new_speed = MIN_SPEED;
+                        at_point[i] = 1;
                     }
-                    set_speed(i, new_speed);
                 }
                // printf("OUTPUT %d %d \r\n", i, (int)output[i]);
+            }
+            
+            all = true;
+                
+            for (uint8_t q = 0; q<MOTOR_NUM; q++)
+            {
+                if (at_point[q] == 0) {all = false;}
+            }
+            
+            if (all && (counter < POINTS - 1))
+            {
+                for (uint8_t w = 0; w<MOTOR_NUM; w++)
+                {
+                    setpoint[w] = points[w][counter]; 
+                    pid_reset(pid[w]);
+                    at_point[w] = 0;
+                }
+                
+                counter++;
             }
         }
         CyDelay(100); // rest
@@ -429,4 +481,18 @@ bool stop(uint8_t M)
     return true;
 }
 
+/**
+ * @brief Divide setpoints by number of points from current position
+ *
+ * @param float* pointer to an array
+ * @param float target point
+ * @param uint16_t current position
+ *
+ * @return bool True if successful
+ */
+void make_1d_points(float* points, float setpoint, uint32_t adc) {
+    for (uint16_t i = 0; i < POINTS; i++) {
+        points[i] = (float)adc + (float)((setpoint - (float)adc) / POINTS * (i+1));
+    }
+}
 /* [] END OF FILE */

@@ -19,7 +19,7 @@
  */
 #include "PID.h"
 
-#define DEBUG_MODE 0U
+#define DEBUG_MODE 1U
 pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float ki, float kd)
 {
 	pid->input = in;
@@ -165,4 +165,12 @@ void pid_direction(pids_t pid, enum pid_control_directions dir)
 		pid->Kd = (0 - pid->Kd);
 	}
 	pid->direction = dir;
+}
+
+void pid_reset(pids_t pid)
+{
+    *pid->input = 0.0;
+	*pid->output = 0.0;
+    pid->lasttime = tick_get() - pid->sampletime;
+    pid->iterm = 0.0;
 }
