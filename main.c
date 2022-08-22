@@ -22,9 +22,12 @@ asm(".global _printf_float");
 #define CLEAR_STRING "\033[2J"
 #define MOVE_CURSOR "\033[0;0H"
 #define SAMPLE_NUM 10000
-void extend();
-void retract();
-void stop();
+#define TARGET 5U
+
+bool set_speed(uint8_t M, uint8_t speed);
+bool extend(uint8_t M);
+bool retract(uint8_t M);
+bool stop(uint8_t M);
 
 uint8 errorStatus = 0u;
 CY_ISR(RxIsr)
@@ -67,10 +70,10 @@ CY_ISR(SWPin_Control)
     {
         if (button) {
             LED_Write(1);   
-            extend();               
+            extend(TARGET);               
         } else {
             LED_Write(0);   
-            retract();
+            retract(TARGET);
         }
         
         button = !button;
@@ -90,10 +93,13 @@ int main(void)
     isr_rx_StartEx(RxIsr);
     InputInterrupt_StartEx(SWPin_Control);
     
+    PWM1_Start();
+    PWM2_Start();
     PWM3_Start();
 
-    PWM3_WriteCompare1(127);// M5
-    AMux_Select(4);
+    set_speed(TARGET, 51);
+
+    AMux_Select(TARGET);// Select motor
     
     ADC_DelSig_1_StartConvert();
     
@@ -102,16 +108,17 @@ int main(void)
     uint32_t counter = 0;
     bool measured = false;
     
-    retract();
-    
+    retract(TARGET);
+    while(button);
     printf("%s", CLEAR_STRING);
     printf("%s", MOVE_CURSOR);
-    printf("Wee \r\n");
+    printf("Start... \r\n");
     
     for(;;)
     {
 
         output = ADC_DelSig_1_GetResult16();
+        
         if (output >= 29491 && output <= 36045 && counter<SAMPLE_NUM)// from ~2.25 to ~2.75
         {
             // measure into buffer
@@ -123,9 +130,16 @@ int main(void)
         {
             measured = true;
             printf("Stopped measuring at %d, counter : %d \r\n", output, counter);
+            measured = true;
+            for (int i=0; i<SAMPLE_NUM; i++)
+            {
+                printf("%d, %d\r\n", i, buffer[i]);
+            }
+            printf("Finished measuring at %d, counter : %d \r\n", output, counter);
+
         }
         
-        if (output >= 57630 && measured == false)
+        if (output >= 40030 && measured == false)
         {
             measured = true;
             for (int i=0; i<SAMPLE_NUM; i++)
@@ -133,25 +147,175 @@ int main(void)
                 printf("%d, %d\r\n", i, buffer[i]);
             }
             printf("Finished measuring at %d, counter : %d \r\n", output, counter);
+            
         }
         
         CyDelayUs(100);
     }
 }
 
-void extend() {
-    M5_IN1_Write(1U);
-    M5_IN2_Write(0U);
+/**
+ * @brief Set motor speed by changing PWM value
+ *
+ * @param uint8_t Motor number 0-5
+ * @param uint8_t Speed between MAX_SPEED & MIN_SPEED
+ *
+ * @return bool True if successful
+ */
+bool set_speed(uint8_t M, uint8_t speed)
+{
+    switch (M)
+    {
+    case 0:
+        PWM1_WriteCompare1(speed);
+        break;
+    case 1:
+        PWM1_WriteCompare2(speed);
+        break;
+    case 2:
+        PWM2_WriteCompare1(speed);
+        break;
+    case 3:
+        PWM2_WriteCompare2(speed);
+        break;
+    case 4:
+        PWM3_WriteCompare1(speed);
+        break;
+    case 5:
+        PWM3_WriteCompare2(speed);
+        break;
+    default:
+        return false;
+        break;
+    }
+    return true;
 }
 
-void retract() {
-    M5_IN1_Write(0U);
-    M5_IN2_Write(1U);
+/**
+ * @brief Extend actuator by configuring direction pins
+ *
+ * @param uint8_t Motor number 0-5
+ *
+ * @return bool True if successful
+ */
+bool extend(uint8_t M)
+{
+    switch (M)
+    {
+    case 0:
+        M1_IN1_Write(1U);
+        M1_IN2_Write(0U);
+        break;
+    case 1:
+        M2_IN1_Write(1U);
+        M2_IN2_Write(0U);
+        break;
+    case 2:
+        M3_IN1_Write(1U);
+        M3_IN2_Write(0U);
+        break;
+    case 3:
+        M4_IN1_Write(1U);
+        M4_IN2_Write(0U);
+        break;
+    case 4:
+        M5_IN1_Write(1U);
+        M5_IN2_Write(0U);
+        break;
+    case 5:
+        M6_IN1_Write(1U);
+        M6_IN2_Write(0U);
+        break;
+    default:
+        return false;
+        break;
+    }
+    return true;
 }
 
-void stop() {
-    M5_IN1_Write(0U);
-    M5_IN2_Write(0U);
+/**
+ * @brief Retract actuator by configuring direction pins
+ *
+ * @param uint8_t Motor number 0-5
+ *
+ * @return bool True if successful
+ */
+bool retract(uint8_t M)
+{
+    switch (M)
+    {
+    case 0:
+        M1_IN1_Write(0U);
+        M1_IN2_Write(1U);
+        break;
+    case 1:
+        M2_IN1_Write(0U);
+        M2_IN2_Write(1U);
+        break;
+    case 2:
+        M3_IN1_Write(0U);
+        M3_IN2_Write(1U);
+        break;
+    case 3:
+        M4_IN1_Write(0U);
+        M4_IN2_Write(1U);
+        break;
+    case 4:
+        M5_IN1_Write(0U);
+        M5_IN2_Write(1U);
+        break;
+    case 5:
+        M6_IN1_Write(0U);
+        M6_IN2_Write(1U);
+        break;
+    default:
+        return false;
+        break;
+    }
+    return true;
 }
+
+/**
+ * @brief Stop actuator by configuring direction pins
+ *
+ * @param uint8_t Motor number 0-5
+ *
+ * @return bool True if successful
+ */
+bool stop(uint8_t M)
+{
+    switch (M)
+    {
+    case 0:
+        M1_IN1_Write(0U);
+        M1_IN2_Write(0U);
+        break;
+    case 1:
+        M2_IN1_Write(0U);
+        M2_IN2_Write(0U);
+        break;
+    case 2:
+        M3_IN1_Write(0U);
+        M3_IN2_Write(0U);
+        break;
+    case 3:
+        M4_IN1_Write(0U);
+        M4_IN2_Write(0U);
+        break;
+    case 4:
+        M5_IN1_Write(0U);
+        M5_IN2_Write(0U);
+        break;
+    case 5:
+        M6_IN1_Write(0U);
+        M6_IN2_Write(0U);
+        break;
+    default:
+        return false;
+        break;
+    }
+    return true;
+}
+
 
 /* [] END OF FILE */

@@ -1,0 +1,733 @@
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Tick.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.tick_init,"ax",%progbits
+  20              		.align	2
+  21              		.global	tick_init
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	tick_init, %function
+  25              	tick_init:
+  26              	.LFB1:
+  27              		.file 1 "Tick.c"
+   1:Tick.c        **** /* ========================================
+   2:Tick.c        ****  *
+   3:Tick.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:Tick.c        ****  * All Rights Reserved
+   5:Tick.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:Tick.c        ****  *
+   7:Tick.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:Tick.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:Tick.c        ****  *
+  10:Tick.c        ****  * ========================================
+  11:Tick.c        **** */
+  12:Tick.c        **** #include "PID.h"
+  13:Tick.c        **** 
+  14:Tick.c        **** /*** Private Prototypes ***/
+  15:Tick.c        **** static bool mInit = false;
+  16:Tick.c        **** static uint32_t mTick;
+  17:Tick.c        **** 
+  18:Tick.c        **** void tick_init() {
+  28              		.loc 1 18 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  19:Tick.c        ****     if (!mInit) {
+  33              		.loc 1 19 0
+  34 0000 044B     		ldr	r3, .L3
+  35 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  36 0004 23B9     		cbnz	r3, .L1
+  20:Tick.c        ****         mInit = true;
+  37              		.loc 1 20 0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 2
+
+
+  38 0006 034B     		ldr	r3, .L3
+  39 0008 0122     		movs	r2, #1
+  40 000a 1A70     		strb	r2, [r3]
+  21:Tick.c        ****         mTick = 0;
+  41              		.loc 1 21 0
+  42 000c 0022     		movs	r2, #0
+  43 000e 5A60     		str	r2, [r3, #4]
+  44              	.L1:
+  45 0010 7047     		bx	lr
+  46              	.L4:
+  47 0012 00BF     		.align	2
+  48              	.L3:
+  49 0014 00000000 		.word	.LANCHOR0
+  50              		.cfi_endproc
+  51              	.LFE1:
+  52              		.size	tick_init, .-tick_init
+  53              		.section	.text.tick_inc,"ax",%progbits
+  54              		.align	2
+  55              		.global	tick_inc
+  56              		.thumb
+  57              		.thumb_func
+  58              		.type	tick_inc, %function
+  59              	tick_inc:
+  60              	.LFB2:
+  22:Tick.c        ****     }
+  23:Tick.c        **** }
+  24:Tick.c        **** 
+  25:Tick.c        **** bool tick_inc() {
+  61              		.loc 1 25 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  26:Tick.c        ****     if (!mInit) {
+  66              		.loc 1 26 0
+  67 0000 034B     		ldr	r3, .L7
+  68 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+  69 0004 18B1     		cbz	r0, .L6
+  27:Tick.c        ****         return false;   
+  28:Tick.c        ****     }
+  29:Tick.c        ****     mTick++;
+  70              		.loc 1 29 0
+  71 0006 1A46     		mov	r2, r3
+  72 0008 5B68     		ldr	r3, [r3, #4]
+  73 000a 0133     		adds	r3, r3, #1
+  74 000c 5360     		str	r3, [r2, #4]
+  75              	.L6:
+  30:Tick.c        ****     return true;
+  31:Tick.c        **** }
+  76              		.loc 1 31 0
+  77 000e 7047     		bx	lr
+  78              	.L8:
+  79              		.align	2
+  80              	.L7:
+  81 0010 00000000 		.word	.LANCHOR0
+  82              		.cfi_endproc
+  83              	.LFE2:
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 3
+
+
+  84              		.size	tick_inc, .-tick_inc
+  85              		.section	.text.tick_set,"ax",%progbits
+  86              		.align	2
+  87              		.global	tick_set
+  88              		.thumb
+  89              		.thumb_func
+  90              		.type	tick_set, %function
+  91              	tick_set:
+  92              	.LFB3:
+  32:Tick.c        **** 
+  33:Tick.c        **** bool tick_set(uint32_t tick) {
+  93              		.loc 1 33 0
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97              		@ link register save eliminated.
+  98              	.LVL0:
+  34:Tick.c        ****     if (!mInit) {
+  99              		.loc 1 34 0
+ 100 0000 034B     		ldr	r3, .L11
+ 101 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 102 0004 0BB1     		cbz	r3, .L10
+  35:Tick.c        ****         return false;   
+  36:Tick.c        ****     }
+  37:Tick.c        ****     mTick = tick;
+ 103              		.loc 1 37 0
+ 104 0006 024A     		ldr	r2, .L11
+ 105 0008 5060     		str	r0, [r2, #4]
+ 106              	.L10:
+  38:Tick.c        ****     return true;
+  39:Tick.c        **** }
+ 107              		.loc 1 39 0
+ 108 000a 1846     		mov	r0, r3
+ 109              	.LVL1:
+ 110 000c 7047     		bx	lr
+ 111              	.L12:
+ 112 000e 00BF     		.align	2
+ 113              	.L11:
+ 114 0010 00000000 		.word	.LANCHOR0
+ 115              		.cfi_endproc
+ 116              	.LFE3:
+ 117              		.size	tick_set, .-tick_set
+ 118              		.section	.text.tick_get,"ax",%progbits
+ 119              		.align	2
+ 120              		.global	tick_get
+ 121              		.thumb
+ 122              		.thumb_func
+ 123              		.type	tick_get, %function
+ 124              	tick_get:
+ 125              	.LFB4:
+  40:Tick.c        **** 
+  41:Tick.c        **** uint32_t tick_get() {
+ 126              		.loc 1 41 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130              		@ link register save eliminated.
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 4
+
+
+  42:Tick.c        ****     if (!mInit) {
+ 131              		.loc 1 42 0
+ 132 0000 034B     		ldr	r3, .L16
+ 133 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 134 0004 13B1     		cbz	r3, .L15
+  43:Tick.c        ****         return false;   
+  44:Tick.c        ****     }
+  45:Tick.c        ****     return mTick;
+ 135              		.loc 1 45 0
+ 136 0006 024B     		ldr	r3, .L16
+ 137 0008 5868     		ldr	r0, [r3, #4]
+ 138 000a 7047     		bx	lr
+ 139              	.L15:
+  43:Tick.c        ****         return false;   
+ 140              		.loc 1 43 0
+ 141 000c 0020     		movs	r0, #0
+  46:Tick.c        **** }
+ 142              		.loc 1 46 0
+ 143 000e 7047     		bx	lr
+ 144              	.L17:
+ 145              		.align	2
+ 146              	.L16:
+ 147 0010 00000000 		.word	.LANCHOR0
+ 148              		.cfi_endproc
+ 149              	.LFE4:
+ 150              		.size	tick_get, .-tick_get
+ 151              		.bss
+ 152              		.align	2
+ 153              		.set	.LANCHOR0,. + 0
+ 154              		.type	mInit, %object
+ 155              		.size	mInit, 1
+ 156              	mInit:
+ 157 0000 00       		.space	1
+ 158 0001 000000   		.space	3
+ 159              		.type	mTick, %object
+ 160              		.size	mTick, 4
+ 161              	mTick:
+ 162 0004 00000000 		.space	4
+ 163              		.text
+ 164              	.Letext0:
+ 165              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 166              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 167              		.section	.debug_info,"",%progbits
+ 168              	.Ldebug_info0:
+ 169 0000 27010000 		.4byte	0x127
+ 170 0004 0400     		.2byte	0x4
+ 171 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 172 000a 04       		.byte	0x4
+ 173 000b 01       		.uleb128 0x1
+ 174 000c 2C000000 		.4byte	.LASF20
+ 175 0010 0C       		.byte	0xc
+ 176 0011 7D010000 		.4byte	.LASF21
+ 177 0015 1D010000 		.4byte	.LASF22
+ 178 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 179 001d 00000000 		.4byte	0
+ 180 0021 00000000 		.4byte	.Ldebug_line0
+ 181 0025 02       		.uleb128 0x2
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 5
+
+
+ 182 0026 01       		.byte	0x1
+ 183 0027 06       		.byte	0x6
+ 184 0028 97010000 		.4byte	.LASF0
+ 185 002c 02       		.uleb128 0x2
+ 186 002d 01       		.byte	0x1
+ 187 002e 08       		.byte	0x8
+ 188 002f F8000000 		.4byte	.LASF1
+ 189 0033 02       		.uleb128 0x2
+ 190 0034 02       		.byte	0x2
+ 191 0035 05       		.byte	0x5
+ 192 0036 BE010000 		.4byte	.LASF2
+ 193 003a 02       		.uleb128 0x2
+ 194 003b 02       		.byte	0x2
+ 195 003c 07       		.byte	0x7
+ 196 003d 84010000 		.4byte	.LASF3
+ 197 0041 02       		.uleb128 0x2
+ 198 0042 04       		.byte	0x4
+ 199 0043 05       		.byte	0x5
+ 200 0044 14010000 		.4byte	.LASF4
+ 201 0048 03       		.uleb128 0x3
+ 202 0049 21000000 		.4byte	.LASF9
+ 203 004d 02       		.byte	0x2
+ 204 004e 41       		.byte	0x41
+ 205 004f 53000000 		.4byte	0x53
+ 206 0053 02       		.uleb128 0x2
+ 207 0054 04       		.byte	0x4
+ 208 0055 07       		.byte	0x7
+ 209 0056 BA000000 		.4byte	.LASF5
+ 210 005a 02       		.uleb128 0x2
+ 211 005b 08       		.byte	0x8
+ 212 005c 05       		.byte	0x5
+ 213 005d 00000000 		.4byte	.LASF6
+ 214 0061 02       		.uleb128 0x2
+ 215 0062 08       		.byte	0x8
+ 216 0063 07       		.byte	0x7
+ 217 0064 CC000000 		.4byte	.LASF7
+ 218 0068 04       		.uleb128 0x4
+ 219 0069 04       		.byte	0x4
+ 220 006a 05       		.byte	0x5
+ 221 006b 696E7400 		.ascii	"int\000"
+ 222 006f 02       		.uleb128 0x2
+ 223 0070 04       		.byte	0x4
+ 224 0071 07       		.byte	0x7
+ 225 0072 0E000000 		.4byte	.LASF8
+ 226 0076 03       		.uleb128 0x3
+ 227 0077 0B010000 		.4byte	.LASF10
+ 228 007b 03       		.byte	0x3
+ 229 007c 30       		.byte	0x30
+ 230 007d 48000000 		.4byte	0x48
+ 231 0081 02       		.uleb128 0x2
+ 232 0082 08       		.byte	0x8
+ 233 0083 04       		.byte	0x4
+ 234 0084 A9010000 		.4byte	.LASF11
+ 235 0088 02       		.uleb128 0x2
+ 236 0089 04       		.byte	0x4
+ 237 008a 07       		.byte	0x7
+ 238 008b D1010000 		.4byte	.LASF12
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 6
+
+
+ 239 008f 02       		.uleb128 0x2
+ 240 0090 01       		.byte	0x1
+ 241 0091 08       		.byte	0x8
+ 242 0092 06010000 		.4byte	.LASF13
+ 243 0096 02       		.uleb128 0x2
+ 244 0097 04       		.byte	0x4
+ 245 0098 04       		.byte	0x4
+ 246 0099 E3000000 		.4byte	.LASF14
+ 247 009d 05       		.uleb128 0x5
+ 248 009e E9000000 		.4byte	.LASF23
+ 249 00a2 01       		.byte	0x1
+ 250 00a3 12       		.byte	0x12
+ 251 00a4 00000000 		.4byte	.LFB1
+ 252 00a8 18000000 		.4byte	.LFE1-.LFB1
+ 253 00ac 01       		.uleb128 0x1
+ 254 00ad 9C       		.byte	0x9c
+ 255 00ae 06       		.uleb128 0x6
+ 256 00af 74010000 		.4byte	.LASF16
+ 257 00b3 01       		.byte	0x1
+ 258 00b4 19       		.byte	0x19
+ 259 00b5 C3000000 		.4byte	0xc3
+ 260 00b9 00000000 		.4byte	.LFB2
+ 261 00bd 14000000 		.4byte	.LFE2-.LFB2
+ 262 00c1 01       		.uleb128 0x1
+ 263 00c2 9C       		.byte	0x9c
+ 264 00c3 02       		.uleb128 0x2
+ 265 00c4 01       		.byte	0x1
+ 266 00c5 02       		.byte	0x2
+ 267 00c6 6E010000 		.4byte	.LASF15
+ 268 00ca 07       		.uleb128 0x7
+ 269 00cb C8010000 		.4byte	.LASF24
+ 270 00cf 01       		.byte	0x1
+ 271 00d0 21       		.byte	0x21
+ 272 00d1 C3000000 		.4byte	0xc3
+ 273 00d5 00000000 		.4byte	.LFB3
+ 274 00d9 14000000 		.4byte	.LFE3-.LFB3
+ 275 00dd 01       		.uleb128 0x1
+ 276 00de 9C       		.byte	0x9c
+ 277 00df F3000000 		.4byte	0xf3
+ 278 00e3 08       		.uleb128 0x8
+ 279 00e4 F3000000 		.4byte	.LASF25
+ 280 00e8 01       		.byte	0x1
+ 281 00e9 21       		.byte	0x21
+ 282 00ea 76000000 		.4byte	0x76
+ 283 00ee 00000000 		.4byte	.LLST0
+ 284 00f2 00       		.byte	0
+ 285 00f3 06       		.uleb128 0x6
+ 286 00f4 B5010000 		.4byte	.LASF17
+ 287 00f8 01       		.byte	0x1
+ 288 00f9 29       		.byte	0x29
+ 289 00fa 76000000 		.4byte	0x76
+ 290 00fe 00000000 		.4byte	.LFB4
+ 291 0102 14000000 		.4byte	.LFE4-.LFB4
+ 292 0106 01       		.uleb128 0x1
+ 293 0107 9C       		.byte	0x9c
+ 294 0108 09       		.uleb128 0x9
+ 295 0109 A3010000 		.4byte	.LASF18
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 7
+
+
+ 296 010d 01       		.byte	0x1
+ 297 010e 0F       		.byte	0xf
+ 298 010f C3000000 		.4byte	0xc3
+ 299 0113 05       		.uleb128 0x5
+ 300 0114 03       		.byte	0x3
+ 301 0115 00000000 		.4byte	mInit
+ 302 0119 09       		.uleb128 0x9
+ 303 011a 1B000000 		.4byte	.LASF19
+ 304 011e 01       		.byte	0x1
+ 305 011f 10       		.byte	0x10
+ 306 0120 76000000 		.4byte	0x76
+ 307 0124 05       		.uleb128 0x5
+ 308 0125 03       		.byte	0x3
+ 309 0126 04000000 		.4byte	mTick
+ 310 012a 00       		.byte	0
+ 311              		.section	.debug_abbrev,"",%progbits
+ 312              	.Ldebug_abbrev0:
+ 313 0000 01       		.uleb128 0x1
+ 314 0001 11       		.uleb128 0x11
+ 315 0002 01       		.byte	0x1
+ 316 0003 25       		.uleb128 0x25
+ 317 0004 0E       		.uleb128 0xe
+ 318 0005 13       		.uleb128 0x13
+ 319 0006 0B       		.uleb128 0xb
+ 320 0007 03       		.uleb128 0x3
+ 321 0008 0E       		.uleb128 0xe
+ 322 0009 1B       		.uleb128 0x1b
+ 323 000a 0E       		.uleb128 0xe
+ 324 000b 55       		.uleb128 0x55
+ 325 000c 17       		.uleb128 0x17
+ 326 000d 11       		.uleb128 0x11
+ 327 000e 01       		.uleb128 0x1
+ 328 000f 10       		.uleb128 0x10
+ 329 0010 17       		.uleb128 0x17
+ 330 0011 00       		.byte	0
+ 331 0012 00       		.byte	0
+ 332 0013 02       		.uleb128 0x2
+ 333 0014 24       		.uleb128 0x24
+ 334 0015 00       		.byte	0
+ 335 0016 0B       		.uleb128 0xb
+ 336 0017 0B       		.uleb128 0xb
+ 337 0018 3E       		.uleb128 0x3e
+ 338 0019 0B       		.uleb128 0xb
+ 339 001a 03       		.uleb128 0x3
+ 340 001b 0E       		.uleb128 0xe
+ 341 001c 00       		.byte	0
+ 342 001d 00       		.byte	0
+ 343 001e 03       		.uleb128 0x3
+ 344 001f 16       		.uleb128 0x16
+ 345 0020 00       		.byte	0
+ 346 0021 03       		.uleb128 0x3
+ 347 0022 0E       		.uleb128 0xe
+ 348 0023 3A       		.uleb128 0x3a
+ 349 0024 0B       		.uleb128 0xb
+ 350 0025 3B       		.uleb128 0x3b
+ 351 0026 0B       		.uleb128 0xb
+ 352 0027 49       		.uleb128 0x49
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 8
+
+
+ 353 0028 13       		.uleb128 0x13
+ 354 0029 00       		.byte	0
+ 355 002a 00       		.byte	0
+ 356 002b 04       		.uleb128 0x4
+ 357 002c 24       		.uleb128 0x24
+ 358 002d 00       		.byte	0
+ 359 002e 0B       		.uleb128 0xb
+ 360 002f 0B       		.uleb128 0xb
+ 361 0030 3E       		.uleb128 0x3e
+ 362 0031 0B       		.uleb128 0xb
+ 363 0032 03       		.uleb128 0x3
+ 364 0033 08       		.uleb128 0x8
+ 365 0034 00       		.byte	0
+ 366 0035 00       		.byte	0
+ 367 0036 05       		.uleb128 0x5
+ 368 0037 2E       		.uleb128 0x2e
+ 369 0038 00       		.byte	0
+ 370 0039 3F       		.uleb128 0x3f
+ 371 003a 19       		.uleb128 0x19
+ 372 003b 03       		.uleb128 0x3
+ 373 003c 0E       		.uleb128 0xe
+ 374 003d 3A       		.uleb128 0x3a
+ 375 003e 0B       		.uleb128 0xb
+ 376 003f 3B       		.uleb128 0x3b
+ 377 0040 0B       		.uleb128 0xb
+ 378 0041 11       		.uleb128 0x11
+ 379 0042 01       		.uleb128 0x1
+ 380 0043 12       		.uleb128 0x12
+ 381 0044 06       		.uleb128 0x6
+ 382 0045 40       		.uleb128 0x40
+ 383 0046 18       		.uleb128 0x18
+ 384 0047 9742     		.uleb128 0x2117
+ 385 0049 19       		.uleb128 0x19
+ 386 004a 00       		.byte	0
+ 387 004b 00       		.byte	0
+ 388 004c 06       		.uleb128 0x6
+ 389 004d 2E       		.uleb128 0x2e
+ 390 004e 00       		.byte	0
+ 391 004f 3F       		.uleb128 0x3f
+ 392 0050 19       		.uleb128 0x19
+ 393 0051 03       		.uleb128 0x3
+ 394 0052 0E       		.uleb128 0xe
+ 395 0053 3A       		.uleb128 0x3a
+ 396 0054 0B       		.uleb128 0xb
+ 397 0055 3B       		.uleb128 0x3b
+ 398 0056 0B       		.uleb128 0xb
+ 399 0057 49       		.uleb128 0x49
+ 400 0058 13       		.uleb128 0x13
+ 401 0059 11       		.uleb128 0x11
+ 402 005a 01       		.uleb128 0x1
+ 403 005b 12       		.uleb128 0x12
+ 404 005c 06       		.uleb128 0x6
+ 405 005d 40       		.uleb128 0x40
+ 406 005e 18       		.uleb128 0x18
+ 407 005f 9742     		.uleb128 0x2117
+ 408 0061 19       		.uleb128 0x19
+ 409 0062 00       		.byte	0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 9
+
+
+ 410 0063 00       		.byte	0
+ 411 0064 07       		.uleb128 0x7
+ 412 0065 2E       		.uleb128 0x2e
+ 413 0066 01       		.byte	0x1
+ 414 0067 3F       		.uleb128 0x3f
+ 415 0068 19       		.uleb128 0x19
+ 416 0069 03       		.uleb128 0x3
+ 417 006a 0E       		.uleb128 0xe
+ 418 006b 3A       		.uleb128 0x3a
+ 419 006c 0B       		.uleb128 0xb
+ 420 006d 3B       		.uleb128 0x3b
+ 421 006e 0B       		.uleb128 0xb
+ 422 006f 27       		.uleb128 0x27
+ 423 0070 19       		.uleb128 0x19
+ 424 0071 49       		.uleb128 0x49
+ 425 0072 13       		.uleb128 0x13
+ 426 0073 11       		.uleb128 0x11
+ 427 0074 01       		.uleb128 0x1
+ 428 0075 12       		.uleb128 0x12
+ 429 0076 06       		.uleb128 0x6
+ 430 0077 40       		.uleb128 0x40
+ 431 0078 18       		.uleb128 0x18
+ 432 0079 9742     		.uleb128 0x2117
+ 433 007b 19       		.uleb128 0x19
+ 434 007c 01       		.uleb128 0x1
+ 435 007d 13       		.uleb128 0x13
+ 436 007e 00       		.byte	0
+ 437 007f 00       		.byte	0
+ 438 0080 08       		.uleb128 0x8
+ 439 0081 05       		.uleb128 0x5
+ 440 0082 00       		.byte	0
+ 441 0083 03       		.uleb128 0x3
+ 442 0084 0E       		.uleb128 0xe
+ 443 0085 3A       		.uleb128 0x3a
+ 444 0086 0B       		.uleb128 0xb
+ 445 0087 3B       		.uleb128 0x3b
+ 446 0088 0B       		.uleb128 0xb
+ 447 0089 49       		.uleb128 0x49
+ 448 008a 13       		.uleb128 0x13
+ 449 008b 02       		.uleb128 0x2
+ 450 008c 17       		.uleb128 0x17
+ 451 008d 00       		.byte	0
+ 452 008e 00       		.byte	0
+ 453 008f 09       		.uleb128 0x9
+ 454 0090 34       		.uleb128 0x34
+ 455 0091 00       		.byte	0
+ 456 0092 03       		.uleb128 0x3
+ 457 0093 0E       		.uleb128 0xe
+ 458 0094 3A       		.uleb128 0x3a
+ 459 0095 0B       		.uleb128 0xb
+ 460 0096 3B       		.uleb128 0x3b
+ 461 0097 0B       		.uleb128 0xb
+ 462 0098 49       		.uleb128 0x49
+ 463 0099 13       		.uleb128 0x13
+ 464 009a 02       		.uleb128 0x2
+ 465 009b 18       		.uleb128 0x18
+ 466 009c 00       		.byte	0
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 10
+
+
+ 467 009d 00       		.byte	0
+ 468 009e 00       		.byte	0
+ 469              		.section	.debug_loc,"",%progbits
+ 470              	.Ldebug_loc0:
+ 471              	.LLST0:
+ 472 0000 00000000 		.4byte	.LVL0
+ 473 0004 0C000000 		.4byte	.LVL1
+ 474 0008 0100     		.2byte	0x1
+ 475 000a 50       		.byte	0x50
+ 476 000b 0C000000 		.4byte	.LVL1
+ 477 000f 14000000 		.4byte	.LFE3
+ 478 0013 0400     		.2byte	0x4
+ 479 0015 F3       		.byte	0xf3
+ 480 0016 01       		.uleb128 0x1
+ 481 0017 50       		.byte	0x50
+ 482 0018 9F       		.byte	0x9f
+ 483 0019 00000000 		.4byte	0
+ 484 001d 00000000 		.4byte	0
+ 485              		.section	.debug_aranges,"",%progbits
+ 486 0000 34000000 		.4byte	0x34
+ 487 0004 0200     		.2byte	0x2
+ 488 0006 00000000 		.4byte	.Ldebug_info0
+ 489 000a 04       		.byte	0x4
+ 490 000b 00       		.byte	0
+ 491 000c 0000     		.2byte	0
+ 492 000e 0000     		.2byte	0
+ 493 0010 00000000 		.4byte	.LFB1
+ 494 0014 18000000 		.4byte	.LFE1-.LFB1
+ 495 0018 00000000 		.4byte	.LFB2
+ 496 001c 14000000 		.4byte	.LFE2-.LFB2
+ 497 0020 00000000 		.4byte	.LFB3
+ 498 0024 14000000 		.4byte	.LFE3-.LFB3
+ 499 0028 00000000 		.4byte	.LFB4
+ 500 002c 14000000 		.4byte	.LFE4-.LFB4
+ 501 0030 00000000 		.4byte	0
+ 502 0034 00000000 		.4byte	0
+ 503              		.section	.debug_ranges,"",%progbits
+ 504              	.Ldebug_ranges0:
+ 505 0000 00000000 		.4byte	.LFB1
+ 506 0004 18000000 		.4byte	.LFE1
+ 507 0008 00000000 		.4byte	.LFB2
+ 508 000c 14000000 		.4byte	.LFE2
+ 509 0010 00000000 		.4byte	.LFB3
+ 510 0014 14000000 		.4byte	.LFE3
+ 511 0018 00000000 		.4byte	.LFB4
+ 512 001c 14000000 		.4byte	.LFE4
+ 513 0020 00000000 		.4byte	0
+ 514 0024 00000000 		.4byte	0
+ 515              		.section	.debug_line,"",%progbits
+ 516              	.Ldebug_line0:
+ 517 0000 69010000 		.section	.debug_str,"MS",%progbits,1
+ 517      02001A01 
+ 517      00000201 
+ 517      FB0E0D00 
+ 517      01010101 
+ 518              	.LASF6:
+ 519 0000 6C6F6E67 		.ascii	"long long int\000"
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 11
+
+
+ 519      206C6F6E 
+ 519      6720696E 
+ 519      7400
+ 520              	.LASF8:
+ 521 000e 756E7369 		.ascii	"unsigned int\000"
+ 521      676E6564 
+ 521      20696E74 
+ 521      00
+ 522              	.LASF19:
+ 523 001b 6D546963 		.ascii	"mTick\000"
+ 523      6B00
+ 524              	.LASF9:
+ 525 0021 5F5F7569 		.ascii	"__uint32_t\000"
+ 525      6E743332 
+ 525      5F7400
+ 526              	.LASF20:
+ 527 002c 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 527      43313120 
+ 527      352E342E 
+ 527      31203230 
+ 527      31363036 
+ 528 005f 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 528      20726576 
+ 528      6973696F 
+ 528      6E203233 
+ 528      37373135 
+ 529 0092 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 529      66756E63 
+ 529      74696F6E 
+ 529      2D736563 
+ 529      74696F6E 
+ 530              	.LASF5:
+ 531 00ba 6C6F6E67 		.ascii	"long unsigned int\000"
+ 531      20756E73 
+ 531      69676E65 
+ 531      6420696E 
+ 531      7400
+ 532              	.LASF7:
+ 533 00cc 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 533      206C6F6E 
+ 533      6720756E 
+ 533      7369676E 
+ 533      65642069 
+ 534              	.LASF14:
+ 535 00e3 666C6F61 		.ascii	"float\000"
+ 535      7400
+ 536              	.LASF23:
+ 537 00e9 7469636B 		.ascii	"tick_init\000"
+ 537      5F696E69 
+ 537      7400
+ 538              	.LASF25:
+ 539 00f3 7469636B 		.ascii	"tick\000"
+ 539      00
+ 540              	.LASF1:
+ 541 00f8 756E7369 		.ascii	"unsigned char\000"
+ 541      676E6564 
+ 541      20636861 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 12
+
+
+ 541      7200
+ 542              	.LASF13:
+ 543 0106 63686172 		.ascii	"char\000"
+ 543      00
+ 544              	.LASF10:
+ 545 010b 75696E74 		.ascii	"uint32_t\000"
+ 545      33325F74 
+ 545      00
+ 546              	.LASF4:
+ 547 0114 6C6F6E67 		.ascii	"long int\000"
+ 547      20696E74 
+ 547      00
+ 548              	.LASF22:
+ 549 011d 5C5C6669 		.ascii	"\\\\files.auckland.ac.nz\\myhome\\Documents\\PSoC C"
+ 549      6C65732E 
+ 549      6175636B 
+ 549      6C616E64 
+ 549      2E61632E 
+ 550 014b 72656174 		.ascii	"reator\\Digital_Pins01\\mother.cydsn\000"
+ 550      6F725C44 
+ 550      69676974 
+ 550      616C5F50 
+ 550      696E7330 
+ 551              	.LASF15:
+ 552 016e 5F426F6F 		.ascii	"_Bool\000"
+ 552      6C00
+ 553              	.LASF16:
+ 554 0174 7469636B 		.ascii	"tick_inc\000"
+ 554      5F696E63 
+ 554      00
+ 555              	.LASF21:
+ 556 017d 5469636B 		.ascii	"Tick.c\000"
+ 556      2E6300
+ 557              	.LASF3:
+ 558 0184 73686F72 		.ascii	"short unsigned int\000"
+ 558      7420756E 
+ 558      7369676E 
+ 558      65642069 
+ 558      6E7400
+ 559              	.LASF0:
+ 560 0197 7369676E 		.ascii	"signed char\000"
+ 560      65642063 
+ 560      68617200 
+ 561              	.LASF18:
+ 562 01a3 6D496E69 		.ascii	"mInit\000"
+ 562      7400
+ 563              	.LASF11:
+ 564 01a9 6C6F6E67 		.ascii	"long double\000"
+ 564      20646F75 
+ 564      626C6500 
+ 565              	.LASF17:
+ 566 01b5 7469636B 		.ascii	"tick_get\000"
+ 566      5F676574 
+ 566      00
+ 567              	.LASF2:
+ 568 01be 73686F72 		.ascii	"short int\000"
+ 568      7420696E 
+ARM GAS  C:\Users\tkam627\AppData\Local\Temp\cc5dZg4x.s 			page 13
+
+
+ 568      7400
+ 569              	.LASF24:
+ 570 01c8 7469636B 		.ascii	"tick_set\000"
+ 570      5F736574 
+ 570      00
+ 571              	.LASF12:
+ 572 01d1 73697A65 		.ascii	"sizetype\000"
+ 572      74797065 
+ 572      00
+ 573              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

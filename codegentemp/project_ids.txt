@@ -1,15 +1,15 @@
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\Measure.cydsn\Measure.cyprj|90b8695f-7681-49ed-8f98-c61d745f9fe9
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|42e051b3-efae-477e-88b1-cd47938c6937
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|caa951ff-2c02-4e37-aa6c-49d17ed5fa51
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|8c77abb7-577f-4d08-9bc7-581e2e305794
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|41957450-95a1-41b7-81ee-76fc47cefabb
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|b3ff5c46-68d5-459f-8027-3ff3f02a5c85
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\Position.cydsn\Position.cyprj|31d12c8a-97f9-4a1d-b71b-a394d9ecf47c
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\HelloWorld_Blinky01.cydsn\HelloWorld_Blinky01.cyprj|72fe4da6-5319-4f82-b2ca-f69717ccd406
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|4cb1b088-4cff-46a5-ad31-93320f99a498
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\Digital_Pins01.cydsn\Digital_Pins01.cyprj|449f22dc-33ba-41a8-9fbe-cfb7f07b31ba
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\UART_Full_Duplex01.cydsn\UART_Full_Duplex01.cyprj|8535bf0d-5314-417d-9fdf-29f9f24943d1
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\actuator.cydsn\actuator.cyprj|98835807-e699-45d2-9d34-0c867d1e5610
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\mother.cyprj|56582669-9040-4531-92ad-217cac2670fc
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\ADC_SingleEndedMode01.cydsn\ADC_SingleEndedMode01.cyprj|6772adc1-7957-4d0b-89a7-e7543f9d651e
-\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\Design01.cydsn\Design01.cyprj|dbe25ed7-bdb8-4848-9a35-133bfe0a20b7
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\Measure.cydsn\Measure.cyprj|8f7ce5fd-8f49-4310-8f55-ff89b7888e37
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|539ccd61-ce22-4f5c-bec1-b070f8f68f25
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|40fba4ef-b7fb-4433-8d8b-42fdf07dc098
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|08a1e564-6b62-4202-bbc9-c33d93d19f4c
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|b2ac3154-bd12-42d4-bc59-ab6672a1db3f
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|93391040-f614-4577-b02b-8b75b19fdb67
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\Position.cydsn\Position.cyprj|2b69e291-36f5-464e-a6a3-b1d07997996e
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\ADC_SingleEndedMode01.cydsn\ADC_SingleEndedMode01.cyprj|5c8bdec0-ba1e-411d-9075-0ad9bcbb0262
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|a6298ea3-c071-4022-a260-eb79021bce38
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\Design01.cydsn\Design01.cyprj|551a7444-85f8-4d6a-ae49-fb29da14162a
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\HelloWorld_Blinky01.cydsn\HelloWorld_Blinky01.cyprj|9f76987b-3079-49ee-9349-5e81ee2d1df7
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\Digital_Pins01.cydsn\Digital_Pins01.cyprj|5d7c9455-a4a1-40b6-a30b-53fb38ea1007
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\UART_Full_Duplex01.cydsn\UART_Full_Duplex01.cyprj|40b52f95-d60f-4816-96f8-0cdd192f7f84
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\actuator.cydsn\actuator.cyprj|ad2f6cfb-81b0-4405-b32d-c0af50a3ec44
+\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\mother.cyprj|399da9c4-bfa7-48ba-82c2-a8866d24ba76
