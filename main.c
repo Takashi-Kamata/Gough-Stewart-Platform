@@ -26,10 +26,10 @@ asm(".global _printf_float");
 #define MOVE_CURSOR "\033[0;0H"
 #define MOTOR_NUM 6U
 #define MAX_SPEED 0
-#define MIN_SPEED 255
+#define MIN_SPEED 180
 #define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
-#define TOLERANCE 10 // ADC Tolerance
-#define POINTS 5 // Number of Points
+#define TOLERANCE 30 // ADC Tolerance
+#define POINTS 10 // Number of Points
 
 /*** Private Prototypes ***/
 
@@ -49,9 +49,9 @@ float output[MOTOR_NUM] = {0.0};
 float setpoint[MOTOR_NUM] = {10000.0, 20000.0, 30000.0, 40000.0, 50000.0, 60000.0};
 float points[MOTOR_NUM][POINTS] = {{0.00}};
 
-float kp[MOTOR_NUM] = {0.01, 0.01, 0.01, 0.01, 0.01, 0.01};
+float kp[MOTOR_NUM] = {0.005, 0.005, 0.005, 0.005, 0.005, 0.005};
 float ki[MOTOR_NUM] = {0.01, 0.01, 0.001, 0.01, 0.01, 0.01};
-float kd[MOTOR_NUM] = {0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005};
+float kd[MOTOR_NUM] = {0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008};
 
 // For Keyboard Lock
 bool manual = false;

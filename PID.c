@@ -19,7 +19,7 @@
  */
 #include "PID.h"
 
-#define DEBUG_MODE 1U
+#define DEBUG_MODE 0U
 pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float ki, float kd)
 {
 	pid->input = in;
