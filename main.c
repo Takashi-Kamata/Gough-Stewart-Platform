@@ -92,14 +92,14 @@ CY_ISR(RxIsr)
                 if (rxData == 65) {// UP
                     for (uint8_t i = 0; i< MOTOR_NUM; i++)
                     {
-                        set_speed(i, 0);
+                        set_speed(i, 127);
                         extend(i);
                     }
                     manual = true;
                 } else if (rxData == 66) {// DOWN
                     for (uint8_t i = 0; i< MOTOR_NUM; i++)
                     {
-                        set_speed(i, 0);
+                        set_speed(i, 127);
                         retract(i);
                     }
                     manual = true;
