@@ -97,7 +97,7 @@ int main(void)
     PWM2_Start();
     PWM3_Start();
 
-    set_speed(TARGET, 51);
+    set_speed(TARGET, 127);// 50%
 
     AMux_Select(TARGET);// Select motor
     
