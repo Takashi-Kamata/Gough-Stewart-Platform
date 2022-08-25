@@ -29,6 +29,11 @@ bool extend(uint8_t M);
 bool retract(uint8_t M);
 bool stop(uint8_t M);
 
+static uint16_t buffer[SAMPLE_NUM];
+uint16_t output = 0;
+uint32_t counter = 0;
+bool measured = false;
+
 uint8 errorStatus = 0u;
 CY_ISR(RxIsr)
 {
@@ -70,9 +75,18 @@ CY_ISR(SWPin_Control)
     {
         if (button) {
             LED_Write(1);   
-            extend(TARGET);               
+            extend(TARGET);
+            
         } else {
-            LED_Write(0);   
+            LED_Write(0);
+            if (output >= 40030 && measured == false)
+            {
+                for (int i=0; i<SAMPLE_NUM; i++)
+                {
+                    printf("%d, %d\r\n", i, buffer[i]);
+                }
+                printf("Finished measuring at %d, counter : %d \r\n", output, counter);
+            }
             retract(TARGET);
         }
         
@@ -103,13 +117,10 @@ int main(void)
     
     ADC_DelSig_1_StartConvert();
     
-    static uint16_t buffer[SAMPLE_NUM];
-    uint16_t output = 0;
-    uint32_t counter = 0;
-    bool measured = false;
     
     retract(TARGET);
     while(button);
+    
     printf("%s", CLEAR_STRING);
     printf("%s", MOVE_CURSOR);
     printf("Start... \r\n");
@@ -125,7 +136,7 @@ int main(void)
             buffer[counter] = output;
             counter++;
         }        
-        
+        /*
         if (counter == SAMPLE_NUM && measured == false) 
         {
             measured = true;
@@ -138,7 +149,8 @@ int main(void)
             printf("Finished measuring at %d, counter : %d \r\n", output, counter);
 
         }
-        
+        */
+        /*
         if (output >= 40030 && measured == false)
         {
             measured = true;
@@ -149,6 +161,7 @@ int main(void)
             printf("Finished measuring at %d, counter : %d \r\n", output, counter);
             
         }
+        */
         
         CyDelayUs(100);
     }
