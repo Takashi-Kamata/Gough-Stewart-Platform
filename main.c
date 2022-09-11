@@ -30,6 +30,7 @@ asm(".global _printf_float");
 #define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
 #define TOLERANCE 30 // ADC Tolerance
 #define POINTS 10 // Number of Points
+#define SAMPLE_NUM 5000
 
 /*** Private Prototypes ***/
 
@@ -56,9 +57,9 @@ float kd[MOTOR_NUM] = {0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008};
 // For Keyboard Lock
 bool manual = false;
 bool all;
-uint8_t counter = 1;
-uint8_t at_point[MOTOR_NUM] = {0};
-
+static uint16_t buffer[MOTOR_NUM][SAMPLE_NUM];
+uint32_t counter = 0;
+bool start_measure = false;
 /**
  * UART ISR
  */
@@ -112,9 +113,24 @@ CY_ISR(RxIsr)
                     {
                         setpoint[i] = points[i][counter]; 
                         pid_reset(pid[i]);
-                        at_point[i] = 0;
                     }
                     counter++;
+                } else if (rxData == 109) {// m - Start measuring
+                    printf("Started Measuring\r\n");
+                    start_measure = true;
+                } else if (rxData == 115) {// s - Send data
+                    printf("Send Measurements %d\r\n", counter);
+                    for (uint8_t i=0; i<MOTOR_NUM; i++) {
+                        printf("M%d, ADC\r\n", i);
+                        for (int j=0; j<SAMPLE_NUM; j++) {
+                            printf("%d, %d\r\n", j, buffer[i][j]);
+                        }
+                        printf("\r\n");
+                    }
+                    
+                } else if (rxData == 114) {// r - Reset measuring
+                    printf("Stopped Measuring %d\r\n", counter);
+                    start_measure = false;
                 }
             }
         }
@@ -132,10 +148,12 @@ CY_ISR(SWPin_Control)
         if (button)
         {
             LED_Write(1);
+            start_measure = true;
         }
         else
         { // Initial Run.... when button = false;
             LED_Write(0);
+            start_measure = false;
         }
         button = !button;
     }
@@ -223,13 +241,7 @@ int main(void)
     
     /**
      * Initialise Points
-     */
-    all = false;
-    counter = 1;
-    for (uint8_t i = 0; i<MOTOR_NUM; i++)
-    {
-        at_point[i] = 0;
-    }
+     */  
     
     for (uint8_t i = 0; i<MOTOR_NUM; i++)
     {
@@ -245,6 +257,7 @@ int main(void)
      */
     for (;;)
     {
+        /*
         uint32_t sec = tick_get() / 1000;
         
         printf("%s", CLEAR_STRING);
@@ -256,63 +269,40 @@ int main(void)
         printf("Mode is : %s\r\n", (manual == 0) ? "Auto" : "Manual");
         printf("Press Enter to leave Manual mode...\r\n");
         printf("\r\n");
-        
-        if (!manual) {
-            //printf("Auto mode output...\r\n");
+        */
+        // Check if need to compute PID
+        for (uint8_t i = 0; i < MOTOR_NUM; i++)
+        {
+            AMux_Select(i);
+            CyDelay(2); // ~1 ms is the min time required for amux to switch, using 2 ms for safety
+            uint32_t temp_adc = ADC_DelSig_1_GetResult32();
+            //printf("ADC %d %d \r\n", i, (int)temp_adc);
             
-            // Check if need to compute PID
-            for (uint8_t i = 0; i < MOTOR_NUM; i++)
+            if (!manual && temp_adc <= 45000 && temp_adc >= 44000) 
             {
-                AMux_Select(i);
-                CyDelay(2); // ~1 ms is the min time required for amux to switch, using 2 ms for safety
-                uint32_t temp_adc = ADC_DelSig_1_GetResult32();
-                if (pid_need_compute(pid[i])) {
-                    // Read ADC
-        			input[i] = temp_adc;
-        			// Compute new PID output value
-        			pid_compute(pid[i]);
-        		} else {
-                    printf("Sampling Too Fast!! Adjust delay.\r\n");  
-                }  
-                if (button) {
-                    uint8_t new_speed = 255 - abs((int)output[i]);
-                    //printf("Output %d\r\n", (int)output[i]);
-                    if ((int)output[i] > TOLERANCE)
-                    {
-                        extend(i);
-                        set_speed(i, new_speed);
-                    } else if ((int)output[i] < -TOLERANCE) {
-                        retract(i);
-                        set_speed(i, new_speed);
-                    } else {  
-                        stop(i);
-                        new_speed = MIN_SPEED;
-                        at_point[i] = 1;
-                    }
-                }
-               // printf("OUTPUT %d %d \r\n", i, (int)output[i]);
+                stop(i); 
             }
             
-            all = true;
-                
-            for (uint8_t q = 0; q<MOTOR_NUM; q++)
+
+            if (start_measure && counter<SAMPLE_NUM-1)
             {
-                if (at_point[q] == 0) {all = false;}
-            }
-            
-            if (all && (counter < POINTS - 1))
-            {
-                for (uint8_t w = 0; w<MOTOR_NUM; w++)
+                // measure into buffer
+                buffer[i][counter] = temp_adc;
+                if (i == 5)
                 {
-                    setpoint[w] = points[w][counter]; 
-                    pid_reset(pid[w]);
-                    at_point[w] = 0;
+                    counter++;
                 }
-                
-                counter++;
             }
+            /*
+            if (counter == SAMPLE_NUM-1)
+            {
+                printf("All Sampled\r\n");
+            }
+            */
+            
         }
-        CyDelay(100); // rest
+        
+        CyDelayUs(100); // rest
     }
 }
 
