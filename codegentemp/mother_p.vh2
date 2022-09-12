@@ -1,5 +1,5 @@
 -- Project:   mother
--- Generated: 08/25/2022 14:47:57
+-- Generated: 09/12/2022 15:17:18
 -- PSoC Creator  4.2
 
 ENTITY mother IS
@@ -690,18 +690,18 @@ BEGIN
             dsi_glb_div => open,
             dclk_glb_0 => \ADC_DelSig_1:Net_93\,
             dclk_0 => \ADC_DelSig_1:Net_93_local\,
+            dclk_glb_1 => Net_2209,
+            dclk_1 => Net_2209_local,
+            dclk_glb_2 => Net_93,
+            dclk_2 => Net_93_local,
+            dclk_glb_3 => Net_2056,
+            dclk_3 => Net_2056_local,
             aclk_glb_0 => \ADC_DelSig_1:Net_488\,
             aclk_0 => \ADC_DelSig_1:Net_488_local\,
             clk_a_dig_glb_0 => \ADC_DelSig_1:Net_488_adig\,
             clk_a_dig_0 => \ADC_DelSig_1:Net_488_adig_local\,
-            dclk_glb_1 => \UART:Net_9\,
-            dclk_1 => \UART:Net_9_local\,
-            dclk_glb_2 => Net_2209,
-            dclk_2 => Net_2209_local,
-            dclk_glb_3 => Net_93,
-            dclk_3 => Net_93_local,
-            dclk_glb_4 => Net_2056,
-            dclk_4 => Net_2056_local,
+            dclk_glb_4 => \UART:Net_9\,
+            dclk_4 => \UART:Net_9_local\,
             aclk_glb_ff_0 => \ClockBlock.aclk_glb_ff_0__sig\);
 
     Rx:logicalport

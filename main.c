@@ -76,7 +76,7 @@ CY_ISR(SWPin_Control)
         if (button) {
             LED_Write(1);   
             extend(TARGET);
-            
+            extend(TARGET-1);
         } else {
             LED_Write(0);
             if (output >= 40030 && measured == false)
@@ -84,10 +84,12 @@ CY_ISR(SWPin_Control)
                 for (int i=0; i<SAMPLE_NUM; i++)
                 {
                     printf("%d, %d\r\n", i, buffer[i]);
+                    buffer[i] = 0;
                 }
                 printf("Finished measuring at %d, counter : %d \r\n", output, counter);
             }
             retract(TARGET);
+            retract(TARGET-1);
         }
         
         button = !button;
@@ -119,6 +121,7 @@ int main(void)
     
     
     retract(TARGET);
+    retract(TARGET-1);
     while(button);
     
     printf("%s", CLEAR_STRING);
@@ -136,7 +139,7 @@ int main(void)
             buffer[counter] = output;
             counter++;
         }        
-        /*
+        
         if (counter == SAMPLE_NUM && measured == false) 
         {
             measured = true;
@@ -149,8 +152,8 @@ int main(void)
             printf("Finished measuring at %d, counter : %d \r\n", output, counter);
 
         }
-        */
-        /*
+        
+        
         if (output >= 40030 && measured == false)
         {
             measured = true;
@@ -161,7 +164,7 @@ int main(void)
             printf("Finished measuring at %d, counter : %d \r\n", output, counter);
             
         }
-        */
+        
         
         CyDelayUs(100);
     }
