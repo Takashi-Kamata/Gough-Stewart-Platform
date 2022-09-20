@@ -144,18 +144,22 @@ CY_ISR(RxIsr)
                 } else if (rxData == 114) {// r - Reset measuring
                     printf("Stopped Measuring %d\r\n", counter);
                     start_calibrate = false;
-                } else if(rxData == 49) {
+                } else if(rxData == 49) { // 1
                     flip(0, &manual_m1, SPEED);
-                } else if(rxData == 50) {
+                } else if(rxData == 50) { // 2
                     flip(1, &manual_m2, SPEED);                   
-                } else if(rxData == 51) {
+                } else if(rxData == 51) { // 3
                     flip(2, &manual_m3, SPEED);                
-                } else if(rxData == 52) {
+                } else if(rxData == 52) { // 4
                     flip(3, &manual_m4, SPEED);              
-                } else if(rxData == 53) {
+                } else if(rxData == 53) { // 5 
                     flip(4, &manual_m5, SPEED);        
-                } else if(rxData == 54) {
+                } else if(rxData == 54) { // 6
                     flip(5, &manual_m6, SPEED);          
+                } else if(rxData == 32) { // Space  -- HOLT 
+                    for (uint8_t i=0; i<MOTOR_NUM; i++) {
+                        stop(i);
+                    }
                 }
             }
         }
@@ -519,4 +523,5 @@ void flip(uint8_t m, bool* flag, uint16_t speed) {
     }
     *flag = !(*flag);
 }
+
 /* [] END OF FILE */
