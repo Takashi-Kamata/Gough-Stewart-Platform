@@ -54,6 +54,7 @@ bool all;
 static uint16_t buffer[MOTOR_NUM][SAMPLE_NUM];
 uint32_t counter = 0;
 bool start_calibrate = false;
+
 /**
  * UART ISR
  */
