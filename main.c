@@ -189,7 +189,7 @@ int main(void)
         }
         */
         
-        CyDelayUs(100);//500
+        CyDelayUs(100);
     }
 }
 
