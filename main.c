@@ -25,12 +25,18 @@ asm(".global _printf_float");
 #define CLEAR_STRING "\033[2J"
 #define MOVE_CURSOR "\033[0;0H"
 #define MOTOR_NUM 6U
-#define MAX_SPEED 0
-#define MIN_SPEED 180
+#define MIN_PWM 0
+#define MAX_PWM 399
 #define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
 #define TOLERANCE 30 // ADC Tolerance
 #define POINTS 10 // Number of Points
-#define SAMPLE_NUM 5000
+#define SAMPLE_NUM 800
+#define SPEED 0U
+
+/*** Calibrated Values ***/
+uint16_t min_adc[MOTOR_NUM] = {6234,6442,6388,6248,6296,6355};
+uint16_t max_adc[MOTOR_NUM] = {48233,48235,48232,48233,48233,48230};
+
 
 /*** Private Prototypes ***/
 
@@ -42,24 +48,12 @@ void make_1d_points(float* points, float setpoint, uint32_t adc);
 
 /*** Private Variables ***/
 
-// PID
-struct pid_controller ctrldata[MOTOR_NUM];
-pids_t pid[MOTOR_NUM];
-float input[MOTOR_NUM] = {0.0};
-float output[MOTOR_NUM] = {0.0};
-float setpoint[MOTOR_NUM] = {10000.0, 20000.0, 30000.0, 40000.0, 50000.0, 60000.0};
-float points[MOTOR_NUM][POINTS] = {{0.00}};
-
-float kp[MOTOR_NUM] = {0.005, 0.005, 0.005, 0.005, 0.005, 0.005};
-float ki[MOTOR_NUM] = {0.01, 0.01, 0.001, 0.01, 0.01, 0.01};
-float kd[MOTOR_NUM] = {0.0008, 0.0008, 0.0008, 0.0008, 0.0008, 0.0008};
-
 // For Keyboard Lock
-bool manual = false;
+bool manual = true;
 bool all;
 static uint16_t buffer[MOTOR_NUM][SAMPLE_NUM];
 uint32_t counter = 0;
-bool start_measure = false;
+bool start_calibrate = false;
 /**
  * UART ISR
  */
@@ -93,31 +87,24 @@ CY_ISR(RxIsr)
                 if (rxData == 65) {// UP
                     for (uint8_t i = 0; i< MOTOR_NUM; i++)
                     {
-                        set_speed(i, 127);
+                        set_speed(i, SPEED);
                         extend(i);
                     }
                     manual = true;
                 } else if (rxData == 66) {// DOWN
                     for (uint8_t i = 0; i< MOTOR_NUM; i++)
                     {
-                        set_speed(i, 127);
+                        set_speed(i, SPEED);
                         retract(i);
                     }
                     manual = true;
                 } else if (rxData == 67) {// RIGHT
                 } else if (rxData == 68) {// LEFT
                 } else if (rxData == 13) {// ENTER
-                    manual = false;   
-                    counter = 0;
-                    for (uint8_t i = 0; i<MOTOR_NUM; i++)
-                    {
-                        setpoint[i] = points[i][counter]; 
-                        pid_reset(pid[i]);
-                    }
-                    counter++;
+                    manual = !manual;   
                 } else if (rxData == 109) {// m - Start measuring
                     printf("Started Measuring\r\n");
-                    start_measure = true;
+                    start_calibrate = true;
                 } else if (rxData == 115) {// s - Send data
                     printf("Send Measurements %d\r\n", counter);
                     for (uint8_t i=0; i<MOTOR_NUM; i++) {
@@ -130,7 +117,7 @@ CY_ISR(RxIsr)
                     
                 } else if (rxData == 114) {// r - Reset measuring
                     printf("Stopped Measuring %d\r\n", counter);
-                    start_measure = false;
+                    start_calibrate = false;
                 }
             }
         }
@@ -148,12 +135,12 @@ CY_ISR(SWPin_Control)
         if (button)
         {
             LED_Write(1);
-            start_measure = true;
+            start_calibrate = true;
         }
         else
         { // Initial Run.... when button = false;
             LED_Write(0);
-            start_measure = false;
+            start_calibrate = false;
         }
         button = !button;
     }
@@ -228,38 +215,13 @@ int main(void)
     printf("Starting...\r\n");
     
     /**
-     * Initialise PID
-     */
-    for (uint8_t i = 0; i<MOTOR_NUM; i++)
-    {
-        pid[i] = pid_create(&ctrldata[i], &input[i], &output[i], &setpoint[i], kp[i], ki[i], kd[i]);
-        // Set controler output limits from 0 to 200
-    	pid_limits(pid[i], -MIN_SPEED, MIN_SPEED);
-    	// Allow PID to compute and change output
-    	pid_auto(pid[i]);
-    }
-    
-    /**
-     * Initialise Points
-     */  
-    
-    for (uint8_t i = 0; i<MOTOR_NUM; i++)
-    {
-        AMux_Select(i);
-        CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
-        uint32_t temp = ADC_DelSig_1_GetResult32();
-        (void)make_1d_points(points[i], setpoint[i], temp);  
-        setpoint[i] = points[i][0];// first point
-    }
-    
-    /**
      * Loop
      */
     for (;;)
     {
-        /*
-        uint32_t sec = tick_get() / 1000;
         
+        uint32_t sec = tick_get() / 1000;
+        /*        
         printf("%s", CLEAR_STRING);
         printf("%s", MOVE_CURSOR);
         printf("Run Time (s) : %d\r\n", sec);
@@ -268,23 +230,15 @@ int main(void)
         
         printf("Mode is : %s\r\n", (manual == 0) ? "Auto" : "Manual");
         printf("Press Enter to leave Manual mode...\r\n");
-        printf("\r\n");
         */
-        // Check if need to compute PID
         for (uint8_t i = 0; i < MOTOR_NUM; i++)
         {
             AMux_Select(i);
             CyDelay(2); // ~1 ms is the min time required for amux to switch, using 2 ms for safety
             uint32_t temp_adc = ADC_DelSig_1_GetResult32();
             //printf("ADC %d %d \r\n", i, (int)temp_adc);
-            
-            if (!manual && temp_adc <= 45000 && temp_adc >= 44000) 
-            {
-                stop(i); 
-            }
-            
 
-            if (start_measure && counter<SAMPLE_NUM-1)
+            if (start_calibrate && counter<SAMPLE_NUM-1)
             {
                 // measure into buffer
                 buffer[i][counter] = temp_adc;
@@ -293,15 +247,13 @@ int main(void)
                     counter++;
                 }
             }
-            /*
-            if (counter == SAMPLE_NUM-1)
+            
+            if (counter == SAMPLE_NUM-1 && start_calibrate)
             {
+                start_calibrate = false;
                 printf("All Sampled\r\n");
             }
-            */
-            
         }
-        
         CyDelayUs(100); // rest
     }
 }
@@ -312,7 +264,7 @@ int main(void)
  * @brief Set motor speed by changing PWM value
  *
  * @param uint8_t Motor number 0-5
- * @param uint8_t Speed between MAX_SPEED & MIN_SPEED
+ * @param uint8_t Speed between MIN_PWM & MAX_PWM
  *
  * @return bool True if successful
  */
