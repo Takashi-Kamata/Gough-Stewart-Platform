@@ -94,7 +94,7 @@ extern "C" {
 	 *
 	 * @return returns a pids_t controller handle
 	 */
-	pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float ki, float kd);
+	pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float ki, float kd, float min, float max);
 
 	/**
 	 * @brief Check if PID loop needs to run

@@ -28,10 +28,16 @@ asm(".global _printf_float");
 #define MIN_PWM 0U
 #define MAX_PWM 399U
 #define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
-#define TOLERANCE 30 // PID Tolerance
+#define TOLERANCE 10 // PID Tolerance
 #define POINTS 10 // Number of Points
 #define SAMPLE_NUM 800
 #define SPEED 0U
+#define ROD 12U //inch
+
+#define KP 0.04
+#define KI 0.0
+#define KD 0.0005
+
 
 /*** Calibrated Values ***/
 uint16_t min_adc[MOTOR_NUM] = {6234,6442,6388,6248,6296,6355};
@@ -44,8 +50,9 @@ bool set_speed(uint8_t M, uint16_t speed);
 bool extend(uint8_t M);
 bool retract(uint8_t M);
 bool stop(uint8_t M);
-void make_1d_points(float* points, float setpoint, uint32_t adc);
 void reset_pid();
+float inch_adc(uint8_t m, float inch);
+void flip(uint8_t m, bool* flag, uint16_t speed);
 
 /*** Private Variables ***/
 // PID
@@ -53,18 +60,25 @@ struct pid_controller ctrldata[MOTOR_NUM];
 pids_t pid[MOTOR_NUM];
 float input[MOTOR_NUM] = {0.0};
 float output[MOTOR_NUM] = {0.0};
-float setpoint[MOTOR_NUM] = {7000.0, 14000.0, 21000.0, 28000.0, 35000.0, 42000.0};
+float setpoint[MOTOR_NUM] = {0};
 
-float kp[MOTOR_NUM] = {0.01, 0.01, 0.01, 0.01, 0.01, 0.01};
+float kp[MOTOR_NUM] = {0.0};
 float ki[MOTOR_NUM] = {0.0};
-float kd[MOTOR_NUM] = {0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005};
+float kd[MOTOR_NUM] = {0.0};
 
 // For Keyboard Lock
 bool manual = true;
-bool all;
 static uint16_t buffer[MOTOR_NUM][SAMPLE_NUM];
 uint32_t counter = 0;
 bool start_calibrate = false;
+
+// Switches
+bool manual_m1 = true;
+bool manual_m2 = true;
+bool manual_m3 = true;
+bool manual_m4 = true;
+bool manual_m5 = true;
+bool manual_m6 = true;
 
 /**
  * UART ISR
@@ -131,17 +145,17 @@ CY_ISR(RxIsr)
                     printf("Stopped Measuring %d\r\n", counter);
                     start_calibrate = false;
                 } else if(rxData == 49) {
-                    extend(0);                    
+                    flip(0, &manual_m1, SPEED);
                 } else if(rxData == 50) {
-                    extend(1);                    
+                    flip(1, &manual_m2, SPEED);                   
                 } else if(rxData == 51) {
-                    extend(2);                    
+                    flip(2, &manual_m3, SPEED);                
                 } else if(rxData == 52) {
-                    extend(3);                    
+                    flip(3, &manual_m4, SPEED);              
                 } else if(rxData == 53) {
-                    extend(4);                    
+                    flip(4, &manual_m5, SPEED);        
                 } else if(rxData == 54) {
-                    extend(5);                    
+                    flip(5, &manual_m6, SPEED);          
                 }
             }
         }
@@ -228,11 +242,12 @@ int main(void)
     /**
      * Initialise PID
      */
+    reset_pid();
+    
     for (uint8_t i = 0; i<MOTOR_NUM; i++)
     {
-        pid[i] = pid_create(&ctrldata[i], &input[i], &output[i], &setpoint[i], kp[i], ki[i], kd[i]);
-        // Set controler output limits from 0 to MAX PWM value
-    	pid_limits(pid[i], -MAX_PWM, MAX_PWM);
+        setpoint[i] = inch_adc(i, 6.0);
+        pid[i] = pid_create(&ctrldata[i], &input[i], &output[i], &setpoint[i], kp[i], ki[i], kd[i], -399.0, 399.0);
     	// Allow PID to compute and change output
     	pid_auto(pid[i]);
     }
@@ -297,10 +312,9 @@ int main(void)
                         stop(i);
                         new_speed = MAX_PWM;
                     }
-                    printf("Set Speed %d \r\n", new_speed);
+                    //printf("Set Speed %d \r\n", new_speed);
                     set_speed(i, new_speed);
                 }
-               // printf("OUTPUT %d %d \r\n", i, (int)output[i]);
             }
         }
         CyDelay(100);
@@ -473,29 +487,36 @@ bool stop(uint8_t M)
 }
 
 /**
- * @brief Divide setpoints by number of points from current position
- *
- * @param float* pointer to an array
- * @param float target point
- * @param uint16_t current position
- *
- * @return bool True if successful
+ * @brief Reset PID settings for new destination
  */
-void make_1d_points(float* points, float setpoint, uint32_t adc) {
-    for (uint16_t i = 0; i < POINTS; i++) {
-        points[i] = (float)adc + (float)((setpoint - (float)adc) / POINTS * (i+1));
-    }
-}
-
 void reset_pid() {
-    float n = 7000.0;
     for (uint8_t i = 0; i < MOTOR_NUM; i++) {
         input[i] = 0.0;
         output[i] = 0.0;
-        setpoint[i] = n * i;
-        kp[i] = 0.01;
+        kp[i] = KP;
         ki[i] = 0.0;
         kd[i] = 0.0005;
     }
+}
+
+/**
+ * @brief Convert destination inch to a calibrated ADC value 
+ */
+float inch_adc(uint8_t m, float inch) {
+    // Get specific leg's min & max ADC vals
+    uint16_t min = min_adc[m];// as 0  inch
+    uint16_t max = max_adc[m];// as 12 inch
+    
+    return (float)(max-min) * inch/((float)ROD) + (float)min;
+}
+
+void flip(uint8_t m, bool* flag, uint16_t speed) {
+    set_speed(m, speed);
+    if (*flag == true) {
+        extend(m);
+    } else {
+        retract(m);   
+    }
+    *flag = !(*flag);
 }
 /* [] END OF FILE */

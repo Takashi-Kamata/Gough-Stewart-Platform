@@ -20,14 +20,14 @@
 #include "PID.h"
 
 #define DEBUG_MODE 0U
-pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float ki, float kd)
+pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float ki, float kd, float min, float max)
 {
 	pid->input = in;
 	pid->output = out;
 	pid->setpoint = set;
 	pid->automode = false;
 
-	pid_limits(pid, -399.0, 399.0);
+	pid_limits(pid, min, max);
 
 	// Set default sample time to 100 ms
 	pid->sampletime = 100 * (TICK_SECOND / 1000);
