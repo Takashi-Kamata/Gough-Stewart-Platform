@@ -28,7 +28,7 @@ asm(".global _printf_float");
 #define MIN_PWM 0
 #define MAX_PWM 399
 #define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
-#define TOLERANCE 30 // ADC Tolerance
+#define TOLERANCE 300 // ADC Tolerance
 #define POINTS 10 // Number of Points
 #define SAMPLE_NUM 800
 #define SPEED 0U
@@ -221,7 +221,6 @@ int main(void)
     {
         
         uint32_t sec = tick_get() / 1000;
-        /*        
         printf("%s", CLEAR_STRING);
         printf("%s", MOVE_CURSOR);
         printf("Run Time (s) : %d\r\n", sec);
@@ -230,31 +229,45 @@ int main(void)
         
         printf("Mode is : %s\r\n", (manual == 0) ? "Auto" : "Manual");
         printf("Press Enter to leave Manual mode...\r\n");
-        */
-        for (uint8_t i = 0; i < MOTOR_NUM; i++)
-        {
-            AMux_Select(i);
-            CyDelay(2); // ~1 ms is the min time required for amux to switch, using 2 ms for safety
-            uint32_t temp_adc = ADC_DelSig_1_GetResult32();
-            //printf("ADC %d %d \r\n", i, (int)temp_adc);
-
-            if (start_calibrate && counter<SAMPLE_NUM-1)
+        
+                
+        if (manual) {
+            for (uint8_t i = 0; i < MOTOR_NUM; i++)
             {
-                // measure into buffer
-                buffer[i][counter] = temp_adc;
-                if (i == 5)
+                AMux_Select(i);
+                CyDelay(2); // ~1 ms is the min time required for amux to switch, using 2 ms for safety
+                uint32_t temp_adc = ADC_DelSig_1_GetResult32();
+                //printf("ADC %d %d \r\n", i, (int)temp_adc);
+
+                if (start_calibrate && counter<SAMPLE_NUM-1)
                 {
-                    counter++;
+                    // measure into buffer
+                    buffer[i][counter] = temp_adc;
+                    if (i == 5)
+                    {
+                        counter++;
+                    }
+                }
+                
+                if (counter == SAMPLE_NUM-1 && start_calibrate)
+                {
+                    start_calibrate = false;
+                    printf("All Sampled\r\n");
                 }
             }
-            
-            if (counter == SAMPLE_NUM-1 && start_calibrate)
+        } else {
+            for (uint8_t i = 0; i < MOTOR_NUM; i++)
             {
-                start_calibrate = false;
-                printf("All Sampled\r\n");
-            }
+                AMux_Select(i);
+                CyDelay(2); // ~1 ms is the min time required for amux to switch, using 2 ms for safety
+                uint32_t temp_adc = ADC_DelSig_1_GetResult32();
+
+                if ((temp_adc >= max_adc[i]/2 - TOLERANCE) && (temp_adc <= max_adc[i]/2 + TOLERANCE)) {
+                    stop(i);   
+                }
+            }            
         }
-        CyDelayUs(100); // rest
+
     }
 }
 
