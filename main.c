@@ -119,6 +119,18 @@ CY_ISR(RxIsr)
                 } else if (rxData == 114) {// r - Reset measuring
                     printf("Stopped Measuring %d\r\n", counter);
                     start_calibrate = false;
+                } else if(rxData == 49) {
+                    extend(0);                    
+                } else if(rxData == 50) {
+                    extend(1);                    
+                } else if(rxData == 51) {
+                    extend(2);                    
+                } else if(rxData == 52) {
+                    extend(3);                    
+                } else if(rxData == 53) {
+                    extend(4);                    
+                } else if(rxData == 54) {
+                    extend(5);                    
                 }
             }
         }
@@ -238,7 +250,7 @@ int main(void)
                 AMux_Select(i);
                 CyDelay(2); // ~1 ms is the min time required for amux to switch, using 2 ms for safety
                 uint32_t temp_adc = ADC_DelSig_1_GetResult32();
-                //printf("ADC %d %d \r\n", i, (int)temp_adc);
+                printf("ADC %d %d \r\n", i, (int)temp_adc);
 
                 if (start_calibrate && counter<SAMPLE_NUM-1)
                 {
@@ -268,7 +280,7 @@ int main(void)
                 }
             }            
         }
-
+        CyDelay(50);
     }
 }
 
