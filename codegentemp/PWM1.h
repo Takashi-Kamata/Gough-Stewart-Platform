@@ -28,7 +28,7 @@ extern uint8 PWM1_initVar;
 /***************************************
 * Conditional Compilation Parameters
 ***************************************/
-#define PWM1_Resolution                     (8u)
+#define PWM1_Resolution                     (16u)
 #define PWM1_UsingFixedFunction             (0u)
 #define PWM1_DeadBandMode                   (0u)
 #define PWM1_KillModeMinTime                (0u)
@@ -110,9 +110,9 @@ typedef struct
     uint8 PWMEnableState;
 
     #if(!PWM1_UsingFixedFunction)
-        uint8 PWMUdb;               /* PWM Current Counter value  */
+        uint16 PWMUdb;               /* PWM Current Counter value  */
         #if(!PWM1_PWMModeIsCenterAligned)
-            uint8 PWMPeriod;
+            uint16 PWMPeriod;
         #endif /* (!PWM1_PWMModeIsCenterAligned) */
         #if (PWM1_UseStatus)
             uint8 InterruptMaskValue;   /* PWM Current Interrupt Mask */
@@ -176,32 +176,32 @@ void    PWM1_Stop(void) ;
 #endif /* (PWM1_UseOneCompareMode) */
 
 #if (!PWM1_UsingFixedFunction)
-    uint8   PWM1_ReadCounter(void) ;
-    uint8 PWM1_ReadCapture(void) ;
+    uint16   PWM1_ReadCounter(void) ;
+    uint16 PWM1_ReadCapture(void) ;
 
     #if (PWM1_UseStatus)
             void PWM1_ClearFIFO(void) ;
     #endif /* (PWM1_UseStatus) */
 
-    void    PWM1_WriteCounter(uint8 counter)
+    void    PWM1_WriteCounter(uint16 counter)
             ;
 #endif /* (!PWM1_UsingFixedFunction) */
 
-void    PWM1_WritePeriod(uint8 period)
+void    PWM1_WritePeriod(uint16 period)
         ;
-uint8 PWM1_ReadPeriod(void) ;
+uint16 PWM1_ReadPeriod(void) ;
 
 #if (PWM1_UseOneCompareMode)
-    void    PWM1_WriteCompare(uint8 compare)
+    void    PWM1_WriteCompare(uint16 compare)
             ;
-    uint8 PWM1_ReadCompare(void) ;
+    uint16 PWM1_ReadCompare(void) ;
 #else
-    void    PWM1_WriteCompare1(uint8 compare)
+    void    PWM1_WriteCompare1(uint16 compare)
             ;
-    uint8 PWM1_ReadCompare1(void) ;
-    void    PWM1_WriteCompare2(uint8 compare)
+    uint16 PWM1_ReadCompare1(void) ;
+    void    PWM1_WriteCompare2(uint16 compare)
             ;
-    uint8 PWM1_ReadCompare2(void) ;
+    uint16 PWM1_ReadCompare2(void) ;
 #endif /* (PWM1_UseOneCompareMode) */
 
 
@@ -226,9 +226,9 @@ void PWM1_RestoreConfig(void) ;
 /***************************************
 *         Initialization Values
 **************************************/
-#define PWM1_INIT_PERIOD_VALUE          (255u)
-#define PWM1_INIT_COMPARE_VALUE1        (125u)
-#define PWM1_INIT_COMPARE_VALUE2        (125u)
+#define PWM1_INIT_PERIOD_VALUE          (399u)
+#define PWM1_INIT_COMPARE_VALUE1        (199u)
+#define PWM1_INIT_COMPARE_VALUE2        (199u)
 #define PWM1_INIT_INTERRUPTS_MODE       (uint8)(((uint8)(0u <<   \
                                                     PWM1_STATUS_TC_INT_EN_MASK_SHIFT)) | \
                                                     (uint8)((uint8)(0u <<  \
@@ -264,73 +264,73 @@ void PWM1_RestoreConfig(void) ;
    #if (PWM1_Resolution == 8u) /* 8bit - PWM */
 
        #if(PWM1_PWMModeIsCenterAligned)
-           #define PWM1_PERIOD_LSB      (*(reg8 *)  PWM1_PWMUDB_sP8_pwmdp_u0__D1_REG)
-           #define PWM1_PERIOD_LSB_PTR  ((reg8 *)   PWM1_PWMUDB_sP8_pwmdp_u0__D1_REG)
+           #define PWM1_PERIOD_LSB      (*(reg8 *)  PWM1_PWMUDB_sP16_pwmdp_u0__D1_REG)
+           #define PWM1_PERIOD_LSB_PTR  ((reg8 *)   PWM1_PWMUDB_sP16_pwmdp_u0__D1_REG)
        #else
-           #define PWM1_PERIOD_LSB      (*(reg8 *)  PWM1_PWMUDB_sP8_pwmdp_u0__F0_REG)
-           #define PWM1_PERIOD_LSB_PTR  ((reg8 *)   PWM1_PWMUDB_sP8_pwmdp_u0__F0_REG)
+           #define PWM1_PERIOD_LSB      (*(reg8 *)  PWM1_PWMUDB_sP16_pwmdp_u0__F0_REG)
+           #define PWM1_PERIOD_LSB_PTR  ((reg8 *)   PWM1_PWMUDB_sP16_pwmdp_u0__F0_REG)
        #endif /* (PWM1_PWMModeIsCenterAligned) */
 
-       #define PWM1_COMPARE1_LSB        (*(reg8 *)  PWM1_PWMUDB_sP8_pwmdp_u0__D0_REG)
-       #define PWM1_COMPARE1_LSB_PTR    ((reg8 *)   PWM1_PWMUDB_sP8_pwmdp_u0__D0_REG)
-       #define PWM1_COMPARE2_LSB        (*(reg8 *)  PWM1_PWMUDB_sP8_pwmdp_u0__D1_REG)
-       #define PWM1_COMPARE2_LSB_PTR    ((reg8 *)   PWM1_PWMUDB_sP8_pwmdp_u0__D1_REG)
-       #define PWM1_COUNTERCAP_LSB      (*(reg8 *)  PWM1_PWMUDB_sP8_pwmdp_u0__A1_REG)
-       #define PWM1_COUNTERCAP_LSB_PTR  ((reg8 *)   PWM1_PWMUDB_sP8_pwmdp_u0__A1_REG)
-       #define PWM1_COUNTER_LSB         (*(reg8 *)  PWM1_PWMUDB_sP8_pwmdp_u0__A0_REG)
-       #define PWM1_COUNTER_LSB_PTR     ((reg8 *)   PWM1_PWMUDB_sP8_pwmdp_u0__A0_REG)
-       #define PWM1_CAPTURE_LSB         (*(reg8 *)  PWM1_PWMUDB_sP8_pwmdp_u0__F1_REG)
-       #define PWM1_CAPTURE_LSB_PTR     ((reg8 *)   PWM1_PWMUDB_sP8_pwmdp_u0__F1_REG)
+       #define PWM1_COMPARE1_LSB        (*(reg8 *)  PWM1_PWMUDB_sP16_pwmdp_u0__D0_REG)
+       #define PWM1_COMPARE1_LSB_PTR    ((reg8 *)   PWM1_PWMUDB_sP16_pwmdp_u0__D0_REG)
+       #define PWM1_COMPARE2_LSB        (*(reg8 *)  PWM1_PWMUDB_sP16_pwmdp_u0__D1_REG)
+       #define PWM1_COMPARE2_LSB_PTR    ((reg8 *)   PWM1_PWMUDB_sP16_pwmdp_u0__D1_REG)
+       #define PWM1_COUNTERCAP_LSB      (*(reg8 *)  PWM1_PWMUDB_sP16_pwmdp_u0__A1_REG)
+       #define PWM1_COUNTERCAP_LSB_PTR  ((reg8 *)   PWM1_PWMUDB_sP16_pwmdp_u0__A1_REG)
+       #define PWM1_COUNTER_LSB         (*(reg8 *)  PWM1_PWMUDB_sP16_pwmdp_u0__A0_REG)
+       #define PWM1_COUNTER_LSB_PTR     ((reg8 *)   PWM1_PWMUDB_sP16_pwmdp_u0__A0_REG)
+       #define PWM1_CAPTURE_LSB         (*(reg8 *)  PWM1_PWMUDB_sP16_pwmdp_u0__F1_REG)
+       #define PWM1_CAPTURE_LSB_PTR     ((reg8 *)   PWM1_PWMUDB_sP16_pwmdp_u0__F1_REG)
 
    #else
         #if(CY_PSOC3) /* 8-bit address space */
             #if(PWM1_PWMModeIsCenterAligned)
-               #define PWM1_PERIOD_LSB      (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__D1_REG)
-               #define PWM1_PERIOD_LSB_PTR  ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__D1_REG)
+               #define PWM1_PERIOD_LSB      (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__D1_REG)
+               #define PWM1_PERIOD_LSB_PTR  ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__D1_REG)
             #else
-               #define PWM1_PERIOD_LSB      (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__F0_REG)
-               #define PWM1_PERIOD_LSB_PTR  ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__F0_REG)
+               #define PWM1_PERIOD_LSB      (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__F0_REG)
+               #define PWM1_PERIOD_LSB_PTR  ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__F0_REG)
             #endif /* (PWM1_PWMModeIsCenterAligned) */
 
-            #define PWM1_COMPARE1_LSB       (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__D0_REG)
-            #define PWM1_COMPARE1_LSB_PTR   ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__D0_REG)
-            #define PWM1_COMPARE2_LSB       (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__D1_REG)
-            #define PWM1_COMPARE2_LSB_PTR   ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__D1_REG)
-            #define PWM1_COUNTERCAP_LSB     (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__A1_REG)
-            #define PWM1_COUNTERCAP_LSB_PTR ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__A1_REG)
-            #define PWM1_COUNTER_LSB        (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__A0_REG)
-            #define PWM1_COUNTER_LSB_PTR    ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__A0_REG)
-            #define PWM1_CAPTURE_LSB        (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__F1_REG)
-            #define PWM1_CAPTURE_LSB_PTR    ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__F1_REG)
+            #define PWM1_COMPARE1_LSB       (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__D0_REG)
+            #define PWM1_COMPARE1_LSB_PTR   ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__D0_REG)
+            #define PWM1_COMPARE2_LSB       (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__D1_REG)
+            #define PWM1_COMPARE2_LSB_PTR   ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__D1_REG)
+            #define PWM1_COUNTERCAP_LSB     (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__A1_REG)
+            #define PWM1_COUNTERCAP_LSB_PTR ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__A1_REG)
+            #define PWM1_COUNTER_LSB        (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__A0_REG)
+            #define PWM1_COUNTER_LSB_PTR    ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__A0_REG)
+            #define PWM1_CAPTURE_LSB        (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__F1_REG)
+            #define PWM1_CAPTURE_LSB_PTR    ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__F1_REG)
         #else
             #if(PWM1_PWMModeIsCenterAligned)
-               #define PWM1_PERIOD_LSB      (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_D1_REG)
-               #define PWM1_PERIOD_LSB_PTR  ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_D1_REG)
+               #define PWM1_PERIOD_LSB      (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_D1_REG)
+               #define PWM1_PERIOD_LSB_PTR  ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_D1_REG)
             #else
-               #define PWM1_PERIOD_LSB      (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_F0_REG)
-               #define PWM1_PERIOD_LSB_PTR  ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_F0_REG)
+               #define PWM1_PERIOD_LSB      (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_F0_REG)
+               #define PWM1_PERIOD_LSB_PTR  ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_F0_REG)
             #endif /* (PWM1_PWMModeIsCenterAligned) */
 
-            #define PWM1_COMPARE1_LSB       (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_D0_REG)
-            #define PWM1_COMPARE1_LSB_PTR   ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_D0_REG)
-            #define PWM1_COMPARE2_LSB       (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_D1_REG)
-            #define PWM1_COMPARE2_LSB_PTR   ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_D1_REG)
-            #define PWM1_COUNTERCAP_LSB     (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_A1_REG)
-            #define PWM1_COUNTERCAP_LSB_PTR ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_A1_REG)
-            #define PWM1_COUNTER_LSB        (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_A0_REG)
-            #define PWM1_COUNTER_LSB_PTR    ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_A0_REG)
-            #define PWM1_CAPTURE_LSB        (*(reg16 *) PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_F1_REG)
-            #define PWM1_CAPTURE_LSB_PTR    ((reg16 *)  PWM1_PWMUDB_sP8_pwmdp_u0__16BIT_F1_REG)
+            #define PWM1_COMPARE1_LSB       (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_D0_REG)
+            #define PWM1_COMPARE1_LSB_PTR   ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_D0_REG)
+            #define PWM1_COMPARE2_LSB       (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_D1_REG)
+            #define PWM1_COMPARE2_LSB_PTR   ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_D1_REG)
+            #define PWM1_COUNTERCAP_LSB     (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_A1_REG)
+            #define PWM1_COUNTERCAP_LSB_PTR ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_A1_REG)
+            #define PWM1_COUNTER_LSB        (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_A0_REG)
+            #define PWM1_COUNTER_LSB_PTR    ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_A0_REG)
+            #define PWM1_CAPTURE_LSB        (*(reg16 *) PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_F1_REG)
+            #define PWM1_CAPTURE_LSB_PTR    ((reg16 *)  PWM1_PWMUDB_sP16_pwmdp_u0__16BIT_F1_REG)
         #endif /* (CY_PSOC3) */
 
-       #define PWM1_AUX_CONTROLDP1          (*(reg8 *)  PWM1_PWMUDB_sP8_pwmdp_u1__DP_AUX_CTL_REG)
-       #define PWM1_AUX_CONTROLDP1_PTR      ((reg8 *)   PWM1_PWMUDB_sP8_pwmdp_u1__DP_AUX_CTL_REG)
+       #define PWM1_AUX_CONTROLDP1          (*(reg8 *)  PWM1_PWMUDB_sP16_pwmdp_u1__DP_AUX_CTL_REG)
+       #define PWM1_AUX_CONTROLDP1_PTR      ((reg8 *)   PWM1_PWMUDB_sP16_pwmdp_u1__DP_AUX_CTL_REG)
 
    #endif /* (PWM1_Resolution == 8) */
 
-   #define PWM1_COUNTERCAP_LSB_PTR_8BIT ( (reg8 *)  PWM1_PWMUDB_sP8_pwmdp_u0__A1_REG)
-   #define PWM1_AUX_CONTROLDP0          (*(reg8 *)  PWM1_PWMUDB_sP8_pwmdp_u0__DP_AUX_CTL_REG)
-   #define PWM1_AUX_CONTROLDP0_PTR      ((reg8 *)   PWM1_PWMUDB_sP8_pwmdp_u0__DP_AUX_CTL_REG)
+   #define PWM1_COUNTERCAP_LSB_PTR_8BIT ( (reg8 *)  PWM1_PWMUDB_sP16_pwmdp_u0__A1_REG)
+   #define PWM1_AUX_CONTROLDP0          (*(reg8 *)  PWM1_PWMUDB_sP16_pwmdp_u0__DP_AUX_CTL_REG)
+   #define PWM1_AUX_CONTROLDP0_PTR      ((reg8 *)   PWM1_PWMUDB_sP16_pwmdp_u0__DP_AUX_CTL_REG)
 
 #endif /* (PWM1_UsingFixedFunction) */
 

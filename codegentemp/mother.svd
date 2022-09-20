@@ -7,193 +7,6 @@
   <width>32</width>
   <peripherals>
     <peripheral>
-      <name>PWM3</name>
-      <description>No description available</description>
-      <baseAddress>0x0</baseAddress>
-      <addressBlock>
-        <offset>0</offset>
-        <size>0x0</size>
-        <usage>registers</usage>
-      </addressBlock>
-      <registers>
-        <register>
-          <name>PWM3__COMPARE1</name>
-          <description>UDB.D0 - Assigned Compare1 Value</description>
-          <addressOffset>0x40006428</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>PWM3__COMPARE2</name>
-          <description>UDB.D1 - Assigned Compare2 Value</description>
-          <addressOffset>0x40006438</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>PWM3_Control_Reg</name>
-          <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x40006478</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>CTRL_ENABLE</name>
-              <description>Enable the PWM</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_CMPMODE2</name>
-              <description>Compare mode 2</description>
-              <lsb>3</lsb>
-              <msb>5</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_CMPMODE1</name>
-              <description>Compare mode 1</description>
-              <lsb>0</lsb>
-              <msb>2</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>PWM3_STATUS_AUX_CTRL</name>
-          <description>UDB Auxilliary Control Register</description>
-          <addressOffset>0x40006498</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>FIFO0_CLR</name>
-              <description>FIFO0 clear</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_FIFO_CLR_0</name>
-                  <description>Normal FIFO operation</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_FIFO_CLR_1</name>
-                  <description>Clear FIFO state</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>FIFO1_CLR</name>
-              <description>FIFO1 clear</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_FIFO_CLR_0</name>
-                  <description>Normal FIFO operation</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_FIFO_CLR_1</name>
-                  <description>Clear FIFO state</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>FIFO0_LVL</name>
-              <description>FIFO level</description>
-              <lsb>2</lsb>
-              <msb>2</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_FIFO_LVL_0</name>
-                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_FIFO_LVL_1</name>
-                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>FIFO1_LVL</name>
-              <description>FIFO level</description>
-              <lsb>3</lsb>
-              <msb>3</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_FIFO_LVL_0</name>
-                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_FIFO_LVL_1</name>
-                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>INT_EN</name>
-              <description>No description available</description>
-              <lsb>4</lsb>
-              <msb>4</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_INT_EN0</name>
-                  <description>Interrupt disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_INT_EN1</name>
-                  <description>Interrupt enabled</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>CNT_START</name>
-              <description>FIFO0 clear</description>
-              <lsb>5</lsb>
-              <msb>5</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_CNT_START0</name>
-                  <description>Disable counter</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_CNT_START1</name>
-                  <description>Enable counter</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-      </registers>
-    </peripheral>
-    <peripheral>
       <name>ADC_DelSig_1</name>
       <description>No description available</description>
       <baseAddress>0x0</baseAddress>
@@ -4221,6 +4034,318 @@
       </registers>
     </peripheral>
     <peripheral>
+      <name>PWM3</name>
+      <description>No description available</description>
+      <baseAddress>0x0</baseAddress>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x0</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>PWM3_COMPARE_1</name>
+          <description>UDB.D0 - Assigned Compare1 Value</description>
+          <addressOffset>0x40006526</addressOffset>
+          <size>16</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PWM3_COMPARE_2</name>
+          <description>UDB.D1 - Assigned Compare2 Value</description>
+          <addressOffset>0x40006536</addressOffset>
+          <size>16</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PWM3_Control_Reg</name>
+          <description>UDB Control Register - Assigned Control Register Value</description>
+          <addressOffset>0x40006576</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CTRL_ENABLE</name>
+              <description>Enable the PWM</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_CMPMODE2</name>
+              <description>Compare mode 2</description>
+              <lsb>3</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_CMPMODE1</name>
+              <description>Compare mode 1</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PWM3_STATUS_AUX_CTRLDP0</name>
+          <description>UDB Auxilliary Control Register</description>
+          <addressOffset>0x40006596</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>FIFO0_CLR</name>
+              <description>FIFO0 clear</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_0</name>
+                  <description>Normal FIFO operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_1</name>
+                  <description>Clear FIFO state</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO1_CLR</name>
+              <description>FIFO1 clear</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_0</name>
+                  <description>Normal FIFO operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_1</name>
+                  <description>Clear FIFO state</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO0_LVL</name>
+              <description>FIFO level</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_0</name>
+                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_1</name>
+                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO1_LVL</name>
+              <description>FIFO level</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_0</name>
+                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_1</name>
+                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>INT_EN</name>
+              <description>No description available</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_INT_EN0</name>
+                  <description>Interrupt disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_INT_EN1</name>
+                  <description>Interrupt enabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CNT_START</name>
+              <description>FIFO0 clear</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_CNT_START0</name>
+                  <description>Disable counter</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_CNT_START1</name>
+                  <description>Enable counter</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PWM3_STATUS_AUX_CTRLDP1</name>
+          <description>UDB Auxilliary Control Register</description>
+          <addressOffset>0x40006597</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>FIFO0_CLR</name>
+              <description>FIFO0 clear</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_0</name>
+                  <description>Normal FIFO operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_1</name>
+                  <description>Clear FIFO state</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO1_CLR</name>
+              <description>FIFO1 clear</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_0</name>
+                  <description>Normal FIFO operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_1</name>
+                  <description>Clear FIFO state</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO0_LVL</name>
+              <description>FIFO level</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_0</name>
+                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_1</name>
+                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO1_LVL</name>
+              <description>FIFO level</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_0</name>
+                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_1</name>
+                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>INT_EN</name>
+              <description>No description available</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_INT_EN0</name>
+                  <description>Interrupt disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_INT_EN1</name>
+                  <description>Interrupt enabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CNT_START</name>
+              <description>FIFO0 clear</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_CNT_START0</name>
+                  <description>Disable counter</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_CNT_START1</name>
+                  <description>Enable counter</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
       <name>UART</name>
       <description>UART</description>
       <baseAddress>0x0</baseAddress>
@@ -4231,9 +4356,84 @@
       </addressBlock>
       <registers>
         <register>
+          <name>TX_UART_TX_DATA</name>
+          <description>TX Data Register</description>
+          <addressOffset>0x40006449</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>TX_UART_TX_STATUS</name>
+          <description>TX status register</description>
+          <addressOffset>0x4000646A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>UART_TX_STS_COMPLETE</name>
+              <description>No description available</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TX_STS_FIFO_EMPTY</name>
+              <description>No description available</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TX_STS_FIFO_FULL</name>
+              <description>No description available</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TX_STS_FIFO_NOT_FULL</name>
+              <description>No description available</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>RX_UART_RX_ADDRESS1</name>
+          <description>RX Address1 Register</description>
+          <addressOffset>0x4000652A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_RX_ADDRESS2</name>
+          <description>RX Address2 Register</description>
+          <addressOffset>0x4000653A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_RX_DATA</name>
+          <description>RX Data Register</description>
+          <addressOffset>0x4000654A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
           <name>RX_UART_RX_STATUS</name>
           <description>RX status register</description>
-          <addressOffset>0x40006469</addressOffset>
+          <addressOffset>0x4000656A</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4290,81 +4490,6 @@
             </field>
           </fields>
         </register>
-        <register>
-          <name>RX_UART_RX_ADDRESS1</name>
-          <description>RX Address1 Register</description>
-          <addressOffset>0x40006529</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>RX_UART_RX_ADDRESS2</name>
-          <description>RX Address2 Register</description>
-          <addressOffset>0x40006539</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>TX_UART_TX_DATA</name>
-          <description>TX Data Register</description>
-          <addressOffset>0x40006548</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>RX_UART_RX_DATA</name>
-          <description>RX Data Register</description>
-          <addressOffset>0x40006549</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>TX_UART_TX_STATUS</name>
-          <description>TX status register</description>
-          <addressOffset>0x40006568</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>UART_TX_STS_COMPLETE</name>
-              <description>No description available</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>UART_TX_STS_FIFO_EMPTY</name>
-              <description>No description available</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>UART_TX_STS_FIFO_FULL</name>
-              <description>No description available</description>
-              <lsb>2</lsb>
-              <msb>2</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>UART_TX_STS_FIFO_NOT_FULL</name>
-              <description>No description available</description>
-              <lsb>3</lsb>
-              <msb>3</msb>
-              <access>read-only</access>
-            </field>
-          </fields>
-        </register>
       </registers>
     </peripheral>
     <peripheral>
@@ -4378,19 +4503,19 @@
       </addressBlock>
       <registers>
         <register>
-          <name>PWM2__COMPARE1</name>
+          <name>PWM2_COMPARE_1</name>
           <description>UDB.D0 - Assigned Compare1 Value</description>
-          <addressOffset>0x4000642A</addressOffset>
-          <size>8</size>
+          <addressOffset>0x40006426</addressOffset>
+          <size>16</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
           <resetMask>0</resetMask>
         </register>
         <register>
-          <name>PWM2__COMPARE2</name>
+          <name>PWM2_COMPARE_2</name>
           <description>UDB.D1 - Assigned Compare2 Value</description>
-          <addressOffset>0x4000643A</addressOffset>
-          <size>8</size>
+          <addressOffset>0x40006436</addressOffset>
+          <size>16</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
           <resetMask>0</resetMask>
@@ -4398,7 +4523,7 @@
         <register>
           <name>PWM2_Control_Reg</name>
           <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x4000647A</addressOffset>
+          <addressOffset>0x40006477</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4428,9 +4553,134 @@
           </fields>
         </register>
         <register>
-          <name>PWM2_STATUS_AUX_CTRL</name>
+          <name>PWM2_STATUS_AUX_CTRLDP0</name>
           <description>UDB Auxilliary Control Register</description>
-          <addressOffset>0x4000649A</addressOffset>
+          <addressOffset>0x40006496</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>FIFO0_CLR</name>
+              <description>FIFO0 clear</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_0</name>
+                  <description>Normal FIFO operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_1</name>
+                  <description>Clear FIFO state</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO1_CLR</name>
+              <description>FIFO1 clear</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_0</name>
+                  <description>Normal FIFO operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_1</name>
+                  <description>Clear FIFO state</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO0_LVL</name>
+              <description>FIFO level</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_0</name>
+                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_1</name>
+                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO1_LVL</name>
+              <description>FIFO level</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_0</name>
+                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_1</name>
+                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>INT_EN</name>
+              <description>No description available</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_INT_EN0</name>
+                  <description>Interrupt disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_INT_EN1</name>
+                  <description>Interrupt enabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CNT_START</name>
+              <description>FIFO0 clear</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_CNT_START0</name>
+                  <description>Disable counter</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_CNT_START1</name>
+                  <description>Enable counter</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PWM2_STATUS_AUX_CTRLDP1</name>
+          <description>UDB Auxilliary Control Register</description>
+          <addressOffset>0x40006497</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4565,57 +4815,150 @@
       </addressBlock>
       <registers>
         <register>
-          <name>PWM1__COMPARE1</name>
+          <name>PWM1_COMPARE_1</name>
           <description>UDB.D0 - Assigned Compare1 Value</description>
-          <addressOffset>0x4000642B</addressOffset>
-          <size>8</size>
+          <addressOffset>0x4000642A</addressOffset>
+          <size>16</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
           <resetMask>0</resetMask>
         </register>
         <register>
-          <name>PWM1__COMPARE2</name>
+          <name>PWM1_COMPARE_2</name>
           <description>UDB.D1 - Assigned Compare2 Value</description>
-          <addressOffset>0x4000643B</addressOffset>
-          <size>8</size>
+          <addressOffset>0x4000643A</addressOffset>
+          <size>16</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
           <resetMask>0</resetMask>
         </register>
         <register>
-          <name>PWM1_Control_Reg</name>
-          <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x4000647B</addressOffset>
+          <name>PWM1_STATUS_AUX_CTRLDP0</name>
+          <description>UDB Auxilliary Control Register</description>
+          <addressOffset>0x4000649A</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
           <resetMask>0</resetMask>
           <fields>
             <field>
-              <name>CTRL_ENABLE</name>
-              <description>Enable the PWM</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_CMPMODE2</name>
-              <description>Compare mode 2</description>
-              <lsb>3</lsb>
-              <msb>5</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_CMPMODE1</name>
-              <description>Compare mode 1</description>
+              <name>FIFO0_CLR</name>
+              <description>FIFO0 clear</description>
               <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_0</name>
+                  <description>Normal FIFO operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_1</name>
+                  <description>Clear FIFO state</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO1_CLR</name>
+              <description>FIFO1 clear</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_0</name>
+                  <description>Normal FIFO operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_1</name>
+                  <description>Clear FIFO state</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO0_LVL</name>
+              <description>FIFO level</description>
+              <lsb>2</lsb>
               <msb>2</msb>
               <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_0</name>
+                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_1</name>
+                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO1_LVL</name>
+              <description>FIFO level</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_0</name>
+                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_1</name>
+                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>INT_EN</name>
+              <description>No description available</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_INT_EN0</name>
+                  <description>Interrupt disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_INT_EN1</name>
+                  <description>Interrupt enabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CNT_START</name>
+              <description>FIFO0 clear</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_CNT_START0</name>
+                  <description>Disable counter</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_CNT_START1</name>
+                  <description>Enable counter</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
           </fields>
         </register>
         <register>
-          <name>PWM1_STATUS_AUX_CTRL</name>
+          <name>PWM1_STATUS_AUX_CTRLDP1</name>
           <description>UDB Auxilliary Control Register</description>
           <addressOffset>0x4000649B</addressOffset>
           <size>8</size>
@@ -4736,6 +5079,38 @@
                   <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PWM1_Control_Reg</name>
+          <description>UDB Control Register - Assigned Control Register Value</description>
+          <addressOffset>0x4000657B</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CTRL_ENABLE</name>
+              <description>Enable the PWM</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_CMPMODE2</name>
+              <description>Compare mode 2</description>
+              <lsb>3</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_CMPMODE1</name>
+              <description>Compare mode 1</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
             </field>
           </fields>
         </register>

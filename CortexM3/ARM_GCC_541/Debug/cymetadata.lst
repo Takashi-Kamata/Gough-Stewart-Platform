@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 1
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 1
 
 
    1              		.syntax unified
@@ -27,13 +27,13 @@ ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 1
   24              		.section	.cyconfigecc,"a",%progbits
   25              		.align	2
   26              		.type	cy_meta_configecc, %object
-  27              		.size	cy_meta_configecc, 1568
+  27              		.size	cy_meta_configecc, 1756
   28              	cy_meta_configecc:
   29 0000 01       		.byte	1
   30 0001 45       		.byte	69
   31 0002 00       		.byte	0
   32 0003 40       		.byte	64
-  33 0004 08       		.byte	8
+  33 0004 07       		.byte	7
   34 0005 52       		.byte	82
   35 0006 00       		.byte	0
   36 0007 40       		.byte	64
@@ -45,2111 +45,2311 @@ ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 1
   42 000d 65       		.byte	101
   43 000e 00       		.byte	0
   44 000f 40       		.byte	64
-  45 0010 04       		.byte	4
-  46 0011 02       		.byte	2
+  45 0010 3A       		.byte	58
+  46 0011 06       		.byte	6
   47 0012 01       		.byte	1
   48 0013 40       		.byte	64
-  49 0014 01       		.byte	1
-  50 0015 03       		.byte	3
+  49 0014 17       		.byte	23
+  50 0015 07       		.byte	7
   51 0016 01       		.byte	1
   52 0017 40       		.byte	64
-  53 0018 02       		.byte	2
-  54 0019 05       		.byte	5
+  53 0018 54       		.byte	84
+  54 0019 08       		.byte	8
   55 001a 01       		.byte	1
   56 001b 40       		.byte	64
-  57 001c 02       		.byte	2
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 2
+  57 001c 35       		.byte	53
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 2
 
 
-  58 001d 07       		.byte	7
+  58 001d 09       		.byte	9
   59 001e 01       		.byte	1
   60 001f 40       		.byte	64
-  61 0020 5E       		.byte	94
-  62 0021 08       		.byte	8
+  61 0020 55       		.byte	85
+  62 0021 0A       		.byte	10
   63 0022 01       		.byte	1
   64 0023 40       		.byte	64
-  65 0024 3F       		.byte	63
-  66 0025 09       		.byte	9
+  65 0024 2E       		.byte	46
+  66 0025 0B       		.byte	11
   67 0026 01       		.byte	1
   68 0027 40       		.byte	64
-  69 0028 60       		.byte	96
-  70 0029 0A       		.byte	10
+  69 0028 03       		.byte	3
+  70 0029 15       		.byte	21
   71 002a 01       		.byte	1
   72 002b 40       		.byte	64
-  73 002c 32       		.byte	50
-  74 002d 0B       		.byte	11
+  73 002c 3A       		.byte	58
+  74 002d 16       		.byte	22
   75 002e 01       		.byte	1
   76 002f 40       		.byte	64
-  77 0030 01       		.byte	1
-  78 0031 15       		.byte	21
+  77 0030 1C       		.byte	28
+  78 0031 17       		.byte	23
   79 0032 01       		.byte	1
   80 0033 40       		.byte	64
-  81 0034 02       		.byte	2
-  82 0035 17       		.byte	23
+  81 0034 41       		.byte	65
+  82 0035 18       		.byte	24
   83 0036 01       		.byte	1
   84 0037 40       		.byte	64
-  85 0038 5E       		.byte	94
-  86 0039 18       		.byte	24
+  85 0038 35       		.byte	53
+  86 0039 19       		.byte	25
   87 003a 01       		.byte	1
   88 003b 40       		.byte	64
-  89 003c 46       		.byte	70
-  90 003d 19       		.byte	25
+  89 003c 52       		.byte	82
+  90 003d 1A       		.byte	26
   91 003e 01       		.byte	1
   92 003f 40       		.byte	64
-  93 0040 42       		.byte	66
-  94 0041 1A       		.byte	26
+  93 0040 41       		.byte	65
+  94 0041 1B       		.byte	27
   95 0042 01       		.byte	1
   96 0043 40       		.byte	64
-  97 0044 40       		.byte	64
-  98 0045 1B       		.byte	27
+  97 0044 02       		.byte	2
+  98 0045 40       		.byte	64
   99 0046 01       		.byte	1
  100 0047 40       		.byte	64
- 101 0048 02       		.byte	2
- 102 0049 40       		.byte	64
+ 101 0048 03       		.byte	3
+ 102 0049 41       		.byte	65
  103 004a 01       		.byte	1
  104 004b 40       		.byte	64
- 105 004c 03       		.byte	3
- 106 004d 41       		.byte	65
+ 105 004c 04       		.byte	4
+ 106 004d 42       		.byte	66
  107 004e 01       		.byte	1
  108 004f 40       		.byte	64
- 109 0050 04       		.byte	4
- 110 0051 42       		.byte	66
+ 109 0050 05       		.byte	5
+ 110 0051 43       		.byte	67
  111 0052 01       		.byte	1
  112 0053 40       		.byte	64
- 113 0054 05       		.byte	5
- 114 0055 43       		.byte	67
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 3
+ 113 0054 02       		.byte	2
+ 114 0055 44       		.byte	68
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 3
 
 
  115 0056 01       		.byte	1
  116 0057 40       		.byte	64
- 117 0058 02       		.byte	2
- 118 0059 44       		.byte	68
+ 117 0058 03       		.byte	3
+ 118 0059 45       		.byte	69
  119 005a 01       		.byte	1
  120 005b 40       		.byte	64
- 121 005c 03       		.byte	3
- 122 005d 45       		.byte	69
+ 121 005c 04       		.byte	4
+ 122 005d 46       		.byte	70
  123 005e 01       		.byte	1
  124 005f 40       		.byte	64
- 125 0060 07       		.byte	7
- 126 0061 46       		.byte	70
+ 125 0060 03       		.byte	3
+ 126 0061 47       		.byte	71
  127 0062 01       		.byte	1
  128 0063 40       		.byte	64
- 129 0064 04       		.byte	4
- 130 0065 47       		.byte	71
+ 129 0064 09       		.byte	9
+ 130 0065 48       		.byte	72
  131 0066 01       		.byte	1
  132 0067 40       		.byte	64
- 133 0068 0A       		.byte	10
- 134 0069 48       		.byte	72
+ 133 0068 09       		.byte	9
+ 134 0069 49       		.byte	73
  135 006a 01       		.byte	1
  136 006b 40       		.byte	64
- 137 006c 04       		.byte	4
- 138 006d 49       		.byte	73
+ 137 006c 07       		.byte	7
+ 138 006d 4C       		.byte	76
  139 006e 01       		.byte	1
  140 006f 40       		.byte	64
- 141 0070 07       		.byte	7
- 142 0071 4C       		.byte	76
+ 141 0070 09       		.byte	9
+ 142 0071 4D       		.byte	77
  143 0072 01       		.byte	1
  144 0073 40       		.byte	64
- 145 0074 09       		.byte	9
- 146 0075 4D       		.byte	77
+ 145 0074 06       		.byte	6
+ 146 0075 50       		.byte	80
  147 0076 01       		.byte	1
  148 0077 40       		.byte	64
- 149 0078 04       		.byte	4
- 150 0079 50       		.byte	80
+ 149 0078 01       		.byte	1
+ 150 0079 51       		.byte	81
  151 007a 01       		.byte	1
  152 007b 40       		.byte	64
- 153 007c 01       		.byte	1
- 154 007d 51       		.byte	81
- 155 007e 01       		.byte	1
- 156 007f 40       		.byte	64
- 157 0080 12       		.byte	18
- 158 0081 03       		.byte	3
- 159 0082 01       		.byte	1
+ 153 007c 12       		.byte	18
+ 154 007d 03       		.byte	3
+ 155 007e 00       		.byte	0
+ 156 007f 20       		.byte	32
+ 157 0080 09       		.byte	9
+ 158 0081 80       		.byte	-128
+ 159 0082 10       		.byte	16
  160 0083 20       		.byte	32
- 161 0084 08       		.byte	8
- 162 0085 80       		.byte	-128
- 163 0086 10       		.byte	16
+ 161 0084 14       		.byte	20
+ 162 0085 04       		.byte	4
+ 163 0086 19       		.byte	25
  164 0087 20       		.byte	32
- 165 0088 14       		.byte	20
- 166 0089 04       		.byte	4
- 167 008a 18       		.byte	24
- 168 008b 20       		.byte	32
- 169 008c 19       		.byte	25
- 170 008d 20       		.byte	32
- 171 008e 78       		.byte	120
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 4
+ 165 0088 78       		.byte	120
+ 166 0089 02       		.byte	2
+ 167 008a 79       		.byte	121
+ 168 008b 02       		.byte	2
+ 169 008c 8A       		.byte	-118
+ 170 008d 0F       		.byte	15
+ 171 008e 89       		.byte	-119
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 4
 
 
- 172 008f 02       		.byte	2
- 173 0090 79       		.byte	121
- 174 0091 02       		.byte	2
- 175 0092 89       		.byte	-119
- 176 0093 38       		.byte	56
- 177 0094 88       		.byte	-120
- 178 0095 0F       		.byte	15
- 179 0096 8B       		.byte	-117
- 180 0097 72       		.byte	114
- 181 0098 39       		.byte	57
- 182 0099 80       		.byte	-128
- 183 009a 3F       		.byte	63
- 184 009b 40       		.byte	64
- 185 009c 59       		.byte	89
- 186 009d 04       		.byte	4
- 187 009e 5F       		.byte	95
- 188 009f 01       		.byte	1
- 189 00a0 24       		.byte	36
- 190 00a1 02       		.byte	2
- 191 00a2 B4       		.byte	-76
- 192 00a3 01       		.byte	1
- 193 00a4 E2       		.byte	-30
- 194 00a5 40       		.byte	64
- 195 00a6 E6       		.byte	-26
- 196 00a7 02       		.byte	2
- 197 00a8 EA       		.byte	-22
- 198 00a9 01       		.byte	1
- 199 00aa 13       		.byte	19
- 200 00ab 01       		.byte	1
- 201 00ac 1A       		.byte	26
- 202 00ad 01       		.byte	1
- 203 00ae 1F       		.byte	31
- 204 00af 02       		.byte	2
- 205 00b0 2E       		.byte	46
- 206 00b1 01       		.byte	1
- 207 00b2 2F       		.byte	47
- 208 00b3 02       		.byte	2
- 209 00b4 31       		.byte	49
- 210 00b5 01       		.byte	1
- 211 00b6 35       		.byte	53
- 212 00b7 02       		.byte	2
- 213 00b8 36       		.byte	54
- 214 00b9 01       		.byte	1
- 215 00ba 40       		.byte	64
- 216 00bb 10       		.byte	16
- 217 00bc 41       		.byte	65
- 218 00bd 03       		.byte	3
- 219 00be 45       		.byte	69
+ 172 008f 72       		.byte	114
+ 173 0090 8A       		.byte	-118
+ 174 0091 38       		.byte	56
+ 175 0092 40       		.byte	64
+ 176 0093 60       		.byte	96
+ 177 0094 41       		.byte	65
+ 178 0095 02       		.byte	2
+ 179 0096 49       		.byte	73
+ 180 0097 FF       		.byte	-1
+ 181 0098 4A       		.byte	74
+ 182 0099 FF       		.byte	-1
+ 183 009a 4B       		.byte	75
+ 184 009b FF       		.byte	-1
+ 185 009c 4D       		.byte	77
+ 186 009d A0       		.byte	-96
+ 187 009e 4F       		.byte	79
+ 188 009f 04       		.byte	4
+ 189 00a0 50       		.byte	80
+ 190 00a1 18       		.byte	24
+ 191 00a2 5A       		.byte	90
+ 192 00a3 04       		.byte	4
+ 193 00a4 5D       		.byte	93
+ 194 00a5 01       		.byte	1
+ 195 00a6 5F       		.byte	95
+ 196 00a7 01       		.byte	1
+ 197 00a8 60       		.byte	96
+ 198 00a9 40       		.byte	64
+ 199 00aa 62       		.byte	98
+ 200 00ab C0       		.byte	-64
+ 201 00ac 64       		.byte	100
+ 202 00ad 40       		.byte	64
+ 203 00ae 65       		.byte	101
+ 204 00af 40       		.byte	64
+ 205 00b0 66       		.byte	102
+ 206 00b1 C0       		.byte	-64
+ 207 00b2 68       		.byte	104
+ 208 00b3 C0       		.byte	-64
+ 209 00b4 6A       		.byte	106
+ 210 00b5 C0       		.byte	-64
+ 211 00b6 6C       		.byte	108
+ 212 00b7 C0       		.byte	-64
+ 213 00b8 6E       		.byte	110
+ 214 00b9 C0       		.byte	-64
+ 215 00ba 86       		.byte	-122
+ 216 00bb 02       		.byte	2
+ 217 00bc 8B       		.byte	-117
+ 218 00bd 01       		.byte	1
+ 219 00be 92       		.byte	-110
  220 00bf 01       		.byte	1
- 221 00c0 46       		.byte	70
- 222 00c1 20       		.byte	32
- 223 00c2 47       		.byte	71
- 224 00c3 50       		.byte	80
- 225 00c4 48       		.byte	72
- 226 00c5 29       		.byte	41
- 227 00c6 49       		.byte	73
- 228 00c7 FF       		.byte	-1
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 5
+ 221 00c0 A6       		.byte	-90
+ 222 00c1 02       		.byte	2
+ 223 00c2 A7       		.byte	-89
+ 224 00c3 01       		.byte	1
+ 225 00c4 B2       		.byte	-78
+ 226 00c5 02       		.byte	2
+ 227 00c6 B4       		.byte	-76
+ 228 00c7 01       		.byte	1
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 5
 
 
- 229 00c8 4A       		.byte	74
- 230 00c9 FF       		.byte	-1
- 231 00ca 4B       		.byte	75
- 232 00cb FF       		.byte	-1
- 233 00cc 4D       		.byte	77
- 234 00cd A0       		.byte	-96
- 235 00ce 4F       		.byte	79
- 236 00cf 04       		.byte	4
- 237 00d0 50       		.byte	80
- 238 00d1 18       		.byte	24
- 239 00d2 52       		.byte	82
- 240 00d3 80       		.byte	-128
- 241 00d4 58       		.byte	88
- 242 00d5 04       		.byte	4
- 243 00d6 59       		.byte	89
- 244 00d7 04       		.byte	4
- 245 00d8 5A       		.byte	90
- 246 00d9 04       		.byte	4
- 247 00da 5B       		.byte	91
- 248 00db 04       		.byte	4
- 249 00dc 5C       		.byte	92
- 250 00dd 22       		.byte	34
- 251 00de 5D       		.byte	93
- 252 00df 22       		.byte	34
- 253 00e0 5F       		.byte	95
- 254 00e1 01       		.byte	1
- 255 00e2 60       		.byte	96
- 256 00e3 40       		.byte	64
- 257 00e4 62       		.byte	98
- 258 00e5 C0       		.byte	-64
- 259 00e6 64       		.byte	100
- 260 00e7 40       		.byte	64
- 261 00e8 65       		.byte	101
- 262 00e9 40       		.byte	64
- 263 00ea 66       		.byte	102
- 264 00eb C0       		.byte	-64
- 265 00ec 68       		.byte	104
- 266 00ed C0       		.byte	-64
- 267 00ee 6A       		.byte	106
- 268 00ef C0       		.byte	-64
- 269 00f0 6C       		.byte	108
- 270 00f1 C0       		.byte	-64
- 271 00f2 6E       		.byte	110
- 272 00f3 C0       		.byte	-64
- 273 00f4 86       		.byte	-122
- 274 00f5 06       		.byte	6
- 275 00f6 89       		.byte	-119
- 276 00f7 09       		.byte	9
- 277 00f8 8A       		.byte	-118
- 278 00f9 0C       		.byte	12
- 279 00fa 8B       		.byte	-117
- 280 00fb 10       		.byte	16
- 281 00fc 8C       		.byte	-116
- 282 00fd 0C       		.byte	12
- 283 00fe 8E       		.byte	-114
- 284 00ff 02       		.byte	2
- 285 0100 8F       		.byte	-113
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 6
+ 229 00c8 B5       		.byte	-75
+ 230 00c9 01       		.byte	1
+ 231 00ca C0       		.byte	-64
+ 232 00cb 20       		.byte	32
+ 233 00cc C1       		.byte	-63
+ 234 00cd 06       		.byte	6
+ 235 00ce C5       		.byte	-59
+ 236 00cf 01       		.byte	1
+ 237 00d0 C6       		.byte	-58
+ 238 00d1 50       		.byte	80
+ 239 00d2 C7       		.byte	-57
+ 240 00d3 02       		.byte	2
+ 241 00d4 C8       		.byte	-56
+ 242 00d5 19       		.byte	25
+ 243 00d6 C9       		.byte	-55
+ 244 00d7 FF       		.byte	-1
+ 245 00d8 CA       		.byte	-54
+ 246 00d9 FF       		.byte	-1
+ 247 00da CB       		.byte	-53
+ 248 00db FF       		.byte	-1
+ 249 00dc CD       		.byte	-51
+ 250 00dd AF       		.byte	-81
+ 251 00de CE       		.byte	-50
+ 252 00df 0F       		.byte	15
+ 253 00e0 CF       		.byte	-49
+ 254 00e1 04       		.byte	4
+ 255 00e2 D0       		.byte	-48
+ 256 00e3 18       		.byte	24
+ 257 00e4 D2       		.byte	-46
+ 258 00e5 80       		.byte	-128
+ 259 00e6 D8       		.byte	-40
+ 260 00e7 04       		.byte	4
+ 261 00e8 D9       		.byte	-39
+ 262 00e9 04       		.byte	4
+ 263 00ea DA       		.byte	-38
+ 264 00eb 04       		.byte	4
+ 265 00ec DB       		.byte	-37
+ 266 00ed 04       		.byte	4
+ 267 00ee DC       		.byte	-36
+ 268 00ef 11       		.byte	17
+ 269 00f0 DD       		.byte	-35
+ 270 00f1 11       		.byte	17
+ 271 00f2 DF       		.byte	-33
+ 272 00f3 01       		.byte	1
+ 273 00f4 E0       		.byte	-32
+ 274 00f5 40       		.byte	64
+ 275 00f6 E2       		.byte	-30
+ 276 00f7 C0       		.byte	-64
+ 277 00f8 E4       		.byte	-28
+ 278 00f9 40       		.byte	64
+ 279 00fa E5       		.byte	-27
+ 280 00fb 40       		.byte	64
+ 281 00fc E6       		.byte	-26
+ 282 00fd C0       		.byte	-64
+ 283 00fe E8       		.byte	-24
+ 284 00ff C0       		.byte	-64
+ 285 0100 EA       		.byte	-22
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 6
 
 
- 286 0101 20       		.byte	32
- 287 0102 92       		.byte	-110
- 288 0103 01       		.byte	1
- 289 0104 95       		.byte	-107
- 290 0105 10       		.byte	16
- 291 0106 96       		.byte	-106
- 292 0107 0A       		.byte	10
- 293 0108 97       		.byte	-105
- 294 0109 0C       		.byte	12
- 295 010a 99       		.byte	-103
- 296 010b 0C       		.byte	12
- 297 010c 9A       		.byte	-102
+ 286 0101 C0       		.byte	-64
+ 287 0102 EC       		.byte	-20
+ 288 0103 C0       		.byte	-64
+ 289 0104 EE       		.byte	-18
+ 290 0105 C0       		.byte	-64
+ 291 0106 00       		.byte	0
+ 292 0107 04       		.byte	4
+ 293 0108 09       		.byte	9
+ 294 0109 02       		.byte	2
+ 295 010a 10       		.byte	16
+ 296 010b 20       		.byte	32
+ 297 010c 18       		.byte	24
  298 010d 04       		.byte	4
- 299 010e 9B       		.byte	-101
- 300 010f 11       		.byte	17
- 301 0110 9C       		.byte	-100
- 302 0111 10       		.byte	16
- 303 0112 9F       		.byte	-97
- 304 0113 03       		.byte	3
- 305 0114 A1       		.byte	-95
- 306 0115 14       		.byte	20
- 307 0116 A2       		.byte	-94
- 308 0117 02       		.byte	2
- 309 0118 A6       		.byte	-90
- 310 0119 01       		.byte	1
- 311 011a A7       		.byte	-89
- 312 011b 20       		.byte	32
- 313 011c A8       		.byte	-88
- 314 011d 01       		.byte	1
- 315 011e A9       		.byte	-87
- 316 011f 10       		.byte	16
- 317 0120 AC       		.byte	-84
- 318 0121 01       		.byte	1
- 319 0122 AD       		.byte	-83
- 320 0123 1C       		.byte	28
- 321 0124 AF       		.byte	-81
- 322 0125 02       		.byte	2
- 323 0126 B0       		.byte	-80
- 324 0127 10       		.byte	16
- 325 0128 B2       		.byte	-78
- 326 0129 01       		.byte	1
- 327 012a B4       		.byte	-76
- 328 012b 0E       		.byte	14
- 329 012c B5       		.byte	-75
- 330 012d 20       		.byte	32
- 331 012e B7       		.byte	-73
- 332 012f 1F       		.byte	31
- 333 0130 B8       		.byte	-72
- 334 0131 08       		.byte	8
- 335 0132 BA       		.byte	-70
- 336 0133 20       		.byte	32
- 337 0134 BE       		.byte	-66
- 338 0135 01       		.byte	1
- 339 0136 BF       		.byte	-65
- 340 0137 10       		.byte	16
- 341 0138 C0       		.byte	-64
- 342 0139 06       		.byte	6
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 7
+ 299 010e 1B       		.byte	27
+ 300 010f 18       		.byte	24
+ 301 0110 22       		.byte	34
+ 302 0111 20       		.byte	32
+ 303 0112 2B       		.byte	43
+ 304 0113 10       		.byte	16
+ 305 0114 38       		.byte	56
+ 306 0115 20       		.byte	32
+ 307 0116 40       		.byte	64
+ 308 0117 04       		.byte	4
+ 309 0118 46       		.byte	70
+ 310 0119 04       		.byte	4
+ 311 011a 48       		.byte	72
+ 312 011b 28       		.byte	40
+ 313 011c 4F       		.byte	79
+ 314 011d 20       		.byte	32
+ 315 011e 50       		.byte	80
+ 316 011f 18       		.byte	24
+ 317 0120 52       		.byte	82
+ 318 0121 04       		.byte	4
+ 319 0122 71       		.byte	113
+ 320 0123 02       		.byte	2
+ 321 0124 C0       		.byte	-64
+ 322 0125 04       		.byte	4
+ 323 0126 C2       		.byte	-62
+ 324 0127 08       		.byte	8
+ 325 0128 C4       		.byte	-60
+ 326 0129 04       		.byte	4
+ 327 012a CA       		.byte	-54
+ 328 012b 02       		.byte	2
+ 329 012c CE       		.byte	-50
+ 330 012d 04       		.byte	4
+ 331 012e D0       		.byte	-48
+ 332 012f 24       		.byte	36
+ 333 0130 D2       		.byte	-46
+ 334 0131 24       		.byte	36
+ 335 0132 E2       		.byte	-30
+ 336 0133 01       		.byte	1
+ 337 0134 01       		.byte	1
+ 338 0135 02       		.byte	2
+ 339 0136 04       		.byte	4
+ 340 0137 03       		.byte	3
+ 341 0138 09       		.byte	9
+ 342 0139 01       		.byte	1
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 7
 
 
- 343 013a C6       		.byte	-58
- 344 013b 40       		.byte	64
- 345 013c C9       		.byte	-55
- 346 013d FF       		.byte	-1
- 347 013e CA       		.byte	-54
- 348 013f 07       		.byte	7
- 349 0140 CB       		.byte	-53
- 350 0141 FF       		.byte	-1
- 351 0142 CC       		.byte	-52
- 352 0143 40       		.byte	64
- 353 0144 CD       		.byte	-51
- 354 0145 20       		.byte	32
- 355 0146 CE       		.byte	-50
- 356 0147 F0       		.byte	-16
- 357 0148 CF       		.byte	-49
- 358 0149 05       		.byte	5
- 359 014a D0       		.byte	-48
- 360 014b 08       		.byte	8
- 361 014c D4       		.byte	-44
- 362 014d 18       		.byte	24
- 363 014e D6       		.byte	-42
- 364 014f 04       		.byte	4
- 365 0150 D8       		.byte	-40
- 366 0151 04       		.byte	4
- 367 0152 D9       		.byte	-39
- 368 0153 04       		.byte	4
- 369 0154 DA       		.byte	-38
+ 343 013a 0C       		.byte	12
+ 344 013b 02       		.byte	2
+ 345 013c 14       		.byte	20
+ 346 013d 03       		.byte	3
+ 347 013e 1F       		.byte	31
+ 348 013f 01       		.byte	1
+ 349 0140 25       		.byte	37
+ 350 0141 01       		.byte	1
+ 351 0142 26       		.byte	38
+ 352 0143 04       		.byte	4
+ 353 0144 2A       		.byte	42
+ 354 0145 04       		.byte	4
+ 355 0146 2E       		.byte	46
+ 356 0147 01       		.byte	1
+ 357 0148 30       		.byte	48
+ 358 0149 03       		.byte	3
+ 359 014a 32       		.byte	50
+ 360 014b 04       		.byte	4
+ 361 014c 37       		.byte	55
+ 362 014d 03       		.byte	3
+ 363 014e 38       		.byte	56
+ 364 014f 02       		.byte	2
+ 365 0150 39       		.byte	57
+ 366 0151 80       		.byte	-128
+ 367 0152 3E       		.byte	62
+ 368 0153 01       		.byte	1
+ 369 0154 40       		.byte	64
  370 0155 04       		.byte	4
- 371 0156 DB       		.byte	-37
+ 371 0156 45       		.byte	69
  372 0157 04       		.byte	4
- 373 0158 DC       		.byte	-36
- 374 0159 44       		.byte	68
- 375 015a DD       		.byte	-35
- 376 015b 44       		.byte	68
- 377 015c DF       		.byte	-33
- 378 015d 01       		.byte	1
- 379 015e E0       		.byte	-32
+ 373 0158 49       		.byte	73
+ 374 0159 FF       		.byte	-1
+ 375 015a 4A       		.byte	74
+ 376 015b 07       		.byte	7
+ 377 015c 4B       		.byte	75
+ 378 015d FF       		.byte	-1
+ 379 015e 4C       		.byte	76
  380 015f 40       		.byte	64
- 381 0160 E1       		.byte	-31
- 382 0161 A8       		.byte	-88
- 383 0162 E2       		.byte	-30
- 384 0163 40       		.byte	64
- 385 0164 E3       		.byte	-29
- 386 0165 20       		.byte	32
- 387 0166 00       		.byte	0
- 388 0167 20       		.byte	32
- 389 0168 01       		.byte	1
- 390 0169 90       		.byte	-112
- 391 016a 03       		.byte	3
- 392 016b 20       		.byte	32
- 393 016c 09       		.byte	9
- 394 016d A8       		.byte	-88
- 395 016e 0A       		.byte	10
- 396 016f 40       		.byte	64
- 397 0170 0F       		.byte	15
- 398 0171 04       		.byte	4
- 399 0172 10       		.byte	16
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 8
+ 381 0160 4D       		.byte	77
+ 382 0161 20       		.byte	32
+ 383 0162 4E       		.byte	78
+ 384 0163 F0       		.byte	-16
+ 385 0164 4F       		.byte	79
+ 386 0165 05       		.byte	5
+ 387 0166 50       		.byte	80
+ 388 0167 08       		.byte	8
+ 389 0168 58       		.byte	88
+ 390 0169 04       		.byte	4
+ 391 016a 59       		.byte	89
+ 392 016b 04       		.byte	4
+ 393 016c 5A       		.byte	90
+ 394 016d 04       		.byte	4
+ 395 016e 5C       		.byte	92
+ 396 016f 21       		.byte	33
+ 397 0170 5D       		.byte	93
+ 398 0171 02       		.byte	2
+ 399 0172 5F       		.byte	95
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 8
 
 
- 400 0173 98       		.byte	-104
- 401 0174 11       		.byte	17
- 402 0175 80       		.byte	-128
- 403 0176 17       		.byte	23
- 404 0177 80       		.byte	-128
- 405 0178 19       		.byte	25
- 406 0179 14       		.byte	20
- 407 017a 1A       		.byte	26
- 408 017b 08       		.byte	8
- 409 017c 1B       		.byte	27
- 410 017d 21       		.byte	33
- 411 017e 1F       		.byte	31
- 412 017f 80       		.byte	-128
- 413 0180 21       		.byte	33
- 414 0181 80       		.byte	-128
- 415 0182 22       		.byte	34
- 416 0183 20       		.byte	32
- 417 0184 27       		.byte	39
- 418 0185 88       		.byte	-120
- 419 0186 29       		.byte	41
- 420 0187 84       		.byte	-124
- 421 0188 2A       		.byte	42
- 422 0189 11       		.byte	17
- 423 018a 2F       		.byte	47
- 424 018b 02       		.byte	2
- 425 018c 31       		.byte	49
- 426 018d 90       		.byte	-112
- 427 018e 33       		.byte	51
- 428 018f 08       		.byte	8
- 429 0190 35       		.byte	53
- 430 0191 01       		.byte	1
- 431 0192 37       		.byte	55
- 432 0193 80       		.byte	-128
- 433 0194 38       		.byte	56
- 434 0195 80       		.byte	-128
- 435 0196 39       		.byte	57
- 436 0197 10       		.byte	16
- 437 0198 46       		.byte	70
- 438 0199 20       		.byte	32
- 439 019a 47       		.byte	71
- 440 019b 80       		.byte	-128
- 441 019c 48       		.byte	72
- 442 019d 04       		.byte	4
- 443 019e 4F       		.byte	79
- 444 019f 04       		.byte	4
- 445 01a0 50       		.byte	80
- 446 01a1 80       		.byte	-128
- 447 01a2 51       		.byte	81
- 448 01a3 20       		.byte	32
- 449 01a4 52       		.byte	82
+ 400 0173 01       		.byte	1
+ 401 0174 60       		.byte	96
+ 402 0175 40       		.byte	64
+ 403 0176 61       		.byte	97
+ 404 0177 A8       		.byte	-88
+ 405 0178 62       		.byte	98
+ 406 0179 40       		.byte	64
+ 407 017a 63       		.byte	99
+ 408 017b 20       		.byte	32
+ 409 017c 84       		.byte	-124
+ 410 017d 06       		.byte	6
+ 411 017e 85       		.byte	-123
+ 412 017f 14       		.byte	20
+ 413 0180 86       		.byte	-122
+ 414 0181 18       		.byte	24
+ 415 0182 89       		.byte	-119
+ 416 0183 10       		.byte	16
+ 417 0184 8C       		.byte	-116
+ 418 0185 14       		.byte	20
+ 419 0186 8E       		.byte	-114
+ 420 0187 08       		.byte	8
+ 421 0188 92       		.byte	-110
+ 422 0189 0A       		.byte	10
+ 423 018a 93       		.byte	-109
+ 424 018b 03       		.byte	3
+ 425 018c 94       		.byte	-108
+ 426 018d 06       		.byte	6
+ 427 018e 95       		.byte	-107
+ 428 018f 0C       		.byte	12
+ 429 0190 96       		.byte	-106
+ 430 0191 08       		.byte	8
+ 431 0192 97       		.byte	-105
+ 432 0193 11       		.byte	17
+ 433 0194 9C       		.byte	-100
+ 434 0195 01       		.byte	1
+ 435 0196 9D       		.byte	-99
+ 436 0197 09       		.byte	9
+ 437 0198 9F       		.byte	-97
+ 438 0199 10       		.byte	16
+ 439 019a A4       		.byte	-92
+ 440 019b 06       		.byte	6
+ 441 019c A5       		.byte	-91
+ 442 019d 10       		.byte	16
+ 443 019e A6       		.byte	-90
+ 444 019f 08       		.byte	8
+ 445 01a0 A7       		.byte	-89
+ 446 01a1 0C       		.byte	12
+ 447 01a2 AD       		.byte	-83
+ 448 01a3 1C       		.byte	28
+ 449 01a4 AE       		.byte	-82
  450 01a5 10       		.byte	16
- 451 01a6 56       		.byte	86
- 452 01a7 20       		.byte	32
- 453 01a8 57       		.byte	87
- 454 01a9 02       		.byte	2
- 455 01aa 5A       		.byte	90
- 456 01ab 02       		.byte	2
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 9
+ 451 01a6 AF       		.byte	-81
+ 452 01a7 02       		.byte	2
+ 453 01a8 B1       		.byte	-79
+ 454 01a9 1F       		.byte	31
+ 455 01aa B2       		.byte	-78
+ 456 01ab 1E       		.byte	30
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 9
 
 
- 457 01ac 62       		.byte	98
- 458 01ad 60       		.byte	96
- 459 01ae 63       		.byte	99
- 460 01af 40       		.byte	64
- 461 01b0 75       		.byte	117
- 462 01b1 01       		.byte	1
- 463 01b2 78       		.byte	120
- 464 01b3 10       		.byte	16
- 465 01b4 79       		.byte	121
- 466 01b5 20       		.byte	32
- 467 01b6 87       		.byte	-121
- 468 01b7 40       		.byte	64
- 469 01b8 94       		.byte	-108
- 470 01b9 08       		.byte	8
- 471 01ba 95       		.byte	-107
- 472 01bb 20       		.byte	32
- 473 01bc 96       		.byte	-106
- 474 01bd 48       		.byte	72
- 475 01be 99       		.byte	-103
- 476 01bf 80       		.byte	-128
- 477 01c0 9D       		.byte	-99
- 478 01c1 30       		.byte	48
- 479 01c2 9E       		.byte	-98
- 480 01c3 10       		.byte	16
- 481 01c4 A0       		.byte	-96
- 482 01c5 04       		.byte	4
- 483 01c6 A2       		.byte	-94
- 484 01c7 10       		.byte	16
- 485 01c8 A4       		.byte	-92
- 486 01c9 90       		.byte	-112
- 487 01ca A7       		.byte	-89
- 488 01cb 08       		.byte	8
- 489 01cc A9       		.byte	-87
- 490 01cd 40       		.byte	64
- 491 01ce B4       		.byte	-76
- 492 01cf 40       		.byte	64
- 493 01d0 C0       		.byte	-64
- 494 01d1 07       		.byte	7
- 495 01d2 C2       		.byte	-62
- 496 01d3 4F       		.byte	79
- 497 01d4 C4       		.byte	-60
- 498 01d5 8F       		.byte	-113
- 499 01d6 CA       		.byte	-54
- 500 01d7 1F       		.byte	31
- 501 01d8 CC       		.byte	-52
- 502 01d9 9E       		.byte	-98
- 503 01da CE       		.byte	-50
- 504 01db 0C       		.byte	12
- 505 01dc D0       		.byte	-48
- 506 01dd 50       		.byte	80
- 507 01de D2       		.byte	-46
- 508 01df 04       		.byte	4
- 509 01e0 D6       		.byte	-42
- 510 01e1 01       		.byte	1
- 511 01e2 D8       		.byte	-40
- 512 01e3 0D       		.byte	13
+ 457 01ac B4       		.byte	-76
+ 458 01ad 01       		.byte	1
+ 459 01ae BA       		.byte	-70
+ 460 01af 08       		.byte	8
+ 461 01b0 BE       		.byte	-66
+ 462 01b1 10       		.byte	16
+ 463 01b2 C0       		.byte	-64
+ 464 01b3 21       		.byte	33
+ 465 01b4 C1       		.byte	-63
+ 466 01b5 03       		.byte	3
+ 467 01b6 C5       		.byte	-59
+ 468 01b7 E0       		.byte	-32
+ 469 01b8 C6       		.byte	-58
+ 470 01b9 C0       		.byte	-64
+ 471 01ba C7       		.byte	-57
+ 472 01bb 0B       		.byte	11
+ 473 01bc C8       		.byte	-56
+ 474 01bd 1A       		.byte	26
+ 475 01be C9       		.byte	-55
+ 476 01bf FF       		.byte	-1
+ 477 01c0 CA       		.byte	-54
+ 478 01c1 FF       		.byte	-1
+ 479 01c2 CB       		.byte	-53
+ 480 01c3 FF       		.byte	-1
+ 481 01c4 CE       		.byte	-50
+ 482 01c5 F0       		.byte	-16
+ 483 01c6 CF       		.byte	-49
+ 484 01c7 44       		.byte	68
+ 485 01c8 D0       		.byte	-48
+ 486 01c9 0C       		.byte	12
+ 487 01ca D8       		.byte	-40
+ 488 01cb 04       		.byte	4
+ 489 01cc D9       		.byte	-39
+ 490 01cd 04       		.byte	4
+ 491 01ce DA       		.byte	-38
+ 492 01cf 04       		.byte	4
+ 493 01d0 DC       		.byte	-36
+ 494 01d1 22       		.byte	34
+ 495 01d2 DD       		.byte	-35
+ 496 01d3 02       		.byte	2
+ 497 01d4 DF       		.byte	-33
+ 498 01d5 01       		.byte	1
+ 499 01d6 E6       		.byte	-26
+ 500 01d7 C0       		.byte	-64
+ 501 01d8 EA       		.byte	-22
+ 502 01d9 40       		.byte	64
+ 503 01da EB       		.byte	-21
+ 504 01db 02       		.byte	2
+ 505 01dc 01       		.byte	1
+ 506 01dd 08       		.byte	8
+ 507 01de 02       		.byte	2
+ 508 01df 01       		.byte	1
+ 509 01e0 04       		.byte	4
+ 510 01e1 84       		.byte	-124
+ 511 01e2 05       		.byte	5
+ 512 01e3 48       		.byte	72
  513 01e4 06       		.byte	6
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 10
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 10
 
 
- 514 01e5 08       		.byte	8
- 515 01e6 07       		.byte	7
- 516 01e7 04       		.byte	4
+ 514 01e5 01       		.byte	1
+ 515 01e6 09       		.byte	9
+ 516 01e7 01       		.byte	1
  517 01e8 0A       		.byte	10
- 518 01e9 0C       		.byte	12
- 519 01ea 0B       		.byte	11
- 520 01eb 01       		.byte	1
- 521 01ec 0C       		.byte	12
- 522 01ed 0C       		.byte	12
- 523 01ee 0E       		.byte	14
- 524 01ef 03       		.byte	3
- 525 01f0 0F       		.byte	15
- 526 01f1 05       		.byte	5
- 527 01f2 18       		.byte	24
- 528 01f3 01       		.byte	1
+ 518 01e9 12       		.byte	18
+ 519 01ea 0E       		.byte	14
+ 520 01eb 10       		.byte	16
+ 521 01ec 10       		.byte	16
+ 522 01ed 20       		.byte	32
+ 523 01ee 11       		.byte	17
+ 524 01ef 80       		.byte	-128
+ 525 01f0 16       		.byte	22
+ 526 01f1 0A       		.byte	10
+ 527 01f2 17       		.byte	23
+ 528 01f3 04       		.byte	4
  529 01f4 19       		.byte	25
- 530 01f5 18       		.byte	24
+ 530 01f5 08       		.byte	8
  531 01f6 1A       		.byte	26
- 532 01f7 0E       		.byte	14
- 533 01f8 1F       		.byte	31
- 534 01f9 08       		.byte	8
+ 532 01f7 08       		.byte	8
+ 533 01f8 1D       		.byte	29
+ 534 01f9 0A       		.byte	10
  535 01fa 22       		.byte	34
- 536 01fb 03       		.byte	3
- 537 01fc 23       		.byte	35
- 538 01fd 02       		.byte	2
- 539 01fe 28       		.byte	40
- 540 01ff 01       		.byte	1
+ 536 01fb 01       		.byte	1
+ 537 01fc 25       		.byte	37
+ 538 01fd 40       		.byte	64
+ 539 01fe 26       		.byte	38
+ 540 01ff 80       		.byte	-128
  541 0200 29       		.byte	41
- 542 0201 18       		.byte	24
- 543 0202 2A       		.byte	42
- 544 0203 06       		.byte	6
- 545 0204 2D       		.byte	45
- 546 0205 10       		.byte	16
- 547 0206 31       		.byte	49
- 548 0207 02       		.byte	2
- 549 0208 33       		.byte	51
- 550 0209 01       		.byte	1
- 551 020a 35       		.byte	53
- 552 020b 18       		.byte	24
- 553 020c 36       		.byte	54
- 554 020d 0F       		.byte	15
- 555 020e 37       		.byte	55
+ 542 0201 48       		.byte	72
+ 543 0202 2D       		.byte	45
+ 544 0203 08       		.byte	8
+ 545 0204 31       		.byte	49
+ 546 0205 04       		.byte	4
+ 547 0206 32       		.byte	50
+ 548 0207 81       		.byte	-127
+ 549 0208 35       		.byte	53
+ 550 0209 40       		.byte	64
+ 551 020a 38       		.byte	56
+ 552 020b 28       		.byte	40
+ 553 020c 3E       		.byte	62
+ 554 020d 12       		.byte	18
+ 555 020e 40       		.byte	64
  556 020f 04       		.byte	4
- 557 0210 39       		.byte	57
- 558 0211 20       		.byte	32
- 559 0212 3A       		.byte	58
- 560 0213 80       		.byte	-128
- 561 0214 3F       		.byte	63
- 562 0215 10       		.byte	16
- 563 0216 40       		.byte	64
- 564 0217 40       		.byte	64
- 565 0218 41       		.byte	65
- 566 0219 06       		.byte	6
- 567 021a 45       		.byte	69
- 568 021b 05       		.byte	5
- 569 021c 46       		.byte	70
- 570 021d 10       		.byte	16
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 11
+ 557 0210 42       		.byte	66
+ 558 0211 12       		.byte	18
+ 559 0212 45       		.byte	69
+ 560 0213 02       		.byte	2
+ 561 0214 49       		.byte	73
+ 562 0215 01       		.byte	1
+ 563 0216 4C       		.byte	76
+ 564 0217 10       		.byte	16
+ 565 0218 50       		.byte	80
+ 566 0219 24       		.byte	36
+ 567 021a 55       		.byte	85
+ 568 021b 01       		.byte	1
+ 569 021c 56       		.byte	86
+ 570 021d 02       		.byte	2
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 11
 
 
- 571 021e 47       		.byte	71
- 572 021f 02       		.byte	2
- 573 0220 48       		.byte	72
- 574 0221 19       		.byte	25
- 575 0222 49       		.byte	73
- 576 0223 FF       		.byte	-1
- 577 0224 4A       		.byte	74
- 578 0225 FF       		.byte	-1
- 579 0226 4B       		.byte	75
- 580 0227 FF       		.byte	-1
- 581 0228 4D       		.byte	77
- 582 0229 A0       		.byte	-96
- 583 022a 4F       		.byte	79
+ 571 021e 81       		.byte	-127
+ 572 021f 08       		.byte	8
+ 573 0220 90       		.byte	-112
+ 574 0221 80       		.byte	-128
+ 575 0222 92       		.byte	-110
+ 576 0223 10       		.byte	16
+ 577 0224 94       		.byte	-108
+ 578 0225 20       		.byte	32
+ 579 0226 99       		.byte	-103
+ 580 0227 04       		.byte	4
+ 581 0228 9A       		.byte	-102
+ 582 0229 08       		.byte	8
+ 583 022a 9B       		.byte	-101
  584 022b 04       		.byte	4
- 585 022c 50       		.byte	80
- 586 022d 18       		.byte	24
- 587 022e 52       		.byte	82
- 588 022f 80       		.byte	-128
- 589 0230 58       		.byte	88
- 590 0231 04       		.byte	4
- 591 0232 59       		.byte	89
- 592 0233 04       		.byte	4
- 593 0234 5A       		.byte	90
- 594 0235 04       		.byte	4
- 595 0236 5B       		.byte	91
+ 585 022c 9D       		.byte	-99
+ 586 022d 09       		.byte	9
+ 587 022e 9E       		.byte	-98
+ 588 022f 02       		.byte	2
+ 589 0230 A4       		.byte	-92
+ 590 0231 20       		.byte	32
+ 591 0232 A5       		.byte	-91
+ 592 0233 40       		.byte	64
+ 593 0234 A7       		.byte	-89
+ 594 0235 08       		.byte	8
+ 595 0236 B0       		.byte	-80
  596 0237 04       		.byte	4
- 597 0238 5C       		.byte	92
- 598 0239 14       		.byte	20
- 599 023a 5D       		.byte	93
- 600 023b 11       		.byte	17
- 601 023c 5F       		.byte	95
- 602 023d 01       		.byte	1
- 603 023e 60       		.byte	96
- 604 023f 40       		.byte	64
- 605 0240 62       		.byte	98
- 606 0241 C0       		.byte	-64
- 607 0242 64       		.byte	100
- 608 0243 40       		.byte	64
- 609 0244 65       		.byte	101
- 610 0245 40       		.byte	64
- 611 0246 66       		.byte	102
- 612 0247 C0       		.byte	-64
- 613 0248 68       		.byte	104
- 614 0249 C0       		.byte	-64
- 615 024a 6A       		.byte	106
- 616 024b C0       		.byte	-64
- 617 024c 6C       		.byte	108
- 618 024d C0       		.byte	-64
- 619 024e 6E       		.byte	110
- 620 024f C0       		.byte	-64
- 621 0250 83       		.byte	-125
- 622 0251 01       		.byte	1
- 623 0252 84       		.byte	-124
- 624 0253 01       		.byte	1
- 625 0254 88       		.byte	-120
- 626 0255 01       		.byte	1
- 627 0256 90       		.byte	-112
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 12
+ 597 0238 C0       		.byte	-64
+ 598 0239 A5       		.byte	-91
+ 599 023a C2       		.byte	-62
+ 600 023b 2D       		.byte	45
+ 601 023c C4       		.byte	-60
+ 602 023d E5       		.byte	-27
+ 603 023e CA       		.byte	-54
+ 604 023f 4A       		.byte	74
+ 605 0240 CC       		.byte	-52
+ 606 0241 1B       		.byte	27
+ 607 0242 CE       		.byte	-50
+ 608 0243 A6       		.byte	-90
+ 609 0244 D0       		.byte	-48
+ 610 0245 8E       		.byte	-114
+ 611 0246 03       		.byte	3
+ 612 0247 02       		.byte	2
+ 613 0248 04       		.byte	4
+ 614 0249 01       		.byte	1
+ 615 024a 06       		.byte	6
+ 616 024b 06       		.byte	6
+ 617 024c 0A       		.byte	10
+ 618 024d 08       		.byte	8
+ 619 024e 0B       		.byte	11
+ 620 024f 04       		.byte	4
+ 621 0250 0E       		.byte	14
+ 622 0251 03       		.byte	3
+ 623 0252 0F       		.byte	15
+ 624 0253 02       		.byte	2
+ 625 0254 10       		.byte	16
+ 626 0255 0C       		.byte	12
+ 627 0256 12       		.byte	18
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 12
 
 
- 628 0257 01       		.byte	1
- 629 0258 9A       		.byte	-102
- 630 0259 04       		.byte	4
- 631 025a 9E       		.byte	-98
- 632 025b 04       		.byte	4
- 633 025c A3       		.byte	-93
- 634 025d 01       		.byte	1
- 635 025e A8       		.byte	-88
- 636 025f 01       		.byte	1
- 637 0260 AE       		.byte	-82
- 638 0261 02       		.byte	2
- 639 0262 B1       		.byte	-79
+ 628 0257 03       		.byte	3
+ 629 0258 14       		.byte	20
+ 630 0259 01       		.byte	1
+ 631 025a 15       		.byte	21
+ 632 025b 02       		.byte	2
+ 633 025c 16       		.byte	22
+ 634 025d 0E       		.byte	14
+ 635 025e 1B       		.byte	27
+ 636 025f 02       		.byte	2
+ 637 0260 1E       		.byte	30
+ 638 0261 0C       		.byte	12
+ 639 0262 21       		.byte	33
  640 0263 01       		.byte	1
- 641 0264 B2       		.byte	-78
- 642 0265 01       		.byte	1
- 643 0266 B4       		.byte	-76
+ 641 0264 25       		.byte	37
+ 642 0265 02       		.byte	2
+ 643 0266 2B       		.byte	43
  644 0267 04       		.byte	4
- 645 0268 B6       		.byte	-74
- 646 0269 02       		.byte	2
- 647 026a BE       		.byte	-66
- 648 026b 04       		.byte	4
- 649 026c C0       		.byte	-64
- 650 026d 10       		.byte	16
- 651 026e C1       		.byte	-63
- 652 026f 06       		.byte	6
- 653 0270 C5       		.byte	-59
- 654 0271 15       		.byte	21
- 655 0272 C6       		.byte	-58
- 656 0273 20       		.byte	32
- 657 0274 C8       		.byte	-56
- 658 0275 0B       		.byte	11
- 659 0276 C9       		.byte	-55
- 660 0277 FF       		.byte	-1
- 661 0278 CA       		.byte	-54
+ 645 0268 30       		.byte	48
+ 646 0269 0F       		.byte	15
+ 647 026a 33       		.byte	51
+ 648 026b 01       		.byte	1
+ 649 026c 35       		.byte	53
+ 650 026d 04       		.byte	4
+ 651 026e 37       		.byte	55
+ 652 026f 02       		.byte	2
+ 653 0270 3A       		.byte	58
+ 654 0271 02       		.byte	2
+ 655 0272 3F       		.byte	63
+ 656 0273 44       		.byte	68
+ 657 0274 40       		.byte	64
+ 658 0275 30       		.byte	48
+ 659 0276 41       		.byte	65
+ 660 0277 04       		.byte	4
+ 661 0278 49       		.byte	73
  662 0279 FF       		.byte	-1
- 663 027a CB       		.byte	-53
+ 663 027a 4A       		.byte	74
  664 027b FF       		.byte	-1
- 665 027c CD       		.byte	-51
- 666 027d A0       		.byte	-96
- 667 027e CF       		.byte	-49
- 668 027f 04       		.byte	4
- 669 0280 D0       		.byte	-48
- 670 0281 18       		.byte	24
- 671 0282 D2       		.byte	-46
- 672 0283 80       		.byte	-128
- 673 0284 D8       		.byte	-40
- 674 0285 04       		.byte	4
- 675 0286 D9       		.byte	-39
+ 665 027c 4B       		.byte	75
+ 666 027d FF       		.byte	-1
+ 667 027e 4D       		.byte	77
+ 668 027f A0       		.byte	-96
+ 669 0280 4F       		.byte	79
+ 670 0281 04       		.byte	4
+ 671 0282 50       		.byte	80
+ 672 0283 18       		.byte	24
+ 673 0284 54       		.byte	84
+ 674 0285 01       		.byte	1
+ 675 0286 58       		.byte	88
  676 0287 04       		.byte	4
- 677 0288 DA       		.byte	-38
+ 677 0288 59       		.byte	89
  678 0289 04       		.byte	4
- 679 028a DB       		.byte	-37
+ 679 028a 5A       		.byte	90
  680 028b 04       		.byte	4
- 681 028c DC       		.byte	-36
- 682 028d 33       		.byte	51
- 683 028e DD       		.byte	-35
- 684 028f 33       		.byte	51
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 13
+ 681 028c 5B       		.byte	91
+ 682 028d 04       		.byte	4
+ 683 028e 5C       		.byte	92
+ 684 028f 12       		.byte	18
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 13
 
 
- 685 0290 DF       		.byte	-33
- 686 0291 01       		.byte	1
- 687 0292 E0       		.byte	-32
- 688 0293 40       		.byte	64
- 689 0294 E2       		.byte	-30
- 690 0295 C0       		.byte	-64
- 691 0296 E4       		.byte	-28
- 692 0297 40       		.byte	64
- 693 0298 E5       		.byte	-27
+ 685 0290 5D       		.byte	93
+ 686 0291 21       		.byte	33
+ 687 0292 5F       		.byte	95
+ 688 0293 01       		.byte	1
+ 689 0294 60       		.byte	96
+ 690 0295 40       		.byte	64
+ 691 0296 62       		.byte	98
+ 692 0297 C0       		.byte	-64
+ 693 0298 64       		.byte	100
  694 0299 40       		.byte	64
- 695 029a E6       		.byte	-26
- 696 029b C0       		.byte	-64
- 697 029c E8       		.byte	-24
+ 695 029a 65       		.byte	101
+ 696 029b 40       		.byte	64
+ 697 029c 66       		.byte	102
  698 029d C0       		.byte	-64
- 699 029e EA       		.byte	-22
+ 699 029e 68       		.byte	104
  700 029f C0       		.byte	-64
- 701 02a0 EC       		.byte	-20
+ 701 02a0 6A       		.byte	106
  702 02a1 C0       		.byte	-64
- 703 02a2 EE       		.byte	-18
+ 703 02a2 6C       		.byte	108
  704 02a3 C0       		.byte	-64
- 705 02a4 00       		.byte	0
- 706 02a5 20       		.byte	32
- 707 02a6 01       		.byte	1
- 708 02a7 80       		.byte	-128
- 709 02a8 02       		.byte	2
- 710 02a9 10       		.byte	16
- 711 02aa 04       		.byte	4
- 712 02ab 08       		.byte	8
- 713 02ac 05       		.byte	5
- 714 02ad 20       		.byte	32
- 715 02ae 0A       		.byte	10
- 716 02af 08       		.byte	8
- 717 02b0 0D       		.byte	13
- 718 02b1 80       		.byte	-128
- 719 02b2 0E       		.byte	14
- 720 02b3 40       		.byte	64
- 721 02b4 0F       		.byte	15
- 722 02b5 08       		.byte	8
- 723 02b6 10       		.byte	16
- 724 02b7 84       		.byte	-124
- 725 02b8 15       		.byte	21
- 726 02b9 20       		.byte	32
- 727 02ba 17       		.byte	23
- 728 02bb 80       		.byte	-128
- 729 02bc 19       		.byte	25
- 730 02bd 80       		.byte	-128
- 731 02be 1D       		.byte	29
- 732 02bf 80       		.byte	-128
- 733 02c0 1E       		.byte	30
- 734 02c1 28       		.byte	40
- 735 02c2 1F       		.byte	31
- 736 02c3 80       		.byte	-128
- 737 02c4 20       		.byte	32
- 738 02c5 48       		.byte	72
- 739 02c6 21       		.byte	33
- 740 02c7 40       		.byte	64
- 741 02c8 22       		.byte	34
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 14
+ 705 02a4 6E       		.byte	110
+ 706 02a5 C0       		.byte	-64
+ 707 02a6 86       		.byte	-122
+ 708 02a7 03       		.byte	3
+ 709 02a8 8A       		.byte	-118
+ 710 02a9 02       		.byte	2
+ 711 02aa 8E       		.byte	-114
+ 712 02ab 01       		.byte	1
+ 713 02ac 9E       		.byte	-98
+ 714 02ad 06       		.byte	6
+ 715 02ae AA       		.byte	-86
+ 716 02af 05       		.byte	5
+ 717 02b0 AC       		.byte	-84
+ 718 02b1 06       		.byte	6
+ 719 02b2 AE       		.byte	-82
+ 720 02b3 01       		.byte	1
+ 721 02b4 B2       		.byte	-78
+ 722 02b5 07       		.byte	7
+ 723 02b6 B8       		.byte	-72
+ 724 02b7 80       		.byte	-128
+ 725 02b8 BA       		.byte	-70
+ 726 02b9 08       		.byte	8
+ 727 02ba BE       		.byte	-66
+ 728 02bb 40       		.byte	64
+ 729 02bc C0       		.byte	-64
+ 730 02bd 30       		.byte	48
+ 731 02be C1       		.byte	-63
+ 732 02bf 05       		.byte	5
+ 733 02c0 C6       		.byte	-58
+ 734 02c1 12       		.byte	18
+ 735 02c2 C7       		.byte	-57
+ 736 02c3 05       		.byte	5
+ 737 02c4 C8       		.byte	-56
+ 738 02c5 1C       		.byte	28
+ 739 02c6 C9       		.byte	-55
+ 740 02c7 FF       		.byte	-1
+ 741 02c8 CA       		.byte	-54
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 14
 
 
- 742 02c9 08       		.byte	8
- 743 02ca 24       		.byte	36
- 744 02cb 80       		.byte	-128
- 745 02cc 28       		.byte	40
- 746 02cd 04       		.byte	4
- 747 02ce 29       		.byte	41
- 748 02cf 81       		.byte	-127
- 749 02d0 2B       		.byte	43
- 750 02d1 08       		.byte	8
- 751 02d2 2F       		.byte	47
- 752 02d3 80       		.byte	-128
- 753 02d4 30       		.byte	48
- 754 02d5 80       		.byte	-128
- 755 02d6 31       		.byte	49
- 756 02d7 10       		.byte	16
- 757 02d8 38       		.byte	56
- 758 02d9 60       		.byte	96
- 759 02da 3B       		.byte	59
- 760 02db 04       		.byte	4
- 761 02dc 3F       		.byte	63
- 762 02dd 02       		.byte	2
- 763 02de 40       		.byte	64
+ 742 02c9 FF       		.byte	-1
+ 743 02ca CB       		.byte	-53
+ 744 02cb FF       		.byte	-1
+ 745 02cc CD       		.byte	-51
+ 746 02cd AF       		.byte	-81
+ 747 02ce CE       		.byte	-50
+ 748 02cf 0F       		.byte	15
+ 749 02d0 CF       		.byte	-49
+ 750 02d1 04       		.byte	4
+ 751 02d2 D0       		.byte	-48
+ 752 02d3 18       		.byte	24
+ 753 02d4 D8       		.byte	-40
+ 754 02d5 04       		.byte	4
+ 755 02d6 DA       		.byte	-38
+ 756 02d7 04       		.byte	4
+ 757 02d8 DC       		.byte	-36
+ 758 02d9 02       		.byte	2
+ 759 02da DD       		.byte	-35
+ 760 02db 01       		.byte	1
+ 761 02dc DF       		.byte	-33
+ 762 02dd 01       		.byte	1
+ 763 02de E0       		.byte	-32
  764 02df 40       		.byte	64
- 765 02e0 45       		.byte	69
- 766 02e1 80       		.byte	-128
- 767 02e2 48       		.byte	72
- 768 02e3 08       		.byte	8
- 769 02e4 4B       		.byte	75
- 770 02e5 04       		.byte	4
- 771 02e6 4F       		.byte	79
- 772 02e7 2A       		.byte	42
- 773 02e8 50       		.byte	80
- 774 02e9 18       		.byte	24
- 775 02ea 57       		.byte	87
- 776 02eb 10       		.byte	16
- 777 02ec 71       		.byte	113
- 778 02ed 01       		.byte	1
- 779 02ee 77       		.byte	119
- 780 02ef 80       		.byte	-128
- 781 02f0 8A       		.byte	-118
- 782 02f1 08       		.byte	8
- 783 02f2 8E       		.byte	-114
- 784 02f3 04       		.byte	4
- 785 02f4 C0       		.byte	-64
- 786 02f5 67       		.byte	103
- 787 02f6 C2       		.byte	-62
- 788 02f7 D2       		.byte	-46
- 789 02f8 C4       		.byte	-60
- 790 02f9 CA       		.byte	-54
- 791 02fa CA       		.byte	-54
- 792 02fb 8D       		.byte	-115
- 793 02fc CC       		.byte	-52
- 794 02fd 0C       		.byte	12
- 795 02fe CE       		.byte	-50
- 796 02ff 8E       		.byte	-114
- 797 0300 D0       		.byte	-48
- 798 0301 11       		.byte	17
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 15
+ 765 02e0 E2       		.byte	-30
+ 766 02e1 C0       		.byte	-64
+ 767 02e2 E4       		.byte	-28
+ 768 02e3 40       		.byte	64
+ 769 02e4 E5       		.byte	-27
+ 770 02e5 40       		.byte	64
+ 771 02e6 E6       		.byte	-26
+ 772 02e7 C0       		.byte	-64
+ 773 02e8 E8       		.byte	-24
+ 774 02e9 C0       		.byte	-64
+ 775 02ea EA       		.byte	-22
+ 776 02eb C0       		.byte	-64
+ 777 02ec EC       		.byte	-20
+ 778 02ed C0       		.byte	-64
+ 779 02ee EE       		.byte	-18
+ 780 02ef C0       		.byte	-64
+ 781 02f0 00       		.byte	0
+ 782 02f1 10       		.byte	16
+ 783 02f2 01       		.byte	1
+ 784 02f3 88       		.byte	-120
+ 785 02f4 04       		.byte	4
+ 786 02f5 30       		.byte	48
+ 787 02f6 05       		.byte	5
+ 788 02f7 84       		.byte	-124
+ 789 02f8 06       		.byte	6
+ 790 02f9 02       		.byte	2
+ 791 02fa 08       		.byte	8
+ 792 02fb 02       		.byte	2
+ 793 02fc 09       		.byte	9
+ 794 02fd 40       		.byte	64
+ 795 02fe 0A       		.byte	10
+ 796 02ff 50       		.byte	80
+ 797 0300 0B       		.byte	11
+ 798 0301 01       		.byte	1
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 15
 
 
- 799 0302 D2       		.byte	-46
- 800 0303 24       		.byte	36
- 801 0304 E2       		.byte	-30
- 802 0305 40       		.byte	64
- 803 0306 E8       		.byte	-24
- 804 0307 40       		.byte	64
- 805 0308 EC       		.byte	-20
- 806 0309 10       		.byte	16
- 807 030a EA       		.byte	-22
- 808 030b 08       		.byte	8
- 809 030c EE       		.byte	-18
- 810 030d 08       		.byte	8
- 811 030e 06       		.byte	6
- 812 030f 08       		.byte	8
- 813 0310 07       		.byte	7
- 814 0311 02       		.byte	2
- 815 0312 08       		.byte	8
- 816 0313 03       		.byte	3
- 817 0314 0A       		.byte	10
- 818 0315 04       		.byte	4
- 819 0316 0C       		.byte	12
- 820 0317 0A       		.byte	10
- 821 0318 0E       		.byte	14
+ 799 0302 0F       		.byte	15
+ 800 0303 01       		.byte	1
+ 801 0304 14       		.byte	20
+ 802 0305 02       		.byte	2
+ 803 0306 16       		.byte	22
+ 804 0307 04       		.byte	4
+ 805 0308 18       		.byte	24
+ 806 0309 80       		.byte	-128
+ 807 030a 1A       		.byte	26
+ 808 030b 40       		.byte	64
+ 809 030c 1C       		.byte	28
+ 810 030d 02       		.byte	2
+ 811 030e 1D       		.byte	29
+ 812 030f 04       		.byte	4
+ 813 0310 1E       		.byte	30
+ 814 0311 10       		.byte	16
+ 815 0312 20       		.byte	32
+ 816 0313 08       		.byte	8
+ 817 0314 22       		.byte	34
+ 818 0315 44       		.byte	68
+ 819 0316 29       		.byte	41
+ 820 0317 09       		.byte	9
+ 821 0318 2A       		.byte	42
  822 0319 04       		.byte	4
- 823 031a 14       		.byte	20
- 824 031b 03       		.byte	3
- 825 031c 16       		.byte	22
- 826 031d 0C       		.byte	12
- 827 031e 18       		.byte	24
- 828 031f 03       		.byte	3
- 829 0320 19       		.byte	25
- 830 0321 02       		.byte	2
- 831 0322 1A       		.byte	26
- 832 0323 04       		.byte	4
- 833 0324 1E       		.byte	30
- 834 0325 05       		.byte	5
- 835 0326 23       		.byte	35
- 836 0327 02       		.byte	2
- 837 0328 25       		.byte	37
- 838 0329 01       		.byte	1
- 839 032a 29       		.byte	41
- 840 032b 02       		.byte	2
- 841 032c 2F       		.byte	47
- 842 032d 02       		.byte	2
- 843 032e 31       		.byte	49
- 844 032f 02       		.byte	2
- 845 0330 32       		.byte	50
- 846 0331 0F       		.byte	15
- 847 0332 35       		.byte	53
+ 823 031a 2B       		.byte	43
+ 824 031b 08       		.byte	8
+ 825 031c 30       		.byte	48
+ 826 031d 30       		.byte	48
+ 827 031e 31       		.byte	49
+ 828 031f 04       		.byte	4
+ 829 0320 38       		.byte	56
+ 830 0321 80       		.byte	-128
+ 831 0322 3A       		.byte	58
+ 832 0323 12       		.byte	18
+ 833 0324 42       		.byte	66
+ 834 0325 80       		.byte	-128
+ 835 0326 43       		.byte	67
+ 836 0327 0C       		.byte	12
+ 837 0328 47       		.byte	71
+ 838 0329 04       		.byte	4
+ 839 032a 4F       		.byte	79
+ 840 032b 80       		.byte	-128
+ 841 032c 56       		.byte	86
+ 842 032d 98       		.byte	-104
+ 843 032e 57       		.byte	87
+ 844 032f 40       		.byte	64
+ 845 0330 58       		.byte	88
+ 846 0331 10       		.byte	16
+ 847 0332 59       		.byte	89
  848 0333 01       		.byte	1
- 849 0334 3A       		.byte	58
- 850 0335 08       		.byte	8
- 851 0336 3F       		.byte	63
- 852 0337 11       		.byte	17
- 853 0338 40       		.byte	64
- 854 0339 31       		.byte	49
- 855 033a 41       		.byte	65
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 16
+ 849 0334 5A       		.byte	90
+ 850 0335 88       		.byte	-120
+ 851 0336 84       		.byte	-124
+ 852 0337 01       		.byte	1
+ 853 0338 C0       		.byte	-64
+ 854 0339 E7       		.byte	-25
+ 855 033a C2       		.byte	-62
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 16
 
 
- 856 033b 06       		.byte	6
- 857 033c 45       		.byte	69
- 858 033d 0C       		.byte	12
- 859 033e 47       		.byte	71
- 860 033f BE       		.byte	-66
- 861 0340 48       		.byte	72
- 862 0341 31       		.byte	49
- 863 0342 49       		.byte	73
- 864 0343 FF       		.byte	-1
- 865 0344 4A       		.byte	74
- 866 0345 FF       		.byte	-1
- 867 0346 4B       		.byte	75
- 868 0347 FF       		.byte	-1
- 869 0348 4E       		.byte	78
- 870 0349 F0       		.byte	-16
- 871 034a 4F       		.byte	79
- 872 034b 44       		.byte	68
- 873 034c 50       		.byte	80
- 874 034d 0C       		.byte	12
- 875 034e 54       		.byte	84
- 876 034f 01       		.byte	1
- 877 0350 58       		.byte	88
- 878 0351 04       		.byte	4
- 879 0352 59       		.byte	89
- 880 0353 04       		.byte	4
- 881 0354 5A       		.byte	90
- 882 0355 04       		.byte	4
- 883 0356 5B       		.byte	91
- 884 0357 04       		.byte	4
- 885 0358 5C       		.byte	92
- 886 0359 04       		.byte	4
- 887 035a 5D       		.byte	93
- 888 035b 44       		.byte	68
- 889 035c 5F       		.byte	95
- 890 035d 01       		.byte	1
- 891 035e 66       		.byte	102
- 892 035f C0       		.byte	-64
- 893 0360 6A       		.byte	106
- 894 0361 40       		.byte	64
- 895 0362 6B       		.byte	107
- 896 0363 02       		.byte	2
- 897 0364 80       		.byte	-128
- 898 0365 0A       		.byte	10
- 899 0366 82       		.byte	-126
- 900 0367 51       		.byte	81
- 901 0368 84       		.byte	-124
- 902 0369 1F       		.byte	31
- 903 036a 8B       		.byte	-117
- 904 036b 01       		.byte	1
- 905 036c 90       		.byte	-112
- 906 036d 14       		.byte	20
- 907 036e 92       		.byte	-110
- 908 036f 49       		.byte	73
- 909 0370 94       		.byte	-108
- 910 0371 01       		.byte	1
- 911 0372 95       		.byte	-107
- 912 0373 02       		.byte	2
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 17
+ 856 033b 8D       		.byte	-115
+ 857 033c C4       		.byte	-60
+ 858 033d C0       		.byte	-64
+ 859 033e CA       		.byte	-54
+ 860 033f 07       		.byte	7
+ 861 0340 CC       		.byte	-52
+ 862 0341 06       		.byte	6
+ 863 0342 CE       		.byte	-50
+ 864 0343 0D       		.byte	13
+ 865 0344 D0       		.byte	-48
+ 866 0345 43       		.byte	67
+ 867 0346 D2       		.byte	-46
+ 868 0347 10       		.byte	16
+ 869 0348 D6       		.byte	-42
+ 870 0349 0F       		.byte	15
+ 871 034a E4       		.byte	-28
+ 872 034b 08       		.byte	8
+ 873 034c AF       		.byte	-81
+ 874 034d 20       		.byte	32
+ 875 034e E6       		.byte	-26
+ 876 034f 02       		.byte	2
+ 877 0350 EC       		.byte	-20
+ 878 0351 10       		.byte	16
+ 879 0352 02       		.byte	2
+ 880 0353 01       		.byte	1
+ 881 0354 03       		.byte	3
+ 882 0355 01       		.byte	1
+ 883 0356 1A       		.byte	26
+ 884 0357 02       		.byte	2
+ 885 0358 1E       		.byte	30
+ 886 0359 02       		.byte	2
+ 887 035a 27       		.byte	39
+ 888 035b 01       		.byte	1
+ 889 035c 32       		.byte	50
+ 890 035d 02       		.byte	2
+ 891 035e 33       		.byte	51
+ 892 035f 01       		.byte	1
+ 893 0360 34       		.byte	52
+ 894 0361 01       		.byte	1
+ 895 0362 40       		.byte	64
+ 896 0363 20       		.byte	32
+ 897 0364 41       		.byte	65
+ 898 0365 05       		.byte	5
+ 899 0366 49       		.byte	73
+ 900 0367 FF       		.byte	-1
+ 901 0368 4A       		.byte	74
+ 902 0369 FF       		.byte	-1
+ 903 036a 4B       		.byte	75
+ 904 036b FF       		.byte	-1
+ 905 036c 4D       		.byte	77
+ 906 036d A0       		.byte	-96
+ 907 036e 4F       		.byte	79
+ 908 036f 04       		.byte	4
+ 909 0370 50       		.byte	80
+ 910 0371 18       		.byte	24
+ 911 0372 52       		.byte	82
+ 912 0373 80       		.byte	-128
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 17
 
 
- 913 0374 96       		.byte	-106
- 914 0375 26       		.byte	38
- 915 0376 99       		.byte	-103
- 916 0377 02       		.byte	2
- 917 0378 9D       		.byte	-99
+ 913 0374 58       		.byte	88
+ 914 0375 04       		.byte	4
+ 915 0376 59       		.byte	89
+ 916 0377 04       		.byte	4
+ 917 0378 5A       		.byte	90
  918 0379 04       		.byte	4
- 919 037a A3       		.byte	-93
- 920 037b 01       		.byte	1
- 921 037c A8       		.byte	-88
- 922 037d 1F       		.byte	31
- 923 037e AF       		.byte	-81
- 924 037f 02       		.byte	2
- 925 0380 B0       		.byte	-80
- 926 0381 18       		.byte	24
- 927 0382 B2       		.byte	-78
- 928 0383 07       		.byte	7
- 929 0384 B3       		.byte	-77
- 930 0385 06       		.byte	6
- 931 0386 B5       		.byte	-75
- 932 0387 01       		.byte	1
- 933 0388 B6       		.byte	-74
- 934 0389 60       		.byte	96
- 935 038a B9       		.byte	-71
- 936 038b 08       		.byte	8
- 937 038c BA       		.byte	-70
- 938 038d 20       		.byte	32
- 939 038e BE       		.byte	-66
- 940 038f 40       		.byte	64
- 941 0390 BF       		.byte	-65
- 942 0391 10       		.byte	16
- 943 0392 C0       		.byte	-64
- 944 0393 64       		.byte	100
- 945 0394 C1       		.byte	-63
- 946 0395 03       		.byte	3
- 947 0396 C2       		.byte	-62
+ 919 037a 5B       		.byte	91
+ 920 037b 04       		.byte	4
+ 921 037c 5C       		.byte	92
+ 922 037d 11       		.byte	17
+ 923 037e 5D       		.byte	93
+ 924 037f 11       		.byte	17
+ 925 0380 5F       		.byte	95
+ 926 0381 01       		.byte	1
+ 927 0382 60       		.byte	96
+ 928 0383 40       		.byte	64
+ 929 0384 62       		.byte	98
+ 930 0385 C0       		.byte	-64
+ 931 0386 64       		.byte	100
+ 932 0387 40       		.byte	64
+ 933 0388 65       		.byte	101
+ 934 0389 40       		.byte	64
+ 935 038a 66       		.byte	102
+ 936 038b C0       		.byte	-64
+ 937 038c 68       		.byte	104
+ 938 038d C0       		.byte	-64
+ 939 038e 6A       		.byte	106
+ 940 038f C0       		.byte	-64
+ 941 0390 6C       		.byte	108
+ 942 0391 C0       		.byte	-64
+ 943 0392 6E       		.byte	110
+ 944 0393 C0       		.byte	-64
+ 945 0394 C0       		.byte	-64
+ 946 0395 20       		.byte	32
+ 947 0396 C1       		.byte	-63
  948 0397 05       		.byte	5
- 949 0398 C4       		.byte	-60
- 950 0399 01       		.byte	1
+ 949 0398 C5       		.byte	-59
+ 950 0399 50       		.byte	80
  951 039a C6       		.byte	-58
- 952 039b CE       		.byte	-50
- 953 039c C8       		.byte	-56
- 954 039d 0C       		.byte	12
- 955 039e C9       		.byte	-55
- 956 039f FF       		.byte	-1
- 957 03a0 CA       		.byte	-54
+ 952 039b 01       		.byte	1
+ 953 039c C7       		.byte	-57
+ 954 039d 20       		.byte	32
+ 955 039e C8       		.byte	-56
+ 956 039f 26       		.byte	38
+ 957 03a0 C9       		.byte	-55
  958 03a1 FF       		.byte	-1
- 959 03a2 CB       		.byte	-53
+ 959 03a2 CA       		.byte	-54
  960 03a3 FF       		.byte	-1
- 961 03a4 CC       		.byte	-52
- 962 03a5 62       		.byte	98
+ 961 03a4 CB       		.byte	-53
+ 962 03a5 FF       		.byte	-1
  963 03a6 CD       		.byte	-51
- 964 03a7 A0       		.byte	-96
+ 964 03a7 AF       		.byte	-81
  965 03a8 CE       		.byte	-50
- 966 03a9 F0       		.byte	-16
+ 966 03a9 0F       		.byte	15
  967 03aa CF       		.byte	-49
- 968 03ab 41       		.byte	65
+ 968 03ab 04       		.byte	4
  969 03ac D0       		.byte	-48
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 18
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 18
 
 
- 970 03ad 0C       		.byte	12
- 971 03ae D8       		.byte	-40
+ 970 03ad 18       		.byte	24
+ 971 03ae DA       		.byte	-38
  972 03af 04       		.byte	4
- 973 03b0 D9       		.byte	-39
- 974 03b1 04       		.byte	4
- 975 03b2 DA       		.byte	-38
- 976 03b3 04       		.byte	4
- 977 03b4 DC       		.byte	-36
- 978 03b5 44       		.byte	68
- 979 03b6 DD       		.byte	-35
- 980 03b7 04       		.byte	4
- 981 03b8 DF       		.byte	-33
- 982 03b9 01       		.byte	1
- 983 03ba E6       		.byte	-26
+ 973 03b0 DD       		.byte	-35
+ 974 03b1 01       		.byte	1
+ 975 03b2 DF       		.byte	-33
+ 976 03b3 01       		.byte	1
+ 977 03b4 E0       		.byte	-32
+ 978 03b5 40       		.byte	64
+ 979 03b6 E2       		.byte	-30
+ 980 03b7 C0       		.byte	-64
+ 981 03b8 E4       		.byte	-28
+ 982 03b9 40       		.byte	64
+ 983 03ba E5       		.byte	-27
  984 03bb 40       		.byte	64
- 985 03bc E7       		.byte	-25
- 986 03bd 02       		.byte	2
- 987 03be E9       		.byte	-23
- 988 03bf 10       		.byte	16
+ 985 03bc E6       		.byte	-26
+ 986 03bd C0       		.byte	-64
+ 987 03be E8       		.byte	-24
+ 988 03bf C0       		.byte	-64
  989 03c0 EA       		.byte	-22
- 990 03c1 30       		.byte	48
- 991 03c2 EB       		.byte	-21
- 992 03c3 10       		.byte	16
- 993 03c4 ED       		.byte	-19
- 994 03c5 10       		.byte	16
- 995 03c6 EE       		.byte	-18
- 996 03c7 10       		.byte	16
- 997 03c8 EF       		.byte	-17
- 998 03c9 12       		.byte	18
- 999 03ca 00       		.byte	0
- 1000 03cb 02       		.byte	2
- 1001 03cc 01       		.byte	1
- 1002 03cd 04       		.byte	4
- 1003 03ce 05       		.byte	5
- 1004 03cf 90       		.byte	-112
- 1005 03d0 07       		.byte	7
+ 990 03c1 C0       		.byte	-64
+ 991 03c2 EC       		.byte	-20
+ 992 03c3 C0       		.byte	-64
+ 993 03c4 EE       		.byte	-18
+ 994 03c5 C0       		.byte	-64
+ 995 03c6 07       		.byte	7
+ 996 03c7 40       		.byte	64
+ 997 03c8 0D       		.byte	13
+ 998 03c9 A0       		.byte	-96
+ 999 03ca 1D       		.byte	29
+ 1000 03cb 20       		.byte	32
+ 1001 03cc 1E       		.byte	30
+ 1002 03cd 10       		.byte	16
+ 1003 03ce 1F       		.byte	31
+ 1004 03cf 10       		.byte	16
+ 1005 03d0 27       		.byte	39
  1006 03d1 20       		.byte	32
- 1007 03d2 08       		.byte	8
- 1008 03d3 20       		.byte	32
- 1009 03d4 09       		.byte	9
+ 1007 03d2 2F       		.byte	47
+ 1008 03d3 10       		.byte	16
+ 1009 03d4 3F       		.byte	63
  1010 03d5 01       		.byte	1
- 1011 03d6 0A       		.byte	10
- 1012 03d7 90       		.byte	-112
- 1013 03d8 0B       		.byte	11
- 1014 03d9 04       		.byte	4
- 1015 03da 0C       		.byte	12
- 1016 03db 80       		.byte	-128
- 1017 03dc 0D       		.byte	13
- 1018 03dd 08       		.byte	8
- 1019 03de 0F       		.byte	15
- 1020 03df 04       		.byte	4
- 1021 03e0 11       		.byte	17
- 1022 03e1 10       		.byte	16
- 1023 03e2 18       		.byte	24
- 1024 03e3 09       		.byte	9
- 1025 03e4 1A       		.byte	26
- 1026 03e5 90       		.byte	-112
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 19
+ 1011 03d6 41       		.byte	65
+ 1012 03d7 20       		.byte	32
+ 1013 03d8 45       		.byte	69
+ 1014 03d9 20       		.byte	32
+ 1015 03da 48       		.byte	72
+ 1016 03db 02       		.byte	2
+ 1017 03dc 4B       		.byte	75
+ 1018 03dd 01       		.byte	1
+ 1019 03de 4E       		.byte	78
+ 1020 03df 02       		.byte	2
+ 1021 03e0 50       		.byte	80
+ 1022 03e1 02       		.byte	2
+ 1023 03e2 51       		.byte	81
+ 1024 03e3 80       		.byte	-128
+ 1025 03e4 52       		.byte	82
+ 1026 03e5 02       		.byte	2
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 19
 
 
- 1027 03e6 1D       		.byte	29
- 1028 03e7 08       		.byte	8
- 1029 03e8 1F       		.byte	31
- 1030 03e9 08       		.byte	8
- 1031 03ea 20       		.byte	32
- 1032 03eb 20       		.byte	32
- 1033 03ec 21       		.byte	33
- 1034 03ed 20       		.byte	32
- 1035 03ee 23       		.byte	35
+ 1027 03e6 77       		.byte	119
+ 1028 03e7 40       		.byte	64
+ 1029 03e8 82       		.byte	-126
+ 1030 03e9 10       		.byte	16
+ 1031 03ea 87       		.byte	-121
+ 1032 03eb 08       		.byte	8
+ 1033 03ec A3       		.byte	-93
+ 1034 03ed 08       		.byte	8
+ 1035 03ee AE       		.byte	-82
  1036 03ef 20       		.byte	32
- 1037 03f0 27       		.byte	39
- 1038 03f1 88       		.byte	-120
- 1039 03f2 29       		.byte	41
- 1040 03f3 81       		.byte	-127
- 1041 03f4 2C       		.byte	44
- 1042 03f5 80       		.byte	-128
- 1043 03f6 2D       		.byte	45
+ 1037 03f0 C0       		.byte	-64
+ 1038 03f1 10       		.byte	16
+ 1039 03f2 C2       		.byte	-62
+ 1040 03f3 C0       		.byte	-64
+ 1041 03f4 CA       		.byte	-54
+ 1042 03f5 40       		.byte	64
+ 1043 03f6 CE       		.byte	-50
  1044 03f7 80       		.byte	-128
- 1045 03f8 2E       		.byte	46
- 1046 03f9 0A       		.byte	10
- 1047 03fa 2F       		.byte	47
- 1048 03fb 08       		.byte	8
- 1049 03fc 30       		.byte	48
- 1050 03fd 80       		.byte	-128
- 1051 03fe 31       		.byte	49
- 1052 03ff 18       		.byte	24
- 1053 0400 35       		.byte	53
- 1054 0401 11       		.byte	17
- 1055 0402 36       		.byte	54
- 1056 0403 01       		.byte	1
- 1057 0404 38       		.byte	56
- 1058 0405 28       		.byte	40
- 1059 0406 39       		.byte	57
- 1060 0407 08       		.byte	8
- 1061 0408 3F       		.byte	63
- 1062 0409 04       		.byte	4
- 1063 040a 40       		.byte	64
- 1064 040b 41       		.byte	65
- 1065 040c 41       		.byte	65
- 1066 040d 04       		.byte	4
- 1067 040e 45       		.byte	69
- 1068 040f 08       		.byte	8
- 1069 0410 46       		.byte	70
- 1070 0411 02       		.byte	2
- 1071 0412 48       		.byte	72
- 1072 0413 08       		.byte	8
- 1073 0414 49       		.byte	73
- 1074 0415 20       		.byte	32
- 1075 0416 4A       		.byte	74
+ 1045 03f8 D0       		.byte	-48
+ 1046 03f9 24       		.byte	36
+ 1047 03fa D2       		.byte	-46
+ 1048 03fb 18       		.byte	24
+ 1049 03fc E4       		.byte	-28
+ 1050 03fd 02       		.byte	2
+ 1051 03fe 04       		.byte	4
+ 1052 03ff 07       		.byte	7
+ 1053 0400 0C       		.byte	12
+ 1054 0401 01       		.byte	1
+ 1055 0402 0E       		.byte	14
+ 1056 0403 06       		.byte	6
+ 1057 0404 14       		.byte	20
+ 1058 0405 06       		.byte	6
+ 1059 0406 15       		.byte	21
+ 1060 0407 01       		.byte	1
+ 1061 0408 16       		.byte	22
+ 1062 0409 01       		.byte	1
+ 1063 040a 18       		.byte	24
+ 1064 040b 02       		.byte	2
+ 1065 040c 19       		.byte	25
+ 1066 040d 01       		.byte	1
+ 1067 040e 1C       		.byte	28
+ 1068 040f 06       		.byte	6
+ 1069 0410 1E       		.byte	30
+ 1070 0411 01       		.byte	1
+ 1071 0412 20       		.byte	32
+ 1072 0413 04       		.byte	4
+ 1073 0414 21       		.byte	33
+ 1074 0415 01       		.byte	1
+ 1075 0416 26       		.byte	38
  1076 0417 01       		.byte	1
- 1077 0418 4E       		.byte	78
- 1078 0419 04       		.byte	4
- 1079 041a 4F       		.byte	79
- 1080 041b 04       		.byte	4
- 1081 041c 50       		.byte	80
- 1082 041d 50       		.byte	80
- 1083 041e 56       		.byte	86
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 20
+ 1077 0418 28       		.byte	40
+ 1078 0419 06       		.byte	6
+ 1079 041a 2D       		.byte	45
+ 1080 041b 01       		.byte	1
+ 1081 041c 35       		.byte	53
+ 1082 041d 01       		.byte	1
+ 1083 041e 36       		.byte	54
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 20
 
 
- 1084 041f 09       		.byte	9
- 1085 0420 5C       		.byte	92
- 1086 0421 20       		.byte	32
- 1087 0422 5F       		.byte	95
- 1088 0423 8A       		.byte	-118
- 1089 0424 89       		.byte	-119
- 1090 0425 20       		.byte	32
- 1091 0426 8A       		.byte	-118
- 1092 0427 40       		.byte	64
- 1093 0428 92       		.byte	-110
- 1094 0429 08       		.byte	8
- 1095 042a 94       		.byte	-108
- 1096 042b 88       		.byte	-120
- 1097 042c 95       		.byte	-107
- 1098 042d 20       		.byte	32
- 1099 042e 96       		.byte	-106
- 1100 042f 42       		.byte	66
- 1101 0430 99       		.byte	-103
- 1102 0431 90       		.byte	-112
- 1103 0432 9D       		.byte	-99
- 1104 0433 20       		.byte	32
- 1105 0434 9E       		.byte	-98
- 1106 0435 41       		.byte	65
- 1107 0436 A0       		.byte	-96
- 1108 0437 80       		.byte	-128
- 1109 0438 A2       		.byte	-94
- 1110 0439 10       		.byte	16
- 1111 043a A4       		.byte	-92
- 1112 043b 18       		.byte	24
- 1113 043c A5       		.byte	-91
- 1114 043d 48       		.byte	72
- 1115 043e A7       		.byte	-89
- 1116 043f 08       		.byte	8
- 1117 0440 AF       		.byte	-81
- 1118 0441 88       		.byte	-120
- 1119 0442 B3       		.byte	-77
- 1120 0443 01       		.byte	1
- 1121 0444 C0       		.byte	-64
- 1122 0445 EC       		.byte	-20
- 1123 0446 C2       		.byte	-62
- 1124 0447 EC       		.byte	-20
- 1125 0448 C4       		.byte	-60
- 1126 0449 02       		.byte	2
- 1127 044a CA       		.byte	-54
- 1128 044b F9       		.byte	-7
- 1129 044c CC       		.byte	-52
- 1130 044d 2E       		.byte	46
- 1131 044e CE       		.byte	-50
- 1132 044f 44       		.byte	68
- 1133 0450 D0       		.byte	-48
- 1134 0451 5B       		.byte	91
- 1135 0452 D2       		.byte	-46
- 1136 0453 2C       		.byte	44
- 1137 0454 D6       		.byte	-42
- 1138 0455 F0       		.byte	-16
- 1139 0456 00       		.byte	0
- 1140 0457 01       		.byte	1
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 21
+ 1084 041f 07       		.byte	7
+ 1085 0420 3A       		.byte	58
+ 1086 0421 80       		.byte	-128
+ 1087 0422 3B       		.byte	59
+ 1088 0423 08       		.byte	8
+ 1089 0424 3F       		.byte	63
+ 1090 0425 10       		.byte	16
+ 1091 0426 58       		.byte	88
+ 1092 0427 04       		.byte	4
+ 1093 0428 59       		.byte	89
+ 1094 0429 04       		.byte	4
+ 1095 042a 5C       		.byte	92
+ 1096 042b 22       		.byte	34
+ 1097 042c 5F       		.byte	95
+ 1098 042d 01       		.byte	1
+ 1099 042e 81       		.byte	-127
+ 1100 042f 10       		.byte	16
+ 1101 0430 82       		.byte	-126
+ 1102 0431 03       		.byte	3
+ 1103 0432 85       		.byte	-123
+ 1104 0433 18       		.byte	24
+ 1105 0434 88       		.byte	-120
+ 1106 0435 0C       		.byte	12
+ 1107 0436 89       		.byte	-119
+ 1108 0437 08       		.byte	8
+ 1109 0438 8A       		.byte	-118
+ 1110 0439 03       		.byte	3
+ 1111 043a 8C       		.byte	-116
+ 1112 043b 03       		.byte	3
+ 1113 043c 8D       		.byte	-115
+ 1114 043d 67       		.byte	103
+ 1115 043e 8E       		.byte	-114
+ 1116 043f 0C       		.byte	12
+ 1117 0440 8F       		.byte	-113
+ 1118 0441 18       		.byte	24
+ 1119 0442 90       		.byte	-112
+ 1120 0443 0F       		.byte	15
+ 1121 0444 91       		.byte	-111
+ 1122 0445 7F       		.byte	127
+ 1123 0446 94       		.byte	-108
+ 1124 0447 0F       		.byte	15
+ 1125 0448 95       		.byte	-107
+ 1126 0449 1C       		.byte	28
+ 1127 044a 97       		.byte	-105
+ 1128 044b 62       		.byte	98
+ 1129 044c 98       		.byte	-104
+ 1130 044d 04       		.byte	4
+ 1131 044e 99       		.byte	-103
+ 1132 044f 60       		.byte	96
+ 1133 0450 9C       		.byte	-100
+ 1134 0451 02       		.byte	2
+ 1135 0452 9D       		.byte	-99
+ 1136 0453 1C       		.byte	28
+ 1137 0454 9F       		.byte	-97
+ 1138 0455 61       		.byte	97
+ 1139 0456 A0       		.byte	-96
+ 1140 0457 08       		.byte	8
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 21
 
 
- 1141 0458 01       		.byte	1
- 1142 0459 24       		.byte	36
- 1143 045a 02       		.byte	2
- 1144 045b 10       		.byte	16
- 1145 045c 04       		.byte	4
- 1146 045d 23       		.byte	35
- 1147 045e 05       		.byte	5
- 1148 045f 08       		.byte	8
- 1149 0460 06       		.byte	6
- 1150 0461 0C       		.byte	12
- 1151 0462 09       		.byte	9
- 1152 0463 1C       		.byte	28
- 1153 0464 0B       		.byte	11
- 1154 0465 62       		.byte	98
- 1155 0466 0D       		.byte	13
- 1156 0467 40       		.byte	64
- 1157 0468 0E       		.byte	14
- 1158 0469 23       		.byte	35
- 1159 046a 10       		.byte	16
+ 1141 0458 A1       		.byte	-95
+ 1142 0459 40       		.byte	64
+ 1143 045a A4       		.byte	-92
+ 1144 045b 03       		.byte	3
+ 1145 045c A7       		.byte	-89
+ 1146 045d 04       		.byte	4
+ 1147 045e A8       		.byte	-88
+ 1148 045f 0C       		.byte	12
+ 1149 0460 A9       		.byte	-87
+ 1150 0461 24       		.byte	36
+ 1151 0462 AC       		.byte	-84
+ 1152 0463 01       		.byte	1
+ 1153 0464 AF       		.byte	-81
+ 1154 0465 63       		.byte	99
+ 1155 0466 B1       		.byte	-79
+ 1156 0467 60       		.byte	96
+ 1157 0468 B3       		.byte	-77
+ 1158 0469 1F       		.byte	31
+ 1159 046a B6       		.byte	-74
  1160 046b 0F       		.byte	15
- 1161 046c 12       		.byte	18
- 1162 046d 20       		.byte	32
- 1163 046e 13       		.byte	19
- 1164 046f 63       		.byte	99
- 1165 0470 14       		.byte	20
- 1166 0471 03       		.byte	3
- 1167 0472 15       		.byte	21
- 1168 0473 18       		.byte	24
- 1169 0474 18       		.byte	24
- 1170 0475 2C       		.byte	44
- 1171 0476 19       		.byte	25
- 1172 0477 60       		.byte	96
- 1173 0478 1A       		.byte	26
- 1174 0479 03       		.byte	3
- 1175 047a 1C       		.byte	28
- 1176 047b 2F       		.byte	47
- 1177 047c 1D       		.byte	29
- 1178 047d 10       		.byte	16
- 1179 047e 20       		.byte	32
- 1180 047f 02       		.byte	2
- 1181 0480 21       		.byte	33
- 1182 0481 7F       		.byte	127
- 1183 0482 24       		.byte	36
- 1184 0483 04       		.byte	4
- 1185 0484 27       		.byte	39
- 1186 0485 04       		.byte	4
- 1187 0486 28       		.byte	40
- 1188 0487 0C       		.byte	12
- 1189 0488 29       		.byte	41
- 1190 0489 67       		.byte	103
- 1191 048a 2B       		.byte	43
- 1192 048b 18       		.byte	24
- 1193 048c 2C       		.byte	44
- 1194 048d 08       		.byte	8
- 1195 048e 2D       		.byte	45
- 1196 048f 1C       		.byte	28
- 1197 0490 2F       		.byte	47
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 22
+ 1161 046c BA       		.byte	-70
+ 1162 046d 80       		.byte	-128
+ 1163 046e BB       		.byte	-69
+ 1164 046f 08       		.byte	8
+ 1165 0470 D6       		.byte	-42
+ 1166 0471 02       		.byte	2
+ 1167 0472 D7       		.byte	-41
+ 1168 0473 12       		.byte	18
+ 1169 0474 D8       		.byte	-40
+ 1170 0475 04       		.byte	4
+ 1171 0476 D9       		.byte	-39
+ 1172 0477 04       		.byte	4
+ 1173 0478 DB       		.byte	-37
+ 1174 0479 04       		.byte	4
+ 1175 047a DC       		.byte	-36
+ 1176 047b 22       		.byte	34
+ 1177 047c DD       		.byte	-35
+ 1178 047d 20       		.byte	32
+ 1179 047e DF       		.byte	-33
+ 1180 047f 01       		.byte	1
+ 1181 0480 00       		.byte	0
+ 1182 0481 02       		.byte	2
+ 1183 0482 01       		.byte	1
+ 1184 0483 80       		.byte	-128
+ 1185 0484 02       		.byte	2
+ 1186 0485 48       		.byte	72
+ 1187 0486 05       		.byte	5
+ 1188 0487 80       		.byte	-128
+ 1189 0488 07       		.byte	7
+ 1190 0489 10       		.byte	16
+ 1191 048a 08       		.byte	8
+ 1192 048b 80       		.byte	-128
+ 1193 048c 09       		.byte	9
+ 1194 048d 04       		.byte	4
+ 1195 048e 0B       		.byte	11
+ 1196 048f 84       		.byte	-124
+ 1197 0490 0D       		.byte	13
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 22
 
 
- 1198 0491 61       		.byte	97
- 1199 0492 30       		.byte	48
- 1200 0493 2C       		.byte	44
- 1201 0494 31       		.byte	49
- 1202 0495 60       		.byte	96
- 1203 0496 32       		.byte	50
- 1204 0497 10       		.byte	16
- 1205 0498 34       		.byte	52
- 1206 0499 0F       		.byte	15
- 1207 049a 35       		.byte	53
- 1208 049b 1F       		.byte	31
- 1209 049c 3A       		.byte	58
- 1210 049d 20       		.byte	32
- 1211 049e 3B       		.byte	59
- 1212 049f 20       		.byte	32
- 1213 04a0 58       		.byte	88
- 1214 04a1 04       		.byte	4
- 1215 04a2 59       		.byte	89
- 1216 04a3 04       		.byte	4
- 1217 04a4 5C       		.byte	92
- 1218 04a5 44       		.byte	68
- 1219 04a6 5F       		.byte	95
- 1220 04a7 01       		.byte	1
- 1221 04a8 84       		.byte	-124
- 1222 04a9 06       		.byte	6
- 1223 04aa 85       		.byte	-123
- 1224 04ab 01       		.byte	1
- 1225 04ac 88       		.byte	-120
- 1226 04ad 02       		.byte	2
- 1227 04ae 89       		.byte	-119
- 1228 04af 01       		.byte	1
- 1229 04b0 8E       		.byte	-114
- 1230 04b1 01       		.byte	1
- 1231 04b2 90       		.byte	-112
- 1232 04b3 06       		.byte	6
- 1233 04b4 91       		.byte	-111
- 1234 04b5 01       		.byte	1
- 1235 04b6 92       		.byte	-110
- 1236 04b7 01       		.byte	1
- 1237 04b8 94       		.byte	-108
- 1238 04b9 01       		.byte	1
- 1239 04ba 96       		.byte	-106
- 1240 04bb 06       		.byte	6
- 1241 04bc A4       		.byte	-92
- 1242 04bd 07       		.byte	7
- 1243 04be A8       		.byte	-88
- 1244 04bf 06       		.byte	6
- 1245 04c0 AA       		.byte	-86
- 1246 04c1 01       		.byte	1
- 1247 04c2 AC       		.byte	-84
- 1248 04c3 04       		.byte	4
- 1249 04c4 B0       		.byte	-80
- 1250 04c5 07       		.byte	7
- 1251 04c6 B1       		.byte	-79
- 1252 04c7 01       		.byte	1
- 1253 04c8 BA       		.byte	-70
- 1254 04c9 02       		.byte	2
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 23
+ 1198 0491 04       		.byte	4
+ 1199 0492 0E       		.byte	14
+ 1200 0493 01       		.byte	1
+ 1201 0494 0F       		.byte	15
+ 1202 0495 04       		.byte	4
+ 1203 0496 10       		.byte	16
+ 1204 0497 92       		.byte	-110
+ 1205 0498 13       		.byte	19
+ 1206 0499 20       		.byte	32
+ 1207 049a 14       		.byte	20
+ 1208 049b 20       		.byte	32
+ 1209 049c 17       		.byte	23
+ 1210 049d 22       		.byte	34
+ 1211 049e 19       		.byte	25
+ 1212 049f 80       		.byte	-128
+ 1213 04a0 1E       		.byte	30
+ 1214 04a1 01       		.byte	1
+ 1215 04a2 1F       		.byte	31
+ 1216 04a3 C0       		.byte	-64
+ 1217 04a4 21       		.byte	33
+ 1218 04a5 04       		.byte	4
+ 1219 04a6 22       		.byte	34
+ 1220 04a7 09       		.byte	9
+ 1221 04a8 25       		.byte	37
+ 1222 04a9 04       		.byte	4
+ 1223 04aa 27       		.byte	39
+ 1224 04ab 14       		.byte	20
+ 1225 04ac 28       		.byte	40
+ 1226 04ad 80       		.byte	-128
+ 1227 04ae 29       		.byte	41
+ 1228 04af 08       		.byte	8
+ 1229 04b0 2A       		.byte	42
+ 1230 04b1 60       		.byte	96
+ 1231 04b2 2D       		.byte	45
+ 1232 04b3 C0       		.byte	-64
+ 1233 04b4 2F       		.byte	47
+ 1234 04b5 40       		.byte	64
+ 1235 04b6 30       		.byte	48
+ 1236 04b7 10       		.byte	16
+ 1237 04b8 31       		.byte	49
+ 1238 04b9 11       		.byte	17
+ 1239 04ba 32       		.byte	50
+ 1240 04bb 08       		.byte	8
+ 1241 04bc 33       		.byte	51
+ 1242 04bd 80       		.byte	-128
+ 1243 04be 36       		.byte	54
+ 1244 04bf 08       		.byte	8
+ 1245 04c0 37       		.byte	55
+ 1246 04c1 10       		.byte	16
+ 1247 04c2 38       		.byte	56
+ 1248 04c3 28       		.byte	40
+ 1249 04c4 39       		.byte	57
+ 1250 04c5 40       		.byte	64
+ 1251 04c6 3A       		.byte	58
+ 1252 04c7 02       		.byte	2
+ 1253 04c8 5B       		.byte	91
+ 1254 04c9 04       		.byte	4
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 23
 
 
- 1255 04ca D6       		.byte	-42
- 1256 04cb 02       		.byte	2
- 1257 04cc D7       		.byte	-41
- 1258 04cd 11       		.byte	17
- 1259 04ce D8       		.byte	-40
- 1260 04cf 04       		.byte	4
- 1261 04d0 D9       		.byte	-39
- 1262 04d1 04       		.byte	4
- 1263 04d2 DB       		.byte	-37
- 1264 04d3 04       		.byte	4
- 1265 04d4 DC       		.byte	-36
- 1266 04d5 44       		.byte	68
- 1267 04d6 DD       		.byte	-35
- 1268 04d7 40       		.byte	64
- 1269 04d8 DF       		.byte	-33
- 1270 04d9 01       		.byte	1
- 1271 04da 00       		.byte	0
- 1272 04db 46       		.byte	70
- 1273 04dc 04       		.byte	4
- 1274 04dd 40       		.byte	64
- 1275 04de 06       		.byte	6
- 1276 04df 04       		.byte	4
- 1277 04e0 07       		.byte	7
- 1278 04e1 20       		.byte	32
- 1279 04e2 08       		.byte	8
- 1280 04e3 40       		.byte	64
- 1281 04e4 09       		.byte	9
- 1282 04e5 60       		.byte	96
- 1283 04e6 0A       		.byte	10
- 1284 04e7 71       		.byte	113
- 1285 04e8 0E       		.byte	14
- 1286 04e9 40       		.byte	64
- 1287 04ea 0F       		.byte	15
- 1288 04eb 20       		.byte	32
- 1289 04ec 10       		.byte	16
- 1290 04ed 28       		.byte	40
- 1291 04ee 11       		.byte	17
- 1292 04ef 02       		.byte	2
- 1293 04f0 12       		.byte	18
- 1294 04f1 41       		.byte	65
- 1295 04f2 15       		.byte	21
- 1296 04f3 28       		.byte	40
- 1297 04f4 16       		.byte	22
- 1298 04f5 01       		.byte	1
- 1299 04f6 18       		.byte	24
- 1300 04f7 04       		.byte	4
- 1301 04f8 19       		.byte	25
- 1302 04f9 25       		.byte	37
- 1303 04fa 1B       		.byte	27
- 1304 04fb 10       		.byte	16
- 1305 04fc 1E       		.byte	30
- 1306 04fd 40       		.byte	64
+ 1255 04ca 69       		.byte	105
+ 1256 04cb 94       		.byte	-108
+ 1257 04cc 70       		.byte	112
+ 1258 04cd 94       		.byte	-108
+ 1259 04ce 72       		.byte	114
+ 1260 04cf 12       		.byte	18
+ 1261 04d0 73       		.byte	115
+ 1262 04d1 26       		.byte	38
+ 1263 04d2 8D       		.byte	-115
+ 1264 04d3 01       		.byte	1
+ 1265 04d4 8F       		.byte	-113
+ 1266 04d5 10       		.byte	16
+ 1267 04d6 A7       		.byte	-89
+ 1268 04d7 08       		.byte	8
+ 1269 04d8 B2       		.byte	-78
+ 1270 04d9 04       		.byte	4
+ 1271 04da C0       		.byte	-64
+ 1272 04db AB       		.byte	-85
+ 1273 04dc C2       		.byte	-62
+ 1274 04dd EF       		.byte	-17
+ 1275 04de C4       		.byte	-60
+ 1276 04df 7F       		.byte	127
+ 1277 04e0 CA       		.byte	-54
+ 1278 04e1 9F       		.byte	-97
+ 1279 04e2 CC       		.byte	-52
+ 1280 04e3 6F       		.byte	111
+ 1281 04e4 CE       		.byte	-50
+ 1282 04e5 0F       		.byte	15
+ 1283 04e6 D6       		.byte	-42
+ 1284 04e7 02       		.byte	2
+ 1285 04e8 E4       		.byte	-28
+ 1286 04e9 02       		.byte	2
+ 1287 04ea 00       		.byte	0
+ 1288 04eb 42       		.byte	66
+ 1289 04ec 02       		.byte	2
+ 1290 04ed 19       		.byte	25
+ 1291 04ee 05       		.byte	5
+ 1292 04ef 01       		.byte	1
+ 1293 04f0 09       		.byte	9
+ 1294 04f1 01       		.byte	1
+ 1295 04f2 0D       		.byte	13
+ 1296 04f3 01       		.byte	1
+ 1297 04f4 13       		.byte	19
+ 1298 04f5 02       		.byte	2
+ 1299 04f6 17       		.byte	23
+ 1300 04f7 08       		.byte	8
+ 1301 04f8 18       		.byte	24
+ 1302 04f9 10       		.byte	16
+ 1303 04fa 19       		.byte	25
+ 1304 04fb 08       		.byte	8
+ 1305 04fc 1A       		.byte	26
+ 1306 04fd 64       		.byte	100
  1307 04fe 1F       		.byte	31
- 1308 04ff 02       		.byte	2
- 1309 0500 21       		.byte	33
- 1310 0501 30       		.byte	48
- 1311 0502 22       		.byte	34
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 24
+ 1308 04ff 04       		.byte	4
+ 1309 0500 23       		.byte	35
+ 1310 0501 08       		.byte	8
+ 1311 0502 24       		.byte	36
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 24
 
 
- 1312 0503 01       		.byte	1
- 1313 0504 24       		.byte	36
- 1314 0505 40       		.byte	64
- 1315 0506 25       		.byte	37
- 1316 0507 02       		.byte	2
- 1317 0508 28       		.byte	40
- 1318 0509 40       		.byte	64
- 1319 050a 29       		.byte	41
- 1320 050b 24       		.byte	36
- 1321 050c 2B       		.byte	43
- 1322 050d 02       		.byte	2
- 1323 050e 30       		.byte	48
- 1324 050f 88       		.byte	-120
- 1325 0510 31       		.byte	49
- 1326 0511 02       		.byte	2
- 1327 0512 32       		.byte	50
- 1328 0513 10       		.byte	16
- 1329 0514 37       		.byte	55
- 1330 0515 01       		.byte	1
- 1331 0516 39       		.byte	57
- 1332 0517 20       		.byte	32
- 1333 0518 3A       		.byte	58
- 1334 0519 46       		.byte	70
- 1335 051a 3D       		.byte	61
- 1336 051b 10       		.byte	16
- 1337 051c 3E       		.byte	62
- 1338 051d 04       		.byte	4
- 1339 051e 5E       		.byte	94
- 1340 051f 20       		.byte	32
- 1341 0520 6D       		.byte	109
- 1342 0521 14       		.byte	20
- 1343 0522 6E       		.byte	110
- 1344 0523 04       		.byte	4
- 1345 0524 6F       		.byte	111
- 1346 0525 01       		.byte	1
- 1347 0526 74       		.byte	116
- 1348 0527 A8       		.byte	-88
- 1349 0528 76       		.byte	118
- 1350 0529 05       		.byte	5
- 1351 052a 77       		.byte	119
- 1352 052b 20       		.byte	32
- 1353 052c 88       		.byte	-120
+ 1312 0503 73       		.byte	115
+ 1313 0504 27       		.byte	39
+ 1314 0505 04       		.byte	4
+ 1315 0506 28       		.byte	40
+ 1316 0507 73       		.byte	115
+ 1317 0508 2B       		.byte	43
+ 1318 0509 02       		.byte	2
+ 1319 050a 2C       		.byte	44
+ 1320 050b 21       		.byte	33
+ 1321 050c 2D       		.byte	45
+ 1322 050d 08       		.byte	8
+ 1323 050e 2E       		.byte	46
+ 1324 050f 9A       		.byte	-102
+ 1325 0510 30       		.byte	48
+ 1326 0511 03       		.byte	3
+ 1327 0512 31       		.byte	49
+ 1328 0513 08       		.byte	8
+ 1329 0514 32       		.byte	50
+ 1330 0515 80       		.byte	-128
+ 1331 0516 33       		.byte	51
+ 1332 0517 04       		.byte	4
+ 1333 0518 34       		.byte	52
+ 1334 0519 70       		.byte	112
+ 1335 051a 35       		.byte	53
+ 1336 051b 02       		.byte	2
+ 1337 051c 36       		.byte	54
+ 1338 051d 0C       		.byte	12
+ 1339 051e 37       		.byte	55
+ 1340 051f 01       		.byte	1
+ 1341 0520 39       		.byte	57
+ 1342 0521 02       		.byte	2
+ 1343 0522 3E       		.byte	62
+ 1344 0523 40       		.byte	64
+ 1345 0524 3F       		.byte	63
+ 1346 0525 14       		.byte	20
+ 1347 0526 40       		.byte	64
+ 1348 0527 53       		.byte	83
+ 1349 0528 41       		.byte	65
+ 1350 0529 02       		.byte	2
+ 1351 052a 42       		.byte	66
+ 1352 052b 04       		.byte	4
+ 1353 052c 44       		.byte	68
  1354 052d 01       		.byte	1
- 1355 052e 89       		.byte	-119
- 1356 052f 04       		.byte	4
- 1357 0530 8A       		.byte	-118
- 1358 0531 03       		.byte	3
- 1359 0532 91       		.byte	-111
- 1360 0533 08       		.byte	8
- 1361 0534 92       		.byte	-110
- 1362 0535 10       		.byte	16
- 1363 0536 94       		.byte	-108
- 1364 0537 40       		.byte	64
- 1365 0538 95       		.byte	-107
- 1366 0539 34       		.byte	52
- 1367 053a 96       		.byte	-106
- 1368 053b 42       		.byte	66
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 25
+ 1355 052e 45       		.byte	69
+ 1356 052f 0C       		.byte	12
+ 1357 0530 46       		.byte	70
+ 1358 0531 E0       		.byte	-32
+ 1359 0532 48       		.byte	72
+ 1360 0533 09       		.byte	9
+ 1361 0534 49       		.byte	73
+ 1362 0535 FF       		.byte	-1
+ 1363 0536 4A       		.byte	74
+ 1364 0537 FF       		.byte	-1
+ 1365 0538 4B       		.byte	75
+ 1366 0539 FF       		.byte	-1
+ 1367 053a 4C       		.byte	76
+ 1368 053b 62       		.byte	98
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 25
 
 
- 1369 053c 9D       		.byte	-99
- 1370 053d 21       		.byte	33
- 1371 053e A1       		.byte	-95
- 1372 053f 01       		.byte	1
- 1373 0540 A2       		.byte	-94
- 1374 0541 10       		.byte	16
- 1375 0542 A4       		.byte	-92
- 1376 0543 01       		.byte	1
- 1377 0544 A5       		.byte	-91
- 1378 0545 40       		.byte	64
- 1379 0546 B2       		.byte	-78
- 1380 0547 08       		.byte	8
- 1381 0548 B3       		.byte	-77
- 1382 0549 02       		.byte	2
- 1383 054a C0       		.byte	-64
- 1384 054b ED       		.byte	-19
- 1385 054c C2       		.byte	-62
- 1386 054d 3F       		.byte	63
- 1387 054e C4       		.byte	-60
- 1388 054f EF       		.byte	-17
- 1389 0550 CA       		.byte	-54
- 1390 0551 0F       		.byte	15
- 1391 0552 CC       		.byte	-52
- 1392 0553 8F       		.byte	-113
- 1393 0554 CE       		.byte	-50
- 1394 0555 6F       		.byte	111
- 1395 0556 D6       		.byte	-42
- 1396 0557 20       		.byte	32
- 1397 0558 EC       		.byte	-20
- 1398 0559 10       		.byte	16
- 1399 055a 32       		.byte	50
- 1400 055b 20       		.byte	32
- 1401 055c CC       		.byte	-52
- 1402 055d 10       		.byte	16
- 1403 055e 62       		.byte	98
- 1404 055f 02       		.byte	2
- 1405 0560 A6       		.byte	-90
- 1406 0561 20       		.byte	32
- 1407 0562 D8       		.byte	-40
- 1408 0563 40       		.byte	64
- 1409 0564 52       		.byte	82
- 1410 0565 80       		.byte	-128
- 1411 0566 8E       		.byte	-114
- 1412 0567 80       		.byte	-128
- 1413 0568 A6       		.byte	-90
- 1414 0569 22       		.byte	34
- 1415 056a D4       		.byte	-44
- 1416 056b 20       		.byte	32
- 1417 056c 86       		.byte	-122
- 1418 056d 20       		.byte	32
- 1419 056e A6       		.byte	-90
- 1420 056f 20       		.byte	32
- 1421 0570 AA       		.byte	-86
- 1422 0571 02       		.byte	2
- 1423 0572 E6       		.byte	-26
- 1424 0573 40       		.byte	64
- 1425 0574 EA       		.byte	-22
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 26
+ 1369 053c 4D       		.byte	77
+ 1370 053d A0       		.byte	-96
+ 1371 053e 4E       		.byte	78
+ 1372 053f F0       		.byte	-16
+ 1373 0540 4F       		.byte	79
+ 1374 0541 41       		.byte	65
+ 1375 0542 50       		.byte	80
+ 1376 0543 0C       		.byte	12
+ 1377 0544 54       		.byte	84
+ 1378 0545 18       		.byte	24
+ 1379 0546 56       		.byte	86
+ 1380 0547 04       		.byte	4
+ 1381 0548 58       		.byte	88
+ 1382 0549 04       		.byte	4
+ 1383 054a 59       		.byte	89
+ 1384 054b 04       		.byte	4
+ 1385 054c 5A       		.byte	90
+ 1386 054d 04       		.byte	4
+ 1387 054e 5B       		.byte	91
+ 1388 054f 04       		.byte	4
+ 1389 0550 5C       		.byte	92
+ 1390 0551 22       		.byte	34
+ 1391 0552 5D       		.byte	93
+ 1392 0553 22       		.byte	34
+ 1393 0554 5F       		.byte	95
+ 1394 0555 01       		.byte	1
+ 1395 0556 66       		.byte	102
+ 1396 0557 40       		.byte	64
+ 1397 0558 67       		.byte	103
+ 1398 0559 02       		.byte	2
+ 1399 055a 69       		.byte	105
+ 1400 055b 10       		.byte	16
+ 1401 055c 6A       		.byte	106
+ 1402 055d 30       		.byte	48
+ 1403 055e 6B       		.byte	107
+ 1404 055f 10       		.byte	16
+ 1405 0560 6D       		.byte	109
+ 1406 0561 10       		.byte	16
+ 1407 0562 6E       		.byte	110
+ 1408 0563 10       		.byte	16
+ 1409 0564 6F       		.byte	111
+ 1410 0565 12       		.byte	18
+ 1411 0566 85       		.byte	-123
+ 1412 0567 02       		.byte	2
+ 1413 0568 91       		.byte	-111
+ 1414 0569 04       		.byte	4
+ 1415 056a 95       		.byte	-107
+ 1416 056b 07       		.byte	7
+ 1417 056c 9B       		.byte	-101
+ 1418 056d 01       		.byte	1
+ 1419 056e A1       		.byte	-95
+ 1420 056f 06       		.byte	6
+ 1421 0570 A3       		.byte	-93
+ 1422 0571 01       		.byte	1
+ 1423 0572 A5       		.byte	-91
+ 1424 0573 07       		.byte	7
+ 1425 0574 A9       		.byte	-87
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 26
 
 
- 1426 0575 80       		.byte	-128
- 1427 0576 7C       		.byte	124
- 1428 0577 20       		.byte	32
- 1429 0578 DE       		.byte	-34
+ 1426 0575 06       		.byte	6
+ 1427 0576 AD       		.byte	-83
+ 1428 0577 01       		.byte	1
+ 1429 0578 AE       		.byte	-82
  1430 0579 01       		.byte	1
- 1431 057a 5C       		.byte	92
- 1432 057b 01       		.byte	1
- 1433 057c 9C       		.byte	-100
- 1434 057d 20       		.byte	32
- 1435 057e D6       		.byte	-42
+ 1431 057a AF       		.byte	-81
+ 1432 057b 06       		.byte	6
+ 1433 057c B1       		.byte	-79
+ 1434 057d 07       		.byte	7
+ 1435 057e B2       		.byte	-78
  1436 057f 01       		.byte	1
- 1437 0580 45       		.byte	69
- 1438 0581 08       		.byte	8
- 1439 0582 8A       		.byte	-118
- 1440 0583 01       		.byte	1
- 1441 0584 94       		.byte	-108
- 1442 0585 01       		.byte	1
- 1443 0586 B4       		.byte	-76
- 1444 0587 20       		.byte	32
- 1445 0588 D0       		.byte	-48
- 1446 0589 01       		.byte	1
- 1447 058a E4       		.byte	-28
- 1448 058b 01       		.byte	1
- 1449 058c E8       		.byte	-24
- 1450 058d 02       		.byte	2
- 1451 058e 92       		.byte	-110
- 1452 058f 01       		.byte	1
- 1453 0590 A5       		.byte	-91
- 1454 0591 08       		.byte	8
- 1455 0592 B4       		.byte	-76
- 1456 0593 01       		.byte	1
- 1457 0594 EC       		.byte	-20
- 1458 0595 08       		.byte	8
- 1459 0596 25       		.byte	37
- 1460 0597 10       		.byte	16
- 1461 0598 5E       		.byte	94
- 1462 0599 20       		.byte	32
- 1463 059a 93       		.byte	-109
- 1464 059b 80       		.byte	-128
- 1465 059c A2       		.byte	-94
- 1466 059d 10       		.byte	16
- 1467 059e AE       		.byte	-82
- 1468 059f 10       		.byte	16
- 1469 05a0 AF       		.byte	-81
- 1470 05a1 40       		.byte	64
- 1471 05a2 C8       		.byte	-56
+ 1437 0580 D2       		.byte	-46
+ 1438 0581 80       		.byte	-128
+ 1439 0582 D8       		.byte	-40
+ 1440 0583 04       		.byte	4
+ 1441 0584 D9       		.byte	-39
+ 1442 0585 04       		.byte	4
+ 1443 0586 DB       		.byte	-37
+ 1444 0587 04       		.byte	4
+ 1445 0588 DC       		.byte	-36
+ 1446 0589 21       		.byte	33
+ 1447 058a DD       		.byte	-35
+ 1448 058b 10       		.byte	16
+ 1449 058c DF       		.byte	-33
+ 1450 058d 01       		.byte	1
+ 1451 058e 01       		.byte	1
+ 1452 058f 02       		.byte	2
+ 1453 0590 0A       		.byte	10
+ 1454 0591 04       		.byte	4
+ 1455 0592 10       		.byte	16
+ 1456 0593 02       		.byte	2
+ 1457 0594 11       		.byte	17
+ 1458 0595 14       		.byte	20
+ 1459 0596 17       		.byte	23
+ 1460 0597 80       		.byte	-128
+ 1461 0598 18       		.byte	24
+ 1462 0599 01       		.byte	1
+ 1463 059a 19       		.byte	25
+ 1464 059b 1A       		.byte	26
+ 1465 059c 1A       		.byte	26
+ 1466 059d 04       		.byte	4
+ 1467 059e 1F       		.byte	31
+ 1468 059f 08       		.byte	8
+ 1469 05a0 20       		.byte	32
+ 1470 05a1 02       		.byte	2
+ 1471 05a2 21       		.byte	33
  1472 05a3 20       		.byte	32
- 1473 05a4 D6       		.byte	-42
- 1474 05a5 20       		.byte	32
- 1475 05a6 EA       		.byte	-22
- 1476 05a7 10       		.byte	16
- 1477 05a8 EE       		.byte	-18
- 1478 05a9 10       		.byte	16
- 1479 05aa 67       		.byte	103
- 1480 05ab 80       		.byte	-128
- 1481 05ac 93       		.byte	-109
- 1482 05ad 80       		.byte	-128
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 27
+ 1473 05a4 22       		.byte	34
+ 1474 05a5 06       		.byte	6
+ 1475 05a6 24       		.byte	36
+ 1476 05a7 40       		.byte	64
+ 1477 05a8 27       		.byte	39
+ 1478 05a9 40       		.byte	64
+ 1479 05aa 29       		.byte	41
+ 1480 05ab 84       		.byte	-124
+ 1481 05ac 2A       		.byte	42
+ 1482 05ad 10       		.byte	16
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 27
 
 
- 1483 05ae B5       		.byte	-75
- 1484 05af 10       		.byte	16
- 1485 05b0 D8       		.byte	-40
+ 1483 05ae 2B       		.byte	43
+ 1484 05af 80       		.byte	-128
+ 1485 05b0 2D       		.byte	45
  1486 05b1 80       		.byte	-128
- 1487 05b2 5E       		.byte	94
- 1488 05b3 01       		.byte	1
- 1489 05b4 92       		.byte	-110
- 1490 05b5 01       		.byte	1
- 1491 05b6 A0       		.byte	-96
- 1492 05b7 01       		.byte	1
- 1493 05b8 A5       		.byte	-91
- 1494 05b9 08       		.byte	8
- 1495 05ba B0       		.byte	-80
- 1496 05bb 01       		.byte	1
- 1497 05bc D6       		.byte	-42
- 1498 05bd 01       		.byte	1
- 1499 05be E8       		.byte	-24
- 1500 05bf 01       		.byte	1
- 1501 05c0 10       		.byte	16
- 1502 05c1 40       		.byte	64
- 1503 05c2 74       		.byte	116
- 1504 05c3 01       		.byte	1
- 1505 05c4 88       		.byte	-120
- 1506 05c5 40       		.byte	64
- 1507 05c6 A0       		.byte	-96
- 1508 05c7 01       		.byte	1
- 1509 05c8 B5       		.byte	-75
- 1510 05c9 08       		.byte	8
- 1511 05ca C4       		.byte	-60
- 1512 05cb 08       		.byte	8
- 1513 05cc DE       		.byte	-34
- 1514 05cd 04       		.byte	4
- 1515 05ce E2       		.byte	-30
- 1516 05cf 01       		.byte	1
- 1517 05d0 EC       		.byte	-20
- 1518 05d1 08       		.byte	8
- 1519 05d2 00       		.byte	0
- 1520 05d3 1E       		.byte	30
- 1521 05d4 0C       		.byte	12
- 1522 05d5 1E       		.byte	30
- 1523 05d6 10       		.byte	16
- 1524 05d7 10       		.byte	16
- 1525 05d8 1C       		.byte	28
- 1526 05d9 10       		.byte	16
- 1527 05da 00       		.byte	0
- 1528 05db 03       		.byte	3
- 1529 05dc 80       		.byte	-128
- 1530 05dd 81       		.byte	-127
- 1531 05de 00       		.byte	0
- 1532 05df 00       		.byte	0
- 1533 05e0 40       		.byte	64
- 1534 05e1 00       		.byte	0
- 1535 05e2 00       		.byte	0
- 1536 05e3 00       		.byte	0
- 1537 05e4 00       		.byte	0
- 1538 05e5 E0       		.byte	-32
- 1539 05e6 E0       		.byte	-32
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 28
+ 1487 05b2 2E       		.byte	46
+ 1488 05b3 18       		.byte	24
+ 1489 05b4 2F       		.byte	47
+ 1490 05b5 80       		.byte	-128
+ 1491 05b6 32       		.byte	50
+ 1492 05b7 0A       		.byte	10
+ 1493 05b8 33       		.byte	51
+ 1494 05b9 50       		.byte	80
+ 1495 05ba 34       		.byte	52
+ 1496 05bb 20       		.byte	32
+ 1497 05bc 36       		.byte	54
+ 1498 05bd 08       		.byte	8
+ 1499 05be 37       		.byte	55
+ 1500 05bf 02       		.byte	2
+ 1501 05c0 39       		.byte	57
+ 1502 05c1 94       		.byte	-108
+ 1503 05c2 3F       		.byte	63
+ 1504 05c3 04       		.byte	4
+ 1505 05c4 40       		.byte	64
+ 1506 05c5 61       		.byte	97
+ 1507 05c6 42       		.byte	66
+ 1508 05c7 08       		.byte	8
+ 1509 05c8 43       		.byte	67
+ 1510 05c9 10       		.byte	16
+ 1511 05ca 49       		.byte	73
+ 1512 05cb 84       		.byte	-124
+ 1513 05cc 52       		.byte	82
+ 1514 05cd 10       		.byte	16
+ 1515 05ce 5A       		.byte	90
+ 1516 05cf 02       		.byte	2
+ 1517 05d0 61       		.byte	97
+ 1518 05d1 20       		.byte	32
+ 1519 05d2 63       		.byte	99
+ 1520 05d3 42       		.byte	66
+ 1521 05d4 64       		.byte	100
+ 1522 05d5 80       		.byte	-128
+ 1523 05d6 65       		.byte	101
+ 1524 05d7 02       		.byte	2
+ 1525 05d8 77       		.byte	119
+ 1526 05d9 80       		.byte	-128
+ 1527 05da 86       		.byte	-122
+ 1528 05db 04       		.byte	4
+ 1529 05dc 87       		.byte	-121
+ 1530 05dd 41       		.byte	65
+ 1531 05de 88       		.byte	-120
+ 1532 05df 23       		.byte	35
+ 1533 05e0 8A       		.byte	-118
+ 1534 05e1 20       		.byte	32
+ 1535 05e2 91       		.byte	-111
+ 1536 05e3 94       		.byte	-108
+ 1537 05e4 92       		.byte	-110
+ 1538 05e5 12       		.byte	18
+ 1539 05e6 93       		.byte	-109
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 28
 
 
- 1540 05e7 00       		.byte	0
- 1541 05e8 20       		.byte	32
- 1542 05e9 00       		.byte	0
- 1543 05ea 10       		.byte	16
- 1544 05eb 00       		.byte	0
- 1545 05ec 80       		.byte	-128
- 1546 05ed 00       		.byte	0
- 1547 05ee 40       		.byte	64
- 1548 05ef 87       		.byte	-121
- 1549 05f0 87       		.byte	-121
- 1550 05f1 00       		.byte	0
- 1551 05f2 81       		.byte	-127
- 1552 05f3 00       		.byte	0
- 1553 05f4 00       		.byte	0
- 1554 05f5 00       		.byte	0
- 1555 05f6 00       		.byte	0
- 1556 05f7 00       		.byte	0
- 1557 05f8 00       		.byte	0
- 1558 05f9 0E       		.byte	14
- 1559 05fa 0E       		.byte	14
- 1560 05fb 00       		.byte	0
- 1561 05fc 02       		.byte	2
- 1562 05fd 00       		.byte	0
- 1563 05fe 21       		.byte	33
- 1564 05ff 00       		.byte	0
- 1565 0600 00       		.byte	0
- 1566 0601 EB       		.byte	-21
- 1567 0602 EB       		.byte	-21
- 1568 0603 00       		.byte	0
- 1569 0604 80       		.byte	-128
- 1570 0605 00       		.byte	0
- 1571 0606 10       		.byte	16
- 1572 0607 00       		.byte	0
- 1573 0608 04       		.byte	4
- 1574 0609 00       		.byte	0
- 1575 060a 00       		.byte	0
- 1576 060b 3E       		.byte	62
- 1577 060c 3A       		.byte	58
- 1578 060d 00       		.byte	0
- 1579 060e 20       		.byte	32
- 1580 060f 00       		.byte	0
- 1581 0610 C0       		.byte	-64
- 1582 0611 00       		.byte	0
- 1583 0612 00       		.byte	0
- 1584 0613 00       		.byte	0
- 1585 0614 00       		.byte	0
- 1586 0615 E0       		.byte	-32
- 1587 0616 E0       		.byte	-32
- 1588 0617 00       		.byte	0
- 1589 0618 20       		.byte	32
- 1590 0619 00       		.byte	0
- 1591 061a 04       		.byte	4
- 1592 061b 00       		.byte	0
- 1593 061c 08       		.byte	8
- 1594 061d 00       		.byte	0
- 1595 061e 18       		.byte	24
- 1596 061f 01       		.byte	1
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 29
+ 1540 05e7 04       		.byte	4
+ 1541 05e8 99       		.byte	-103
+ 1542 05e9 80       		.byte	-128
+ 1543 05ea 9B       		.byte	-101
+ 1544 05eb 12       		.byte	18
+ 1545 05ec 9C       		.byte	-100
+ 1546 05ed A0       		.byte	-96
+ 1547 05ee 9D       		.byte	-99
+ 1548 05ef 18       		.byte	24
+ 1549 05f0 9E       		.byte	-98
+ 1550 05f1 20       		.byte	32
+ 1551 05f2 A2       		.byte	-94
+ 1552 05f3 08       		.byte	8
+ 1553 05f4 A3       		.byte	-93
+ 1554 05f5 80       		.byte	-128
+ 1555 05f6 A4       		.byte	-92
+ 1556 05f7 03       		.byte	3
+ 1557 05f8 A7       		.byte	-89
+ 1558 05f9 08       		.byte	8
+ 1559 05fa C0       		.byte	-64
+ 1560 05fb 08       		.byte	8
+ 1561 05fc C2       		.byte	-62
+ 1562 05fd 02       		.byte	2
+ 1563 05fe C4       		.byte	-60
+ 1564 05ff 87       		.byte	-121
+ 1565 0600 CA       		.byte	-54
+ 1566 0601 FF       		.byte	-1
+ 1567 0602 CC       		.byte	-52
+ 1568 0603 EF       		.byte	-17
+ 1569 0604 CE       		.byte	-50
+ 1570 0605 4E       		.byte	78
+ 1571 0606 D0       		.byte	-48
+ 1572 0607 0F       		.byte	15
+ 1573 0608 D2       		.byte	-46
+ 1574 0609 08       		.byte	8
+ 1575 060a D6       		.byte	-42
+ 1576 060b 01       		.byte	1
+ 1577 060c D8       		.byte	-40
+ 1578 060d 0D       		.byte	13
+ 1579 060e EC       		.byte	-20
+ 1580 060f 10       		.byte	16
+ 1581 0610 32       		.byte	50
+ 1582 0611 20       		.byte	32
+ 1583 0612 CC       		.byte	-52
+ 1584 0613 10       		.byte	16
+ 1585 0614 5F       		.byte	95
+ 1586 0615 02       		.byte	2
+ 1587 0616 A6       		.byte	-90
+ 1588 0617 20       		.byte	32
+ 1589 0618 D6       		.byte	-42
+ 1590 0619 80       		.byte	-128
+ 1591 061a 51       		.byte	81
+ 1592 061b 08       		.byte	8
+ 1593 061c 9F       		.byte	-97
+ 1594 061d 02       		.byte	2
+ 1595 061e A6       		.byte	-90
+ 1596 061f 20       		.byte	32
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 29
 
 
- 1597              		.section	.cywolatch,"a",%progbits
- 1598              		.align	2
- 1599              		.type	cy_meta_wonvl, %object
- 1600              		.size	cy_meta_wonvl, 4
- 1601              	cy_meta_wonvl:
- 1602 0000 BC       		.byte	-68
- 1603 0001 90       		.byte	-112
- 1604 0002 AC       		.byte	-84
- 1605 0003 AF       		.byte	-81
- 1606              		.section	.cycustnvl,"a",%progbits
- 1607              		.align	2
- 1608              		.type	cy_meta_custnvl, %object
- 1609              		.size	cy_meta_custnvl, 4
- 1610              	cy_meta_custnvl:
- 1611 0000 00       		.byte	0
- 1612 0001 00       		.byte	0
- 1613 0002 40       		.byte	64
- 1614 0003 05       		.byte	5
- 1615              		.section	.cymeta,"a",%progbits
- 1616              		.align	2
- 1617              		.type	cy_metadata, %object
- 1618              		.size	cy_metadata, 12
- 1619              	cy_metadata:
- 1620 0000 00       		.byte	0
- 1621 0001 01       		.byte	1
- 1622 0002 2E       		.byte	46
- 1623 0003 16       		.byte	22
- 1624 0004 10       		.byte	16
- 1625 0005 69       		.byte	105
- 1626 0006 00       		.byte	0
- 1627 0007 01       		.byte	1
- 1628 0008 00       		.byte	0
- 1629 0009 00       		.byte	0
- 1630 000a 00       		.byte	0
- 1631 000b 00       		.byte	0
- 1632              		.section	.cyflashprotect,"a",%progbits
- 1633              		.align	2
- 1634              		.type	cy_meta_flashprotect, %object
- 1635              		.size	cy_meta_flashprotect, 256
- 1636              	cy_meta_flashprotect:
- 1637 0000 00000000 		.space	256
- 1637      00000000 
- 1637      00000000 
- 1637      00000000 
- 1637      00000000 
- 1638              		.text
- 1639              	.Letext0:
- 1640              		.file 1 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
- 1641              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
- 1642              		.file 3 "Generated_Source\\PSoC5\\cymetadata.c"
- 1643              		.section	.debug_info,"",%progbits
- 1644              	.Ldebug_info0:
- 1645 0000 33010000 		.4byte	0x133
- 1646 0004 0400     		.2byte	0x4
- 1647 0006 00000000 		.4byte	.Ldebug_abbrev0
- 1648 000a 04       		.byte	0x4
- 1649 000b 01       		.uleb128 0x1
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 30
+ 1597 0620 D4       		.byte	-44
+ 1598 0621 20       		.byte	32
+ 1599 0622 81       		.byte	-127
+ 1600 0623 08       		.byte	8
+ 1601 0624 9F       		.byte	-97
+ 1602 0625 02       		.byte	2
+ 1603 0626 A5       		.byte	-91
+ 1604 0627 08       		.byte	8
+ 1605 0628 A6       		.byte	-90
+ 1606 0629 20       		.byte	32
+ 1607 062a E2       		.byte	-30
+ 1608 062b 80       		.byte	-128
+ 1609 062c 7C       		.byte	124
+ 1610 062d 08       		.byte	8
+ 1611 062e DE       		.byte	-34
+ 1612 062f 01       		.byte	1
+ 1613 0630 5C       		.byte	92
+ 1614 0631 02       		.byte	2
+ 1615 0632 9C       		.byte	-100
+ 1616 0633 08       		.byte	8
+ 1617 0634 D6       		.byte	-42
+ 1618 0635 01       		.byte	1
+ 1619 0636 45       		.byte	69
+ 1620 0637 08       		.byte	8
+ 1621 0638 84       		.byte	-124
+ 1622 0639 08       		.byte	8
+ 1623 063a 9C       		.byte	-100
+ 1624 063b 0A       		.byte	10
+ 1625 063c D0       		.byte	-48
+ 1626 063d 01       		.byte	1
+ 1627 063e A5       		.byte	-91
+ 1628 063f 08       		.byte	8
+ 1629 0640 B0       		.byte	-80
+ 1630 0641 02       		.byte	2
+ 1631 0642 E8       		.byte	-24
+ 1632 0643 04       		.byte	4
+ 1633 0644 25       		.byte	37
+ 1634 0645 10       		.byte	16
+ 1635 0646 5F       		.byte	95
+ 1636 0647 20       		.byte	32
+ 1637 0648 83       		.byte	-125
+ 1638 0649 20       		.byte	32
+ 1639 064a A6       		.byte	-90
+ 1640 064b 20       		.byte	32
+ 1641 064c AF       		.byte	-81
+ 1642 064d 02       		.byte	2
+ 1643 064e C8       		.byte	-56
+ 1644 064f 20       		.byte	32
+ 1645 0650 D6       		.byte	-42
+ 1646 0651 20       		.byte	32
+ 1647 0652 E2       		.byte	-30
+ 1648 0653 80       		.byte	-128
+ 1649 0654 EE       		.byte	-18
+ 1650 0655 40       		.byte	64
+ 1651 0656 63       		.byte	99
+ 1652 0657 04       		.byte	4
+ 1653 0658 86       		.byte	-122
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 30
 
 
- 1650 000c 75000000 		.4byte	.LASF17
- 1651 0010 0C       		.byte	0xc
- 1652 0011 CF010000 		.4byte	.LASF18
- 1653 0015 0A000000 		.4byte	.LASF19
- 1654 0019 00000000 		.4byte	.Ldebug_line0
- 1655 001d 02       		.uleb128 0x2
- 1656 001e 01       		.byte	0x1
- 1657 001f 06       		.byte	0x6
- 1658 0020 C3010000 		.4byte	.LASF0
- 1659 0024 03       		.uleb128 0x3
- 1660 0025 00000000 		.4byte	.LASF9
- 1661 0029 01       		.byte	0x1
- 1662 002a 1D       		.byte	0x1d
- 1663 002b 2F000000 		.4byte	0x2f
- 1664 002f 02       		.uleb128 0x2
- 1665 0030 01       		.byte	0x1
- 1666 0031 08       		.byte	0x8
- 1667 0032 67000000 		.4byte	.LASF1
- 1668 0036 02       		.uleb128 0x2
- 1669 0037 02       		.byte	0x2
- 1670 0038 05       		.byte	0x5
- 1671 0039 B0010000 		.4byte	.LASF2
- 1672 003d 02       		.uleb128 0x2
- 1673 003e 02       		.byte	0x2
- 1674 003f 07       		.byte	0x7
- 1675 0040 15010000 		.4byte	.LASF3
- 1676 0044 02       		.uleb128 0x2
- 1677 0045 04       		.byte	0x4
- 1678 0046 05       		.byte	0x5
- 1679 0047 BA010000 		.4byte	.LASF4
- 1680 004b 02       		.uleb128 0x2
- 1681 004c 04       		.byte	0x4
- 1682 004d 07       		.byte	0x7
- 1683 004e 03010000 		.4byte	.LASF5
- 1684 0052 02       		.uleb128 0x2
- 1685 0053 08       		.byte	0x8
- 1686 0054 05       		.byte	0x5
- 1687 0055 A2010000 		.4byte	.LASF6
- 1688 0059 02       		.uleb128 0x2
- 1689 005a 08       		.byte	0x8
- 1690 005b 07       		.byte	0x7
- 1691 005c 57010000 		.4byte	.LASF7
- 1692 0060 04       		.uleb128 0x4
- 1693 0061 04       		.byte	0x4
- 1694 0062 05       		.byte	0x5
- 1695 0063 696E7400 		.ascii	"int\000"
- 1696 0067 02       		.uleb128 0x2
- 1697 0068 04       		.byte	0x4
- 1698 0069 07       		.byte	0x7
- 1699 006a 4A010000 		.4byte	.LASF8
- 1700 006e 03       		.uleb128 0x3
- 1701 006f 6E010000 		.4byte	.LASF10
- 1702 0073 02       		.byte	0x2
- 1703 0074 18       		.byte	0x18
- 1704 0075 24000000 		.4byte	0x24
- 1705 0079 05       		.uleb128 0x5
- 1706 007a 91000000 		.4byte	0x91
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 31
+ 1654 0659 20       		.byte	32
+ 1655 065a 93       		.byte	-109
+ 1656 065b 04       		.byte	4
+ 1657 065c A6       		.byte	-90
+ 1658 065d 20       		.byte	32
+ 1659 065e AF       		.byte	-81
+ 1660 065f 04       		.byte	4
+ 1661 0660 B5       		.byte	-75
+ 1662 0661 10       		.byte	16
+ 1663 0662 D8       		.byte	-40
+ 1664 0663 40       		.byte	64
+ 1665 0664 E6       		.byte	-26
+ 1666 0665 40       		.byte	64
+ 1667 0666 EA       		.byte	-22
+ 1668 0667 40       		.byte	64
+ 1669 0668 63       		.byte	99
+ 1670 0669 40       		.byte	64
+ 1671 066a 87       		.byte	-121
+ 1672 066b 40       		.byte	64
+ 1673 066c A0       		.byte	-96
+ 1674 066d 01       		.byte	1
+ 1675 066e A5       		.byte	-91
+ 1676 066f 08       		.byte	8
+ 1677 0670 B0       		.byte	-80
+ 1678 0671 01       		.byte	1
+ 1679 0672 D8       		.byte	-40
+ 1680 0673 02       		.byte	2
+ 1681 0674 E8       		.byte	-24
+ 1682 0675 01       		.byte	1
+ 1683 0676 10       		.byte	16
+ 1684 0677 80       		.byte	-128
+ 1685 0678 74       		.byte	116
+ 1686 0679 01       		.byte	1
+ 1687 067a 88       		.byte	-120
+ 1688 067b 80       		.byte	-128
+ 1689 067c A0       		.byte	-96
+ 1690 067d 01       		.byte	1
+ 1691 067e B5       		.byte	-75
+ 1692 067f 08       		.byte	8
+ 1693 0680 C4       		.byte	-60
+ 1694 0681 08       		.byte	8
+ 1695 0682 DE       		.byte	-34
+ 1696 0683 04       		.byte	4
+ 1697 0684 E6       		.byte	-26
+ 1698 0685 01       		.byte	1
+ 1699 0686 EC       		.byte	-20
+ 1700 0687 08       		.byte	8
+ 1701 0688 00       		.byte	0
+ 1702 0689 06       		.byte	6
+ 1703 068a 0A       		.byte	10
+ 1704 068b 02       		.byte	2
+ 1705 068c 0C       		.byte	12
+ 1706 068d 06       		.byte	6
+ 1707 068e 10       		.byte	16
+ 1708 068f 06       		.byte	6
+ 1709 0690 1A       		.byte	26
+ 1710 0691 02       		.byte	2
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 31
 
 
- 1707 007e 8A000000 		.4byte	0x8a
- 1708 0082 06       		.uleb128 0x6
- 1709 0083 8A000000 		.4byte	0x8a
- 1710 0087 1F06     		.2byte	0x61f
- 1711 0089 00       		.byte	0
- 1712 008a 02       		.uleb128 0x2
- 1713 008b 04       		.byte	0x4
- 1714 008c 07       		.byte	0x7
- 1715 008d 99010000 		.4byte	.LASF11
- 1716 0091 07       		.uleb128 0x7
- 1717 0092 6E000000 		.4byte	0x6e
- 1718 0096 08       		.uleb128 0x8
- 1719 0097 38010000 		.4byte	.LASF12
- 1720 009b 03       		.byte	0x3
- 1721 009c 1F       		.byte	0x1f
- 1722 009d A7000000 		.4byte	0xa7
- 1723 00a1 05       		.uleb128 0x5
- 1724 00a2 03       		.byte	0x3
- 1725 00a3 00000000 		.4byte	cy_meta_configecc
- 1726 00a7 07       		.uleb128 0x7
- 1727 00a8 79000000 		.4byte	0x79
- 1728 00ac 05       		.uleb128 0x5
- 1729 00ad 91000000 		.4byte	0x91
- 1730 00b1 BC000000 		.4byte	0xbc
- 1731 00b5 09       		.uleb128 0x9
- 1732 00b6 8A000000 		.4byte	0x8a
- 1733 00ba 03       		.byte	0x3
- 1734 00bb 00       		.byte	0
- 1735 00bc 08       		.uleb128 0x8
- 1736 00bd 28010000 		.4byte	.LASF13
- 1737 00c1 03       		.byte	0x3
- 1738 00c2 F0       		.byte	0xf0
- 1739 00c3 CD000000 		.4byte	0xcd
- 1740 00c7 05       		.uleb128 0x5
- 1741 00c8 03       		.byte	0x3
- 1742 00c9 00000000 		.4byte	cy_meta_custnvl
- 1743 00cd 07       		.uleb128 0x7
- 1744 00ce AC000000 		.4byte	0xac
- 1745 00d2 08       		.uleb128 0x8
- 1746 00d3 8B010000 		.4byte	.LASF14
- 1747 00d7 03       		.byte	0x3
- 1748 00d8 FE       		.byte	0xfe
- 1749 00d9 E3000000 		.4byte	0xe3
- 1750 00dd 05       		.uleb128 0x5
- 1751 00de 03       		.byte	0x3
- 1752 00df 00000000 		.4byte	cy_meta_wonvl
- 1753 00e3 07       		.uleb128 0x7
- 1754 00e4 AC000000 		.4byte	0xac
- 1755 00e8 05       		.uleb128 0x5
- 1756 00e9 91000000 		.4byte	0x91
- 1757 00ed F8000000 		.4byte	0xf8
- 1758 00f1 09       		.uleb128 0x9
- 1759 00f2 8A000000 		.4byte	0x8a
- 1760 00f6 FF       		.byte	0xff
- 1761 00f7 00       		.byte	0
- 1762 00f8 0A       		.uleb128 0xa
- 1763 00f9 76010000 		.4byte	.LASF15
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 32
+ 1711 0692 1C       		.byte	28
+ 1712 0693 06       		.byte	6
+ 1713 0694 00       		.byte	0
+ 1714 0695 03       		.byte	3
+ 1715 0696 00       		.byte	0
+ 1716 0697 00       		.byte	0
+ 1717 0698 80       		.byte	-128
+ 1718 0699 81       		.byte	-127
+ 1719 069a 00       		.byte	0
+ 1720 069b 00       		.byte	0
+ 1721 069c 40       		.byte	64
+ 1722 069d 00       		.byte	0
+ 1723 069e 00       		.byte	0
+ 1724 069f 00       		.byte	0
+ 1725 06a0 00       		.byte	0
+ 1726 06a1 E0       		.byte	-32
+ 1727 06a2 E0       		.byte	-32
+ 1728 06a3 00       		.byte	0
+ 1729 06a4 20       		.byte	32
+ 1730 06a5 00       		.byte	0
+ 1731 06a6 10       		.byte	16
+ 1732 06a7 00       		.byte	0
+ 1733 06a8 80       		.byte	-128
+ 1734 06a9 00       		.byte	0
+ 1735 06aa 40       		.byte	64
+ 1736 06ab 87       		.byte	-121
+ 1737 06ac 87       		.byte	-121
+ 1738 06ad 00       		.byte	0
+ 1739 06ae 81       		.byte	-127
+ 1740 06af 00       		.byte	0
+ 1741 06b0 00       		.byte	0
+ 1742 06b1 00       		.byte	0
+ 1743 06b2 00       		.byte	0
+ 1744 06b3 00       		.byte	0
+ 1745 06b4 00       		.byte	0
+ 1746 06b5 0E       		.byte	14
+ 1747 06b6 0E       		.byte	14
+ 1748 06b7 00       		.byte	0
+ 1749 06b8 02       		.byte	2
+ 1750 06b9 00       		.byte	0
+ 1751 06ba 21       		.byte	33
+ 1752 06bb 00       		.byte	0
+ 1753 06bc 00       		.byte	0
+ 1754 06bd EB       		.byte	-21
+ 1755 06be EB       		.byte	-21
+ 1756 06bf 00       		.byte	0
+ 1757 06c0 80       		.byte	-128
+ 1758 06c1 00       		.byte	0
+ 1759 06c2 10       		.byte	16
+ 1760 06c3 00       		.byte	0
+ 1761 06c4 04       		.byte	4
+ 1762 06c5 00       		.byte	0
+ 1763 06c6 00       		.byte	0
+ 1764 06c7 3E       		.byte	62
+ 1765 06c8 3A       		.byte	58
+ 1766 06c9 00       		.byte	0
+ 1767 06ca 20       		.byte	32
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 32
 
 
- 1764 00fd 03       		.byte	0x3
- 1765 00fe 0C01     		.2byte	0x10c
- 1766 0100 0A010000 		.4byte	0x10a
- 1767 0104 05       		.uleb128 0x5
- 1768 0105 03       		.byte	0x3
- 1769 0106 00000000 		.4byte	cy_meta_flashprotect
- 1770 010a 07       		.uleb128 0x7
- 1771 010b E8000000 		.4byte	0xe8
- 1772 010f 05       		.uleb128 0x5
- 1773 0110 91000000 		.4byte	0x91
- 1774 0114 1F010000 		.4byte	0x11f
- 1775 0118 09       		.uleb128 0x9
- 1776 0119 8A000000 		.4byte	0x8a
- 1777 011d 0B       		.byte	0xb
- 1778 011e 00       		.byte	0
- 1779 011f 0A       		.uleb128 0xa
- 1780 0120 5B000000 		.4byte	.LASF16
- 1781 0124 03       		.byte	0x3
- 1782 0125 3901     		.2byte	0x139
- 1783 0127 31010000 		.4byte	0x131
- 1784 012b 05       		.uleb128 0x5
- 1785 012c 03       		.byte	0x3
- 1786 012d 00000000 		.4byte	cy_metadata
- 1787 0131 07       		.uleb128 0x7
- 1788 0132 0F010000 		.4byte	0x10f
- 1789 0136 00       		.byte	0
- 1790              		.section	.debug_abbrev,"",%progbits
- 1791              	.Ldebug_abbrev0:
- 1792 0000 01       		.uleb128 0x1
- 1793 0001 11       		.uleb128 0x11
- 1794 0002 01       		.byte	0x1
- 1795 0003 25       		.uleb128 0x25
- 1796 0004 0E       		.uleb128 0xe
- 1797 0005 13       		.uleb128 0x13
- 1798 0006 0B       		.uleb128 0xb
- 1799 0007 03       		.uleb128 0x3
- 1800 0008 0E       		.uleb128 0xe
- 1801 0009 1B       		.uleb128 0x1b
- 1802 000a 0E       		.uleb128 0xe
- 1803 000b 10       		.uleb128 0x10
- 1804 000c 17       		.uleb128 0x17
- 1805 000d 00       		.byte	0
- 1806 000e 00       		.byte	0
- 1807 000f 02       		.uleb128 0x2
- 1808 0010 24       		.uleb128 0x24
- 1809 0011 00       		.byte	0
- 1810 0012 0B       		.uleb128 0xb
- 1811 0013 0B       		.uleb128 0xb
- 1812 0014 3E       		.uleb128 0x3e
- 1813 0015 0B       		.uleb128 0xb
- 1814 0016 03       		.uleb128 0x3
- 1815 0017 0E       		.uleb128 0xe
- 1816 0018 00       		.byte	0
- 1817 0019 00       		.byte	0
- 1818 001a 03       		.uleb128 0x3
- 1819 001b 16       		.uleb128 0x16
- 1820 001c 00       		.byte	0
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 33
+ 1768 06cb 00       		.byte	0
+ 1769 06cc C0       		.byte	-64
+ 1770 06cd 00       		.byte	0
+ 1771 06ce 00       		.byte	0
+ 1772 06cf 00       		.byte	0
+ 1773 06d0 00       		.byte	0
+ 1774 06d1 E0       		.byte	-32
+ 1775 06d2 E0       		.byte	-32
+ 1776 06d3 00       		.byte	0
+ 1777 06d4 20       		.byte	32
+ 1778 06d5 00       		.byte	0
+ 1779 06d6 04       		.byte	4
+ 1780 06d7 00       		.byte	0
+ 1781 06d8 07       		.byte	7
+ 1782 06d9 00       		.byte	0
+ 1783 06da 18       		.byte	24
+ 1784 06db 01       		.byte	1
+ 1785              		.section	.cywolatch,"a",%progbits
+ 1786              		.align	2
+ 1787              		.type	cy_meta_wonvl, %object
+ 1788              		.size	cy_meta_wonvl, 4
+ 1789              	cy_meta_wonvl:
+ 1790 0000 BC       		.byte	-68
+ 1791 0001 90       		.byte	-112
+ 1792 0002 AC       		.byte	-84
+ 1793 0003 AF       		.byte	-81
+ 1794              		.section	.cycustnvl,"a",%progbits
+ 1795              		.align	2
+ 1796              		.type	cy_meta_custnvl, %object
+ 1797              		.size	cy_meta_custnvl, 4
+ 1798              	cy_meta_custnvl:
+ 1799 0000 00       		.byte	0
+ 1800 0001 00       		.byte	0
+ 1801 0002 40       		.byte	64
+ 1802 0003 05       		.byte	5
+ 1803              		.section	.cymeta,"a",%progbits
+ 1804              		.align	2
+ 1805              		.type	cy_metadata, %object
+ 1806              		.size	cy_metadata, 12
+ 1807              	cy_metadata:
+ 1808 0000 00       		.byte	0
+ 1809 0001 01       		.byte	1
+ 1810 0002 2E       		.byte	46
+ 1811 0003 16       		.byte	22
+ 1812 0004 10       		.byte	16
+ 1813 0005 69       		.byte	105
+ 1814 0006 00       		.byte	0
+ 1815 0007 01       		.byte	1
+ 1816 0008 00       		.byte	0
+ 1817 0009 00       		.byte	0
+ 1818 000a 00       		.byte	0
+ 1819 000b 00       		.byte	0
+ 1820              		.section	.cyflashprotect,"a",%progbits
+ 1821              		.align	2
+ 1822              		.type	cy_meta_flashprotect, %object
+ 1823              		.size	cy_meta_flashprotect, 256
+ 1824              	cy_meta_flashprotect:
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 33
 
 
- 1821 001d 03       		.uleb128 0x3
- 1822 001e 0E       		.uleb128 0xe
- 1823 001f 3A       		.uleb128 0x3a
- 1824 0020 0B       		.uleb128 0xb
- 1825 0021 3B       		.uleb128 0x3b
- 1826 0022 0B       		.uleb128 0xb
- 1827 0023 49       		.uleb128 0x49
- 1828 0024 13       		.uleb128 0x13
- 1829 0025 00       		.byte	0
- 1830 0026 00       		.byte	0
- 1831 0027 04       		.uleb128 0x4
- 1832 0028 24       		.uleb128 0x24
- 1833 0029 00       		.byte	0
- 1834 002a 0B       		.uleb128 0xb
- 1835 002b 0B       		.uleb128 0xb
- 1836 002c 3E       		.uleb128 0x3e
- 1837 002d 0B       		.uleb128 0xb
- 1838 002e 03       		.uleb128 0x3
- 1839 002f 08       		.uleb128 0x8
- 1840 0030 00       		.byte	0
- 1841 0031 00       		.byte	0
- 1842 0032 05       		.uleb128 0x5
- 1843 0033 01       		.uleb128 0x1
- 1844 0034 01       		.byte	0x1
- 1845 0035 49       		.uleb128 0x49
- 1846 0036 13       		.uleb128 0x13
- 1847 0037 01       		.uleb128 0x1
- 1848 0038 13       		.uleb128 0x13
- 1849 0039 00       		.byte	0
- 1850 003a 00       		.byte	0
- 1851 003b 06       		.uleb128 0x6
- 1852 003c 21       		.uleb128 0x21
- 1853 003d 00       		.byte	0
- 1854 003e 49       		.uleb128 0x49
- 1855 003f 13       		.uleb128 0x13
- 1856 0040 2F       		.uleb128 0x2f
- 1857 0041 05       		.uleb128 0x5
- 1858 0042 00       		.byte	0
- 1859 0043 00       		.byte	0
- 1860 0044 07       		.uleb128 0x7
- 1861 0045 26       		.uleb128 0x26
- 1862 0046 00       		.byte	0
- 1863 0047 49       		.uleb128 0x49
- 1864 0048 13       		.uleb128 0x13
- 1865 0049 00       		.byte	0
- 1866 004a 00       		.byte	0
- 1867 004b 08       		.uleb128 0x8
- 1868 004c 34       		.uleb128 0x34
- 1869 004d 00       		.byte	0
- 1870 004e 03       		.uleb128 0x3
- 1871 004f 0E       		.uleb128 0xe
- 1872 0050 3A       		.uleb128 0x3a
- 1873 0051 0B       		.uleb128 0xb
- 1874 0052 3B       		.uleb128 0x3b
- 1875 0053 0B       		.uleb128 0xb
- 1876 0054 49       		.uleb128 0x49
- 1877 0055 13       		.uleb128 0x13
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 34
+ 1825 0000 00000000 		.space	256
+ 1825      00000000 
+ 1825      00000000 
+ 1825      00000000 
+ 1825      00000000 
+ 1826              		.text
+ 1827              	.Letext0:
+ 1828              		.file 1 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 1829              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 1830              		.file 3 "Generated_Source\\PSoC5\\cymetadata.c"
+ 1831              		.section	.debug_info,"",%progbits
+ 1832              	.Ldebug_info0:
+ 1833 0000 35010000 		.4byte	0x135
+ 1834 0004 0400     		.2byte	0x4
+ 1835 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1836 000a 04       		.byte	0x4
+ 1837 000b 01       		.uleb128 0x1
+ 1838 000c 75000000 		.4byte	.LASF17
+ 1839 0010 0C       		.byte	0xc
+ 1840 0011 CF010000 		.4byte	.LASF18
+ 1841 0015 0A000000 		.4byte	.LASF19
+ 1842 0019 00000000 		.4byte	.Ldebug_line0
+ 1843 001d 02       		.uleb128 0x2
+ 1844 001e 01       		.byte	0x1
+ 1845 001f 06       		.byte	0x6
+ 1846 0020 C3010000 		.4byte	.LASF0
+ 1847 0024 03       		.uleb128 0x3
+ 1848 0025 00000000 		.4byte	.LASF9
+ 1849 0029 01       		.byte	0x1
+ 1850 002a 1D       		.byte	0x1d
+ 1851 002b 2F000000 		.4byte	0x2f
+ 1852 002f 02       		.uleb128 0x2
+ 1853 0030 01       		.byte	0x1
+ 1854 0031 08       		.byte	0x8
+ 1855 0032 67000000 		.4byte	.LASF1
+ 1856 0036 02       		.uleb128 0x2
+ 1857 0037 02       		.byte	0x2
+ 1858 0038 05       		.byte	0x5
+ 1859 0039 B0010000 		.4byte	.LASF2
+ 1860 003d 02       		.uleb128 0x2
+ 1861 003e 02       		.byte	0x2
+ 1862 003f 07       		.byte	0x7
+ 1863 0040 15010000 		.4byte	.LASF3
+ 1864 0044 02       		.uleb128 0x2
+ 1865 0045 04       		.byte	0x4
+ 1866 0046 05       		.byte	0x5
+ 1867 0047 BA010000 		.4byte	.LASF4
+ 1868 004b 02       		.uleb128 0x2
+ 1869 004c 04       		.byte	0x4
+ 1870 004d 07       		.byte	0x7
+ 1871 004e 03010000 		.4byte	.LASF5
+ 1872 0052 02       		.uleb128 0x2
+ 1873 0053 08       		.byte	0x8
+ 1874 0054 05       		.byte	0x5
+ 1875 0055 A2010000 		.4byte	.LASF6
+ 1876 0059 02       		.uleb128 0x2
+ 1877 005a 08       		.byte	0x8
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 34
 
 
- 1878 0056 3F       		.uleb128 0x3f
- 1879 0057 19       		.uleb128 0x19
- 1880 0058 02       		.uleb128 0x2
- 1881 0059 18       		.uleb128 0x18
- 1882 005a 00       		.byte	0
- 1883 005b 00       		.byte	0
- 1884 005c 09       		.uleb128 0x9
- 1885 005d 21       		.uleb128 0x21
- 1886 005e 00       		.byte	0
- 1887 005f 49       		.uleb128 0x49
- 1888 0060 13       		.uleb128 0x13
- 1889 0061 2F       		.uleb128 0x2f
- 1890 0062 0B       		.uleb128 0xb
- 1891 0063 00       		.byte	0
- 1892 0064 00       		.byte	0
- 1893 0065 0A       		.uleb128 0xa
- 1894 0066 34       		.uleb128 0x34
- 1895 0067 00       		.byte	0
- 1896 0068 03       		.uleb128 0x3
- 1897 0069 0E       		.uleb128 0xe
- 1898 006a 3A       		.uleb128 0x3a
- 1899 006b 0B       		.uleb128 0xb
- 1900 006c 3B       		.uleb128 0x3b
- 1901 006d 05       		.uleb128 0x5
- 1902 006e 49       		.uleb128 0x49
- 1903 006f 13       		.uleb128 0x13
- 1904 0070 3F       		.uleb128 0x3f
- 1905 0071 19       		.uleb128 0x19
- 1906 0072 02       		.uleb128 0x2
- 1907 0073 18       		.uleb128 0x18
- 1908 0074 00       		.byte	0
- 1909 0075 00       		.byte	0
- 1910 0076 00       		.byte	0
- 1911              		.section	.debug_aranges,"",%progbits
- 1912 0000 14000000 		.4byte	0x14
- 1913 0004 0200     		.2byte	0x2
- 1914 0006 00000000 		.4byte	.Ldebug_info0
- 1915 000a 04       		.byte	0x4
- 1916 000b 00       		.byte	0
- 1917 000c 0000     		.2byte	0
- 1918 000e 0000     		.2byte	0
- 1919 0010 00000000 		.4byte	0
- 1920 0014 00000000 		.4byte	0
- 1921              		.section	.debug_line,"",%progbits
- 1922              	.Ldebug_line0:
- 1923 0000 3D010000 		.section	.debug_str,"MS",%progbits,1
- 1923      02003701 
- 1923      00000201 
- 1923      FB0E0D00 
- 1923      01010101 
- 1924              	.LASF9:
- 1925 0000 5F5F7569 		.ascii	"__uint8_t\000"
- 1925      6E74385F 
- 1925      7400
- 1926              	.LASF19:
- 1927 000a 5C5C6669 		.ascii	"\\\\files.auckland.ac.nz\\myhome\\Documents\\PSoC C"
- 1927      6C65732E 
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 35
+ 1878 005b 07       		.byte	0x7
+ 1879 005c 57010000 		.4byte	.LASF7
+ 1880 0060 04       		.uleb128 0x4
+ 1881 0061 04       		.byte	0x4
+ 1882 0062 05       		.byte	0x5
+ 1883 0063 696E7400 		.ascii	"int\000"
+ 1884 0067 02       		.uleb128 0x2
+ 1885 0068 04       		.byte	0x4
+ 1886 0069 07       		.byte	0x7
+ 1887 006a 4A010000 		.4byte	.LASF8
+ 1888 006e 03       		.uleb128 0x3
+ 1889 006f 6E010000 		.4byte	.LASF10
+ 1890 0073 02       		.byte	0x2
+ 1891 0074 18       		.byte	0x18
+ 1892 0075 24000000 		.4byte	0x24
+ 1893 0079 05       		.uleb128 0x5
+ 1894 007a 91000000 		.4byte	0x91
+ 1895 007e 8A000000 		.4byte	0x8a
+ 1896 0082 06       		.uleb128 0x6
+ 1897 0083 8A000000 		.4byte	0x8a
+ 1898 0087 DB06     		.2byte	0x6db
+ 1899 0089 00       		.byte	0
+ 1900 008a 02       		.uleb128 0x2
+ 1901 008b 04       		.byte	0x4
+ 1902 008c 07       		.byte	0x7
+ 1903 008d 99010000 		.4byte	.LASF11
+ 1904 0091 07       		.uleb128 0x7
+ 1905 0092 6E000000 		.4byte	0x6e
+ 1906 0096 08       		.uleb128 0x8
+ 1907 0097 38010000 		.4byte	.LASF12
+ 1908 009b 03       		.byte	0x3
+ 1909 009c 1F       		.byte	0x1f
+ 1910 009d A7000000 		.4byte	0xa7
+ 1911 00a1 05       		.uleb128 0x5
+ 1912 00a2 03       		.byte	0x3
+ 1913 00a3 00000000 		.4byte	cy_meta_configecc
+ 1914 00a7 07       		.uleb128 0x7
+ 1915 00a8 79000000 		.4byte	0x79
+ 1916 00ac 05       		.uleb128 0x5
+ 1917 00ad 91000000 		.4byte	0x91
+ 1918 00b1 BC000000 		.4byte	0xbc
+ 1919 00b5 09       		.uleb128 0x9
+ 1920 00b6 8A000000 		.4byte	0x8a
+ 1921 00ba 03       		.byte	0x3
+ 1922 00bb 00       		.byte	0
+ 1923 00bc 0A       		.uleb128 0xa
+ 1924 00bd 28010000 		.4byte	.LASF13
+ 1925 00c1 03       		.byte	0x3
+ 1926 00c2 0801     		.2byte	0x108
+ 1927 00c4 CE000000 		.4byte	0xce
+ 1928 00c8 05       		.uleb128 0x5
+ 1929 00c9 03       		.byte	0x3
+ 1930 00ca 00000000 		.4byte	cy_meta_custnvl
+ 1931 00ce 07       		.uleb128 0x7
+ 1932 00cf AC000000 		.4byte	0xac
+ 1933 00d3 0A       		.uleb128 0xa
+ 1934 00d4 8B010000 		.4byte	.LASF14
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 35
 
 
- 1927      6175636B 
- 1927      6C616E64 
- 1927      2E61632E 
- 1928 0038 72656174 		.ascii	"reator\\Digital_Pins01\\mother.cydsn\000"
- 1928      6F725C44 
- 1928      69676974 
- 1928      616C5F50 
- 1928      696E7330 
- 1929              	.LASF16:
- 1930 005b 63795F6D 		.ascii	"cy_metadata\000"
- 1930      65746164 
- 1930      61746100 
- 1931              	.LASF1:
- 1932 0067 756E7369 		.ascii	"unsigned char\000"
- 1932      676E6564 
- 1932      20636861 
- 1932      7200
- 1933              	.LASF17:
- 1934 0075 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 1934      43313120 
- 1934      352E342E 
- 1934      31203230 
- 1934      31363036 
- 1935 00a8 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 1935      20726576 
- 1935      6973696F 
- 1935      6E203233 
- 1935      37373135 
- 1936 00db 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 1936      66756E63 
- 1936      74696F6E 
- 1936      2D736563 
- 1936      74696F6E 
- 1937              	.LASF5:
- 1938 0103 6C6F6E67 		.ascii	"long unsigned int\000"
- 1938      20756E73 
- 1938      69676E65 
- 1938      6420696E 
- 1938      7400
- 1939              	.LASF3:
- 1940 0115 73686F72 		.ascii	"short unsigned int\000"
- 1940      7420756E 
- 1940      7369676E 
- 1940      65642069 
- 1940      6E7400
- 1941              	.LASF13:
- 1942 0128 63795F6D 		.ascii	"cy_meta_custnvl\000"
- 1942      6574615F 
- 1942      63757374 
- 1942      6E766C00 
- 1943              	.LASF12:
- 1944 0138 63795F6D 		.ascii	"cy_meta_configecc\000"
- 1944      6574615F 
- 1944      636F6E66 
- 1944      69676563 
- 1944      6300
- 1945              	.LASF8:
-ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cc8R9XBB.s 			page 36
+ 1935 00d8 03       		.byte	0x3
+ 1936 00d9 1601     		.2byte	0x116
+ 1937 00db E5000000 		.4byte	0xe5
+ 1938 00df 05       		.uleb128 0x5
+ 1939 00e0 03       		.byte	0x3
+ 1940 00e1 00000000 		.4byte	cy_meta_wonvl
+ 1941 00e5 07       		.uleb128 0x7
+ 1942 00e6 AC000000 		.4byte	0xac
+ 1943 00ea 05       		.uleb128 0x5
+ 1944 00eb 91000000 		.4byte	0x91
+ 1945 00ef FA000000 		.4byte	0xfa
+ 1946 00f3 09       		.uleb128 0x9
+ 1947 00f4 8A000000 		.4byte	0x8a
+ 1948 00f8 FF       		.byte	0xff
+ 1949 00f9 00       		.byte	0
+ 1950 00fa 0A       		.uleb128 0xa
+ 1951 00fb 76010000 		.4byte	.LASF15
+ 1952 00ff 03       		.byte	0x3
+ 1953 0100 2401     		.2byte	0x124
+ 1954 0102 0C010000 		.4byte	0x10c
+ 1955 0106 05       		.uleb128 0x5
+ 1956 0107 03       		.byte	0x3
+ 1957 0108 00000000 		.4byte	cy_meta_flashprotect
+ 1958 010c 07       		.uleb128 0x7
+ 1959 010d EA000000 		.4byte	0xea
+ 1960 0111 05       		.uleb128 0x5
+ 1961 0112 91000000 		.4byte	0x91
+ 1962 0116 21010000 		.4byte	0x121
+ 1963 011a 09       		.uleb128 0x9
+ 1964 011b 8A000000 		.4byte	0x8a
+ 1965 011f 0B       		.byte	0xb
+ 1966 0120 00       		.byte	0
+ 1967 0121 0A       		.uleb128 0xa
+ 1968 0122 5B000000 		.4byte	.LASF16
+ 1969 0126 03       		.byte	0x3
+ 1970 0127 5101     		.2byte	0x151
+ 1971 0129 33010000 		.4byte	0x133
+ 1972 012d 05       		.uleb128 0x5
+ 1973 012e 03       		.byte	0x3
+ 1974 012f 00000000 		.4byte	cy_metadata
+ 1975 0133 07       		.uleb128 0x7
+ 1976 0134 11010000 		.4byte	0x111
+ 1977 0138 00       		.byte	0
+ 1978              		.section	.debug_abbrev,"",%progbits
+ 1979              	.Ldebug_abbrev0:
+ 1980 0000 01       		.uleb128 0x1
+ 1981 0001 11       		.uleb128 0x11
+ 1982 0002 01       		.byte	0x1
+ 1983 0003 25       		.uleb128 0x25
+ 1984 0004 0E       		.uleb128 0xe
+ 1985 0005 13       		.uleb128 0x13
+ 1986 0006 0B       		.uleb128 0xb
+ 1987 0007 03       		.uleb128 0x3
+ 1988 0008 0E       		.uleb128 0xe
+ 1989 0009 1B       		.uleb128 0x1b
+ 1990 000a 0E       		.uleb128 0xe
+ 1991 000b 10       		.uleb128 0x10
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 36
 
 
- 1946 014a 756E7369 		.ascii	"unsigned int\000"
- 1946      676E6564 
- 1946      20696E74 
- 1946      00
- 1947              	.LASF7:
- 1948 0157 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1948      206C6F6E 
- 1948      6720756E 
- 1948      7369676E 
- 1948      65642069 
- 1949              	.LASF10:
- 1950 016e 75696E74 		.ascii	"uint8_t\000"
- 1950      385F7400 
- 1951              	.LASF15:
- 1952 0176 63795F6D 		.ascii	"cy_meta_flashprotect\000"
- 1952      6574615F 
- 1952      666C6173 
- 1952      6870726F 
- 1952      74656374 
- 1953              	.LASF14:
- 1954 018b 63795F6D 		.ascii	"cy_meta_wonvl\000"
- 1954      6574615F 
- 1954      776F6E76 
- 1954      6C00
- 1955              	.LASF11:
- 1956 0199 73697A65 		.ascii	"sizetype\000"
- 1956      74797065 
- 1956      00
- 1957              	.LASF6:
- 1958 01a2 6C6F6E67 		.ascii	"long long int\000"
- 1958      206C6F6E 
- 1958      6720696E 
- 1958      7400
- 1959              	.LASF2:
- 1960 01b0 73686F72 		.ascii	"short int\000"
- 1960      7420696E 
- 1960      7400
- 1961              	.LASF4:
- 1962 01ba 6C6F6E67 		.ascii	"long int\000"
- 1962      20696E74 
- 1962      00
- 1963              	.LASF0:
- 1964 01c3 7369676E 		.ascii	"signed char\000"
- 1964      65642063 
- 1964      68617200 
- 1965              	.LASF18:
- 1966 01cf 47656E65 		.ascii	"Generated_Source\\PSoC5\\cymetadata.c\000"
- 1966      72617465 
- 1966      645F536F 
- 1966      75726365 
- 1966      5C50536F 
- 1967              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 1992 000c 17       		.uleb128 0x17
+ 1993 000d 00       		.byte	0
+ 1994 000e 00       		.byte	0
+ 1995 000f 02       		.uleb128 0x2
+ 1996 0010 24       		.uleb128 0x24
+ 1997 0011 00       		.byte	0
+ 1998 0012 0B       		.uleb128 0xb
+ 1999 0013 0B       		.uleb128 0xb
+ 2000 0014 3E       		.uleb128 0x3e
+ 2001 0015 0B       		.uleb128 0xb
+ 2002 0016 03       		.uleb128 0x3
+ 2003 0017 0E       		.uleb128 0xe
+ 2004 0018 00       		.byte	0
+ 2005 0019 00       		.byte	0
+ 2006 001a 03       		.uleb128 0x3
+ 2007 001b 16       		.uleb128 0x16
+ 2008 001c 00       		.byte	0
+ 2009 001d 03       		.uleb128 0x3
+ 2010 001e 0E       		.uleb128 0xe
+ 2011 001f 3A       		.uleb128 0x3a
+ 2012 0020 0B       		.uleb128 0xb
+ 2013 0021 3B       		.uleb128 0x3b
+ 2014 0022 0B       		.uleb128 0xb
+ 2015 0023 49       		.uleb128 0x49
+ 2016 0024 13       		.uleb128 0x13
+ 2017 0025 00       		.byte	0
+ 2018 0026 00       		.byte	0
+ 2019 0027 04       		.uleb128 0x4
+ 2020 0028 24       		.uleb128 0x24
+ 2021 0029 00       		.byte	0
+ 2022 002a 0B       		.uleb128 0xb
+ 2023 002b 0B       		.uleb128 0xb
+ 2024 002c 3E       		.uleb128 0x3e
+ 2025 002d 0B       		.uleb128 0xb
+ 2026 002e 03       		.uleb128 0x3
+ 2027 002f 08       		.uleb128 0x8
+ 2028 0030 00       		.byte	0
+ 2029 0031 00       		.byte	0
+ 2030 0032 05       		.uleb128 0x5
+ 2031 0033 01       		.uleb128 0x1
+ 2032 0034 01       		.byte	0x1
+ 2033 0035 49       		.uleb128 0x49
+ 2034 0036 13       		.uleb128 0x13
+ 2035 0037 01       		.uleb128 0x1
+ 2036 0038 13       		.uleb128 0x13
+ 2037 0039 00       		.byte	0
+ 2038 003a 00       		.byte	0
+ 2039 003b 06       		.uleb128 0x6
+ 2040 003c 21       		.uleb128 0x21
+ 2041 003d 00       		.byte	0
+ 2042 003e 49       		.uleb128 0x49
+ 2043 003f 13       		.uleb128 0x13
+ 2044 0040 2F       		.uleb128 0x2f
+ 2045 0041 05       		.uleb128 0x5
+ 2046 0042 00       		.byte	0
+ 2047 0043 00       		.byte	0
+ 2048 0044 07       		.uleb128 0x7
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 37
+
+
+ 2049 0045 26       		.uleb128 0x26
+ 2050 0046 00       		.byte	0
+ 2051 0047 49       		.uleb128 0x49
+ 2052 0048 13       		.uleb128 0x13
+ 2053 0049 00       		.byte	0
+ 2054 004a 00       		.byte	0
+ 2055 004b 08       		.uleb128 0x8
+ 2056 004c 34       		.uleb128 0x34
+ 2057 004d 00       		.byte	0
+ 2058 004e 03       		.uleb128 0x3
+ 2059 004f 0E       		.uleb128 0xe
+ 2060 0050 3A       		.uleb128 0x3a
+ 2061 0051 0B       		.uleb128 0xb
+ 2062 0052 3B       		.uleb128 0x3b
+ 2063 0053 0B       		.uleb128 0xb
+ 2064 0054 49       		.uleb128 0x49
+ 2065 0055 13       		.uleb128 0x13
+ 2066 0056 3F       		.uleb128 0x3f
+ 2067 0057 19       		.uleb128 0x19
+ 2068 0058 02       		.uleb128 0x2
+ 2069 0059 18       		.uleb128 0x18
+ 2070 005a 00       		.byte	0
+ 2071 005b 00       		.byte	0
+ 2072 005c 09       		.uleb128 0x9
+ 2073 005d 21       		.uleb128 0x21
+ 2074 005e 00       		.byte	0
+ 2075 005f 49       		.uleb128 0x49
+ 2076 0060 13       		.uleb128 0x13
+ 2077 0061 2F       		.uleb128 0x2f
+ 2078 0062 0B       		.uleb128 0xb
+ 2079 0063 00       		.byte	0
+ 2080 0064 00       		.byte	0
+ 2081 0065 0A       		.uleb128 0xa
+ 2082 0066 34       		.uleb128 0x34
+ 2083 0067 00       		.byte	0
+ 2084 0068 03       		.uleb128 0x3
+ 2085 0069 0E       		.uleb128 0xe
+ 2086 006a 3A       		.uleb128 0x3a
+ 2087 006b 0B       		.uleb128 0xb
+ 2088 006c 3B       		.uleb128 0x3b
+ 2089 006d 05       		.uleb128 0x5
+ 2090 006e 49       		.uleb128 0x49
+ 2091 006f 13       		.uleb128 0x13
+ 2092 0070 3F       		.uleb128 0x3f
+ 2093 0071 19       		.uleb128 0x19
+ 2094 0072 02       		.uleb128 0x2
+ 2095 0073 18       		.uleb128 0x18
+ 2096 0074 00       		.byte	0
+ 2097 0075 00       		.byte	0
+ 2098 0076 00       		.byte	0
+ 2099              		.section	.debug_aranges,"",%progbits
+ 2100 0000 14000000 		.4byte	0x14
+ 2101 0004 0200     		.2byte	0x2
+ 2102 0006 00000000 		.4byte	.Ldebug_info0
+ 2103 000a 04       		.byte	0x4
+ 2104 000b 00       		.byte	0
+ 2105 000c 0000     		.2byte	0
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 38
+
+
+ 2106 000e 0000     		.2byte	0
+ 2107 0010 00000000 		.4byte	0
+ 2108 0014 00000000 		.4byte	0
+ 2109              		.section	.debug_line,"",%progbits
+ 2110              	.Ldebug_line0:
+ 2111 0000 3D010000 		.section	.debug_str,"MS",%progbits,1
+ 2111      02003701 
+ 2111      00000201 
+ 2111      FB0E0D00 
+ 2111      01010101 
+ 2112              	.LASF9:
+ 2113 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 2113      6E74385F 
+ 2113      7400
+ 2114              	.LASF19:
+ 2115 000a 5C5C6669 		.ascii	"\\\\files.auckland.ac.nz\\myhome\\Documents\\PSoC C"
+ 2115      6C65732E 
+ 2115      6175636B 
+ 2115      6C616E64 
+ 2115      2E61632E 
+ 2116 0038 72656174 		.ascii	"reator\\Digital_Pins01\\mother.cydsn\000"
+ 2116      6F725C44 
+ 2116      69676974 
+ 2116      616C5F50 
+ 2116      696E7330 
+ 2117              	.LASF16:
+ 2118 005b 63795F6D 		.ascii	"cy_metadata\000"
+ 2118      65746164 
+ 2118      61746100 
+ 2119              	.LASF1:
+ 2120 0067 756E7369 		.ascii	"unsigned char\000"
+ 2120      676E6564 
+ 2120      20636861 
+ 2120      7200
+ 2121              	.LASF17:
+ 2122 0075 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2122      43313120 
+ 2122      352E342E 
+ 2122      31203230 
+ 2122      31363036 
+ 2123 00a8 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 2123      20726576 
+ 2123      6973696F 
+ 2123      6E203233 
+ 2123      37373135 
+ 2124 00db 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2124      66756E63 
+ 2124      74696F6E 
+ 2124      2D736563 
+ 2124      74696F6E 
+ 2125              	.LASF5:
+ 2126 0103 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2126      20756E73 
+ 2126      69676E65 
+ 2126      6420696E 
+ 2126      7400
+ 2127              	.LASF3:
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 39
+
+
+ 2128 0115 73686F72 		.ascii	"short unsigned int\000"
+ 2128      7420756E 
+ 2128      7369676E 
+ 2128      65642069 
+ 2128      6E7400
+ 2129              	.LASF13:
+ 2130 0128 63795F6D 		.ascii	"cy_meta_custnvl\000"
+ 2130      6574615F 
+ 2130      63757374 
+ 2130      6E766C00 
+ 2131              	.LASF12:
+ 2132 0138 63795F6D 		.ascii	"cy_meta_configecc\000"
+ 2132      6574615F 
+ 2132      636F6E66 
+ 2132      69676563 
+ 2132      6300
+ 2133              	.LASF8:
+ 2134 014a 756E7369 		.ascii	"unsigned int\000"
+ 2134      676E6564 
+ 2134      20696E74 
+ 2134      00
+ 2135              	.LASF7:
+ 2136 0157 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2136      206C6F6E 
+ 2136      6720756E 
+ 2136      7369676E 
+ 2136      65642069 
+ 2137              	.LASF10:
+ 2138 016e 75696E74 		.ascii	"uint8_t\000"
+ 2138      385F7400 
+ 2139              	.LASF15:
+ 2140 0176 63795F6D 		.ascii	"cy_meta_flashprotect\000"
+ 2140      6574615F 
+ 2140      666C6173 
+ 2140      6870726F 
+ 2140      74656374 
+ 2141              	.LASF14:
+ 2142 018b 63795F6D 		.ascii	"cy_meta_wonvl\000"
+ 2142      6574615F 
+ 2142      776F6E76 
+ 2142      6C00
+ 2143              	.LASF11:
+ 2144 0199 73697A65 		.ascii	"sizetype\000"
+ 2144      74797065 
+ 2144      00
+ 2145              	.LASF6:
+ 2146 01a2 6C6F6E67 		.ascii	"long long int\000"
+ 2146      206C6F6E 
+ 2146      6720696E 
+ 2146      7400
+ 2147              	.LASF2:
+ 2148 01b0 73686F72 		.ascii	"short int\000"
+ 2148      7420696E 
+ 2148      7400
+ 2149              	.LASF4:
+ 2150 01ba 6C6F6E67 		.ascii	"long int\000"
+ 2150      20696E74 
+ARM GAS  C:\Users\tkam627.UOA\AppData\Local\Temp\cctVw7Zs.s 			page 40
+
+
+ 2150      00
+ 2151              	.LASF0:
+ 2152 01c3 7369676E 		.ascii	"signed char\000"
+ 2152      65642063 
+ 2152      68617200 
+ 2153              	.LASF18:
+ 2154 01cf 47656E65 		.ascii	"Generated_Source\\PSoC5\\cymetadata.c\000"
+ 2154      72617465 
+ 2154      645F536F 
+ 2154      75726365 
+ 2154      5C50536F 
+ 2155              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

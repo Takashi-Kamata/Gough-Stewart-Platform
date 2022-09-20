@@ -78,8 +78,6 @@
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M3_PWM_aliases.h" value="HEADER;;;;;M3_PWM" />
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M3_PWM.c" value="SOURCE_C;CortexM3;;;;M3_PWM" />
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M3_PWM.h" value="HEADER;;;;;M3_PWM" />
-  <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\Clock_2.c" value="SOURCE_C;CortexM3;;;;Clock_2" />
-  <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\Clock_2.h" value="HEADER;;;;;Clock_2" />
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M4_PWM_aliases.h" value="HEADER;;;;;M4_PWM" />
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M4_PWM.c" value="SOURCE_C;CortexM3;;;;M4_PWM" />
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M4_PWM.h" value="HEADER;;;;;M4_PWM" />
@@ -89,8 +87,6 @@
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M5_PWM_aliases.h" value="HEADER;;;;;M5_PWM" />
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M5_PWM.c" value="SOURCE_C;CortexM3;;;;M5_PWM" />
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M5_PWM.h" value="HEADER;;;;;M5_PWM" />
-  <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\Clock_3.c" value="SOURCE_C;CortexM3;;;;Clock_3" />
-  <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\Clock_3.h" value="HEADER;;;;;Clock_3" />
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M6_PWM_aliases.h" value="HEADER;;;;;M6_PWM" />
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M6_PWM.c" value="SOURCE_C;CortexM3;;;;M6_PWM" />
   <file name="\\files.auckland.ac.nz\myhome\Documents\PSoC Creator\Digital_Pins01\mother.cydsn\codegentemp\M6_PWM.h" value="HEADER;;;;;M6_PWM" />

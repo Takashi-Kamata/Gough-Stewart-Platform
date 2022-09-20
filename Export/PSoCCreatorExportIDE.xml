@@ -155,8 +155,6 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M3_PWM_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M3_PWM.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M3_PWM.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Clock_2.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Clock_2.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M4_PWM_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M4_PWM.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M4_PWM.h</File>
@@ -166,8 +164,6 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M5_PWM_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M5_PWM.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M5_PWM.h</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Clock_3.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\Clock_3.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M6_PWM_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M6_PWM.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC5\M6_PWM.h</File>

@@ -13,11 +13,11 @@ I1206: Completed Reading of file mother.sdc
 I1204: Reading architecture from file C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\dev\psoc5/psoc5lp/route_arch-rrg.cydata
 I1206: Completed Reading of file C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\dev\psoc5/psoc5lp/route_arch-rrg.cydata
 I1209: Started routing
-I1223: Total Nets : 69 
-I1212: Iteration  1 :    47 unrouted : 0 seconds
-I1212: Iteration  2 :     7 unrouted : 0 seconds
-I1212: Iteration  3 :     5 unrouted : 0 seconds
-I1212: Iteration  4 :     5 unrouted : 0 seconds
+I1223: Total Nets : 106 
+I1212: Iteration  1 :    49 unrouted : 0 seconds
+I1212: Iteration  2 :     8 unrouted : 0 seconds
+I1212: Iteration  3 :     4 unrouted : 0 seconds
+I1212: Iteration  4 :     4 unrouted : 0 seconds
 I1212: Iteration  5 :     0 unrouted : 0 seconds
 I1215: Routing is successful
 I1207: Completed routing

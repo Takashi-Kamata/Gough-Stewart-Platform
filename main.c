@@ -21,8 +21,10 @@ asm(".global _printf_float");
 
 #define CLEAR_STRING "\033[2J"
 #define MOVE_CURSOR "\033[0;0H"
+#define MOTOR_NUM 6U
 #define SAMPLE_NUM 10000
 #define TARGET 5U
+#define MAX_SPEED 399U
 
 bool set_speed(uint8_t M, uint8_t speed);
 bool extend(uint8_t M);
@@ -63,6 +65,29 @@ CY_ISR(RxIsr)
                 
                 printf("11\r\n");
                 */
+                if (rxData == 65) {// UP
+                    for (uint8_t i = 0; i< MOTOR_NUM; i++)
+                    {
+                        set_speed(i, MAX_SPEED/2);
+                        extend(i);
+                    }
+                } else if (rxData == 66) {// DOWN
+                    for (uint8_t i = 0; i< MOTOR_NUM; i++)
+                    {
+                        set_speed(i, MAX_SPEED/2);
+                        retract(i);
+                    }
+                }else if (rxData == 13) // Enter
+                {
+                    counter = 0;
+                    for (int i=0; i<SAMPLE_NUM; i++)
+                    {
+                        printf("%d, %d\r\n", i, buffer[i]);
+                        buffer[i] = 0;
+                    }   
+                } else if (rxData == 114)
+                {
+                }
             }
         }
     } while ((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u);
@@ -74,22 +99,15 @@ CY_ISR(SWPin_Control)
     if (InputPin_Read() == 1u)
     {
         if (button) {
-            LED_Write(1);   
-            extend(TARGET);
-            extend(TARGET-1);
-        } else {
-            LED_Write(0);
-            if (output >= 40030 && measured == false)
+            for (int i=0; i<6; i++)
             {
-                for (int i=0; i<SAMPLE_NUM; i++)
-                {
-                    printf("%d, %d\r\n", i, buffer[i]);
-                    buffer[i] = 0;
-                }
-                printf("Finished measuring at %d, counter : %d \r\n", output, counter);
+                extend(i);
             }
-            retract(TARGET);
-            retract(TARGET-1);
+        } else {
+            for(int i=0; i<6; i++)
+            {
+                retract(i);
+            }
         }
         
         button = !button;
@@ -113,36 +131,42 @@ int main(void)
     PWM2_Start();
     PWM3_Start();
 
-    set_speed(TARGET, 127);// 50%
-
+    set_speed(TARGET, MAX_SPEED/2);// 50%
+    set_speed(TARGET-1, MAX_SPEED/2);// 50%
+    
     AMux_Select(TARGET);// Select motor
     
     ADC_DelSig_1_StartConvert();
     
     
-    retract(TARGET);
-    retract(TARGET-1);
+    for(int i=0; i<6; i++)
+    {
+        retract(i);
+    }
     while(button);
     
     printf("%s", CLEAR_STRING);
     printf("%s", MOVE_CURSOR);
     printf("Start... \r\n");
+    LED_Write(0);
     
     for(;;)
     {
-
         output = ADC_DelSig_1_GetResult16();
         
-        if (output >= 29491 && output <= 36045 && counter<SAMPLE_NUM)// from ~2.25 to ~2.75
+        if (output >= 20000 && counter<SAMPLE_NUM)
         {
             // measure into buffer
             buffer[counter] = output;
             counter++;
         }        
-        
+        if (counter == SAMPLE_NUM)
+        {
+            LED_Write(1); 
+        }
+        /*
         if (counter == SAMPLE_NUM && measured == false) 
         {
-            measured = true;
             printf("Stopped measuring at %d, counter : %d \r\n", output, counter);
             measured = true;
             for (int i=0; i<SAMPLE_NUM; i++)
@@ -152,8 +176,8 @@ int main(void)
             printf("Finished measuring at %d, counter : %d \r\n", output, counter);
 
         }
-        
-        
+        */
+        /*
         if (output >= 40030 && measured == false)
         {
             measured = true;
@@ -162,11 +186,10 @@ int main(void)
                 printf("%d, %d\r\n", i, buffer[i]);
             }
             printf("Finished measuring at %d, counter : %d \r\n", output, counter);
-            
         }
+        */
         
-        
-        CyDelayUs(100);
+        CyDelayUs(100);//500
     }
 }
 
