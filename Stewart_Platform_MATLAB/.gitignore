@@ -1,0 +1,9 @@
+#
+# Gitignore file
+#
+*.prj
+
+
+# Folders
+literature/
+Package/
