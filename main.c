@@ -25,10 +25,10 @@ asm(".global _printf_float");
 #define CLEAR_STRING "\033[2J"
 #define MOVE_CURSOR "\033[0;0H"
 #define MOTOR_NUM 6U
-#define MIN_PWM 0
-#define MAX_PWM 399
+#define MIN_PWM 0U
+#define MAX_PWM 399U
 #define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
-#define TOLERANCE 300 // ADC Tolerance
+#define TOLERANCE 30 // PID Tolerance
 #define POINTS 10 // Number of Points
 #define SAMPLE_NUM 800
 #define SPEED 0U
@@ -40,13 +40,24 @@ uint16_t max_adc[MOTOR_NUM] = {48233,48235,48232,48233,48233,48230};
 
 /*** Private Prototypes ***/
 
-bool set_speed(uint8_t M, uint8_t speed);
+bool set_speed(uint8_t M, uint16_t speed);
 bool extend(uint8_t M);
 bool retract(uint8_t M);
 bool stop(uint8_t M);
 void make_1d_points(float* points, float setpoint, uint32_t adc);
+void reset_pid();
 
 /*** Private Variables ***/
+// PID
+struct pid_controller ctrldata[MOTOR_NUM];
+pids_t pid[MOTOR_NUM];
+float input[MOTOR_NUM] = {0.0};
+float output[MOTOR_NUM] = {0.0};
+float setpoint[MOTOR_NUM] = {7000.0, 14000.0, 21000.0, 28000.0, 35000.0, 42000.0};
+
+float kp[MOTOR_NUM] = {0.01, 0.01, 0.01, 0.01, 0.01, 0.01};
+float ki[MOTOR_NUM] = {0.0};
+float kd[MOTOR_NUM] = {0.0005, 0.0005, 0.0005, 0.0005, 0.0005, 0.0005};
 
 // For Keyboard Lock
 bool manual = true;
@@ -84,7 +95,6 @@ CY_ISR(RxIsr)
             {
                 
                 //UART_TXDATA_REG = rxData; // echo back by directly changing TX register
-                //printf("%d\r\n",rxData);
                 if (rxData == 65) {// UP
                     for (uint8_t i = 0; i< MOTOR_NUM; i++)
                     {
@@ -102,6 +112,7 @@ CY_ISR(RxIsr)
                 } else if (rxData == 67) {// RIGHT
                 } else if (rxData == 68) {// LEFT
                 } else if (rxData == 13) {// ENTER
+                    reset_pid();
                     manual = !manual;   
                 } else if (rxData == 109) {// m - Start measuring
                     printf("Started Measuring\r\n");
@@ -213,6 +224,19 @@ int main(void)
         CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
         (void)ADC_DelSig_1_GetResult32();
     }
+    
+    /**
+     * Initialise PID
+     */
+    for (uint8_t i = 0; i<MOTOR_NUM; i++)
+    {
+        pid[i] = pid_create(&ctrldata[i], &input[i], &output[i], &setpoint[i], kp[i], ki[i], kd[i]);
+        // Set controler output limits from 0 to MAX PWM value
+    	pid_limits(pid[i], -MAX_PWM, MAX_PWM);
+    	// Allow PID to compute and change output
+    	pid_auto(pid[i]);
+    }
+    
     CyDelay(500); // rest
     
     /**
@@ -244,43 +268,42 @@ int main(void)
         printf("Press Enter to leave Manual mode...\r\n");
         
                 
-        if (manual) {
+        if (!manual) {
+            printf("Auto mode output...\r\n");
+            
+            // Check if need to compute PID
             for (uint8_t i = 0; i < MOTOR_NUM; i++)
             {
                 AMux_Select(i);
-                CyDelay(2); // ~1 ms is the min time required for amux to switch, using 2 ms for safety
+                CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
                 uint32_t temp_adc = ADC_DelSig_1_GetResult32();
-                printf("ADC %d %d \r\n", i, (int)temp_adc);
-
-                if (start_calibrate && counter<SAMPLE_NUM-1)
-                {
-                    // measure into buffer
-                    buffer[i][counter] = temp_adc;
-                    if (i == 5)
+                if (pid_need_compute(pid[i])) {
+                    // Read ADC
+        			input[i] = temp_adc;
+        			// Compute new PID output value
+        			pid_compute(pid[i]);
+        		} else {
+                    printf("Sampling Too Fast!! Adjust delay.\r\n");  
+                }  
+                if (button) {
+                    uint16_t new_speed = MAX_PWM - abs((int)output[i]);
+                    
+                    if (((int)output[i] + TOLERANCE) > 0)
                     {
-                        counter++;
+                        extend(i);
+                    } else if (((int)output[i] - TOLERANCE) < 0) {
+                        retract(i);
+                    } else {
+                        stop(i);
+                        new_speed = MAX_PWM;
                     }
+                    printf("Set Speed %d \r\n", new_speed);
+                    set_speed(i, new_speed);
                 }
-                
-                if (counter == SAMPLE_NUM-1 && start_calibrate)
-                {
-                    start_calibrate = false;
-                    printf("All Sampled\r\n");
-                }
+               // printf("OUTPUT %d %d \r\n", i, (int)output[i]);
             }
-        } else {
-            for (uint8_t i = 0; i < MOTOR_NUM; i++)
-            {
-                AMux_Select(i);
-                CyDelay(2); // ~1 ms is the min time required for amux to switch, using 2 ms for safety
-                uint32_t temp_adc = ADC_DelSig_1_GetResult32();
-
-                if ((temp_adc >= max_adc[i]/2 - TOLERANCE) && (temp_adc <= max_adc[i]/2 + TOLERANCE)) {
-                    stop(i);   
-                }
-            }            
         }
-        CyDelay(50);
+        CyDelay(100);
     }
 }
 
@@ -294,7 +317,7 @@ int main(void)
  *
  * @return bool True if successful
  */
-bool set_speed(uint8_t M, uint8_t speed)
+bool set_speed(uint8_t M, uint16_t speed)
 {
     switch (M)
     {
@@ -461,6 +484,18 @@ bool stop(uint8_t M)
 void make_1d_points(float* points, float setpoint, uint32_t adc) {
     for (uint16_t i = 0; i < POINTS; i++) {
         points[i] = (float)adc + (float)((setpoint - (float)adc) / POINTS * (i+1));
+    }
+}
+
+void reset_pid() {
+    float n = 7000.0;
+    for (uint8_t i = 0; i < MOTOR_NUM; i++) {
+        input[i] = 0.0;
+        output[i] = 0.0;
+        setpoint[i] = n * i;
+        kp[i] = 0.01;
+        ki[i] = 0.0;
+        kd[i] = 0.0005;
     }
 }
 /* [] END OF FILE */
