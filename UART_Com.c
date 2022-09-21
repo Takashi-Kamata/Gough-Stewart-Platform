@@ -19,6 +19,7 @@ uint8  *RxWriteIndex = RxBuffer;    // pointer to position in RxBuffer to read a
 char   *RxStrIndex = RB.RxStr;      // pointer to command string buffer (processed messages)
                                     // each Rx command consists of: <byte command><string value><CR>
 
+
 CY_ISR(RxIsr) //interrupt on Rx byte received
 {   
     //move all available characters from Rx queue to RxBuffer

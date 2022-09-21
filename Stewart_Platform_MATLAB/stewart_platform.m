@@ -608,7 +608,12 @@ serialportObj = serialport("COM12",115200);
 configureTerminator(serialportObj,"CR/LF");
 writeline(serialportObj,"R100");
 writeline(serialportObj,"R100");
-writeline(serialportObj,"R100");
+% write(serialportObj, "1", "char");
+% write(serialportObj, 5, "uint8");
+% write(serialportObj, 5, "uint8");
+% write(serialportObj, 5, "uint8");
+% write(serialportObj, "\r", "char");
+% write(serialportObj, "\n", "char");
 %write(serialportObj,49,"uint8")
 while 1
     readline(serialportObj)
