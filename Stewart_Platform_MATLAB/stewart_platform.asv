@@ -1,3 +1,6 @@
+
+
+
 function varargout = stewart_platform(varargin)
 % STEWART_PLATFORM MATLAB code for stewart_platform.fig
 %      STEWART_PLATFORM, by itself, creates a new STEWART_PLATFORM or raises the existing
@@ -22,7 +25,7 @@ function varargout = stewart_platform(varargin)
 
 % Edit the above text to modify the response to help stewart_platform
 
-% Last Modified by GUIDE v2.5 21-Sep-2022 21:34:46
+% Last Modified by GUIDE v2.5 21-Sep-2022 19:14:16
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -101,8 +104,8 @@ function x_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_x= 10;           %Maximum translation in x direction
-min_x= -10;          %Minimum translation in x direction
+max_x= 4;           %Maximum translation in x direction
+min_x= -4;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -144,8 +147,8 @@ function y_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_y= 10;           %Maximum translation in x direction
-min_y= -10;          %Minimum translation in x direction
+max_y= 4;           %Maximum translation in x direction
+min_y= -4;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -187,8 +190,8 @@ function z_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_z= 10;           %Maximum translation in x direction
-min_z= -10;          %Minimum translation in x direction
+max_z= 4;           %Maximum translation in x direction
+min_z= -4;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -571,7 +574,7 @@ function do_the_stewart(handles)
 %                    calculated angles
 tic;
 imag_count=0;
-leg_length = calculate_stewart_platform(handles.r_B,...
+calculate_stewart_platform(handles.r_B,...
                                    handles.r_P,...
                                    handles.rod_length,...
                                    handles.alpha_B*pi/180,...
@@ -579,7 +582,7 @@ leg_length = calculate_stewart_platform(handles.r_B,...
                                    handles.trans,... 
                                    handles.orient);
 
-leg_length
+
 lag=toc;
 disp('Calc duration: ')
 disp(lag)
@@ -593,28 +596,3 @@ function stewart_platform_panel_CloseRequestFcn(hObject, eventdata, handles)
 
 % Hint: delete(hObject) closes the figure
 delete(hObject);
-close all
-clear
-clc
-
-% --- Executes on button press in pushbutton9.
-function pushbutton9_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton9 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-disp("Init called");
-set(hObject,'Enable','off');
-serialportObj = serialport("COM12",115200);
-configureTerminator(serialportObj,"CR/LF");
-write(serialportObj,49,"uint8")
-% while 1
-%     readline(serialportObj)
-% end
-
-
-% --- Executes on button press in pushbutton10.
-function pushbutton10_Callback(hObject, eventdata, handles)
-% hObject    handle to pushbutton10 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-disp("send")

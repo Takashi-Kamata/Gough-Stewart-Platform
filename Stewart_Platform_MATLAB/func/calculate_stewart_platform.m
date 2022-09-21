@@ -1,4 +1,4 @@
-function [ angles ] = calculate_stewart_platform( r_B, r_P,  rod_length, alpha_B, alpha_P, trans, orient)
+function [ leg_length ] = calculate_stewart_platform( r_B, r_P,  rod_length, alpha_B, alpha_P, trans, orient)
 %Calculate the angles for a rotary stewart platform
 % This function calculates the coordinates of a stewart platform with given
 % geometry. It then uses Inverse kinematics to calculate the needed leg 
@@ -51,13 +51,6 @@ function [ angles ] = calculate_stewart_platform( r_B, r_P,  rod_length, alpha_B
 trans= trans(:);
 orient= orient(:);
 %% Define the Geometry of the platform
-
-% Beta is the angle between the plane in which the servo arm moves and the
-% xz-plane of the base CS.
-beta= [ pi+pi/2, pi/2,...
-        2*pi/3+pi+pi/2, 2*pi/3+pi/2,...
-        4*pi/3+pi+pi/2, 4*pi/3+pi/2];
-
 % Theta_B represents the direction of the points where the servo arm is
 % attached to the servo axis. We calculate in polar coordinates.
 theta_B= [alpha_B,... 
@@ -109,7 +102,7 @@ rod_attach_P= r_P*[ [cos(theta_P(1)), -sin(theta_P(1)), 0]',...
 % position in which the angle between servo arm and rod is 90°. Because of
 % the symmetric arrangement of the servos, h0 must be the same for all six
 % positions.
-h= sqrt(rod_length.^2+ 0.^2 -(rod_attach_P(1,:) - servo_attach_B(1,:)).^2 - (rod_attach_P(2,:) - servo_attach_B(2,:)).^2) -rod_attach_P(3,:);
+h= sqrt(rod_length.^2-(rod_attach_P(1,:) - servo_attach_B(1,:)).^2 - (rod_attach_P(2,:) - servo_attach_B(2,:)).^2) -rod_attach_P(3,:);
 home_pos= [0, 0, h(1)]';
 
 
@@ -122,13 +115,15 @@ T_BP= rotZ(orient(3))*rotY(orient(2))*rotX(orient(1));
 
 % Calculate the leg vector and leg length for the new position of the
 % platform for each servo.
+leg = zeros(3,6);
+leg_length = zeros(1, 6);
 for i=1:6
      
     leg(:,i)= trans + home_pos + T_BP*rod_attach_P(:,i) - servo_attach_B(:,i);
     
     leg_length(i)= norm(leg(:,i));
 end
-leg_length
+
 %% Calculate the new servo angles
 % Get coordinates of the points where the rod is attached to the platform 
 x_P= leg(1,:) + servo_attach_B(1,:);
@@ -141,25 +136,17 @@ x_B= servo_attach_B(1,:);
 y_B= servo_attach_B(2,:);
 z_B= servo_attach_B(3,:);
 
-% Calculate auxiliary quatities L, N and M
-L= leg_length.^2 -rod_length.^2 + 0.^2;
-
-M= 2*0*(z_P  - z_B);
 
 for i= 1:6
-    N= 2*0*(cos(beta(i)).*(x_P(i) - x_B(i)) + sin(beta(i)).*(y_P(i) - y_B(i)));
-    
     % The wanted position could be achieved if the solution of this
     % equation is real for all i
-    
-    angles(i)= asin(L(i)./sqrt(M(i)^2 + N^2))- atan2(N,M(i));
     
     % Get postion of the point where a spherical joint connects servo arm and
     % rod.
 
-    joint_B(:,i)= [ 0*cos(angles(i)).*cos(beta(i)) + servo_attach_B(1,i);...
-                    0*cos(angles(i)).*sin(beta(i)) + servo_attach_B(2,i);...
-                    0*sin(angles(i))];
+    joint_B(:,i)= [ servo_attach_B(1,i);...
+                    servo_attach_B(2,i);...
+                   0];
 end
 
 
@@ -173,6 +160,13 @@ fill3(servo_attach_B(1,:),servo_attach_B(2,:),servo_attach_B(3,:),'-');
 hold on
 grid on
 fill3(leg(1,:),leg(2,:),leg(3,:),'-g');
+colours = ["r", "g", "b", "y", "k", "c"];
+t=0:0.02:1;
+r = 40;
+s=r*sin(2*pi*2*t);
+c=r*cos(2*pi*2*t);
+q = zeros(length(t)) - .001;
+%fill3(s,c, q, 'r');%Plotting sin Vs cos
 axis([ -r_B-0, r_B+0,...
        -r_B-0, r_B+0,...
        -0 rod_length+0]);
@@ -181,20 +175,10 @@ rotate3d on;
 
 
 for i=1:6
-    line([servo_attach_B(1,i) joint_B(1,i)],... 
-         [servo_attach_B(2,i) joint_B(2,i)],...
-         [servo_attach_B(3,i) joint_B(3,i)],...
-         'Color','r','LineWidth',2);
-
-    line([joint_B(1,i) leg(1,i)],... 
-         [joint_B(2,i) leg(2,i)],...
-         [joint_B(3,i) leg(3,i)],...
-         'Color','k');
-     
     line([servo_attach_B(1,i) leg(1,i)],... 
          [servo_attach_B(2,i) leg(2,i)],...
          [servo_attach_B(3,i) leg(3,i)],...
-         'Color','y');
+         'Color',colours(i));
 end
 
 
