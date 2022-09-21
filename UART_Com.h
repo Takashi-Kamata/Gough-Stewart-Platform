@@ -28,7 +28,7 @@ union TRxBuffer {
 //        Function Prototypes 
 //=====================================
    
-CY_ISR_PROTO(MyRxInt);          // process Rx interrupt
+CY_ISR_PROTO(RxIsr);          // process Rx interrupt
 
 uint8	IsCharReady(void);		// Returns TRUE when a char is ready
 uint8	GetRxStr(void);			// Extract command string from buffer, non-blocking 

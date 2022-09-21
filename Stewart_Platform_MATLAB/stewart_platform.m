@@ -606,10 +606,13 @@ disp("Init called");
 set(hObject,'Enable','off');
 serialportObj = serialport("COM12",115200);
 configureTerminator(serialportObj,"CR/LF");
-write(serialportObj,49,"uint8")
-% while 1
-%     readline(serialportObj)
-% end
+writeline(serialportObj,"R100");
+writeline(serialportObj,"R100");
+writeline(serialportObj,"R100");
+%write(serialportObj,49,"uint8")
+while 1
+    readline(serialportObj)
+end
 
 
 % --- Executes on button press in pushbutton10.

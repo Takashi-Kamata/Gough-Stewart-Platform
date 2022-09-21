@@ -9,7 +9,7 @@
  *
  * ========================================
 */
-#include <UART.h>
+#include <UART_Com.h>
 
 uint8	RxBuffer[RxBufferSize];     // Rx circular buffer to hold all incoming command
 uint8  *RxReadIndex	 = RxBuffer;    // pointer to position in RxBuffer to write incoming Rx bytes
@@ -19,8 +19,7 @@ uint8  *RxWriteIndex = RxBuffer;    // pointer to position in RxBuffer to read a
 char   *RxStrIndex = RB.RxStr;      // pointer to command string buffer (processed messages)
                                     // each Rx command consists of: <byte command><string value><CR>
 
-
-CY_ISR(MyRxInt) //interrupt on Rx byte received
+CY_ISR(RxIsr) //interrupt on Rx byte received
 {   
     //move all available characters from Rx queue to RxBuffer
     while(UART_ReadRxStatus() & UART_RX_STS_FIFO_NOTEMPTY)

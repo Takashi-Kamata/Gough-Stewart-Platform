@@ -19,6 +19,7 @@ asm(".global _printf_float");
 #include <stdlib.h>
 #include <stdbool.h>
 #include "PID.h"
+#include "UART_Com.h"
 
 /*** Private Definitions ***/
 
@@ -80,9 +81,22 @@ bool manual_m4 = true;
 bool manual_m5 = true;
 bool manual_m6 = true;
 
+//buffer to hold application settings
+typedef struct TParamBuffer{
+    int   iVal; //some integer param
+    float fVal; //some float param
+    int R, G, B;//some other integer params
+} ParamBuffer; //settings
+volatile ParamBuffer PB;     //volatile struct TParamBuffer PB;//else
+
+char strMsg1[64];//output UART buffer
+uint8 RGB = 7;
+uint8 mask;
+
 /**
  * UART ISR
  */
+/*
 uint8 errorStatus = 0u;
 CY_ISR(RxIsr)
 {
@@ -90,20 +104,17 @@ CY_ISR(RxIsr)
     uint8 rxData;
     do
     {
-        /* Read receiver status register */
         rxStatus = UART_RXSTATUS_REG;
 
         if ((rxStatus & (UART_RX_STS_BREAK | UART_RX_STS_PAR_ERROR |
                          UART_RX_STS_STOP_ERROR | UART_RX_STS_OVERRUN)) != 0u)
         {
-            /* ERROR handling. */
             errorStatus |= rxStatus & (UART_RX_STS_BREAK | UART_RX_STS_PAR_ERROR |
                                        UART_RX_STS_STOP_ERROR | UART_RX_STS_OVERRUN);
         }
 
         if ((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u)
         {
-            /* Read data from the RX data register */
             rxData = UART_RXDATA_REG;
             if (errorStatus == 0u)
             {
@@ -165,6 +176,7 @@ CY_ISR(RxIsr)
         }
     } while ((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u);
 }
+*/
 
 /**
  * Button ISR
@@ -197,6 +209,26 @@ CY_ISR(isr_systick)
 {
     tick_inc();
 }
+
+void ProcessCommandMsg(void)
+{    
+    //check received message for any valid command and execute it if necessary or report old value
+    //if command not recognized, then report error
+    //todo: add check for valid conversion string->value
+     
+    //sprintf(strMsg1,"%s\r", RB.RxStr); UART_PutString(strMsg1);
+   
+    //todo: ther are problems if terminator is "\r\n"
+    
+    if     (RB.cmd == 'R')//command 'R' received..
+    {
+        if (strlen(RB.valstr) > 0) PB.R = atoi(RB.valstr);//set new value, else report old 
+        sprintf(strMsg1,"R=%d\r\n", PB.R); UART_PutString(strMsg1);//echo command and value
+        printf("command r \r\n");
+    }  
+}
+
+
 
 int main(void)
 { 
@@ -275,8 +307,8 @@ int main(void)
      */
     for (;;)
     {
-        
         uint32_t sec = tick_get() / 1000;
+        /*
         printf("%s", CLEAR_STRING);
         printf("%s", MOVE_CURSOR);
         printf("Run Time (s) : %d\r\n", sec);
@@ -285,7 +317,14 @@ int main(void)
         
         printf("Mode is : %s\r\n", (manual == 0) ? "Auto" : "Manual");
         printf("Press Enter to leave Manual mode...\r\n");
-        
+        */
+        if(IsCharReady()) {
+            if (GetRxStr()) {
+                LED_Write(1);
+                printf("TEST\r\n");
+                ProcessCommandMsg();
+            }
+        }   
                 
         if (!manual) {
             printf("Auto mode output...\r\n");
