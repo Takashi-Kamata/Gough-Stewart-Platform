@@ -19,10 +19,11 @@ function varargout = stewart_platform(varargin)
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
-
+global initialised
+initialised = 0;
 % Edit the above text to modify the response to help stewart_platform
 
-% Last Modified by GUIDE v2.5 22-Sep-2022 14:09:10
+% Last Modified by GUIDE v2.5 22-Sep-2022 17:22:52
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -581,6 +582,17 @@ leg_length = calculate_stewart_platform(handles.r_B,...
                                    handles.orient);
 leg_length = fix((leg_length./2.54 - 12)*100);
 lag=toc;
+global initialised
+initialised
+% global serialportObj
+% writeline(serialportObj,strcat("A",string(leg_length(1))));
+% writeline(serialportObj,strcat("B",string(leg_length(2))));
+% writeline(serialportObj,strcat("C",string(leg_length(3))));
+% writeline(serialportObj,strcat("D",string(leg_length(4))));
+% writeline(serialportObj,strcat("E",string(leg_length(5))));
+% writeline(serialportObj,strcat("F",string(leg_length(6))));
+% writeline(serialportObj,strcat("J","1"));
+
 disp('Calc duration: ')
 disp(lag)
 
@@ -606,7 +618,10 @@ function pushbutton9_Callback(hObject, eventdata, handles)
 disp("Init called");
 set(hObject,'Enable','off');
 global serialportObj
+global initialised
+initialised = 1;
 serialportObj = serialport("COM12",115200);
+configureTerminator(serialportObj,"CR");
 while 1
     readline(serialportObj)
 end
@@ -617,15 +632,15 @@ function pushbutton10_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton10 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-disp("send")
 global serialportObj
 global leg_length
-writeline(serialportObj,strcat(strcat("A",string(leg_length(1))), ""));
+writeline(serialportObj,strcat("A",string(leg_length(1))));
 writeline(serialportObj,strcat("B",string(leg_length(2))));
 writeline(serialportObj,strcat("C",string(leg_length(3))));
 writeline(serialportObj,strcat("D",string(leg_length(4))));
 writeline(serialportObj,strcat("E",string(leg_length(5))));
 writeline(serialportObj,strcat("F",string(leg_length(6))));
+writeline(serialportObj,strcat("J","1"));
 
 % --- Executes on button press in pushbutton11. halt
 function pushbutton11_Callback(hObject, eventdata, handles)
@@ -650,3 +665,22 @@ function pushbutton13_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global serialportObj
 writeline(serialportObj,strcat("I","1"));
+
+
+% --- Executes on button press in pushbutton14.
+function pushbutton14_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton14 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global serialportObj
+writeline(serialportObj,strcat("K","1"));
+
+
+% --- Executes on button press in pushbutton15.
+function pushbutton15_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton15 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global serialportObj
+writeline(serialportObj,strcat("J","1"));
+

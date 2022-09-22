@@ -83,99 +83,15 @@ bool manual_m6 = true;
 
 //buffer to hold application settings
 typedef struct TParamBuffer{
-    int   iVal; //some integer param
     float A, B, C, D, E, F;//some other integer params
 } ParamBuffer; //settings
 volatile ParamBuffer PB;     //volatile struct TParamBuffer PB;//else
 
 char strMsg1[64];//output UART buffer
-uint8 RGB = 7;
-uint8 mask;
 
 /**
  * UART ISR
  */
-/*
-uint8 errorStatus = 0u;
-CY_ISR(RxIsr)
-{
-    uint8 rxStatus;
-    uint8 rxData;
-    do
-    {
-        rxStatus = UART_RXSTATUS_REG;
-
-        if ((rxStatus & (UART_RX_STS_BREAK | UART_RX_STS_PAR_ERROR |
-                         UART_RX_STS_STOP_ERROR | UART_RX_STS_OVERRUN)) != 0u)
-        {
-            errorStatus |= rxStatus & (UART_RX_STS_BREAK | UART_RX_STS_PAR_ERROR |
-                                       UART_RX_STS_STOP_ERROR | UART_RX_STS_OVERRUN);
-        }
-
-        if ((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u)
-        {
-            rxData = UART_RXDATA_REG;
-            if (errorStatus == 0u)
-            {
-                
-                //UART_TXDATA_REG = rxData; // echo back by directly changing TX register
-                if (rxData == 65) {// UP
-                    for (uint8_t i = 0; i< MOTOR_NUM; i++)
-                    {
-                        set_speed(i, SPEED);
-                        extend(i);
-                    }
-                    manual = true;
-                } else if (rxData == 66) {// DOWN
-                    for (uint8_t i = 0; i< MOTOR_NUM; i++)
-                    {
-                        set_speed(i, SPEED);
-                        retract(i);
-                    }
-                    manual = true;
-                } else if (rxData == 67) {// RIGHT
-                } else if (rxData == 68) {// LEFT
-                } else if (rxData == 13) {// ENTER
-                    reset_pid();
-                    manual = !manual;   
-                } else if (rxData == 109) {// m - Start measuring
-                    printf("Started Measuring\r\n");
-                    start_calibrate = true;
-                } else if (rxData == 115) {// s - Send data
-                    printf("Send Measurements %d\r\n", counter);
-                    for (uint8_t i=0; i<MOTOR_NUM; i++) {
-                        printf("M%d, ADC\r\n", i);
-                        for (int j=0; j<SAMPLE_NUM; j++) {
-                            printf("%d, %d\r\n", j, buffer[i][j]);
-                        }
-                        printf("\r\n");
-                    }
-                    
-                } else if (rxData == 114) {// r - Reset measuring
-                    printf("Stopped Measuring %d\r\n", counter);
-                    start_calibrate = false;
-                } else if(rxData == 49) { // 1
-                    flip(0, &manual_m1, SPEED);
-                } else if(rxData == 50) { // 2
-                    flip(1, &manual_m2, SPEED);                   
-                } else if(rxData == 51) { // 3
-                    flip(2, &manual_m3, SPEED);                
-                } else if(rxData == 52) { // 4
-                    flip(3, &manual_m4, SPEED);              
-                } else if(rxData == 53) { // 5 
-                    flip(4, &manual_m5, SPEED);        
-                } else if(rxData == 54) { // 6
-                    flip(5, &manual_m6, SPEED);          
-                } else if(rxData == 32) { // Space  -- HOLT 
-                    for (uint8_t i=0; i<MOTOR_NUM; i++) {
-                        stop(i);
-                    }
-                }
-            }
-        }
-    } while ((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u);
-}
-*/
 
 /**
  * Button ISR
@@ -243,25 +159,38 @@ void ProcessCommandMsg(void)
         {
             stop(i);
         }
-        printf("STOP\r\n");
+        printf("STOP\r");
         break;
     case 'H':
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
+            set_speed(i, SPEED);
             extend(i);
         }
-        printf("EXTEND\r\n");
+        printf("EXTEND\r");
         break;
     case 'I':
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
+            set_speed(i, SPEED);
             retract(i);
         }
-        printf("RETRACT\r\n");
+        printf("RETRACT\r");
         break;
     case 'J':
+        setpoint[0] = inch_adc(0, PB.A);
+        setpoint[1] = inch_adc(1, PB.B);
+        setpoint[2] = inch_adc(2, PB.C);
+        setpoint[3] = inch_adc(3, PB.D);
+        setpoint[4] = inch_adc(4, PB.E);
+        setpoint[5] = inch_adc(5, PB.F);
+        reset_pid();
+        manual = false;
+        printf("AUTO\r");
         break;
     case 'K':
+        manual = true;
+        printf("MANUAL\r");
         break;
     case 'L':
         break;
@@ -284,7 +213,7 @@ void ProcessCommandMsg(void)
     case 'U':
         break;
     default:
-        printf("Unknown Command\r\n");
+        printf("Unknown Command\r");
         break;
     }
 }
@@ -386,7 +315,7 @@ int main(void)
         }   
                 
         if (!manual) {
-            printf("Auto mode output...\r\n");
+            //printf("Auto mode output...\r\n");
             
             // Check if need to compute PID
             for (uint8_t i = 0; i < MOTOR_NUM; i++)

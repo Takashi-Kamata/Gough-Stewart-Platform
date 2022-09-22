@@ -19,10 +19,9 @@ function varargout = stewart_platform(varargin)
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
-
 % Edit the above text to modify the response to help stewart_platform
 
-% Last Modified by GUIDE v2.5 22-Sep-2022 14:09:10
+% Last Modified by GUIDE v2.5 22-Sep-2022 17:22:52
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -89,6 +88,8 @@ function exit_pushbutton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 %Exit the GUI
+delete(hObject);
+clearvars  -global initialised serialportObj leg_length
 close all;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -101,8 +102,8 @@ function x_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_x= 10;           %Maximum translation in x direction
-min_x= -10;          %Minimum translation in x direction
+max_x= 30;           %Maximum translation in x direction
+min_x= -30;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -126,8 +127,8 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 % Initial Value
-max_x= 4;           %Maximum translation in x direction
-min_x= -4;          %Minimum translation in x direction
+max_x= 30;           %Maximum translation in x direction
+min_x= -30;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 handles.x= slide * (max_x - min_x)  + min_x;
@@ -144,8 +145,8 @@ function y_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_y= 10;           %Maximum translation in x direction
-min_y= -10;          %Minimum translation in x direction
+max_y= 30;           %Maximum translation in x direction
+min_y= -30;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -169,8 +170,8 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 % Initial Value
-max_y= 4;           %Maximum translation in x direction
-min_y= -4;          %Minimum translation in x direction
+max_y= 30;           %Maximum translation in x direction
+min_y= -30;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 handles.y= slide * (max_y - min_y)  + min_y;
@@ -187,8 +188,8 @@ function z_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_z= 10;           %Maximum translation in x direction
-min_z= -10;          %Minimum translation in x direction
+max_z= 30;           %Maximum translation in x direction
+min_z= -31;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -213,8 +214,8 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
 % Initial Value
-max_z= 4;           %Maximum translation in x direction
-min_z= -4;          %Minimum translation in x direction
+max_z= 30;           %Maximum translation in x direction
+min_z= -30;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 handles.z= slide * (max_z - min_z)  + min_z;
@@ -581,6 +582,18 @@ leg_length = calculate_stewart_platform(handles.r_B,...
                                    handles.orient);
 leg_length = fix((leg_length./2.54 - 12)*100);
 lag=toc;
+whos global
+if (~isempty(whos('global','initialised')))
+    global serialportObj
+    writeline(serialportObj,strcat("A",string(leg_length(1))));
+    writeline(serialportObj,strcat("B",string(leg_length(2))));
+    writeline(serialportObj,strcat("C",string(leg_length(3))));
+    writeline(serialportObj,strcat("D",string(leg_length(4))));
+    writeline(serialportObj,strcat("E",string(leg_length(5))));
+    writeline(serialportObj,strcat("F",string(leg_length(6))));
+    writeline(serialportObj,strcat("J","1"));
+end
+
 disp('Calc duration: ')
 disp(lag)
 
@@ -591,12 +604,8 @@ function stewart_platform_panel_CloseRequestFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % Hint: delete(hObject) closes the figure
-global serialportObj
+clearvars  -global initialised serialportObj leg_length
 delete(hObject);
-delete(serialportObj);
-close all
-clear
-clc
 
 % --- Executes on button press in pushbutton9.
 function pushbutton9_Callback(hObject, eventdata, handles)
@@ -606,6 +615,8 @@ function pushbutton9_Callback(hObject, eventdata, handles)
 disp("Init called");
 set(hObject,'Enable','off');
 global serialportObj
+global initialised
+initialised = 1;
 serialportObj = serialport("COM12",115200);
 configureTerminator(serialportObj,"CR");
 while 1
@@ -618,7 +629,6 @@ function pushbutton10_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton10 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-disp("send")
 global serialportObj
 global leg_length
 writeline(serialportObj,strcat("A",string(leg_length(1))));
@@ -627,6 +637,7 @@ writeline(serialportObj,strcat("C",string(leg_length(3))));
 writeline(serialportObj,strcat("D",string(leg_length(4))));
 writeline(serialportObj,strcat("E",string(leg_length(5))));
 writeline(serialportObj,strcat("F",string(leg_length(6))));
+writeline(serialportObj,strcat("J","1"));
 
 % --- Executes on button press in pushbutton11. halt
 function pushbutton11_Callback(hObject, eventdata, handles)
@@ -651,3 +662,22 @@ function pushbutton13_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global serialportObj
 writeline(serialportObj,strcat("I","1"));
+
+
+% --- Executes on button press in pushbutton14.
+function pushbutton14_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton14 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global serialportObj
+writeline(serialportObj,strcat("K","1"));
+
+
+% --- Executes on button press in pushbutton15.
+function pushbutton15_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton15 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global serialportObj
+writeline(serialportObj,strcat("J","1"));
+
