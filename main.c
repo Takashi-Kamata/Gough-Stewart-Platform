@@ -10,7 +10,7 @@
  * ========================================
  */
 #if defined(__GNUC__)
-asm(".global _printf_float");
+    asm(".global _printf_float");
 #endif
 
 #include "project.h"
@@ -84,8 +84,7 @@ bool manual_m6 = true;
 //buffer to hold application settings
 typedef struct TParamBuffer{
     int   iVal; //some integer param
-    float fVal; //some float param
-    int R, G, B;//some other integer params
+    float A, B, C, D, E, F;//some other integer params
 } ParamBuffer; //settings
 volatile ParamBuffer PB;     //volatile struct TParamBuffer PB;//else
 
@@ -212,20 +211,82 @@ CY_ISR(isr_systick)
 
 void ProcessCommandMsg(void)
 {    
-    //check received message for any valid command and execute it if necessary or report old value
-    //if command not recognized, then report error
-    //todo: add check for valid conversion string->value
-     
-    //sprintf(strMsg1,"%s\r", RB.RxStr); UART_PutString(strMsg1);
-   
-    //todo: ther are problems if terminator is "\r\n"
-    
-    if     (RB.cmd == 'R')//command 'R' received..
+    //It does not accept "\r\n", either "\r" or "\n" terminator
+    switch (RB.cmd)
     {
-        if (strlen(RB.valstr) > 0) PB.R = atoi(RB.valstr);//set new value, else report old 
-        sprintf(strMsg1,"R=%d\r\n", PB.R); UART_PutString(strMsg1);//echo command and value
-        printf("command r \r\n");
-    }  
+    case 'A':
+        if (strlen(RB.valstr) > 0) PB.A = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        sprintf(strMsg1,"A=%.2f\r", PB.A); printf("%s", strMsg1);//echo command and value
+        break;
+    case 'B':
+        if (strlen(RB.valstr) > 0) PB.B = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        sprintf(strMsg1,"B=%.2f\r", PB.B); printf("%s", strMsg1);//echo command and value
+        break;
+    case 'C':
+        if (strlen(RB.valstr) > 0) PB.C = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        sprintf(strMsg1,"C=%.2f\r", PB.C); printf("%s", strMsg1);//echo command and value
+        break;
+    case 'D':
+        if (strlen(RB.valstr) > 0) PB.D = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        sprintf(strMsg1,"D=%.2f\r", PB.D); printf("%s", strMsg1);//echo command and value
+        break;
+    case 'E':
+        if (strlen(RB.valstr) > 0) PB.E = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        sprintf(strMsg1,"E=%.2f\r", PB.E); printf("%s", strMsg1);//echo command and value
+        break;
+    case 'F':
+        if (strlen(RB.valstr) > 0) PB.F = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        sprintf(strMsg1,"F=%.2f\r", PB.F); printf("%s", strMsg1);//echo command and value
+        break;
+    case 'G':
+        for (uint8_t i = 0; i < MOTOR_NUM; i++) 
+        {
+            stop(i);
+        }
+        printf("STOP\r\n");
+        break;
+    case 'H':
+        for (uint8_t i = 0; i < MOTOR_NUM; i++) 
+        {
+            extend(i);
+        }
+        printf("EXTEND\r\n");
+        break;
+    case 'I':
+        for (uint8_t i = 0; i < MOTOR_NUM; i++) 
+        {
+            retract(i);
+        }
+        printf("RETRACT\r\n");
+        break;
+    case 'J':
+        break;
+    case 'K':
+        break;
+    case 'L':
+        break;
+    case 'M':
+        break;
+    case 'N':
+        break;
+    case 'O':
+        break;
+    case 'P':
+        break;
+    case 'Q':
+        break;
+    case 'R':
+        break;
+    case 'S':
+        break;
+    case 'T':
+        break;
+    case 'U':
+        break;
+    default:
+        printf("Unknown Command\r\n");
+        break;
+    }
 }
 
 
@@ -320,8 +381,6 @@ int main(void)
         */
         if(IsCharReady()) {
             if (GetRxStr()) {
-                LED_Write(1);
-                printf("TEST\r\n");
                 ProcessCommandMsg();
             }
         }   

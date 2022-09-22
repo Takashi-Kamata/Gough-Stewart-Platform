@@ -134,7 +134,7 @@ r = 90;
 s=r*sin(2*pi*2*t);
 c=r*cos(2*pi*2*t);
 q = zeros(length(t)) - .001;
-xlim([0 60])
+xlim(
 %fill3(s,c, q, 'r');%Plotting sin Vs cos
 fill3(servo_attach_B(1,:),servo_attach_B(2,:),servo_attach_B(3,:),'-');
 hold on
@@ -145,9 +145,6 @@ colours = ["r", "g", "b", "y", "k", "c"];
 axis([ -r_B-0, r_B+0,...
        -r_B-0, r_B+0,...
        -0 rod_length+0]);
-xlim([-60 60])
-ylim([-60 60])
-zlim([0 60])
 rotate3d on;
 
 for i=1:6
