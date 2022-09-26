@@ -47,7 +47,7 @@ function [ leg_length ] = calculate_stewart_platform( r_B, r_P,  rod_length, alp
 %                   hannes@michaelbartle.de
 %                   Friedrichshafen, February 2016
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-rod_length = rod_length.*2.54; % convert inch to cm
+%rod_length = rod_length.*2.54; % convert inch to cm
 trans= trans(:);
 orient= orient(:);
 %% Define the Geometry of the platform
@@ -97,7 +97,7 @@ rod_attach_P= r_P*[ [cos(theta_P(1)), -sin(theta_P(1)), 0]',...
                       [-cos(theta_P(4)), sin(theta_P(4)), 0]',...
                       [-cos(theta_P(5)), -sin(theta_P(5)), 0]',...
                       [cos(theta_P(6)), -sin(theta_P(6)), 0]'];
-                                   
+                  
 % Definition of the platform home position. The home position will be the
 % position in which the angle between servo arm and rod is 90°. Because of
 % the symmetric arrangement of the servos, h0 must be the same for all six
@@ -117,13 +117,21 @@ T_BP= rotZ(orient(3))*rotY(orient(2))*rotX(orient(1));
 % platform for each servo.
 leg = zeros(3,6);
 leg_length = zeros(1, 6);
+
+% Leg length calculation - Inverse Kinematics
 for i=1:6
-     
+    
     leg(:,i)= trans + home_pos + T_BP*rod_attach_P(:,i) - servo_attach_B(:,i);
     
     leg_length(i)= norm(leg(:,i));
 end
-
+% Bounding
+if max(leg_length) > (12*2.54) || min(leg_length) < (rod_length)
+    leg_length = -1;
+    return 
+end
+    
+    
 %% Plot the stewart platform
 
 cla;
@@ -134,7 +142,7 @@ r = 90;
 s=r*sin(2*pi*2*t);
 c=r*cos(2*pi*2*t);
 q = zeros(length(t)) - .001;
-xlim(
+xlim([0 60])
 %fill3(s,c, q, 'r');%Plotting sin Vs cos
 fill3(servo_attach_B(1,:),servo_attach_B(2,:),servo_attach_B(3,:),'-');
 hold on
@@ -145,6 +153,9 @@ colours = ["r", "g", "b", "y", "k", "c"];
 axis([ -r_B-0, r_B+0,...
        -r_B-0, r_B+0,...
        -0 rod_length+0]);
+xlim([-100 100])
+ylim([-100 100])
+zlim([0 100])
 rotate3d on;
 
 for i=1:6

@@ -27,7 +27,7 @@
 #define MOVE_CURSOR "\033[0;0H"
 #define MOTOR_NUM 6U
 #define MIN_PWM 0U
-#define MAX_PWM 399U
+#define MAX_PWM 380U
 #define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
 #define TOLERANCE 10 // PID Tolerance
 #define POINTS 10 // Number of Points
@@ -132,32 +132,34 @@ void ProcessCommandMsg(void)
     {
     case 'A':
         if (strlen(RB.valstr) > 0) PB.A = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        sprintf(strMsg1,"A=%.2f\r", PB.A); printf("%s", strMsg1);//echo command and value
+        //sprintf(strMsg1,"A=%.2f\r", PB.A); printf("%s", strMsg1);//echo command and value
         break;
     case 'B':
         if (strlen(RB.valstr) > 0) PB.B = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        sprintf(strMsg1,"B=%.2f\r", PB.B); printf("%s", strMsg1);//echo command and value
+        //sprintf(strMsg1,"B=%.2f\r", PB.B); printf("%s", strMsg1);//echo command and value
         break;
     case 'C':
         if (strlen(RB.valstr) > 0) PB.C = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        sprintf(strMsg1,"C=%.2f\r", PB.C); printf("%s", strMsg1);//echo command and value
+        //sprintf(strMsg1,"C=%.2f\r", PB.C); printf("%s", strMsg1);//echo command and value
         break;
     case 'D':
         if (strlen(RB.valstr) > 0) PB.D = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        sprintf(strMsg1,"D=%.2f\r", PB.D); printf("%s", strMsg1);//echo command and value
+        //sprintf(strMsg1,"D=%.2f\r", PB.D); printf("%s", strMsg1);//echo command and value
         break;
     case 'E':
         if (strlen(RB.valstr) > 0) PB.E = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        sprintf(strMsg1,"E=%.2f\r", PB.E); printf("%s", strMsg1);//echo command and value
+        //sprintf(strMsg1,"E=%.2f\r", PB.E); printf("%s", strMsg1);//echo command and value
         break;
     case 'F':
         if (strlen(RB.valstr) > 0) PB.F = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        sprintf(strMsg1,"F=%.2f\r", PB.F); printf("%s", strMsg1);//echo command and value
+        //sprintf(strMsg1,"F=%.2f\r", PB.F); printf("%s", strMsg1);//echo command and value
         break;
     case 'G':
+        manual = true;
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
             stop(i);
+            set_speed(i, MAX_PWM);
         }
         printf("STOP\r");
         break;
@@ -186,13 +188,19 @@ void ProcessCommandMsg(void)
         setpoint[5] = inch_adc(5, PB.F);
         reset_pid();
         manual = false;
-        printf("AUTO\r");
+        //printf("AUTO\r");
         break;
     case 'K':
         manual = true;
+        for (uint8_t i = 0; i < MOTOR_NUM; i++) 
+        {
+            set_speed(i, MAX_PWM);
+            stop(i);
+        }
         printf("MANUAL\r");
         break;
     case 'L':
+        sprintf(strMsg1,"F=%s\r",RB.valstr); printf("%s", strMsg1);//echo command and value
         break;
     case 'M':
         break;
@@ -273,7 +281,7 @@ int main(void)
     for (uint8_t i = 0; i<MOTOR_NUM; i++)
     {
         setpoint[i] = inch_adc(i, 6.0);
-        pid[i] = pid_create(&ctrldata[i], &input[i], &output[i], &setpoint[i], kp[i], ki[i], kd[i], -399.0, 399.0);
+        pid[i] = pid_create(&ctrldata[i], &input[i], &output[i], &setpoint[i], kp[i], ki[i], kd[i], - (float)MAX_PWM, (float)MAX_PWM);
     	// Allow PID to compute and change output
     	pid_auto(pid[i]);
     }

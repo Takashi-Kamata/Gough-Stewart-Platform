@@ -102,8 +102,8 @@ function x_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_x= 30;           %Maximum translation in x direction
-min_x= -30;          %Minimum translation in x direction
+max_x= 35;           %Maximum translation in x direction
+min_x= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -124,11 +124,11 @@ function x_slider_CreateFcn(hObject, eventdata, handles)
 
 % Hint: slider controls usually have a light gray background.
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
+    set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_x= 30;           %Maximum translation in x direction
-min_x= -30;          %Minimum translation in x direction
+max_x= 35;           %Maximum translation in x direction
+min_x= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 handles.x= slide * (max_x - min_x)  + min_x;
@@ -145,8 +145,8 @@ function y_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_y= 30;           %Maximum translation in x direction
-min_y= -30;          %Minimum translation in x direction
+max_y= 35;           %Maximum translation in x direction
+min_y= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -167,11 +167,11 @@ function y_slider_CreateFcn(hObject, eventdata, handles)
 
 % Hint: slider controls usually have a light gray background.
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
+    set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_y= 30;           %Maximum translation in x direction
-min_y= -30;          %Minimum translation in x direction
+max_y= 35;           %Maximum translation in x direction
+min_y= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 handles.y= slide * (max_y - min_y)  + min_y;
@@ -188,8 +188,8 @@ function z_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_z= 30;           %Maximum translation in x direction
-min_z= -31;          %Minimum translation in x direction
+max_z= 35;           %Maximum translation in x direction
+min_z= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -211,11 +211,11 @@ function z_slider_CreateFcn(hObject, eventdata, handles)
 
 % Hint: slider controls usually have a light gray background.
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
+    set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_z= 30;           %Maximum translation in x direction
-min_z= -30;          %Minimum translation in x direction
+max_z= 35;           %Maximum translation in x direction
+min_z= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 handles.z= slide * (max_z - min_z)  + min_z;
@@ -232,8 +232,8 @@ function roll_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_roll= 15*pi/180;        %Maximum roll angle
-min_roll= -15*pi/180;          %Minimum roll angle
+max_roll= 180*pi/180;        %Maximum roll angle
+min_roll= -180*pi/180;          %Minimum roll angle
 
 slide= get(hObject,'Value');
 
@@ -255,11 +255,11 @@ function roll_slider_CreateFcn(hObject, eventdata, handles)
 
 % Hint: slider controls usually have a light gray background.
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
+    set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_roll= 15*pi/180;        %Maximum roll angle
-min_roll= -15*pi/180;          %Minimum roll angle
+max_roll= 180*pi/180;        %Maximum roll angle
+min_roll= -180*pi/180;          %Minimum roll angle
 
 slide= get(hObject,'Value');
 handles.roll= slide * (max_roll - min_roll)  + min_roll;
@@ -276,8 +276,8 @@ function pitch_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_pitch= 15*pi/180;        %Maximum pitch angle
-min_pitch= -15*pi/180;       %Minimum pitch angle
+max_pitch= 180*pi/180;        %Maximum pitch angle
+min_pitch= -180*pi/180;       %Minimum pitch angle
 
 % Get Slider value
 slide= get(hObject,'Value');
@@ -301,11 +301,11 @@ function pitch_slider_CreateFcn(hObject, eventdata, handles)
 
 % Hint: slider controls usually have a light gray background.
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
+    set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_pitch= 15*pi/180;        %Maximum pitch angle
-min_pitch= -15*pi/180;       %Minimum pitch angle
+max_pitch= 180*pi/180;        %Maximum pitch angle
+min_pitch= -180*pi/180;       %Minimum pitch angle
 
 % Get Slider value
 slide= get(hObject,'Value');
@@ -324,8 +324,8 @@ function yaw_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_yaw= 15*pi/180;        %Maximum yaw angle
-min_yaw= -15*pi/180;       %Minimum yaw angle
+max_yaw= 180*pi/180;        %Maximum yaw angle
+min_yaw= -180*pi/180;       %Minimum yaw angle
 
 slide= get(hObject,'Value');
 
@@ -346,11 +346,11 @@ function yaw_slider_CreateFcn(hObject, eventdata, handles)
 
 % Hint: slider controls usually have a light gray background.
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
+    set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_yaw= 15*pi/180;        %Maximum yaw angle
-min_yaw= -15*pi/180;       %Minimum yaw angle
+max_yaw= 180*pi/180;        %Maximum yaw angle
+min_yaw= -180*pi/180;       %Minimum yaw angle
 
 slide= get(hObject,'Value');
 
@@ -580,18 +580,69 @@ leg_length = calculate_stewart_platform(handles.r_B,...
                                    handles.alpha_P*pi/180,...
                                    handles.trans,... 
                                    handles.orient);
-leg_length = fix((leg_length./2.54 - 12)*100);
 lag=toc;
-whos global
-if (~isempty(whos('global','initialised')))
-    global serialportObj
+% Bounding
+bad = zeros(1,6)
+for i=1:6
+    if leg_length(i) > (12*2.54 + handles.rod_length) || leg_length(i) < (handles.rod_length)
+        bad(i) = 1;
+    end
+end
+
+
+leg_length = fix((leg_length - handles.rod_length)./2.54*100);
+if (~isempty(whos('global','initialised'))) && ~(max(bad)>0) 
+    global serialportObj    
     writeline(serialportObj,strcat("A",string(leg_length(1))));
     writeline(serialportObj,strcat("B",string(leg_length(2))));
     writeline(serialportObj,strcat("C",string(leg_length(3))));
     writeline(serialportObj,strcat("D",string(leg_length(4))));
     writeline(serialportObj,strcat("E",string(leg_length(5))));
     writeline(serialportObj,strcat("F",string(leg_length(6))));
-    writeline(serialportObj,strcat("J","1"));
+    writeline(serialportObj,"J");
+end
+
+set(handles.m1_length, "String", fix(leg_length(1)/12) + "%");
+set(handles.m2_length, "String", fix(leg_length(2)/12) + "%");
+set(handles.m3_length, "String", fix(leg_length(3)/12) + "%");
+set(handles.m4_length, "String", fix(leg_length(4)/12) + "%");
+set(handles.m5_length, "String", fix(leg_length(5)/12) + "%");
+set(handles.m6_length, "String", fix(leg_length(6)/12) + "%");
+
+if bad(1) == 1
+    set(handles.m1_length,'BackgroundColor',[1 0 0]);
+else
+    set(handles.m1_length,'BackgroundColor',[.94 .94 .94]);
+end
+
+if bad(2) == 1
+    set(handles.m2_length,'BackgroundColor',[1 0 0]);
+else
+    set(handles.m2_length,'BackgroundColor',[.94 .94 .94]);
+end
+
+if bad(3) == 1
+    set(handles.m3_length,'BackgroundColor',[1 0 0]);
+else
+    set(handles.m3_length,'BackgroundColor',[.94 .94 .94]);
+end
+
+if bad(4) == 1
+    set(handles.m4_length,'BackgroundColor',[1 0 0]);
+else
+    set(handles.m4_length,'BackgroundColor',[.94 .94 .94]);
+end  
+
+if bad(5) == 1
+    set(handles.m5_length,'BackgroundColor',[1 0 0]);
+else
+    set(handles.m5_length,'BackgroundColor',[.94 .94 .94]);
+end   
+
+if bad(6) == 1
+    set(handles.m6_length,'BackgroundColor',[1 0 0]);
+else
+    set(handles.m6_length,'BackgroundColor',[.94 .94 .94]);
 end
 
 disp('Calc duration: ')
@@ -617,6 +668,22 @@ set(hObject,'Enable','off');
 global serialportObj
 global initialised
 initialised = 1;
+
+% Enable Sliders
+set(handles.x_slider,'Enable','on');
+set(handles.y_slider,'Enable','on');
+set(handles.z_slider,'Enable','on');
+set(handles.pitch_slider,'Enable','on');
+set(handles.yaw_slider,'Enable','on');
+set(handles.roll_slider,'Enable','on');
+
+% Enable Buttons
+set(handles.pushbutton10,'Enable','on');
+set(handles.pushbutton11,'Enable','on');
+set(handles.pushbutton12,'Enable','on');
+set(handles.pushbutton13,'Enable','on');
+set(handles.pushbutton14,'Enable','on');
+set(handles.pushbutton15,'Enable','on');
 serialportObj = serialport("COM12",115200);
 configureTerminator(serialportObj,"CR");
 while 1
@@ -631,13 +698,7 @@ function pushbutton10_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global serialportObj
 global leg_length
-writeline(serialportObj,strcat("A",string(leg_length(1))));
-writeline(serialportObj,strcat("B",string(leg_length(2))));
-writeline(serialportObj,strcat("C",string(leg_length(3))));
-writeline(serialportObj,strcat("D",string(leg_length(4))));
-writeline(serialportObj,strcat("E",string(leg_length(5))));
-writeline(serialportObj,strcat("F",string(leg_length(6))));
-writeline(serialportObj,strcat("J","1"));
+writeline(serialportObj,strcat("L", "201\m10\m\1\m1122\m124\m192"));
 
 % --- Executes on button press in pushbutton11. halt
 function pushbutton11_Callback(hObject, eventdata, handles)
