@@ -582,7 +582,7 @@ leg_length = calculate_stewart_platform(handles.r_B,...
                                    handles.orient);
 lag=toc;
 % Bounding
-bad = zeros(1,6)
+bad = zeros(1,6);
 for i=1:6
     if leg_length(i) > (12*2.54 + handles.rod_length) || leg_length(i) < (handles.rod_length)
         bad(i) = 1;
@@ -687,7 +687,11 @@ set(handles.pushbutton15,'Enable','on');
 serialportObj = serialport("COM12",115200);
 configureTerminator(serialportObj,"CR");
 while 1
-    readline(serialportObj)
+    n = readline(serialportObj);
+    if (~isempty(n))
+        disp(n);
+    end
+    pause(1);
 end
 
 
@@ -698,7 +702,11 @@ function pushbutton10_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global serialportObj
 global leg_length
-writeline(serialportObj,strcat("L", "201\m10\m\1\m1122\m124\m192"));
+% writeline(serialportObj,strcat("L", "2"));
+write(serialportObj, "L", "char");
+write(serialportObj, 55, "uint8");
+write(serialportObj, 55, "uint8");
+write(serialportObj, 13, "char");
 
 % --- Executes on button press in pushbutton11. halt
 function pushbutton11_Callback(hObject, eventdata, handles)

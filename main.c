@@ -69,7 +69,6 @@ float kd[MOTOR_NUM] = {0.0};
 
 // For Keyboard Lock
 bool manual = true;
-static uint16_t buffer[MOTOR_NUM][SAMPLE_NUM];
 uint32_t counter = 0;
 bool start_calibrate = false;
 
@@ -177,7 +176,7 @@ void ProcessCommandMsg(void)
             set_speed(i, SPEED);
             retract(i);
         }
-        printf("RETRACT\r");
+        printf("RETRAC\r");
         break;
     case 'J':
         setpoint[0] = inch_adc(0, PB.A);
@@ -200,7 +199,7 @@ void ProcessCommandMsg(void)
         printf("MANUAL\r");
         break;
     case 'L':
-        sprintf(strMsg1,"F=%s\r",RB.valstr); printf("%s", strMsg1);//echo command and value
+        printf("%d%d\r" ,RB.valstr[0],RB.valstr[1]);//echo command and value
         break;
     case 'M':
         break;
@@ -318,6 +317,7 @@ int main(void)
         */
         if(IsCharReady()) {
             if (GetRxStr()) {
+                printf("message received\r");
                 ProcessCommandMsg();
             }
         }   
@@ -533,8 +533,8 @@ void reset_pid() {
         input[i] = 0.0;
         output[i] = 0.0;
         kp[i] = KP;
-        ki[i] = 0.0;
-        kd[i] = 0.0005;
+        ki[i] = KI;
+        kd[i] = KD;
     }
 }
 

@@ -11,7 +11,7 @@
 */
 #include <project.h>
 
-#define RxBufferSize	128     //size of the Rx circular buffer
+#define RxBufferSize	1024     //size of the Rx circular buffer
 #define EOM_CR        0x0D    //message separator char (\r)
 #define EOM_LF        0x0A    //message separator char (\n)
 

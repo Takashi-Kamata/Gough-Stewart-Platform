@@ -69,7 +69,6 @@ theta_P= [pi/3-alpha_P,...
           alpha_P,... 
           pi/3+alpha_P];
       
-     
 % These are the coordinates of the points where servo arms are attached to 
 % the corresponding servo axis.
 
@@ -102,7 +101,7 @@ rod_attach_P= r_P*[ [cos(theta_P(1)), -sin(theta_P(1)), 0]',...
 % position in which the angle between servo arm and rod is 90°. Because of
 % the symmetric arrangement of the servos, h0 must be the same for all six
 % positions.
-h= sqrt(rod_length.^2-(rod_attach_P(1,:) - servo_attach_B(1,:)).^2 - (rod_attach_P(2,:) - servo_attach_B(2,:)).^2) -rod_attach_P(3,:);
+h= sqrt(rod_length.^2-(rod_attach_P(1,:) - servo_attach_B(1,:)).^2 - (rod_attach_P(2,:) - servo_attach_B(2,:)).^2) - rod_attach_P(3,:);
 home_pos= [0, 0, h(1)]';
 
 
@@ -149,9 +148,9 @@ colours = ["r", "g", "b", "y", "k", "c"];
 axis([ -r_B-0, r_B+0,...
        -r_B-0, r_B+0,...
        -0 rod_length+0]);
-xlim([-100 100])
-ylim([-100 100])
-zlim([0 100])
+xlim([-60 60])
+ylim([-60 60])
+zlim([0 80])
 rotate3d on;
 
 for i=1:6
