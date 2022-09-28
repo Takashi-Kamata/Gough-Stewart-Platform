@@ -763,22 +763,18 @@ set(handles.z_slider,'Value',0.5);
 max = 35;           %Maximum translation in x direction
 min = -35;          %Minimum translation in x direction
 slide = 0.5;
-
 handles.x= slide * (max - min)  + min;
 x_pos= num2str(handles.x);
 handles.trans(1)= handles.x;
 set(handles.show_x,'String',x_pos);
-
 handles.y= slide * (max - min)  + min;
 y_pos= num2str(handles.y);
 handles.trans(2)= handles.y;
 set(handles.show_y,'String',y_pos);
-
 handles.z= slide * (max - min)  + min;
 z_pos= num2str(handles.z);
 handles.trans(3)= handles.z;
 set(handles.show_z,'String',z_pos);
-
 guidata(hObject, handles);
 do_the_stewart(handles);
 
@@ -793,21 +789,17 @@ set(handles.yaw_slider,'Value',0.5);
 max= 180*pi/180;        %Maximum yaw angle
 min= -180*pi/180;       %Minimum yaw angle
 slide = 0.5;
-
 handles.roll= slide * (max - min)  + min;
 roll_pos= num2str(handles.roll*180/pi);
 handles.orient(1)= handles.roll;
 set(handles.show_roll,'String',roll_pos);
-
 handles.pitch= slide * (max - min)  + min;
 handles.orient(2)= handles.pitch;
 pitch_pos= num2str(handles.pitch*180/pi);
 set(handles.show_pitch,'String',pitch_pos);
-
 handles.yaw= slide * (max - min)  + min;
 yaw_pos= num2str(handles.yaw*180/pi);
 handles.orient(3)= handles.yaw;
 set(handles.show_yaw,'String',yaw_pos);
-
 guidata(hObject, handles);
 do_the_stewart(handles);
