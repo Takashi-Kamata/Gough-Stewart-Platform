@@ -21,7 +21,7 @@ function varargout = stewart_platform(varargin)
 % See also: GUIDE, GUIDATA, GUIHANDLES
 % Edit the above text to modify the response to help stewart_platform
 
-% Last Modified by GUIDE v2.5 22-Sep-2022 17:22:52
+% Last Modified by GUIDE v2.5 28-Sep-2022 17:50:22
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -327,7 +327,7 @@ function yaw_slider_Callback(hObject, eventdata, handles)
 max_yaw= 180*pi/180;        %Maximum yaw angle
 min_yaw= -180*pi/180;       %Minimum yaw angle
 
-slide= get(hObject,'Value');
+slide= get(hObject,'Value')
 
 handles.yaw= slide * (max_yaw - min_yaw)  + min_yaw;
 yaw_pos= num2str(handles.yaw*180/pi);
@@ -750,3 +750,64 @@ function pushbutton15_Callback(hObject, eventdata, handles)
 global serialportObj
 writeline(serialportObj,strcat("J","1"));
 
+
+
+% --- Executes on button press in pushbutton17.
+function pushbutton17_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton17 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+set(handles.x_slider,'Value',0.5);
+set(handles.y_slider,'Value',0.5);
+set(handles.z_slider,'Value',0.5);
+max = 35;           %Maximum translation in x direction
+min = -35;          %Minimum translation in x direction
+slide = 0.5;
+
+handles.x= slide * (max - min)  + min;
+x_pos= num2str(handles.x);
+handles.trans(1)= handles.x;
+set(handles.show_x,'String',x_pos);
+
+handles.y= slide * (max - min)  + min;
+y_pos= num2str(handles.y);
+handles.trans(2)= handles.y;
+set(handles.show_y,'String',y_pos);
+
+handles.z= slide * (max - min)  + min;
+z_pos= num2str(handles.z);
+handles.trans(3)= handles.z;
+set(handles.show_z,'String',z_pos);
+
+guidata(hObject, handles);
+do_the_stewart(handles);
+
+% --- Executes on button press in pushbutton16.
+function pushbutton16_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton16 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+set(handles.roll_slider,'Value',0.5);
+set(handles.pitch_slider,'Value',0.5);
+set(handles.yaw_slider,'Value',0.5);
+max= 180*pi/180;        %Maximum yaw angle
+min= -180*pi/180;       %Minimum yaw angle
+slide = 0.5;
+
+handles.roll= slide * (max - min)  + min;
+roll_pos= num2str(handles.roll*180/pi);
+handles.orient(1)= handles.roll;
+set(handles.show_roll,'String',roll_pos);
+
+handles.pitch= slide * (max - min)  + min;
+handles.orient(2)= handles.pitch;
+pitch_pos= num2str(handles.pitch*180/pi);
+set(handles.show_pitch,'String',pitch_pos);
+
+handles.yaw= slide * (max - min)  + min;
+yaw_pos= num2str(handles.yaw*180/pi);
+handles.orient(3)= handles.yaw;
+set(handles.show_yaw,'String',yaw_pos);
+
+guidata(hObject, handles);
+do_the_stewart(handles);

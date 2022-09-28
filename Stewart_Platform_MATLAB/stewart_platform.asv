@@ -21,7 +21,7 @@ function varargout = stewart_platform(varargin)
 % See also: GUIDE, GUIDATA, GUIHANDLES
 % Edit the above text to modify the response to help stewart_platform
 
-% Last Modified by GUIDE v2.5 22-Sep-2022 17:22:52
+% Last Modified by GUIDE v2.5 28-Sep-2022 17:50:22
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -102,8 +102,8 @@ function x_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_x= 30;           %Maximum translation in x direction
-min_x= -30;          %Minimum translation in x direction
+max_x= 35;           %Maximum translation in x direction
+min_x= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -127,8 +127,8 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_x= 30;           %Maximum translation in x direction
-min_x= -30;          %Minimum translation in x direction
+max_x= 35;           %Maximum translation in x direction
+min_x= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 handles.x= slide * (max_x - min_x)  + min_x;
@@ -145,8 +145,8 @@ function y_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_y= 30;           %Maximum translation in x direction
-min_y= -30;          %Minimum translation in x direction
+max_y= 35;           %Maximum translation in x direction
+min_y= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -170,8 +170,8 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_y= 30;           %Maximum translation in x direction
-min_y= -30;          %Minimum translation in x direction
+max_y= 35;           %Maximum translation in x direction
+min_y= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 handles.y= slide * (max_y - min_y)  + min_y;
@@ -188,8 +188,8 @@ function z_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_z= 30;           %Maximum translation in x direction
-min_z= -31;          %Minimum translation in x direction
+max_z= 35;           %Maximum translation in x direction
+min_z= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 
@@ -214,8 +214,8 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_z= 30;           %Maximum translation in x direction
-min_z= -30;          %Minimum translation in x direction
+max_z= 35;           %Maximum translation in x direction
+min_z= -35;          %Minimum translation in x direction
 
 slide= get(hObject,'Value');
 handles.z= slide * (max_z - min_z)  + min_z;
@@ -232,8 +232,8 @@ function roll_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_roll= 50*pi/180;        %Maximum roll angle
-min_roll= -50*pi/180;          %Minimum roll angle
+max_roll= 180*pi/180;        %Maximum roll angle
+min_roll= -180*pi/180;          %Minimum roll angle
 
 slide= get(hObject,'Value');
 
@@ -258,8 +258,8 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_roll= 50*pi/180;        %Maximum roll angle
-min_roll= -50*pi/180;          %Minimum roll angle
+max_roll= 180*pi/180;        %Maximum roll angle
+min_roll= -180*pi/180;          %Minimum roll angle
 
 slide= get(hObject,'Value');
 handles.roll= slide * (max_roll - min_roll)  + min_roll;
@@ -276,8 +276,8 @@ function pitch_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_pitch= 50*pi/180;        %Maximum pitch angle
-min_pitch= -50*pi/180;       %Minimum pitch angle
+max_pitch= 180*pi/180;        %Maximum pitch angle
+min_pitch= -180*pi/180;       %Minimum pitch angle
 
 % Get Slider value
 slide= get(hObject,'Value');
@@ -304,8 +304,8 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_pitch= 50*pi/180;        %Maximum pitch angle
-min_pitch= -50*pi/180;       %Minimum pitch angle
+max_pitch= 180*pi/180;        %Maximum pitch angle
+min_pitch= -180*pi/180;       %Minimum pitch angle
 
 % Get Slider value
 slide= get(hObject,'Value');
@@ -324,10 +324,10 @@ function yaw_slider_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-max_yaw= 50*pi/180;        %Maximum yaw angle
-min_yaw= -50*pi/180;       %Minimum yaw angle
+max_yaw= 180*pi/180;        %Maximum yaw angle
+min_yaw= -180*pi/180;       %Minimum yaw angle
 
-slide= get(hObject,'Value');
+slide= get(hObject,'Value')
 
 handles.yaw= slide * (max_yaw - min_yaw)  + min_yaw;
 yaw_pos= num2str(handles.yaw*180/pi);
@@ -349,8 +349,8 @@ if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColo
     set(hObject,'BackgroundColor',[.94 .94 .94]);
 end
 % Initial Value
-max_yaw= 50*pi/180;        %Maximum yaw angle
-min_yaw= -50*pi/180;       %Minimum yaw angle
+max_yaw= 180*pi/180;        %Maximum yaw angle
+min_yaw= -180*pi/180;       %Minimum yaw angle
 
 slide= get(hObject,'Value');
 
@@ -582,7 +582,7 @@ leg_length = calculate_stewart_platform(handles.r_B,...
                                    handles.orient);
 lag=toc;
 % Bounding
-bad = zeros(1,6)
+bad = zeros(1,6);
 for i=1:6
     if leg_length(i) > (12*2.54 + handles.rod_length) || leg_length(i) < (handles.rod_length)
         bad(i) = 1;
@@ -687,7 +687,11 @@ set(handles.pushbutton15,'Enable','on');
 serialportObj = serialport("COM12",115200);
 configureTerminator(serialportObj,"CR");
 while 1
-    readline(serialportObj)
+    n = readline(serialportObj);
+    if (~isempty(n))
+        disp(n);
+    end
+    pause(1);
 end
 
 
@@ -698,13 +702,11 @@ function pushbutton10_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global serialportObj
 global leg_length
-writeline(serialportObj,strcat("A",string(leg_length(1))));
-writeline(serialportObj,strcat("B",string(leg_length(2))));
-writeline(serialportObj,strcat("C",string(leg_length(3))));
-writeline(serialportObj,strcat("D",string(leg_length(4))));
-writeline(serialportObj,strcat("E",string(leg_length(5))));
-writeline(serialportObj,strcat("F",string(leg_length(6))));
-writeline(serialportObj,strcat("J","1"));
+% writeline(serialportObj,strcat("L", "2"));
+write(serialportObj, "L", "char");
+write(serialportObj, 55, "uint8");
+write(serialportObj, 55, "uint8");
+write(serialportObj, 13, "char");
 
 % --- Executes on button press in pushbutton11. halt
 function pushbutton11_Callback(hObject, eventdata, handles)
@@ -748,3 +750,33 @@ function pushbutton15_Callback(hObject, eventdata, handles)
 global serialportObj
 writeline(serialportObj,strcat("J","1"));
 
+
+
+% --- Executes on button press in pushbutton17.
+function pushbutton17_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton17 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+
+% --- Executes on button press in pushbutton16.
+function pushbutton16_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton16 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+set(handles.roll_slider,'Value',0.5);
+set(handles.pitch_slider,'Value',0.5);
+set(handles.yaw_slider,'Value',0.5);
+max= 180*pi/180;        %Maximum yaw angle
+min= -180*pi/180;       %Minimum yaw angle
+slide = 0.5
+
+handles.yaw= slide * (max - min)  + min;
+yaw_pos= num2str(handles.yaw*180/pi);
+handles.orient(3)= handles.yaw;
+
+set(handles.show_yaw,'String',yaw_pos);
+guidata(hObject, handles);
+
+do_the_stewart(handles);
