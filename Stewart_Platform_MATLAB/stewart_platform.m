@@ -21,7 +21,7 @@ function varargout = stewart_platform(varargin)
 % See also: GUIDE, GUIDATA, GUIHANDLES
 % Edit the above text to modify the response to help stewart_platform
 
-% Last Modified by GUIDE v2.5 28-Sep-2022 17:50:22
+% Last Modified by GUIDE v2.5 29-Sep-2022 17:30:16
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -281,7 +281,7 @@ min_pitch= -180*pi/180;       %Minimum pitch angle
 
 % Get Slider value
 slide= get(hObject,'Value');
-slide * (max_pitch - min_pitch)  + min_pitch
+slide * (max_pitch - min_pitch)  + min_pitch;
 handles.pitch= slide * (max_pitch - min_pitch)  + min_pitch;
 handles.orient(2)= handles.pitch;
 
@@ -572,7 +572,6 @@ function do_the_stewart(handles)
 %                  - Sets the servos connnected with the arduino to the
 %                    calculated angles
 tic;
-imag_count=0;
 global leg_length
 leg_length = calculate_stewart_platform(handles.r_B,...
                                    handles.r_P,...
@@ -665,7 +664,6 @@ function pushbutton9_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton9 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-disp("Init called");
 set(hObject,'Enable','off');
 global serialportObj
 global initialised
@@ -686,21 +684,18 @@ set(handles.pushbutton12,'Enable','on');
 set(handles.pushbutton13,'Enable','on');
 set(handles.pushbutton14,'Enable','on');
 set(handles.pushbutton15,'Enable','on');
+set(handles.wavy,'Enable','on');
 serialportObj = serialport("COM12",115200);
 configureTerminator(serialportObj,"CR");
 configureCallback(serialportObj,"terminator",@readSerialData)
 flush(serialportObj);
 writeline(serialportObj,strcat("L","1"));
-% while 1
-%     n = readline(serialportObj);
-%     if (~isempty(n))
-%         disp(n);
-%     end
-%     pause(1);
-% end
 
 function readSerialData(src,evt)
-    data = readline(src)
+    data = readline(src);
+    if (~isempty(data))
+        disp(data);
+    end
 
 % --- Executes on button press in pushbutton10.
 function pushbutton10_Callback(hObject, eventdata, handles)
@@ -720,10 +715,8 @@ while count < length(t)
     do_the_stewart(handles);
     count = count + 1;
     if ~(count < length(t))
-       count = 1; 
+       count = 1;
     end
-        
-%     pause(1)
 end
 
 
@@ -822,3 +815,43 @@ handles.orient(3)= handles.yaw;
 set(handles.show_yaw,'String',yaw_pos);
 guidata(hObject, handles);
 do_the_stewart(handles);
+
+
+% --- Executes on button press in wavy.
+function wavy_Callback(hObject, eventdata, handles)
+% hObject    handle to wavy (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% writeline(serialportObj,strcat("M","1"));
+t = 0:.3:2*pi;
+ang = double(atan((cos(t))));
+dis = double((9)*sin(t) + 16);
+global serialportObj
+writeline(serialportObj,strcat("M","1"));
+for index = 1:length(ang)
+    leg_length = calculate_stewart_platform(handles.r_B,...
+                                       handles.r_P,...
+                                       handles.rod_length,...
+                                       handles.alpha_B*pi/180,...
+                                       handles.alpha_P*pi/180,...
+                                       [0 0 dis(index)],... 
+                                       [0 ang(index) 0]);
+    % Bounding
+    bad = zeros(1,6);
+    for i=1:6
+        if leg_length(i) > (12*2.54 + handles.rod_length) || leg_length(i) < (handles.rod_length)
+            bad(i) = 1;
+        end
+    end
+    if max(bad)==1
+        disp("Bad math");
+    end
+    leg_length = fix((leg_length - handles.rod_length)./2.54*100);
+    writeline(serialportObj,strcat("O",string(leg_length(1))));
+    writeline(serialportObj,strcat("P",string(leg_length(2))));
+    writeline(serialportObj,strcat("Q",string(leg_length(3))));
+    writeline(serialportObj,strcat("R",string(leg_length(4))));
+    writeline(serialportObj,strcat("S",string(leg_length(5))));
+    writeline(serialportObj,strcat("T",string(leg_length(6))));
+end
+writeline(serialportObj,strcat("N",string(length(ang))));

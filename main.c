@@ -61,13 +61,14 @@ pids_t pid[MOTOR_NUM];
 float input[MOTOR_NUM] = {0.0};
 float output[MOTOR_NUM] = {0.0};
 float setpoint[MOTOR_NUM] = {0};
+float target[MOTOR_NUM][64] = {0};
 
 float kp[MOTOR_NUM] = {0.0};
 float ki[MOTOR_NUM] = {0.0};
 float kd[MOTOR_NUM] = {0.0};
 
 bool stopped[MOTOR_NUM] = {0};
-
+uint16_t max_point = 0;
 // For Keyboard Lock
 bool manual = true;
 uint32_t counter = 0;
@@ -121,6 +122,8 @@ CY_ISR(isr_systick)
 {
     tick_inc();
 }
+
+uint32_t data_received[MOTOR_NUM] = {0};
 
 void ProcessCommandMsg(void)
 {    
@@ -206,20 +209,53 @@ void ProcessCommandMsg(void)
         UART_PutChar((uint8) 13);
         break;
     case 'M':
+        for (uint8_t i = 0; i < MOTOR_NUM; i++) 
+        {
+            data_received[i] = 0;
+        }
+        printf("Data Receiving..\n");
+        UART_PutChar((uint8) 13);
         break;
     case 'N':
+
+        for (uint8_t i = 0; i < MOTOR_NUM; i++) 
+        {
+            printf("Data Received M%d %d\n", i+1, data_received[i]);
+            UART_PutChar((uint8) 13);
+            data_received[i] = 0;
+        }
+        max_point = atoi(RB.valstr);
+
         break;
     case 'O':
+        PB.A = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        target[0][data_received[0]] = inch_adc(0, atoi(RB.valstr) / 100.0);
+        data_received[0]++;
         break;
     case 'P':
+        PB.B = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        target[1][data_received[1]] = inch_adc(1, atoi(RB.valstr) / 100.0);
+        data_received[1]++;
         break;
     case 'Q':
+        PB.C = atoi(RB.valstr) / 100.0;//set new value, else report old
+        target[2][data_received[2]] = inch_adc(2, atoi(RB.valstr) / 100.0);
+        data_received[2]++;
         break;
     case 'R':
+        PB.D = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        target[3][data_received[3]] = inch_adc(3, atoi(RB.valstr) / 100.0);
+        data_received[3]++;
         break;
     case 'S':
+        PB.E = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        target[4][data_received[4]] = inch_adc(4, atoi(RB.valstr) / 100.0);
+        data_received[4]++;
         break;
     case 'T':
+        PB.F = atoi(RB.valstr) / 100.0;//set new value, else report old 
+        target[5][data_received[5]] = inch_adc(5, atoi(RB.valstr) / 100.0);
+        data_received[5]++;
         break;
     case 'U':
         break;
@@ -301,28 +337,15 @@ int main(void)
      * Loop
      */
     bool top = true;
+    uint16_t point = 0;
     for (;;)
     {
-        /*
-        uint32_t sec = tick_get() / 1000;
-        printf("%s", CLEAR_STRING);
-        printf("%s", MOVE_CURSOR);
-        printf("Run Time (s) : %d\r\n", sec);
-        printf("Current Tick (ms) : %d\r\n", tick_get());
-        printf("\r\n");
         
-        printf("Mode is : %s\r\n", (manual == 0) ? "Auto" : "Manual");
-        printf("Press Enter to leave Manual mode...\r\n");
-        */
         if(IsCharReady()) {
             if (GetRxStr()) {
                 ProcessCommandMsg();
             }
         }   
-
-        
-        
-        
         
         if (!manual) {
             //printf("Auto mode output...\r\n");
@@ -374,26 +397,19 @@ int main(void)
         if (send == true)
         {
             LED_Write(1);
-            printf("finished\r");
-            UART_PutChar((uint8) 13);
-            if (top)
+            setpoint[0] = target[0][point];
+            setpoint[1] = target[1][point];
+            setpoint[2] = target[2][point];
+            setpoint[3] = target[3][point];
+            setpoint[4] = target[4][point];
+            setpoint[5] = target[5][point];
+            if (point == max_point-1)
             {
-                setpoint[0] = inch_adc(0, 12.0);
-                setpoint[1] = inch_adc(1, 12.0);
-                setpoint[2] = inch_adc(2, 12.0);
-                setpoint[3] = inch_adc(3, 12.0);
-                setpoint[4] = inch_adc(4, 12.0);
-                setpoint[5] = inch_adc(5, 12.0);
-            } else {
-                setpoint[0] = inch_adc(0, 0.0);
-                setpoint[1] = inch_adc(1, 0.0);
-                setpoint[2] = inch_adc(2, 0.0);
-                setpoint[3] = inch_adc(3, 0.0);
-                setpoint[4] = inch_adc(4, 0.0);
-                setpoint[5] = inch_adc(5, 0.0);
+                point = 0;
+            } else{
+                point++;
             }
-            top = !top;
-
+            
             reset_pid();   
             for (uint8_t i = 0; i < MOTOR_NUM; i++)
             {

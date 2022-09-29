@@ -42,8 +42,7 @@ uint8 GetRxStr(void)
    
 	Ch = *RxReadIndex++;       //read next char in buffer
     if (RxReadIndex >= RxBuffer + RxBufferSize) RxReadIndex = RxBuffer;
-            
-    //if (Ch == EOM_char)
+    
     if ( (Ch == EOM_CR) || (Ch == EOM_LF) ) //any standard terminator
     {
         *RxStrIndex = 0;        //terminate string excluding EOM_char
