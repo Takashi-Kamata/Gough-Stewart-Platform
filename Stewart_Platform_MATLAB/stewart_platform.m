@@ -281,6 +281,7 @@ min_pitch= -180*pi/180;       %Minimum pitch angle
 
 % Get Slider value
 slide= get(hObject,'Value');
+slide * (max_pitch - min_pitch)  + min_pitch
 handles.pitch= slide * (max_pitch - min_pitch)  + min_pitch;
 handles.orient(2)= handles.pitch;
 
@@ -327,7 +328,7 @@ function yaw_slider_Callback(hObject, eventdata, handles)
 max_yaw= 180*pi/180;        %Maximum yaw angle
 min_yaw= -180*pi/180;       %Minimum yaw angle
 
-slide= get(hObject,'Value')
+slide = get(hObject,'Value');
 
 handles.yaw= slide * (max_yaw - min_yaw)  + min_yaw;
 yaw_pos= num2str(handles.yaw*180/pi);
@@ -656,6 +657,7 @@ function stewart_platform_panel_CloseRequestFcn(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % Hint: delete(hObject) closes the figure
 clearvars  -global initialised serialportObj leg_length
+
 delete(hObject);
 
 % --- Executes on button press in pushbutton9.
@@ -686,27 +688,44 @@ set(handles.pushbutton14,'Enable','on');
 set(handles.pushbutton15,'Enable','on');
 serialportObj = serialport("COM12",115200);
 configureTerminator(serialportObj,"CR");
-while 1
-    n = readline(serialportObj);
-    if (~isempty(n))
-        disp(n);
-    end
-    pause(1);
-end
+configureCallback(serialportObj,"terminator",@readSerialData)
+flush(serialportObj);
+writeline(serialportObj,strcat("L","1"));
+% while 1
+%     n = readline(serialportObj);
+%     if (~isempty(n))
+%         disp(n);
+%     end
+%     pause(1);
+% end
 
+function readSerialData(src,evt)
+    data = readline(src)
 
 % --- Executes on button press in pushbutton10.
 function pushbutton10_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton10 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global serialportObj
-global leg_length
-% writeline(serialportObj,strcat("L", "2"));
-write(serialportObj, "L", "char");
-write(serialportObj, 55, "uint8");
-write(serialportObj, 55, "uint8");
-write(serialportObj, 13, "char");
+t = 0:.1:2*pi;
+count = 1;
+ang = atan((cos(t)));
+disp = (9)*sin(t) + 16;
+while count < length(t)
+    handles.pitch = ang(count);
+    handles.z = disp(count);
+    handles.trans(3)= handles.z;
+    handles.orient(2)= handles.pitch;
+    guidata(hObject, handles);
+    do_the_stewart(handles);
+    count = count + 1;
+    if ~(count < length(t))
+       count = 1; 
+    end
+        
+%     pause(1)
+end
+
 
 % --- Executes on button press in pushbutton11. halt
 function pushbutton11_Callback(hObject, eventdata, handles)

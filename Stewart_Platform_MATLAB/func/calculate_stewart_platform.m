@@ -150,7 +150,7 @@ axis([ -r_B-0, r_B+0,...
        -0 rod_length+0]);
 xlim([-60 60])
 ylim([-60 60])
-zlim([0 80])
+zlim([0 130])
 rotate3d on;
 
 for i=1:6

@@ -29,7 +29,7 @@
 #define MIN_PWM 0U
 #define MAX_PWM 380U
 #define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
-#define TOLERANCE 10 // PID Tolerance
+#define TOLERANCE 7 // PID Tolerance
 #define POINTS 10 // Number of Points
 #define SAMPLE_NUM 800
 #define SPEED 0U
@@ -39,11 +39,10 @@
 #define KI 0.0
 #define KD 0.0005
 
-
 /*** Calibrated Values ***/
+
 uint16_t min_adc[MOTOR_NUM] = {6234,6442,6388,6248,6296,6355};
 uint16_t max_adc[MOTOR_NUM] = {48233,48235,48232,48233,48233,48230};
-
 
 /*** Private Prototypes ***/
 
@@ -67,10 +66,11 @@ float kp[MOTOR_NUM] = {0.0};
 float ki[MOTOR_NUM] = {0.0};
 float kd[MOTOR_NUM] = {0.0};
 
+bool stopped[MOTOR_NUM] = {0};
+
 // For Keyboard Lock
 bool manual = true;
 uint32_t counter = 0;
-bool start_calibrate = false;
 
 // Switches
 bool manual_m1 = true;
@@ -103,12 +103,10 @@ CY_ISR(SWPin_Control)
         if (button)
         {
             LED_Write(1);
-            start_calibrate = true;
         }
         else
         { // Initial Run.... when button = false;
             LED_Write(0);
-            start_calibrate = false;
         }
         button = !button;
     }
@@ -160,7 +158,8 @@ void ProcessCommandMsg(void)
             stop(i);
             set_speed(i, MAX_PWM);
         }
-        printf("STOP\r");
+        printf("STOP");
+        UART_PutChar((uint8) 13);
         break;
     case 'H':
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
@@ -168,7 +167,8 @@ void ProcessCommandMsg(void)
             set_speed(i, SPEED);
             extend(i);
         }
-        printf("EXTEND\r");
+        printf("EXTEND");
+        UART_PutChar((uint8) 13);
         break;
     case 'I':
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
@@ -176,7 +176,8 @@ void ProcessCommandMsg(void)
             set_speed(i, SPEED);
             retract(i);
         }
-        printf("RETRAC\r");
+        printf("RETRAC");
+        UART_PutChar((uint8) 13);
         break;
     case 'J':
         setpoint[0] = inch_adc(0, PB.A);
@@ -187,7 +188,8 @@ void ProcessCommandMsg(void)
         setpoint[5] = inch_adc(5, PB.F);
         reset_pid();
         manual = false;
-        //printf("AUTO\r");
+        printf("MOVING");
+        UART_PutChar((uint8) 13);
         break;
     case 'K':
         manual = true;
@@ -196,10 +198,12 @@ void ProcessCommandMsg(void)
             set_speed(i, MAX_PWM);
             stop(i);
         }
-        printf("MANUAL\r");
+        printf("MANUAL");
+        UART_PutChar((uint8) 13);
         break;
     case 'L':
-        printf("%d%d\r" ,RB.valstr[0],RB.valstr[1]);//echo command and value
+        manual = true;
+        UART_PutChar((uint8) 13);
         break;
     case 'M':
         break;
@@ -220,11 +224,11 @@ void ProcessCommandMsg(void)
     case 'U':
         break;
     default:
-        printf("Unknown Command\r");
+        printf("UNKNOWN");
+        UART_PutChar((uint8) 13);
         break;
     }
 }
-
 
 
 int main(void)
@@ -292,20 +296,15 @@ int main(void)
      */
     tick_init();
     
-    /**
-     * Clear UART Console & Start...
-     */
-    printf("%s", CLEAR_STRING);
-    printf("%s", MOVE_CURSOR);
-    printf("Starting...\r\n");
     
     /**
      * Loop
      */
+    bool top = true;
     for (;;)
     {
-        uint32_t sec = tick_get() / 1000;
         /*
+        uint32_t sec = tick_get() / 1000;
         printf("%s", CLEAR_STRING);
         printf("%s", MOVE_CURSOR);
         printf("Run Time (s) : %d\r\n", sec);
@@ -317,11 +316,14 @@ int main(void)
         */
         if(IsCharReady()) {
             if (GetRxStr()) {
-                printf("message received\r");
                 ProcessCommandMsg();
             }
         }   
-                
+
+        
+        
+        
+        
         if (!manual) {
             //printf("Auto mode output...\r\n");
             
@@ -337,23 +339,65 @@ int main(void)
         			// Compute new PID output value
         			pid_compute(pid[i]);
         		} else {
-                    printf("Sampling Too Fast!! Adjust delay.\r\n");  
+                    printf("Sampling Too Fast!! Adjust delay.\r");  
                 }  
-                if (button) {
-                    uint16_t new_speed = MAX_PWM - abs((int)output[i]);
-                    
-                    if (((int)output[i] + TOLERANCE) > 0)
-                    {
-                        extend(i);
-                    } else if (((int)output[i] - TOLERANCE) < 0) {
-                        retract(i);
-                    } else {
-                        stop(i);
-                        new_speed = MAX_PWM;
-                    }
-                    //printf("Set Speed %d \r\n", new_speed);
-                    set_speed(i, new_speed);
+                uint16_t new_speed = MAX_PWM - abs((int)output[i]);
+                if ((int)output[i] > 0)
+                {
+                    extend(i);
+                } else if ((int)output[i] < 0) {
+                    retract(i);
+                } 
+                //printf("Set Speed %d \r\n", new_speed);
+                set_speed(i, new_speed);
+                
+                if (new_speed > (MAX_PWM - 30))
+                {
+                    stopped[i] = true;
+                } else {
+                    stopped[i] = false;
                 }
+            }
+        }
+        
+        bool send = false;
+        for (uint8_t i = 0; i < MOTOR_NUM; i++)
+        {
+            if (stopped[i] == true)
+            {
+                send = true;
+                stopped[i] = false;
+                break;
+            }
+        }
+        
+        if (send == true)
+        {
+            LED_Write(1);
+            printf("finished\r");
+            UART_PutChar((uint8) 13);
+            if (top)
+            {
+                setpoint[0] = inch_adc(0, 12.0);
+                setpoint[1] = inch_adc(1, 12.0);
+                setpoint[2] = inch_adc(2, 12.0);
+                setpoint[3] = inch_adc(3, 12.0);
+                setpoint[4] = inch_adc(4, 12.0);
+                setpoint[5] = inch_adc(5, 12.0);
+            } else {
+                setpoint[0] = inch_adc(0, 0.0);
+                setpoint[1] = inch_adc(1, 0.0);
+                setpoint[2] = inch_adc(2, 0.0);
+                setpoint[3] = inch_adc(3, 0.0);
+                setpoint[4] = inch_adc(4, 0.0);
+                setpoint[5] = inch_adc(5, 0.0);
+            }
+            top = !top;
+
+            reset_pid();   
+            for (uint8_t i = 0; i < MOTOR_NUM; i++)
+            {
+                pid_compute(pid[i]);
             }
         }
         CyDelay(100);
