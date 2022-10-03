@@ -72,6 +72,7 @@ uint16_t max_point = 0;
 // For Keyboard Lock
 bool manual = true;
 uint32_t counter = 0;
+uint16_t point = 0;
 
 // Switches
 bool manual_m1 = true;
@@ -225,7 +226,7 @@ void ProcessCommandMsg(void)
             data_received[i] = 0;
         }
         max_point = atoi(RB.valstr);
-
+        point = 0;
         break;
     case 'O':
         PB.A = atoi(RB.valstr) / 100.0;//set new value, else report old 
@@ -336,8 +337,6 @@ int main(void)
     /**
      * Loop
      */
-    bool top = true;
-    uint16_t point = 0;
     for (;;)
     {
         
@@ -374,7 +373,7 @@ int main(void)
                 //printf("Set Speed %d \r\n", new_speed);
                 set_speed(i, new_speed);
                 
-                if (new_speed > (MAX_PWM - 100))
+                if (new_speed > (MAX_PWM - 130))
                 {
                     stopped[i] = true;
                 } else {
