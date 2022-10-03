@@ -823,9 +823,39 @@ function wavy_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % writeline(serialportObj,strcat("M","1"));
-t = 0:.3:2*pi;
-ang = double(atan((cos(t))));
-dis = double((9)*sin(t) + 16);
+% 
+ang_eq = @(t) (atan((cos(t))));
+
+t = [0];
+h = 1.0;
+tol = 0.5;
+angle = ang_eq(0);
+
+while t(end) < 2*pi
+    t_1 = t(end) + h;
+    
+    angle_1 = ang_eq(t_1);
+    error = abs(angle_1-angle);
+    
+    if error < tol
+        angle = angle_1;
+        t = [t, t_1];
+        
+        h = 1.5 * h;
+        
+        if (t(end) + h) > 2*pi
+            h = 2*pi - t(end);
+        end
+        
+    else
+        h = 0.9 * h;
+    end
+end
+
+%t = 0:0.3:2*pi;
+disp(length(t))
+ang = double(atan((cos(t)))/2);
+dis = double((7)*sin(t) + 16);
 global serialportObj
 writeline(serialportObj,strcat("M","1"));
 for index = 1:length(ang)
