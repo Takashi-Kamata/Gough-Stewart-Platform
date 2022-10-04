@@ -128,42 +128,34 @@ uint32_t data_received[MOTOR_NUM] = {0};
 
 void ProcessCommandMsg(void)
 {    
-    //It does not accept "\r\n", either "\r" or "\n" terminator
     switch (RB.cmd)
     {
-    case 'A':
-        if (strlen(RB.valstr) > 0) PB.A = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        //sprintf(strMsg1,"A=%.2f\r", PB.A); printf("%s", strMsg1);//echo command and value
+    case 'A': // For Real-time Motion
+        if (strlen(RB.valstr) > 0) PB.A = atoi(RB.valstr) / 100.0;
         break;
     case 'B':
-        if (strlen(RB.valstr) > 0) PB.B = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        //sprintf(strMsg1,"B=%.2f\r", PB.B); printf("%s", strMsg1);//echo command and value
+        if (strlen(RB.valstr) > 0) PB.B = atoi(RB.valstr) / 100.0;
         break;
     case 'C':
-        if (strlen(RB.valstr) > 0) PB.C = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        //sprintf(strMsg1,"C=%.2f\r", PB.C); printf("%s", strMsg1);//echo command and value
+        if (strlen(RB.valstr) > 0) PB.C = atoi(RB.valstr) / 100.0;
         break;
     case 'D':
-        if (strlen(RB.valstr) > 0) PB.D = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        //sprintf(strMsg1,"D=%.2f\r", PB.D); printf("%s", strMsg1);//echo command and value
+        if (strlen(RB.valstr) > 0) PB.D = atoi(RB.valstr) / 100.0;
         break;
     case 'E':
-        if (strlen(RB.valstr) > 0) PB.E = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        //sprintf(strMsg1,"E=%.2f\r", PB.E); printf("%s", strMsg1);//echo command and value
+        if (strlen(RB.valstr) > 0) PB.E = atoi(RB.valstr) / 100.0;
         break;
     case 'F':
-        if (strlen(RB.valstr) > 0) PB.F = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        //sprintf(strMsg1,"F=%.2f\r", PB.F); printf("%s", strMsg1);//echo command and value
+        if (strlen(RB.valstr) > 0) PB.F = atoi(RB.valstr) / 100.0;
         break;
-    case 'G':
+    case 'G': // Common Commands
         manual = true;
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
             stop(i);
             set_speed(i, MAX_PWM);
         }
-        printf("STOP");
-        UART_PutChar((uint8) 13);
+        printf("STOP ALL\r\n");
         break;
     case 'H':
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
@@ -171,8 +163,7 @@ void ProcessCommandMsg(void)
             set_speed(i, SPEED);
             extend(i);
         }
-        printf("EXTEND");
-        UART_PutChar((uint8) 13);
+        printf("EXTEND ALL\r\n");
         break;
     case 'I':
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
@@ -180,10 +171,9 @@ void ProcessCommandMsg(void)
             set_speed(i, SPEED);
             retract(i);
         }
-        printf("RETRAC");
-        UART_PutChar((uint8) 13);
+        printf("RETRACT ALL\r\n");
         break;
-    case 'J':
+    case 'J': // Auto Mode
         setpoint[0] = inch_adc(0, PB.A);
         setpoint[1] = inch_adc(1, PB.B);
         setpoint[2] = inch_adc(2, PB.C);
@@ -192,77 +182,80 @@ void ProcessCommandMsg(void)
         setpoint[5] = inch_adc(5, PB.F);
         reset_pid();
         manual = false;
-        printf("MOVING");
-        UART_PutChar((uint8) 13);
+        printf("MOVING\r\n");
         break;
-    case 'K':
+    case 'K': // Manual Mode + Stop
         manual = true;
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
             set_speed(i, MAX_PWM);
             stop(i);
         }
-        printf("MANUAL");
-        UART_PutChar((uint8) 13);
+        printf("MANUAL\r\n");
+        printf("STOP ALL\r\n");
         break;
     case 'L':
         manual = true;
-        UART_PutChar((uint8) 13);
+        printf("MANUAL\r\n");
         break;
     case 'M':
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
             data_received[i] = 0;
         }
-        printf("Data Receiving..\n");
-        UART_PutChar((uint8) 13);
+        printf("M\r\n");
         break;
     case 'N':
-
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
-            printf("Data Received M%d %d\n", i+1, data_received[i]);
-            UART_PutChar((uint8) 13);
             data_received[i] = 0;
         }
+        printf("N\r\n");
         max_point = atoi(RB.valstr);
         point = 0;
         break;
+    
+        // For Wave Motion 
     case 'O':
         PB.A = atoi(RB.valstr) / 100.0;//set new value, else report old 
         target[0][data_received[0]] = inch_adc(0, atoi(RB.valstr) / 100.0);
         data_received[0]++;
+        printf("O\r\n");
         break;
     case 'P':
         PB.B = atoi(RB.valstr) / 100.0;//set new value, else report old 
         target[1][data_received[1]] = inch_adc(1, atoi(RB.valstr) / 100.0);
         data_received[1]++;
+        printf("O\r\n");
         break;
     case 'Q':
         PB.C = atoi(RB.valstr) / 100.0;//set new value, else report old
         target[2][data_received[2]] = inch_adc(2, atoi(RB.valstr) / 100.0);
         data_received[2]++;
+        printf("O\r\n");
         break;
     case 'R':
         PB.D = atoi(RB.valstr) / 100.0;//set new value, else report old 
         target[3][data_received[3]] = inch_adc(3, atoi(RB.valstr) / 100.0);
         data_received[3]++;
+        printf("O\r\n");
         break;
     case 'S':
         PB.E = atoi(RB.valstr) / 100.0;//set new value, else report old 
         target[4][data_received[4]] = inch_adc(4, atoi(RB.valstr) / 100.0);
         data_received[4]++;
+        printf("O\r\n");
         break;
     case 'T':
         PB.F = atoi(RB.valstr) / 100.0;//set new value, else report old 
         target[5][data_received[5]] = inch_adc(5, atoi(RB.valstr) / 100.0);
         data_received[5]++;
+        printf("O\r\n");
         break;
     case 'U':
         break;
     default:
-        printf("UNKNOWN");
-        UART_PutChar((uint8) 13);
+        printf("UNKNOWN\r\n");
         break;
     }
 }
@@ -361,7 +354,7 @@ int main(void)
         			// Compute new PID output value
         			pid_compute(pid[i]);
         		} else {
-                    printf("Sampling Too Fast!! Adjust delay.\r");  
+                    //printf("Sampling Too Fast!! Adjust delay.\r");  
                 }  
                 uint16_t new_speed = MAX_PWM - abs((int)output[i]);
                 if ((int)output[i] > 0)
@@ -373,7 +366,7 @@ int main(void)
                 //printf("Set Speed %d \r\n", new_speed);
                 set_speed(i, new_speed);
                 
-                if (new_speed > (MAX_PWM - 130))
+                if (new_speed > (MAX_PWM - 200))
                 {
                     stopped[i] = true;
                 } else {

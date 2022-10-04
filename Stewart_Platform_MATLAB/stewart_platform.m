@@ -89,7 +89,7 @@ function exit_pushbutton_Callback(hObject, eventdata, handles)
 
 %Exit the GUI
 delete(hObject);
-clearvars  -global initialised serialportObj leg_length
+clearvars  -global initialised serialportObj leg_length global_handles progress progress_max
 close all;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -655,9 +655,45 @@ function stewart_platform_panel_CloseRequestFcn(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % Hint: delete(hObject) closes the figure
-clearvars  -global initialised serialportObj leg_length
-
+clearvars  -global initialised serialportObj leg_length global_handles progress progress_max
+ 
 delete(hObject);
+
+function enable_interface()
+% Enable Sliders
+global global_handles
+set(global_handles.x_slider,'Enable','on');
+set(global_handles.y_slider,'Enable','on');
+set(global_handles.z_slider,'Enable','on');
+set(global_handles.pitch_slider,'Enable','on');
+set(global_handles.yaw_slider,'Enable','on');
+set(global_handles.roll_slider,'Enable','on');
+
+% Enable Buttons
+set(global_handles.pushbutton10,'Enable','on');
+set(global_handles.pushbutton11,'Enable','on');
+set(global_handles.pushbutton12,'Enable','on');
+set(global_handles.pushbutton13,'Enable','on');
+set(global_handles.pushbutton14,'Enable','on');
+set(global_handles.pushbutton15,'Enable','on');
+
+function disable_interface()
+global global_handles
+% Disable Sliders
+set(global_handles.x_slider,'Enable','off');
+set(global_handles.y_slider,'Enable','off');
+set(global_handles.z_slider,'Enable','off');
+set(global_handles.pitch_slider,'Enable','off');
+set(global_handles.yaw_slider,'Enable','off');
+set(global_handles.roll_slider,'Enable','off');
+
+% Disable Buttons
+set(global_handles.pushbutton10,'Enable','off');
+set(global_handles.pushbutton11,'Enable','off');
+set(global_handles.pushbutton12,'Enable','off');
+set(global_handles.pushbutton13,'Enable','off');
+set(global_handles.pushbutton14,'Enable','off');
+set(global_handles.pushbutton15,'Enable','off');
 
 % --- Executes on button press in pushbutton9.
 function pushbutton9_Callback(hObject, eventdata, handles)
@@ -668,34 +704,36 @@ set(hObject,'Enable','off');
 global serialportObj
 global initialised
 initialised = 1;
+global global_handles
+global_handles = handles;
+enable_interface();
 
-% Enable Sliders
-set(handles.x_slider,'Enable','on');
-set(handles.y_slider,'Enable','on');
-set(handles.z_slider,'Enable','on');
-set(handles.pitch_slider,'Enable','on');
-set(handles.yaw_slider,'Enable','on');
-set(handles.roll_slider,'Enable','on');
-
-% Enable Buttons
-set(handles.pushbutton10,'Enable','on');
-set(handles.pushbutton11,'Enable','on');
-set(handles.pushbutton12,'Enable','on');
-set(handles.pushbutton13,'Enable','on');
-set(handles.pushbutton14,'Enable','on');
-set(handles.pushbutton15,'Enable','on');
 set(handles.wavy,'Enable','on');
-serialportObj = serialport("COM12",115200);
-configureTerminator(serialportObj,"CR");
+serialportObj = serialport("COM12",115200, "Timeout", 60);
+configureTerminator(serialportObj,"CR/LF");
 configureCallback(serialportObj,"terminator",@readSerialData)
 flush(serialportObj);
 writeline(serialportObj,strcat("L","1"));
 
 function readSerialData(src,evt)
+    global progress progress_max
     data = readline(src);
     if (~isempty(data))
-        disp(data);
+        switch data
+            case "O"
+                update_progress();
+            case "M"
+                disable_interface();
+                disp("Started Downloading")
+            case "N"
+                enable_interface();
+                progress = progress_max;
+                disp("Finished Downloading")
+            otherwise
+                disp(data)
+        end
     end
+    flush(src);
 
 % --- Executes on button press in pushbutton10.
 function pushbutton10_Callback(hObject, eventdata, handles)
@@ -704,6 +742,8 @@ function pushbutton10_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 t = 0:.1:2*pi;
 count = 1;
+
+% magic
 ang = atan((cos(t)));
 disp = (9)*sin(t) + 16;
 while count < length(t)
@@ -761,6 +801,10 @@ function pushbutton15_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global serialportObj
 writeline(serialportObj,strcat("J","1"));
+
+function update_progress()
+global progress
+progress = progress + 1;
 
 
 
@@ -824,40 +868,48 @@ function wavy_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % writeline(serialportObj,strcat("M","1"));
 % 
+global progress progress_max
+progress = 0;
+f = waitbar(0, 'Starting');
 
 %RYO's
-% ang_eq = @(t) (atan((cos(t))));
-% 
-% t = [0];
-% h = 1.0;
-% tol = 0.5;
-% angle = ang_eq(0);
-% 
-% while t(end) < 2*pi
-%     t_1 = t(end) + h;
-%     
-%     angle_1 = ang_eq(t_1);
-%     error = abs(angle_1-angle);
-%     
-%     if error < tol
-%         angle = angle_1;
-%         t = [t, t_1];
-%         
-%         h = 1.5 * h;
-%         
-%         if (t(end) + h) > 2*pi
-%             h = 2*pi - t(end);
-%         end
-%         
-%     else
-%         h = 0.9 * h;
-%     end
-% end
+custom_t = 0;
+if (custom_t)
+    ang_eq = @(t) (atan((cos(t))));
 
-t = 0:0.2:2*pi;
-disp(length(t))
+    t = [0];
+    h = 1.0;
+    tol = 0.5;
+    angle = ang_eq(0);
+
+    while t(end) < 2*pi
+        t_1 = t(end) + h;
+
+        angle_1 = ang_eq(t_1);
+        error = abs(angle_1-angle);
+
+        if error < tol
+            angle = angle_1;
+            t = [t, t_1];
+
+            h = 1.5 * h;
+
+            if (t(end) + h) > 2*pi
+                h = 2*pi - t(end);
+            end
+
+        else
+            h = 0.9 * h;
+        end
+    end
+else
+    t = 0:0.3:2*pi;
+end
+
+disp("Trajectory Points " + length(t))
+progress_max = length(t) * 6;
 ang = double(atan((cos(t)))/1.6);
-dis = double((8)*sin(t) + 16);
+dis = double((7)*sin(t) + 14);
 global serialportObj
 writeline(serialportObj,strcat("M","1"));
 for index = 1:length(ang)
@@ -887,3 +939,9 @@ for index = 1:length(ang)
     writeline(serialportObj,strcat("T",string(leg_length(6))));
 end
 writeline(serialportObj,strcat("N",string(length(ang))));
+
+while (progress/progress_max < 1)
+        waitbar(progress/progress_max, f);
+end
+close(f)
+
