@@ -903,13 +903,13 @@ if (custom_t)
         end
     end
 else
-    t = 0:0.3:2*pi;
+    t = 0:0.2:2*pi;
 end
 
 disp("Trajectory Points " + length(t))
 progress_max = length(t) * 6;
-ang = double(atan((cos(t)))/1.6);
-dis = double((7)*sin(t) + 14);
+ang = double(atan((cos(t)))/1.7);
+dis = double((9)*sin(t) + 17);
 global serialportObj
 writeline(serialportObj,strcat("M","1"));
 for index = 1:length(ang)
