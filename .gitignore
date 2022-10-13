@@ -66,3 +66,4 @@ Export/
 
 *.cywrk.*
 *.cyprj.*
+.DS_Store
