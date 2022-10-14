@@ -71,6 +71,7 @@ bool stopped[MOTOR_NUM] = {0};
 uint16_t max_point = 0;
 // For Keyboard Lock
 bool manual = true;
+bool wave = false;
 uint32_t counter = 0;
 uint16_t point = 0;
 
@@ -183,6 +184,7 @@ void ProcessCommandMsg(void)
         reset_pid();
         manual = false;
         printf("MOVING\r\n");
+        wave = false;
         break;
     case 'K': // Manual Mode + Stop
         manual = true;
@@ -212,6 +214,7 @@ void ProcessCommandMsg(void)
         }
         printf("N\r\n");
         max_point = atoi(RB.valstr);
+        wave = true;
         point = 0;
         break;
     
@@ -332,6 +335,10 @@ int main(void)
      */
     for (;;)
     {
+        if (manual)
+        {
+               wave = false;
+        }
         
         if(IsCharReady()) {
             if (GetRxStr()) {
@@ -374,7 +381,7 @@ int main(void)
                 }
             }
         }
-        
+        if (wave) {
         bool send = false;
         for (uint8_t i = 0; i < MOTOR_NUM; i++)
         {
@@ -407,6 +414,7 @@ int main(void)
             {
                 pid_compute(pid[i]);
             }
+        }
         }
         CyDelay(100);
     }

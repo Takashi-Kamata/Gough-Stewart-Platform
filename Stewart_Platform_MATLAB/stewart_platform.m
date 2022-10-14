@@ -903,7 +903,7 @@ if (custom_t)
         end
     end
 else
-    t = 0:0.2:2*pi;
+    t = 0:0.4:2*pi;
 end
 
 disp("Trajectory Points " + length(t))
@@ -919,7 +919,7 @@ for index = 1:length(ang)
                                        handles.alpha_B*pi/180,...
                                        handles.alpha_P*pi/180,...
                                        [0 0 dis(index)],... 
-                                       [0.02 ang(index) 0]);
+                                       [0.0 ang(index) 0]);
     % Bounding
     bad = zeros(1,6);
     for i=1:6
