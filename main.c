@@ -184,7 +184,6 @@ void ProcessCommandMsg(void)
         reset_pid();
         manual = false;
         printf("MOVING\r\n");
-        wave = false;
         break;
     case 'K': // Manual Mode + Stop
         manual = true;
@@ -207,6 +206,7 @@ void ProcessCommandMsg(void)
         }
         printf("M\r\n");
         break;
+        // For Wave Motion 
     case 'N':
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
@@ -217,8 +217,6 @@ void ProcessCommandMsg(void)
         wave = true;
         point = 0;
         break;
-    
-        // For Wave Motion 
     case 'O':
         PB.A = atoi(RB.valstr) / 100.0;//set new value, else report old 
         target[0][data_received[0]] = inch_adc(0, atoi(RB.valstr) / 100.0);
@@ -335,11 +333,6 @@ int main(void)
      */
     for (;;)
     {
-        if (manual)
-        {
-               wave = false;
-        }
-        
         if(IsCharReady()) {
             if (GetRxStr()) {
                 ProcessCommandMsg();
@@ -380,42 +373,47 @@ int main(void)
                     stopped[i] = false;
                 }
             }
-        }
-        if (wave) {
-        bool send = false;
-        for (uint8_t i = 0; i < MOTOR_NUM; i++)
-        {
-            if (stopped[i] == true)
+            
+            /*
+             * Wave - Step through points
+             */
+            if (wave)
             {
-                send = true;
-                stopped[i] = false;
-                break;
+                bool send = false;
+                for (uint8_t i = 0; i < MOTOR_NUM; i++)
+                {
+                    if (stopped[i] == true)
+                    {
+                        send = true;
+                        stopped[i] = false;
+                        break;
+                    }
+                }
+                
+                if (send == true)
+                {
+                    LED_Write(1);
+                    setpoint[0] = target[0][point];
+                    setpoint[1] = target[1][point];
+                    setpoint[2] = target[2][point];
+                    setpoint[3] = target[3][point];
+                    setpoint[4] = target[4][point];
+                    setpoint[5] = target[5][point];
+                    if (point == max_point-1)
+                    {
+                        point = 0;
+                    } else {
+                        point++;
+                    }
+                    reset_pid();   
+                    for (uint8_t i = 0; i < MOTOR_NUM; i++)
+                    {
+                        pid_compute(pid[i]);
+                    }
+                }
             }
         }
         
-        if (send == true)
-        {
-            LED_Write(1);
-            setpoint[0] = target[0][point];
-            setpoint[1] = target[1][point];
-            setpoint[2] = target[2][point];
-            setpoint[3] = target[3][point];
-            setpoint[4] = target[4][point];
-            setpoint[5] = target[5][point];
-            if (point == max_point-1)
-            {
-                point = 0;
-            } else{
-                point++;
-            }
-            
-            reset_pid();   
-            for (uint8_t i = 0; i < MOTOR_NUM; i++)
-            {
-                pid_compute(pid[i]);
-            }
-        }
-        }
         CyDelay(100);
     }
 }

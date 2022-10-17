@@ -903,13 +903,13 @@ if (custom_t)
         end
     end
 else
-    t = 0:0.4:2*pi;
+    t = 0:0.5:2*pi;
 end
 
 disp("Trajectory Points " + length(t))
 progress_max = length(t) * 6;
-ang = double(atan((cos(t)))/1.7);
-dis = double((8)*sin(t) + 16);
+ang = double(atan((cos(t)))/1.6);
+dis = double((8)*sin(t) + 17);
 global serialportObj
 writeline(serialportObj,strcat("M","1"));
 for index = 1:length(ang)
@@ -919,7 +919,7 @@ for index = 1:length(ang)
                                        handles.alpha_B*pi/180,...
                                        handles.alpha_P*pi/180,...
                                        [0 0 dis(index)],... 
-                                       [0.0 ang(index) 0]);
+                                       [0.05 ang(index) 0]);
     % Bounding
     bad = zeros(1,6);
     for i=1:6
@@ -938,7 +938,8 @@ for index = 1:length(ang)
     writeline(serialportObj,strcat("S",string(leg_length(5))));
     writeline(serialportObj,strcat("T",string(leg_length(6))));
 end
-writeline(serialportObj,strcat("N",string(length(ang))));
+writeline(serialportObj,strcat("N",string(length(ang))));        wave = true;
+
 
 while (progress/progress_max < 1)
         waitbar(progress/progress_max, f);
