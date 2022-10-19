@@ -28,14 +28,14 @@
 #define MOTOR_NUM 6U
 #define MIN_PWM 0U
 #define MAX_PWM 380U
-#define SYSTICK_RELOAD 24000U // when 0.01s is target, reload val is 240000, since 0.01s / (1s/24MHz)
+#define SYSTICK_RELOAD 24000U // when 0.01s is target1, reload val is 240000, since 0.01s / (1s/24MHz)
 #define TOLERANCE 7 // PID Tolerance
 #define POINTS 10 // Number of Points
 #define SAMPLE_NUM 800
 #define SPEED 0U
 #define ROD 12U //inch
 
-#define KP 0.04
+#define KP 0.02
 #define KI 0.0
 #define KD 0.0005
 
@@ -61,19 +61,22 @@ pids_t pid[MOTOR_NUM];
 float input[MOTOR_NUM] = {0.0};
 float output[MOTOR_NUM] = {0.0};
 float setpoint[MOTOR_NUM] = {0};
-float target[MOTOR_NUM][64] = {0};
+static float target1[MOTOR_NUM][64] = {0};
+static float target2[MOTOR_NUM][64] = {0};
 
 float kp[MOTOR_NUM] = {0.0};
 float ki[MOTOR_NUM] = {0.0};
 float kd[MOTOR_NUM] = {0.0};
 
 bool stopped[MOTOR_NUM] = {0};
-uint16_t max_point = 0;
+uint16_t max_point1 = 0;
+uint16_t max_point2 = 0;
 // For Keyboard Lock
 bool manual = true;
 bool wave = false;
 uint32_t counter = 0;
 uint16_t point = 0;
+uint8_t wave_target = 1;
 
 // Switches
 bool manual_m1 = true;
@@ -159,6 +162,7 @@ void ProcessCommandMsg(void)
         printf("STOP ALL\r\n");
         break;
     case 'H':
+        manual = true;
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
             set_speed(i, SPEED);
@@ -167,6 +171,7 @@ void ProcessCommandMsg(void)
         printf("EXTEND ALL\r\n");
         break;
     case 'I':
+        manual = true;
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
             set_speed(i, SPEED);
@@ -208,52 +213,103 @@ void ProcessCommandMsg(void)
         break;
         // For Wave Motion 
     case 'N':
+        if (wave_target == 1) {
+            max_point1 = atoi(RB.valstr);
+        } else if (wave_target == 2) {
+            max_point2 = atoi(RB.valstr);
+        }
         for (uint8_t i = 0; i < MOTOR_NUM; i++) 
         {
             data_received[i] = 0;
         }
-        printf("N\r\n");
-        max_point = atoi(RB.valstr);
-        wave = true;
         point = 0;
+        printf("N\r\n");
         break;
     case 'O':
         PB.A = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        target[0][data_received[0]] = inch_adc(0, atoi(RB.valstr) / 100.0);
+        if (wave_target == 1) {
+            target1[0][data_received[0]] = inch_adc(0, atoi(RB.valstr) / 100.0);
+        } else if (wave_target == 2) {
+            target2[0][data_received[0]] = inch_adc(0, atoi(RB.valstr) / 100.0);
+        }
         data_received[0]++;
         printf("O\r\n");
         break;
     case 'P':
         PB.B = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        target[1][data_received[1]] = inch_adc(1, atoi(RB.valstr) / 100.0);
+        if (wave_target == 1) {
+            target1[1][data_received[1]] = inch_adc(1, atoi(RB.valstr) / 100.0);
+        } else if (wave_target == 2) {
+            target2[1][data_received[1]] = inch_adc(1, atoi(RB.valstr) / 100.0);
+        }
         data_received[1]++;
         printf("O\r\n");
         break;
     case 'Q':
         PB.C = atoi(RB.valstr) / 100.0;//set new value, else report old
-        target[2][data_received[2]] = inch_adc(2, atoi(RB.valstr) / 100.0);
+        if (wave_target == 1) {
+            target1[2][data_received[2]] = inch_adc(2, atoi(RB.valstr) / 100.0);
+        } else if (wave_target == 2) {
+            target2[2][data_received[2]] = inch_adc(2, atoi(RB.valstr) / 100.0);
+        }
         data_received[2]++;
         printf("O\r\n");
         break;
     case 'R':
         PB.D = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        target[3][data_received[3]] = inch_adc(3, atoi(RB.valstr) / 100.0);
+        if (wave_target == 1) {
+            target1[3][data_received[3]] = inch_adc(3, atoi(RB.valstr) / 100.0);
+        } else if (wave_target == 2) {
+            target2[3][data_received[3]] = inch_adc(3, atoi(RB.valstr) / 100.0);
+        }
         data_received[3]++;
         printf("O\r\n");
         break;
     case 'S':
         PB.E = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        target[4][data_received[4]] = inch_adc(4, atoi(RB.valstr) / 100.0);
+        if (wave_target == 1) {
+            target1[4][data_received[4]] = inch_adc(4, atoi(RB.valstr) / 100.0);
+        } else if (wave_target == 2) {
+            target2[4][data_received[4]] = inch_adc(4, atoi(RB.valstr) / 100.0);
+        }
         data_received[4]++;
         printf("O\r\n");
         break;
     case 'T':
         PB.F = atoi(RB.valstr) / 100.0;//set new value, else report old 
-        target[5][data_received[5]] = inch_adc(5, atoi(RB.valstr) / 100.0);
+        if (wave_target == 1) {
+            target1[5][data_received[5]] = inch_adc(5, atoi(RB.valstr) / 100.0);
+        } else if (wave_target == 2) {
+            target2[5][data_received[5]] = inch_adc(5, atoi(RB.valstr) / 100.0);
+        }
         data_received[5]++;
         printf("O\r\n");
         break;
     case 'U':
+        wave_target = 1;
+        wave = true;
+        point = 0;
+        setpoint[0] = target1[0][point];
+        setpoint[1] = target1[1][point];
+        setpoint[2] = target1[2][point];
+        setpoint[3] = target1[3][point];
+        setpoint[4] = target1[4][point];
+        setpoint[5] = target1[5][point];
+        break;
+    case 'V':
+        wave_target = 2;
+        wave = true;
+        point = 0;
+        setpoint[0] = target2[0][point];
+        setpoint[1] = target2[1][point];
+        setpoint[2] = target2[2][point];
+        setpoint[3] = target2[3][point];
+        setpoint[4] = target2[4][point];
+        setpoint[5] = target2[5][point];
+        break;
+    case 'W':
+        wave = false;
+        point = 0;
         break;
     default:
         printf("UNKNOWN\r\n");
@@ -337,11 +393,9 @@ int main(void)
             if (GetRxStr()) {
                 ProcessCommandMsg();
             }
-        }   
+        }
         
         if (!manual) {
-            //printf("Auto mode output...\r\n");
-            
             // Check if need to compute PID
             for (uint8_t i = 0; i < MOTOR_NUM; i++)
             {
@@ -366,7 +420,7 @@ int main(void)
                 //printf("Set Speed %d \r\n", new_speed);
                 set_speed(i, new_speed);
                 
-                if (new_speed > (MAX_PWM - 205))
+                if (new_speed > (MAX_PWM - 150))
                 {
                     stopped[i] = true;
                 } else {
@@ -379,6 +433,7 @@ int main(void)
              */
             if (wave)
             {
+               
                 bool send = false;
                 for (uint8_t i = 0; i < MOTOR_NUM; i++)
                 {
@@ -392,19 +447,36 @@ int main(void)
                 
                 if (send == true)
                 {
-                    LED_Write(1);
-                    setpoint[0] = target[0][point];
-                    setpoint[1] = target[1][point];
-                    setpoint[2] = target[2][point];
-                    setpoint[3] = target[3][point];
-                    setpoint[4] = target[4][point];
-                    setpoint[5] = target[5][point];
-                    if (point == max_point-1)
-                    {
-                        point = 0;
-                    } else {
-                        point++;
+                    if (wave_target == 1) {
+                        LED_Write(1);
+                        setpoint[0] = target1[0][point];
+                        setpoint[1] = target1[1][point];
+                        setpoint[2] = target1[2][point];
+                        setpoint[3] = target1[3][point];
+                        setpoint[4] = target1[4][point];
+                        setpoint[5] = target1[5][point];
+                        if (point == max_point1-1)
+                        {
+                            point = 0;
+                        } else {
+                            point++;
+                        }
+                    } else if (wave_target == 2) {
+                        LED_Write(0);
+                        setpoint[0] = target2[0][point];
+                        setpoint[1] = target2[1][point];
+                        setpoint[2] = target2[2][point];
+                        setpoint[3] = target2[3][point];
+                        setpoint[4] = target2[4][point];
+                        setpoint[5] = target2[5][point];
+                        if (point == max_point2-1)
+                        {
+                            point = 0;
+                        } else {
+                            point++;
+                        }
                     }
+
                     reset_pid();   
                     for (uint8_t i = 0; i < MOTOR_NUM; i++)
                     {
