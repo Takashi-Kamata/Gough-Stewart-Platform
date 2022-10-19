@@ -366,7 +366,7 @@ int main(void)
                 //printf("Set Speed %d \r\n", new_speed);
                 set_speed(i, new_speed);
                 
-                if (new_speed > (MAX_PWM - 200))
+                if (new_speed > (MAX_PWM - 170))
                 {
                     stopped[i] = true;
                 } else {
