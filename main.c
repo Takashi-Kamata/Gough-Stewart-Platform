@@ -35,9 +35,9 @@
 #define SPEED 0U
 #define ROD 12U //inch
 
-#define KP 0.02
+#define KP 0.06
 #define KI 0.0
-#define KD 0.0005
+#define KD 0.0
 
 /*** Calibrated Values ***/
 
