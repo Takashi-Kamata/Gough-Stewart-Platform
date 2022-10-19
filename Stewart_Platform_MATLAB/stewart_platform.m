@@ -879,7 +879,7 @@ if (custom_t)
 
     t = [0];
     h = 1.0;
-    tol = 0.5;
+    tol = 0.2;
     angle = ang_eq(0);
 
     while t(end) < 2*pi
@@ -908,8 +908,8 @@ end
 
 disp("Trajectory Points " + length(t))
 progress_max = length(t) * 6;
-ang = double(atan((cos(t)))/1.8);
-dis = double((7)*sin(t) + 16 );
+ang = double(atan((cos(t)))/1.5);
+dis = double((8)*sin(t) + 15 );
 global serialportObj
 writeline(serialportObj,strcat("M","1"));
 for index = 1:length(ang)
@@ -919,7 +919,7 @@ for index = 1:length(ang)
                                        handles.alpha_B*pi/180,...
                                        handles.alpha_P*pi/180,...
                                        [0 0 dis(index)],... 
-                                       [0.0 ang(index) 0]);
+                                       [0.01 ang(index) 0]);
     % Bounding
     bad = zeros(1,6);
     for i=1:6

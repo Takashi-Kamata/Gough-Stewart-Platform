@@ -41,8 +41,8 @@
 
 /*** Calibrated Values ***/
 
-uint16_t min_adc[MOTOR_NUM] = {6234,6442,6388,6248,6296,6355};
-uint16_t max_adc[MOTOR_NUM] = {48233,48235,48232,48233,48233,48230};
+uint16_t min_adc[MOTOR_NUM] = {6342,6464,6464,6317,6392,6383};
+uint16_t max_adc[MOTOR_NUM] = {48182,48182,48186,48182,48183,48181};
 
 /*** Private Prototypes ***/
 
@@ -366,7 +366,7 @@ int main(void)
                 //printf("Set Speed %d \r\n", new_speed);
                 set_speed(i, new_speed);
                 
-                if (new_speed > (MAX_PWM - 170))
+                if (new_speed > (MAX_PWM - 205))
                 {
                     stopped[i] = true;
                 } else {
