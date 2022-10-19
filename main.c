@@ -26,7 +26,7 @@
 #define CLEAR_STRING "\033[2J"
 #define MOVE_CURSOR "\033[0;0H"
 #define MOTOR_NUM 6U
-#define MIN_PWM 0U
+#define MIN_PWM 50U
 #define MAX_PWM 380U
 #define SYSTICK_RELOAD 24000U // when 0.01s is target1, reload val is 240000, since 0.01s / (1s/24MHz)
 #define TOLERANCE 7 // PID Tolerance
@@ -35,7 +35,7 @@
 #define SPEED 0U
 #define ROD 12U //inch
 
-#define KP 0.06
+#define KP 0.05
 #define KI 0.0
 #define KD 0.0
 

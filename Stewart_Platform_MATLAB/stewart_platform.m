@@ -874,7 +874,7 @@ disp("Uploading wave 1")
 global progress progress_max
 progress = 0;
 f = waitbar(0, 'Starting');
-t = 0:0.2:2*pi;
+t = 0:0.5:2*pi;
 
 disp("Trajectory Points " + length(t))
 progress_max = length(t) * 6;
@@ -925,7 +925,7 @@ pause(3);
 disp("Uploading wave 2")
 global progress progress_max
 progress = 0;
-t = 0:0.2:2*pi;
+t = 0:0.5:2*pi;
 f = waitbar(0, 'Starting');
 
 progress_max = length(t) * 6;
@@ -933,7 +933,7 @@ disp("Trajectory Points " + length(t))
 ang1 = double(atan((cos(t)))/2);
 ang2 = double(atan((cos(t+pi/2)))/2);
 ang3 = double(atan((cos(t+pi)))/2);
-%displ1 = double((4)*sin(t) + 16);
+displ1 = double((4)*sin(t) + 16);
 global serialportObj
 writeline(serialportObj,strcat("V","1"));
 writeline(serialportObj,strcat("M","1"));
@@ -943,9 +943,8 @@ for index = 1:length(t)
                                        handles.rod_length,...
                                        handles.alpha_B*pi/180,...
                                        handles.alpha_P*pi/180,...
-                                       [0 0 16],...  %  x y z
-                                      [ang1(index) ang2(index) 0.0]);    %  roll pitch yaw
-                                     %   [ang1(index) ang2(index) ang3(index)]);    %  roll pitch yaw
+                                       [0 0 displ1(index)],...  %  x y z
+                                       [ang1(index) ang2(index) ang3(index)]);    %  roll pitch yaw
     % Bounding
     bad = zeros(1,6);
     for i=1:6
