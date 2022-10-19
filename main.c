@@ -109,6 +109,7 @@ CY_ISR(SWPin_Control)
         if (button)
         {
             LED_Write(1);
+            point++;
         }
         else
         { // Initial Run.... when button = false;
@@ -456,12 +457,14 @@ int main(void)
                         setpoint[3] = target1[3][point];
                         setpoint[4] = target1[4][point];
                         setpoint[5] = target1[5][point];
-                        if (point == max_point1-1)
+                        
+                        if (point == max_point1-3)
                         {
                             point = 0;
                         } else {
                             point++;
                         }
+                        
                     } else if (wave_target == 2) {
                         LED_Write(0);
                         setpoint[0] = target2[0][point];
@@ -470,12 +473,14 @@ int main(void)
                         setpoint[3] = target2[3][point];
                         setpoint[4] = target2[4][point];
                         setpoint[5] = target2[5][point];
-                        if (point == max_point2-1)
+                        
+                        if (point == max_point2-3)
                         {
                             point = 0;
                         } else {
                             point++;
                         }
+                        
                     }
 
                     reset_pid();   
