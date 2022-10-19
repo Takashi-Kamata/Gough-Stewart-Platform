@@ -395,12 +395,13 @@ int main(void)
             }
         }
         
+            
         if (!manual) {
             // Check if need to compute PID
             for (uint8_t i = 0; i < MOTOR_NUM; i++)
             {
                 AMux_Select(i);
-                CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
+                CyDelay(1); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
                 uint32_t temp_adc = ADC_DelSig_1_GetResult32();
                 if (pid_need_compute(pid[i])) {
                     // Read ADC
@@ -408,7 +409,7 @@ int main(void)
         			// Compute new PID output value
         			pid_compute(pid[i]);
         		} else {
-                    //printf("Sampling Too Fast!! Adjust delay.\r");  
+                    printf("Sampling Too Fast!! Adjust delay.\r");  
                 }  
                 uint16_t new_speed = MAX_PWM - abs((int)output[i]);
                 if ((int)output[i] > 0)
@@ -420,7 +421,7 @@ int main(void)
                 //printf("Set Speed %d \r\n", new_speed);
                 set_speed(i, new_speed);
                 
-                if (new_speed > (MAX_PWM - 150))
+                if (new_speed > (MAX_PWM - 200))
                 {
                     stopped[i] = true;
                 } else {
@@ -485,9 +486,10 @@ int main(void)
                 }
             }
         }
-        
         CyDelay(100);
+        
     }
+        
 }
 
 /*** Private Functions ***/
