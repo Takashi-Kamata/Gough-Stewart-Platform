@@ -408,7 +408,7 @@ int main(void)
         			// Compute new PID output value
         			pid_compute(pid[i]);
         		} else {
-                    printf("Sampling Too Fast!! Adjust delay.\r\n");  
+                    //printf("Sampling Too Fast!! Adjust delay.\r");  
                 }  
                 uint16_t new_speed = MAX_PWM - abs((int)output[i]);
                 if ((int)output[i] > 0)
@@ -427,14 +427,6 @@ int main(void)
                     stopped[i] = false;
                 }
             }
-            
-            printf("M1 Target %f\r\n", setpoint[0]);  
-            printf("M2 Target %f\r\n", setpoint[1]);  
-            printf("M3 Target %f\r\n", setpoint[2]);  
-            printf("M4 Target %f\r\n", setpoint[3]);  
-            printf("M5 Target %f\r\n", setpoint[4]);  
-            printf("M6 Target %f\r\n", setpoint[5]);  
-            
             
             /*
              * Wave - Step through points
