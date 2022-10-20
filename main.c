@@ -458,7 +458,7 @@ int main(void)
                         setpoint[4] = target1[4][point];
                         setpoint[5] = target1[5][point];
                         
-                        if (point == max_point1-3)
+                        if (point >= max_point1-4)
                         {
                             point = 0;
                         } else {
@@ -474,7 +474,7 @@ int main(void)
                         setpoint[4] = target2[4][point];
                         setpoint[5] = target2[5][point];
                         
-                        if (point == max_point2-3)
+                        if (point >= max_point2-4)
                         {
                             point = 0;
                         } else {

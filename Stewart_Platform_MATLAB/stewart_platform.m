@@ -874,7 +874,7 @@ disp("Uploading wave 1")
 global progress progress_max
 progress = 0;
 f = waitbar(0, 'Starting');
-t = 0:0.2:2*pi;
+t = 0:0.15:2*pi;
 
 disp("Trajectory Points " + length(t))
 progress_max = length(t) * 6;
@@ -917,15 +917,10 @@ while (progress/progress_max < 1)
 end
 close(f)
 
-
-pause(3);
-
-
-
 disp("Uploading wave 2")
 global progress progress_max
 progress = 0;
-t = 0:0.2:2*pi;
+t = 0:0.15:2*pi;
 f = waitbar(0, 'Starting');
 
 progress_max = length(t) * 6;
