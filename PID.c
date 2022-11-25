@@ -30,7 +30,7 @@ pids_t pid_create(pids_t pid, float* in, float* out, float* set, float kp, float
 	pid_limits(pid, min, max);
 
 	// Set default sample time to 100 ms
-	pid->sampletime = 100 * (TICK_SECOND / 1000);
+	pid->sampletime = 1 * (TICK_SECOND / 1000);
 
 	pid_direction(pid, E_PID_DIRECT);
 	pid_tune(pid, kp, ki, kd);

@@ -28,14 +28,16 @@
 #define MOTOR_NUM 6U
 #define MIN_PWM 50U
 #define MAX_PWM 380U
-#define SYSTICK_RELOAD 24000U // when 0.01s is target1, reload val is 240000, since 0.01s / (1s/24MHz)
+#define SYSTICK_RELOAD 24000U // when 0.01s is target1, reload val is 240000 / (1s/24MHz)
 #define TOLERANCE 7 // PID Tolerance
 #define POINTS 10 // Number of Points
 #define SAMPLE_NUM 800
 #define SPEED 0U
 #define ROD 12U //inch
 
-#define KP 0.05
+#define POINT_LENGTH 630
+
+#define KP 0.1
 #define KI 0.0
 #define KD 0.0
 
@@ -61,8 +63,8 @@ pids_t pid[MOTOR_NUM];
 float input[MOTOR_NUM] = {0.0};
 float output[MOTOR_NUM] = {0.0};
 float setpoint[MOTOR_NUM] = {0};
-static float target1[MOTOR_NUM][64] = {0};
-static float target2[MOTOR_NUM][64] = {0};
+static float target1[MOTOR_NUM][POINT_LENGTH] = {0};
+static float target2[MOTOR_NUM][POINT_LENGTH] = {0};
 
 float kp[MOTOR_NUM] = {0.0};
 float ki[MOTOR_NUM] = {0.0};
@@ -160,6 +162,7 @@ void ProcessCommandMsg(void)
             stop(i);
             set_speed(i, MAX_PWM);
         }
+       
         printf("STOP ALL\r\n");
         break;
     case 'H':
@@ -396,13 +399,12 @@ int main(void)
             }
         }
         
-            
         if (!manual) {
             // Check if need to compute PID
             for (uint8_t i = 0; i < MOTOR_NUM; i++)
             {
                 AMux_Select(i);
-                CyDelay(1); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
+                CyDelay(2); // ~1 ms is the min time required for amux to swtich, using 2 ms for safety
                 uint32_t temp_adc = ADC_DelSig_1_GetResult32();
                 if (pid_need_compute(pid[i])) {
                     // Read ADC
@@ -410,7 +412,7 @@ int main(void)
         			// Compute new PID output value
         			pid_compute(pid[i]);
         		} else {
-                    printf("Sampling Too Fast!! Adjust delay.\r");  
+                    printf("Sampling Too Fast!! Adjust delay.\r\n");  
                 }  
                 uint16_t new_speed = MAX_PWM - abs((int)output[i]);
                 if ((int)output[i] > 0)
@@ -422,7 +424,7 @@ int main(void)
                 //printf("Set Speed %d \r\n", new_speed);
                 set_speed(i, new_speed);
                 
-                if (new_speed > (MAX_PWM - 200))
+                if (new_speed > (MAX_PWM - 150))
                 {
                     stopped[i] = true;
                 } else {
@@ -435,7 +437,6 @@ int main(void)
              */
             if (wave)
             {
-               
                 bool send = false;
                 for (uint8_t i = 0; i < MOTOR_NUM; i++)
                 {
@@ -458,7 +459,7 @@ int main(void)
                         setpoint[4] = target1[4][point];
                         setpoint[5] = target1[5][point];
                         
-                        if (point >= max_point1-4)
+                        if (point >= max_point1)
                         {
                             point = 0;
                         } else {
@@ -474,15 +475,26 @@ int main(void)
                         setpoint[4] = target2[4][point];
                         setpoint[5] = target2[5][point];
                         
-                        if (point >= max_point2-4)
+                        if (point >= max_point2)
                         {
                             point = 0;
                         } else {
                             point++;
                         }
-                        
                     }
-
+                    /*
+                    printf("NEXT\r\n");
+                    for (uint8_t i = 0; i < MOTOR_NUM; i++) 
+                    {
+                        printf("%d\r\n", (uint32_t) setpoint[0]);
+                        printf("%d\r\n", (uint32_t) setpoint[1]);
+                        printf("%d\r\n", (uint32_t) setpoint[2]);
+                        printf("%d\r\n", (uint32_t) setpoint[3]);
+                        printf("%d\r\n", (uint32_t) setpoint[4]);
+                        printf("%d\r\n", (uint32_t) setpoint[5]);
+                    }
+                    printf("FINISH\r\n");
+                    */
                     reset_pid();   
                     for (uint8_t i = 0; i < MOTOR_NUM; i++)
                     {
@@ -491,10 +503,8 @@ int main(void)
                 }
             }
         }
-        CyDelay(100);
-        
+        CyDelay(1);
     }
-        
 }
 
 /*** Private Functions ***/

@@ -870,19 +870,21 @@ function wavy_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % writeline(serialportObj,strcat("M","1"));
 % 
+duration = 0.03;
 disp("Uploading wave 1")
-global progress progress_max
+global progress progress_max f
 progress = 0;
-f = waitbar(0, 'Starting');
-t = 0:0.15:2*pi;
-
-disp("Trajectory Points " + length(t))
+t = 0:0.04:2*pi;
 progress_max = length(t) * 6;
+f = waitbar(0, 'Starting');
+disp("Trajectory Points " + length(t))
 ang = double(atan((cos(t)))/2);
 dis = double((5)*sin(t) + 16 );
 global serialportObj
 writeline(serialportObj,strcat("U","1"));
+pause(duration)
 writeline(serialportObj,strcat("M","1"));
+pause(duration)
 for index = 1:length(ang)
     leg_length = calculate_stewart_platform(handles.r_B,...
                                        handles.r_P,...
@@ -903,35 +905,41 @@ for index = 1:length(ang)
     end
     leg_length = fix((leg_length - handles.rod_length)./2.54*100);
     writeline(serialportObj,strcat("O",string(leg_length(1))));
+    pause(duration)
     writeline(serialportObj,strcat("P",string(leg_length(2))));
+    pause(duration)
     writeline(serialportObj,strcat("Q",string(leg_length(3))));
+    pause(duration)
     writeline(serialportObj,strcat("R",string(leg_length(4))));
+    pause(duration)
     writeline(serialportObj,strcat("S",string(leg_length(5))));
+    pause(duration)
     writeline(serialportObj,strcat("T",string(leg_length(6))));
+    pause(duration)
+    refresh_bar()
 end
 writeline(serialportObj,strcat("N",string(length(ang))));       
-
-
-while (progress/progress_max < 1)
-        waitbar(progress/progress_max, f);
-end
+pause(duration)
 close(f)
 
-disp("Uploading wave 2")
-global progress progress_max
-progress = 0;
-t = 0:0.15:2*pi;
-f = waitbar(0, 'Starting');
 
+pause(3)
+
+
+disp("Uploading wave 2")
+progress = 0;
+t = 0:0.03:2*pi;
 progress_max = length(t) * 6;
+f = waitbar(0, 'Starting');
 disp("Trajectory Points " + length(t))
 ang1 = double(atan((cos(t)))/2);
 ang2 = double(atan((cos(t+pi/2)))/2);
 ang3 = double(atan((cos(t+pi)))/2);
 displ1 = double((4)*sin(t) + 16);
-global serialportObj
 writeline(serialportObj,strcat("V","1"));
+pause(duration)
 writeline(serialportObj,strcat("M","1"));
+pause(duration)
 for index = 1:length(t)
     leg_length = calculate_stewart_platform(handles.r_B,...
                                        handles.r_P,...
@@ -952,22 +960,33 @@ for index = 1:length(t)
     end
     leg_length = fix((leg_length - handles.rod_length)./2.54*100);
     writeline(serialportObj,strcat("O",string(leg_length(1))));
+    pause(duration)
     writeline(serialportObj,strcat("P",string(leg_length(2))));
+    pause(duration)
     writeline(serialportObj,strcat("Q",string(leg_length(3))));
+    pause(duration)
     writeline(serialportObj,strcat("R",string(leg_length(4))));
+    pause(duration)
     writeline(serialportObj,strcat("S",string(leg_length(5))));
+    pause(duration)
     writeline(serialportObj,strcat("T",string(leg_length(6))));
+    pause(duration)
+        refresh_bar()
 end
 writeline(serialportObj,strcat("N",string(length(ang1))));       
-
-
-while (progress/progress_max < 1)
-        waitbar(progress/progress_max, f);
-end
+pause(duration)
 close(f)
 
 
-
+function refresh_bar()
+global progress progress_max f
+if (progress/progress_max < 1)
+    waitbar(progress/progress_max, f);
+else 
+    disp(progress)
+    disp(progress_max)
+    disp("Finished Refreshing")
+end
 
 % --- Executes on button press in pushbutton19. wave1
 function pushbutton19_Callback(hObject, eventdata, handles)

@@ -21,7 +21,7 @@ function varargout = stewart_platform(varargin)
 % See also: GUIDE, GUIDATA, GUIHANDLES
 % Edit the above text to modify the response to help stewart_platform
 
-% Last Modified by GUIDE v2.5 29-Sep-2022 17:30:16
+% Last Modified by GUIDE v2.5 19-Oct-2022 19:53:52
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -600,6 +600,7 @@ if (~isempty(whos('global','initialised'))) && ~(max(bad)>0)
     writeline(serialportObj,strcat("E",string(leg_length(5))));
     writeline(serialportObj,strcat("F",string(leg_length(6))));
     writeline(serialportObj,strcat("J","1"));
+    writeline(serialportObj,strcat("W","1"));
     
 end
 
@@ -869,50 +870,23 @@ function wavy_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % writeline(serialportObj,strcat("M","1"));
 % 
+duration = 0.01;
+disp("Uploading wave 1")
 global progress progress_max
 progress = 0;
 f = waitbar(0, 'Starting');
-
-%RYO's
-custom_t = 0;
-if (custom_t)
-    ang_eq = @(t) (atan((cos(t))));
-
-    t = [0];
-    h = 1.0;
-    tol = 0.2;
-    angle = ang_eq(0);
-
-    while t(end) < 2*pi
-        t_1 = t(end) + h;
-
-        angle_1 = ang_eq(t_1);
-        error = abs(angle_1-angle);
-
-        if error < tol
-            angle = angle_1;
-            t = [t, t_1];
-
-            h = 1.5 * h;
-
-            if (t(end) + h) > 2*pi
-                h = 2*pi - t(end);
-            end
-
-        else
-            h = 0.9 * h;
-        end
-    end
-else
-    t = 0:0.8:2*pi;
-end
+% t = 0:0.15:2*pi;
+t = 0:0.02:2*pi
 
 disp("Trajectory Points " + length(t))
 progress_max = length(t) * 6;
-ang = double(atan((cos(t)))/1.5);
-dis = double((8)*sin(t) + 15 );
+ang = double(atan((cos(t)))/2);
+dis = double((5)*sin(t) + 16 );
 global serialportObj
+writeline(serialportObj,strcat("U","1"));
+pause(duration)
 writeline(serialportObj,strcat("M","1"));
+pause(duration)
 for index = 1:length(ang)
     leg_length = calculate_stewart_platform(handles.r_B,...
                                        handles.r_P,...
@@ -920,7 +894,7 @@ for index = 1:length(ang)
                                        handles.alpha_B*pi/180,...
                                        handles.alpha_P*pi/180,...
                                        [0 0 dis(index)],... 
-                                       [0.01 ang(index) 0]);
+                                       [ang(index) 0.01  0]);
     % Bounding
     bad = zeros(1,6);
     for i=1:6
@@ -933,17 +907,100 @@ for index = 1:length(ang)
     end
     leg_length = fix((leg_length - handles.rod_length)./2.54*100);
     writeline(serialportObj,strcat("O",string(leg_length(1))));
+    pause(duration)
     writeline(serialportObj,strcat("P",string(leg_length(2))));
+    pause(duration)
     writeline(serialportObj,strcat("Q",string(leg_length(3))));
+    pause(duration)
     writeline(serialportObj,strcat("R",string(leg_length(4))));
+    pause(duration)
     writeline(serialportObj,strcat("S",string(leg_length(5))));
+    pause(duration)
     writeline(serialportObj,strcat("T",string(leg_length(6))));
+    pause(duration)
 end
 writeline(serialportObj,strcat("N",string(length(ang))));       
+pause(duration)
 
-
+f = parfeval(backgroundPool,@magic,1,3);
 while (progress/progress_max < 1)
         waitbar(progress/progress_max, f);
 end
 close(f)
 
+% disp("Uploading wave 2")
+% global progress progress_max
+% progress = 0;
+% t = 0:0.15:2*pi;
+% f = waitbar(0, 'Starting');
+% 
+% progress_max = length(t) * 6;
+% disp("Trajectory Points " + length(t))
+% ang1 = double(atan((cos(t)))/2);
+% ang2 = double(atan((cos(t+pi/2)))/2);
+% ang3 = double(atan((cos(t+pi)))/2);
+% displ1 = double((4)*sin(t) + 16);
+% global serialportObj
+% writeline(serialportObj,strcat("V","1"));
+% pause(duration)
+% writeline(serialportObj,strcat("M","1"));
+% pause(duration)
+% for index = 1:length(t)
+%     leg_length = calculate_stewart_platform(handles.r_B,...
+%                                        handles.r_P,...
+%                                        handles.rod_length,...
+%                                        handles.alpha_B*pi/180,...
+%                                        handles.alpha_P*pi/180,...
+%                                        [0 0 displ1(index)],...  %  x y z
+%                                        [ang1(index) ang2(index) ang3(index)]);    %  roll pitch yaw
+%     % Bounding
+%     bad = zeros(1,6);
+%     for i=1:6
+%         if leg_length(i) > (12*2.54 + handles.rod_length) || leg_length(i) < (handles.rod_length)
+%             bad(i) = 1;
+%         end
+%     end
+%     if max(bad)==1
+%         disp("Bad math");
+%     end
+%     leg_length = fix((leg_length - handles.rod_length)./2.54*100);
+%     writeline(serialportObj,strcat("O",string(leg_length(1))));
+%     pause(duration)
+%     writeline(serialportObj,strcat("P",string(leg_length(2))));
+%     pause(duration)
+%     writeline(serialportObj,strcat("Q",string(leg_length(3))));
+%     pause(duration)
+%     writeline(serialportObj,strcat("R",string(leg_length(4))));
+%     pause(duration)
+%     writeline(serialportObj,strcat("S",string(leg_length(5))));
+%     pause(duration)
+%     writeline(serialportObj,strcat("T",string(leg_length(6))));
+%     pause(duration)
+% end
+% writeline(serialportObj,strcat("N",string(length(ang1))));       
+% pause(duration)
+% 
+% while (progress/progress_max < 1)
+%         waitbar(progress/progress_max, f);
+% end
+% close(f)
+
+
+function progress_update()
+
+
+% --- Executes on button press in pushbutton19. wave1
+function pushbutton19_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton19 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global serialportObj
+writeline(serialportObj,strcat("U","1"));
+
+% --- Executes on button press in pushbutton20. wave2
+function pushbutton20_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton20 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global serialportObj
+writeline(serialportObj,strcat("V","1"));
